@@ -10,6 +10,7 @@ lib.recursiveUpdate {
 
   environment.systemPackages = with pkgs; [
     tealdeer wget curl pv htop tree loop bc file lz4
+    screen
     git python3
   ];
 
