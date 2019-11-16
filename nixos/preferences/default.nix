@@ -16,11 +16,7 @@ lib.recursiveUpdate {
 
 } (lib.mapAttrsRecursive (k: lib.mkOverride 500) {
 
-  environment.variables.PAGER = "less";
-  programs.less = {
-    enable = true;
-    envVariables.LESS = "-R --quit-if-one-screen";
-  };
+  programs.less.enable = true;
 
   programs.mtr.enable = true;
   programs.iotop.enable = true;
