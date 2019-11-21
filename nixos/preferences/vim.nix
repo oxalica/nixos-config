@@ -32,13 +32,15 @@
           syntax on
           colorscheme default
 
-          set timeoutlen=100
+          set timeoutlen=500
 
           nnoremap <c-c> :%y+<cr>
           vnoremap <c-c> :y+<cr>gv
 
           nnoremap z <esc>:set wrap!<cr>
           nnoremap <cr> <esc>:set hlsearch!<cr>
+
+          cnoremap w!! w !sudo tee % >/dev/null
         '';
       };
     })
