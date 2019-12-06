@@ -5,6 +5,7 @@
 
   environment.etc."gitconfig".text = ''
     [alias]
+    st = status
     br = branch
     cmt = commit
     co = checkout
