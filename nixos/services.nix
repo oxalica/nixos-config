@@ -14,17 +14,17 @@ lib.mapAttrsRecursive (k: lib.mkOverride 500) {
 
   nix.gc = {
     automatic = true;
-    dates = "thursday";
-    options = "--delete-older-than 8d";
+    dates = "Mon,Fri";
+    options = "--delete-older-than 5d";
   };
 
   nix.optimise = {
     automatic = true;
-    dates = [ "sunday" ];
+    dates = [ "Tue,Sat" ];
   };
 
   services.fstrim = {
     enable = true;
-    interval = "tuesday";
+    interval = "Wed";
   };
 }
