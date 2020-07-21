@@ -13,7 +13,8 @@
 
   console.earlySetup = true;
 
-  services.ntp.enable = true;
+  # `services.ntp` may block when stopping.
+  services.timesyncd.enable = true;
 
   # SSD only
   services.fstrim = {
