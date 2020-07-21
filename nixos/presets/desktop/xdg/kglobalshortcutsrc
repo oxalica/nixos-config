@@ -1,0 +1,21 @@
+[kwin]
+Switch to Next Desktop[$i]=none,none,Switch to Next Desktop
+Switch to Next Screen[$i]=none,none,Switch to Next Screen
+Switch to Previous Desktop[$i]=none,none,Switch to Previous Desktop
+Switch to Previous Screen[$i]=none,none,Switch to Previous Screen
+Walk Through Desktop List[$i]=Meta+Tab,none,Walk Through Desktop List
+Walk Through Desktop List (Reverse)[$i]=Meta+Shift+Tab,none,Walk Through Desktop List (Reverse)
+Walk Through Desktops[$i]=none,none,Walk Through Desktops
+Walk Through Desktops (Reverse)[$i]=none,none,Walk Through Desktops (Reverse)
+Walk Through Windows[$i]=Alt+Tab,Alt+Tab,Walk Through Windows
+Walk Through Windows (Reverse)[$i]=Alt+Shift+Backtab,Alt+Shift+Backtab,Walk Through Windows (Reverse)
+Walk Through Windows Alternative[$i]=none,none,Walk Through Windows Alternative
+Walk Through Windows Alternative (Reverse)[$i]=none,none,Walk Through Windows Alternative (Reverse)
+
+[org.kde.spectacle.desktop]
+ActiveWindowScreenShot[$i]=Ctrl+Shift+Print,Meta+Print,Capture Active Window
+CurrentMonitorScreenShot[$i]=,none,Capture Current Monitor
+FullScreenScreenShot[$i]=Print,Shift+Print,Capture Entire Desktop
+RectangularRegionScreenShot[$i]=Ctrl+Print,Meta+Shift+Print,Capture Rectangular Region
+_k_friendly_name[$i]=Spectacle
+_launch[$i]=,Print,Launch Spectacle

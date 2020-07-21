@@ -1,0 +1,15 @@
+[General][$i]
+alwaysRememberRegion=false
+autoSaveImage=false
+copyImageToClipboard=true
+printKeyActionRunning=0
+rememberLastRectangularRegion=false
+showMagnifier=false
+useLightMaskColour=false
+useReleaseToCapture=false
+
+[Save]
+compressionQuality[$i]=90
+copySaveLocation[$i]=false
+defaultSaveImageFormat[$i]=PNG
+saveFilenameFormat[$i]=Screenshot_%Y%M%D_%H%m%S

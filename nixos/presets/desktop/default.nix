@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
 {
   environment.systemPackages = with pkgs; [
     partition-manager
@@ -11,13 +11,17 @@
   services.xserver = {
     enable = true;
     layout = "us";
-    dpi = 144;
 
     desktopManager.plasma5.enable = true;
     displayManager.sddm.enable = true;
   };
 
   security.pam.services.sddm.enableKwallet = true;
+
+  environment.etc = lib.mapAttrs' (name: type: {
+    name = "xdg/${name}";
+    value.source = "${./xdg}/${name}";
+  }) (builtins.readDir ./xdg);
 
   fonts = {
     fonts = with pkgs; [ sarasa-gothic emojione ];
@@ -47,7 +51,7 @@
   services.earlyoom = {
     enable = true;
     freeMemThreshold = 5;
-    freeSwapThreshold = 5;
+    freeSwapThreshold = 10;
     enableNotifications = true;
   };
 }
