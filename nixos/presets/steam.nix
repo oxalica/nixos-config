@@ -1,9 +1,11 @@
-{ lib, ... }:
+# https://nixos.org/nixpkgs/manual/#sec-steam-play
+{ lib, config, ... }:
+with lib;
 {
-  # https://nixos.org/nixpkgs/manual/#sec-steam-play
-  hardware.opengl.driSupport32Bit = true;
-  hardware.pulseaudio.support32Bit = true;
-  hardware.steam-hardware.enable = true;
+  options.oxa-config.preset.steam = mkEnableOption "configs required by steam";
 
-  nixpkgs.config.allowUnfree = true;
+  config = mkIf config.oxa-config.preset.steam {
+    hardware.opengl.driSupport32Bit = true;
+    hardware.pulseaudio.support32Bit = true;
+  };
 }

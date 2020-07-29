@@ -1,37 +1,40 @@
-{ ... }:
+{ lib, config, ... }:
+with lib;
 {
-  users = {
-    groups."oxa".gid = 1000;
+  options.oxa-config.preset.base = mkEnableOption "basic system services, and user settings";
 
-    users."oxa" = {
-      isNormalUser = true;
-      uid = 1000;
-      group = "oxa";
-      extraGroups = [ "wheel" ];
+  config = mkIf config.oxa-config.preset.base {
+    users = {
+      groups."oxa".gid = 1000;
+
+      users."oxa" = {
+        isNormalUser = true;
+        uid = 1000;
+        group = "oxa";
+        extraGroups = [ "wheel" ];
+      };
     };
-  };
 
-  console.earlySetup = true;
+    # `services.ntp` may block when stopping.
+    services.timesyncd.enable = true;
 
-  # `services.ntp` may block when stopping.
-  services.timesyncd.enable = true;
+    # SSD only
+    services.fstrim = {
+      enable = true;
+      interval = "Sat";
+    };
 
-  # SSD only
-  services.fstrim = {
-    enable = true;
-    interval = "Sat";
-  };
+    nix.useSandbox = true;
 
-  nix.useSandbox = true;
+    nix.gc = {
+      automatic = true;
+      dates = "Wed";
+      options = "--delete-older-than 7d";
+    };
 
-  nix.gc = {
-    automatic = true;
-    dates = "Wed,Sat";
-    options = "--delete-older-than 5d";
-  };
-
-  nix.optimise = {
-    automatic = true;
-    dates = [ "Thu" ];
+    nix.optimise = {
+      automatic = true;
+      dates = [ "Thu" ];
+    };
   };
 }
