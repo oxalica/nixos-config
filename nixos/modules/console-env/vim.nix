@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 {
   nixpkgs.overlays = [
     (self: super: {
@@ -16,4 +16,8 @@
       };
     })
   ];
+
+  environment.systemPackages = [ pkgs.vim-oxa ];
+
+  programs.vim.defaultEditor = true;
 }

@@ -1,9 +1,9 @@
 [alias]
-st = "status"
 br = "branch"
 cmt = "commit"
 co = "checkout"
 cp = "cherry-pick"
+st = "status"
 
 [pull]
 ff = "only"

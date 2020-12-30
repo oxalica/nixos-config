@@ -1,5 +1,5 @@
 [General]
-count=1
+count=2
 
 # Pin telegram on all desktop.
 [1][$i]
@@ -9,5 +9,16 @@ clientmachinematch=0
 desktop=-1
 desktoprule=3
 wmclass=telegram-desktop telegramdesktop
+wmclasscomplete=true
+wmclassmatch=1
+
+# Pin thunderbird on all desktop.
+[2][$i]
+Description=Application settings for thunderbird
+clientmachine=localhost
+clientmachinematch=0
+desktop=-1
+desktoprule=3
+wmclass=mail thunderbird
 wmclasscomplete=true
 wmclassmatch=1
