@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
 {
   programs.zsh = {
     enable = true;
@@ -25,4 +25,11 @@
     ls = "ls";
     ll = "ll";
   };
+
+  environment.systemPackages = let
+    flake-zsh-completion = pkgs.runCommand "flake-zsh-completion" {} ''
+      mkdir -p $out/share/zsh/site-functions
+      cp ${pkgs.nixFlakes.src}/misc/zsh/completion.zsh $out/share/zsh/site-functions/_nix
+    '';
+  in [ (lib.hiPrio flake-zsh-completion) ];
 }
