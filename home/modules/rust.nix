@@ -21,7 +21,7 @@ in {
   # home.file.".cargo/config".source = config.lib.file.mkOutOfStoreSymlink "../.config/cargo";
 
   home.packages = [
-    # rust-stable
+    rust-stable
   ] ++ (with pkgs; [
     cargo-edit
     cargo-flamegraph

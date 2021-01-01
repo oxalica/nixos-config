@@ -4,14 +4,13 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     home-manager = { url = "github:nix-community/home-manager"; inputs.nixpkgs.follows = "nixpkgs"; };
-
-    # mozilla = { url = "github:mozilla/nixpkgs-mozilla"; flake = false; }; # It's not pure!
+    rust-overlay = { url = "github:oxalica/rust-overlay"; inputs.nixpkgs.follows = "nixpkgs"; };
   };
 
   outputs = { self, nixpkgs, ... }@inputs: let
 
     overlays = [
-      # (import inputs.mozilla)
+      inputs.rust-overlay.overlay
     ];
 
     flake-config = { pkgs, ... }: {
