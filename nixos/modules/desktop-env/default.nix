@@ -10,6 +10,8 @@ with lib;
     spectacle
   ];
 
+  nixpkgs.config.firefox.enablePlasmaBrowserIntegration = true;
+
   # FIXME: For kdeconnect. See https://github.com/NixOS/nixpkgs/pull/63899
   networking.firewall = {
     allowedTCPPortRanges = [{ from = 1714; to = 1764; }];

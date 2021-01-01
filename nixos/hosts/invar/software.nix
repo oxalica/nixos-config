@@ -1,5 +1,14 @@
 { config, pkgs, ... }:
 {
+  nixpkgsAllowUnfreeList = [
+    "ark" "unrar"
+    "vscode-extension-ms-vscode-cpptools" "vscode-extension-ms-vscode-remote-remote-ssh"
+    "steam" "steam-original" "steam-runtime"
+    "minecraft-launcher"
+    "osu-lazer"
+    "typora"
+  ];
+
   services.xserver.dpi = 144;
 
   # `services.ntp` may block when stopping.
