@@ -2,7 +2,6 @@
 { pkgs, ... }:
 {
   nix.useSandbox = true;
-  nix.autoOptimiseStore = true;
 
   nix.trustedUsers = [ "root" "oxa" ];
 
@@ -10,6 +9,12 @@
     automatic = true;
     dates = "Wed";
     options = "--delete-older-than 8d";
+  };
+
+  # nix.autoOptimiseStore = true;
+  nix.optimise = {
+    automatic = true;
+    dates = [ "Thu" ];
   };
 
   nix.extraOptions = ''
