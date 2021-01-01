@@ -5,6 +5,8 @@
   # home.file."nix".source = config.lib.file.mkOutOfStoreSymlink ./.;
 
   imports = [
+    ./modules/rust-nightly-monitor.nix
+
     ./modules/common-pkgs.nix
     ./modules/git.nix
     ./modules/gpg.nix
