@@ -18,12 +18,14 @@
     };
   };
 
-  # Already set as functions in init script.
-  # Need to override oh-my-zsh settings.
   environment.shellAliases = {
+    # Already set as functions in init script.
+    # Need to override oh-my-zsh settings.
     l = "l";
     ls = "ls";
     ll = "ll";
+
+    t = "bsdtar";
   };
 
   environment.systemPackages = let
