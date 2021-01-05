@@ -11,11 +11,11 @@
     options = "--delete-older-than 8d";
   };
 
-  # nix.autoOptimiseStore = true;
-  nix.optimise = {
-    automatic = true;
-    dates = [ "Thu" ];
-  };
+  nix.autoOptimiseStore = true;
+  # nix.optimise = {
+  #   automatic = true;
+  #   dates = [ "Thu" ];
+  # };
 
   nix.extraOptions = ''
     download-attempts = 2
