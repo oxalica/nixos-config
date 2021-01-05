@@ -18,8 +18,8 @@
   # };
 
   nix.extraOptions = ''
-    download-attempts = 2
-    connect-timeout = 3
+    download-attempts = 5
+    connect-timeout = 15
     stalled-download-timeout = 10
   '';
 }
