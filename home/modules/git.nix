@@ -15,6 +15,7 @@
       cmt = "commit";
       co = "checkout";
       cp = "cherry-pick";
+      l = "log";
       st = "status";
     };
 
