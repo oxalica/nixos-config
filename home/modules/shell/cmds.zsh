@@ -1,6 +1,3 @@
-l() {
-    exa --classify --color=always "$@" | eval $PAGER
-}
 ll() {
     exa -l --classify --binary --group --color=always "$@" | eval $PAGER
 }

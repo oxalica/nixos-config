@@ -10,8 +10,8 @@
     ./software.nix
     ./system.nix
 
-    ../../modules/console-env
     ../../modules/desktop-env
+    ../../modules/console-env.nix
     ../../modules/nix-binary-cache-mirror.nix
     ../../modules/nix-common.nix
     ../../modules/nixpkgs-allow-unfree-list.nix
