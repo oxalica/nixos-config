@@ -17,22 +17,19 @@
       share = false;
     };
 
-    shellAliases = {
-      g = "git";
-      l = "exa --classify";
-      ls = "exa";
-      t = "bsdtar";
+    initExtra = ''
+      # For prompt.
+      source ${pkgs.git}/share/git/contrib/completion/git-prompt.sh
 
-      py = "python";
-      rm = "echo \"No, you shouldn't rm\"";
-    };
+      source ${./cmds.zsh}
+    '';
 
     oh-my-zsh = {
       enable = true;
-      theme = "avit";
+      theme = "avit_simple";
+      custom = "${./.}";
       plugins = [
         "z"
-        "git"
       ];
     };
   };
@@ -42,5 +39,17 @@
       mkdir -p $out/share/zsh/site-functions
       cp ${pkgs.nixFlakes.src}/misc/zsh/completion.zsh $out/share/zsh/site-functions/_nix
     '';
-  in [ (lib.hiPrio flake-zsh-completion) ];
+
+    z-man = pkgs.stdenv.mkDerivation {
+      name = "z-man";
+      inherit (pkgs.oh-my-zsh) src;
+      dontConfigure = true;
+      dontBuild = true;
+      installPhase = "install -Dm644 -t $out/share/man/man1 ./plugins/z/z.1";
+    };
+
+  in [
+    z-man
+    (lib.hiPrio flake-zsh-completion)
+  ];
 }

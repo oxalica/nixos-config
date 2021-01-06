@@ -1,11 +1,19 @@
-ll() {
-    exa -l --classify --binary --group --color=always "$@" | eval $PAGER
-}
+alias l="exa --classify"
+alias ll="exa -l --classify --binary"
+alias ls="exa"
+
+alias g="git"
+alias py="python"
+alias rl="readlink"
+alias rm="echo 'rm: You are WRONG.'"
+alias t="bsdtar"
+
+# List tree.
 lt() {
-    exa -T --classify --color=always "$@" | eval $PAGER
+    exa -T --classify --color=always $@ | eval $PAGER
 }
 
-# Clipboard util
+# Clipboard input/output.
 +() {
     if ! command -v xsel >/dev/null; then
         echo "'xsel' not found" >&2
@@ -18,4 +26,9 @@ lt() {
         echo "Cannot use '+' as pipe" >&2
         return 1
     fi
+}
+
+# Realpath of which.
+rwhich() {
+    which $@ | xargs readlink
 }
