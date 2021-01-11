@@ -35,9 +35,8 @@
   };
 
   home.packages = let
-    flake-zsh-completion = pkgs.runCommand "flake-zsh-completion" {} ''
-      mkdir -p $out/share/zsh/site-functions
-      cp ${pkgs.nixFlakes.src}/misc/zsh/completion.zsh $out/share/zsh/site-functions/_nix
+    flake-zsh-completion = pkgs.runCommand "flake-nix-completion" {} ''
+      install -Dm644 ${./_nix} $out/share/zsh/site-functions/_nix
     '';
 
     z-man = pkgs.stdenv.mkDerivation {
