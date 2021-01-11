@@ -51,6 +51,22 @@
         "type": "github"
       }
     },
+    "pr-isgx": {
+      "locked": {
+        "lastModified": 1610357799,
+        "narHash": "sha256-eWZ+gO9heCrPuKFqhZbMuT+/BGg1ey8lbpgaLDCbZzU=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "88b7543dbd60b031339585502c891f513071ad72",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "88b7543dbd60b031339585502c891f513071ad72",
+        "type": "github"
+      }
+    },
     "pr-vscode-lldb": {
       "locked": {
         "lastModified": 1610289362,
@@ -71,6 +87,7 @@
       "inputs": {
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs",
+        "pr-isgx": "pr-isgx",
         "pr-vscode-lldb": "pr-vscode-lldb",
         "rust-overlay": "rust-overlay",
         "secrets": "secrets"
@@ -100,11 +117,11 @@
     "secrets": {
       "flake": false,
       "locked": {
-        "lastModified": 1610362627,
-        "narHash": "sha256-FmLT3fN60tduBSE87pzDlDxgLGfXTofAAGAldl+yoz4=",
+        "lastModified": 1610366633,
+        "narHash": "sha256-PAxloxwBFU6Nh+M+NwhyBtQarUqF5rFDr/oC9Q1mDK4=",
         "ref": "master",
-        "rev": "b1adb35b7fe7473b26849ba37ef5cb62ecea7ec5",
-        "revCount": 2,
+        "rev": "5aaf223710a10341af20616a754d0ae0c399073b",
+        "revCount": 3,
         "type": "git",
         "url": "ssh://git@github.com/oxalica/nixos-config-secrets.git"
       },
