@@ -6,6 +6,9 @@
     home-manager = { url = "github:nix-community/home-manager"; inputs.nixpkgs.follows = "nixpkgs"; };
     rust-overlay = { url = "github:oxalica/rust-overlay"; inputs.nixpkgs.follows = "nixpkgs"; };
 
+    # https://github.com/NixOS/nixpkgs/pull/101179
+    pr-vscode-lldb.url = "github:nixos/nixpkgs/871ca2455a75af983dafa16a01de3df09e15c497";
+
     # Optional.
     secrets = { url = "git+ssh://git@github.com/oxalica/nixos-config-secrets.git"; flake = false; };
   };
@@ -14,6 +17,12 @@
 
     overlays = [
       inputs.rust-overlay.overlay
+
+      (final: prev: {
+        vscode-extensions = nixpkgs.lib.recursiveUpdate prev.vscode-extensions {
+          vadimcn.vscode-lldb = inputs.pr-vscode-lldb.legacyPackages.${final.system}.vscode-extensions.vadimcn.vscode-lldb;
+        };
+      })
     ];
 
     mkSystem = configuration: system: nixpkgs.lib.nixosSystem {
