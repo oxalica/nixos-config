@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ lib, config, pkgs, ... }:
+{ lib, config, pkgs, inputs, ... }:
 
 {
   imports = [
@@ -16,7 +16,7 @@
     ../../modules/nix-common.nix
     ../../modules/nixpkgs-allow-unfree-list.nix
     ../../modules/steam-compat.nix
-  ];
+  ] ++ lib.optional (inputs ? secrets) (inputs.secrets + "/nixos-invar.nix");
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
@@ -42,7 +42,12 @@
       shell = pkgs.zsh;
     };
   };
-  home-manager.users.oxa = import ../../../home/invar.nix;
+
+  home-manager = {
+    useGlobalPkgs = true;
+    useUserPackages = true;
+    users.oxa = import ../../../home/invar.nix;
+  };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

@@ -55,7 +55,8 @@
       "inputs": {
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs",
-        "rust-overlay": "rust-overlay"
+        "rust-overlay": "rust-overlay",
+        "secrets": "secrets"
       }
     },
     "rust-overlay": {
@@ -77,6 +78,22 @@
         "owner": "oxalica",
         "repo": "rust-overlay",
         "type": "github"
+      }
+    },
+    "secrets": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1610362627,
+        "narHash": "sha256-FmLT3fN60tduBSE87pzDlDxgLGfXTofAAGAldl+yoz4=",
+        "ref": "master",
+        "rev": "b1adb35b7fe7473b26849ba37ef5cb62ecea7ec5",
+        "revCount": 2,
+        "type": "git",
+        "url": "ssh://git@github.com/oxalica/nixos-config-secrets.git"
+      },
+      "original": {
+        "type": "git",
+        "url": "ssh://git@github.com/oxalica/nixos-config-secrets.git"
       }
     }
   },
