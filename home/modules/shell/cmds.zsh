@@ -2,6 +2,12 @@ alias l="exa --classify"
 alias ll="exa -l --classify --binary"
 alias ls="exa"
 
+alias n="nix"
+alias nb="nix build"
+alias nf="nix flake"
+alias nr="nix repl"
+alias nrp="nix repl '<nixpkgs>'"
+
 alias g="git"
 alias py="python"
 alias rl="readlink"
