@@ -2,7 +2,8 @@
 {
   nix.binaryCaches = lib.mkBefore [
     "https://mirrors.bfsu.edu.cn/nix-channels/store"
-    "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store" # May suffer from download stalled issue.
+    # Do no try to enable TUNA! Scary thing will happen!
+    # "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store" # May suffer from download stalled issue.
     # "https://mirrors.ustc.edu.cn/nix-channels/store"
   ];
 }
