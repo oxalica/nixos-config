@@ -1,0 +1,12 @@
+alexcvzz.vscode-sqlite
+bungcip.better-toml
+dbaeumer.vscode-eslint
+dramforever.vscode-ghc-simple
+dtsvet.vscode-wasm
+eamodio.gitlens
+guidotapia2.unicode-math-vscode
+jtr.vscode-position
+ms-vscode.hexeditor
+serayuzgur.crates
+webfreak.debug
+zjhmale.idris
