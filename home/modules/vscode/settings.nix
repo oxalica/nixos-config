@@ -30,6 +30,13 @@
   "[typescript]"."editor.tabSize" = 2;
   # "[rust]"."editor.formatOnSave" = true; # Don't break codes
 
+  # Don't break patch files.
+  "[diff]" = {
+    "files.insertFinalNewline" = true;
+    "files.trimFinalNewlines" = false;
+    "files.trimTrailingWhitespace" = false;
+  };
+
   "python.linting.enabled" = true;
   "python.linting.pylintEnabled" = true;
   "python.linting.pylintPath" = "${pkgs.python3Packages.pylint}/bin/pylint";

@@ -41,7 +41,8 @@ in {
     # nix-prefetch-git nix-prefetch-github # Nix
 
     # GUI
-    kolourpaint vlc libreoffice typora # Files
+    kolourpaint vlc libreoffice # Files
+    # typora <- usually broken
     firefox # Browser
     electrum go-ethereum # Cryptocurrency
     steam minecraft osu-lazer obs-studio # Games

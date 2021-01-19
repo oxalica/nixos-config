@@ -14,7 +14,7 @@
     history = {
       ignoreDups = true;
       ignoreSpace = true;
-      share = false;
+      share = true;
     };
 
     initExtra = ''
