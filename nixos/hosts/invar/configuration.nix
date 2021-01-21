@@ -10,6 +10,7 @@
     ../../modules/console-env.nix
     ../../modules/nix-binary-cache-mirror.nix
     ../../modules/nix-common.nix
+    ../../modules/nix-registry.nix
     ../../modules/nixpkgs-allow-unfree-list.nix
     ../../modules/steam-compat.nix
   ] ++ lib.optional (inputs ? secrets) (inputs.secrets + "/nixos-invar.nix");

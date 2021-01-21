@@ -1,4 +1,3 @@
-# Flake-related configurations are set in `flake.nix`.
 { pkgs, inputs, ... }:
 {
   nix = {

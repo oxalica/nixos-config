@@ -47,8 +47,19 @@
       installPhase = "install -Dm644 -t $out/share/man/man1 ./plugins/z/z.1";
     };
 
+    scripts = pkgs.runCommand "scripts" {
+      inherit (pkgs) bash coreutils jq;
+    } ''
+      install -Dm755 -t $out/bin ${./scripts}/*.sh
+      chmod -R +w $out
+      for file in $out/bin/*.sh; do
+        substituteAllInPlace "$file"
+      done
+    '';
+
   in [
     z-man
     (lib.hiPrio flake-zsh-completion)
+    scripts
   ];
 }
