@@ -24,7 +24,12 @@ if [[ -n "$1" && "$1" != -* ]]; then
   shift
 fi
 
-args=("$op" --flake ".#${target:-$(hostname)}")
+args=()
+if [[ -z "$target" && "$op" != "build" ]]; then
+  args+=(sudo)
+fi
+
+args+=(nixos-rebuild "$op" --flake ".#${target:-$(hostname)}")
 if [[ -n "$target" && "$op" != "build" ]]; then
   args+=(
     --use-remote-sudo
@@ -39,4 +44,4 @@ fi
 args+=("$@")
 
 set -x
-exec nixos-rebuild "${args[@]}"
+exec "${args[@]}"
