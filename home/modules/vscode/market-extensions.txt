@@ -3,10 +3,12 @@ bungcip.better-toml
 dbaeumer.vscode-eslint
 dramforever.vscode-ghc-simple
 dtsvet.vscode-wasm
+dunstontc.viml
 eamodio.gitlens
 guidotapia2.unicode-math-vscode
 jtr.vscode-position
 ms-vscode.hexeditor
 serayuzgur.crates
 webfreak.debug
+ziyasal.vscode-open-in-github
 zjhmale.idris
