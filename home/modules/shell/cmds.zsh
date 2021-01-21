@@ -36,5 +36,5 @@ lt() {
 
 # Realpath of which.
 rwhich() {
-    which $@ | xargs readlink
+    which $@ | xargs realpath
 }
