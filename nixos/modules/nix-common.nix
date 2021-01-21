@@ -28,6 +28,8 @@
       download-attempts = 5
       connect-timeout = 15
       stalled-download-timeout = 10
+
+      keep-outputs = true # Keep build-dependencies.
     '';
 
     registry = {
