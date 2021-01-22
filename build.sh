@@ -3,7 +3,10 @@ set -e
 
 help() {
   echo "
-Usage: $0 [build|test|boot|switch] [target-host] [args...]
+Usage:
+  $0 [target-host] [args...]
+  $0 <build|test|boot|switch> [target-host] [args...]
+  $0 [target-host] <build|test|boot|switch> [args...]
     A wrapper for nixos-rebuild.
 
     Operation is default to be `build` if omitted.
@@ -18,10 +21,14 @@ target=
 if [[ "$1" =~ build|test|boot|switch ]]; then
   op="$1"
   shift
-fi
-if [[ -n "$1" && "$1" != -* ]]; then
+  if [[ -n "$1" && "$1" != -* ]]; then
+    target="$1"
+    shift
+  fi
+elif [[ "$1" != -* && "$2" =~ build|test|boot|switch ]]; then
   target="$1"
-  shift
+  op="$2"
+  shift 2
 fi
 
 args=()
