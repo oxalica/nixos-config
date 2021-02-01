@@ -3,6 +3,7 @@
 {
   imports = [
     ./boot.nix
+    ./builder.nix
     ./software.nix
     ./system.nix
     ./vm.nix
@@ -36,19 +37,6 @@
     useUserPackages = true;
     users.oxa = import ../../../home/blacksteel.nix;
   };
-
-  nix.distributedBuilds = true;
-  nix.buildMachines = [
-    {
-      hostName = "invar";
-      sshUser = "oxa";
-      sshKey = "/root/.ssh/id_build";
-      system = "x86_64-linux";
-      maxJobs = 8;
-      speedFactor = 1;
-      supportedFeatures = [ "kvm" "big-parallel" ];
-    }
-  ];
 
   # This value determines the NixOS release with which your system is to be
   # compatible, in order to avoid breaking some software such as database

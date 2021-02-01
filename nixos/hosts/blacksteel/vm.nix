@@ -11,35 +11,42 @@
   users.groups."libvirtd".members = [ "oxa" ];
   virtualisation.kvmgt = {
     enable = true;
+    # Random generated UUIDs.
     # vgpus."i915-GVTg_V5_4".uuid = "7dbe463d-94fc-425c-8ccd-55d0f9d5d26b"; # 1920x1200
     vgpus."i915-GVTg_V5_8".uuid = [ "89584099-86a4-4b77-b770-16c0a93c260a" ]; # 1024x768
   };
 
   systemd.services."win10-hd-vm-disk" = let
     dmName = "win10-hd-vm-disk";
-    # GPT header and EFI partition
-    dev1 = "/dev/disk/by-partuuid/89bbf7e6-dd4f-41b8-86e5-a6d846c0385d";
-    # Windows
-    dev2 = "/dev/disk/by-uuid/CE8A6B398A6B1D69";
-    # GPT backup header
-    dev3 = "/dev/disk/by-partuuid/a9501dad-1b22-1740-a88e-88e5d8981426";
+
+    devWin = "/dev/disk/by-uuid/CE8A6B398A6B1D69";
+    secWin = 262047414;
+    devGpt = "/dev/disk/by-partuuid/4f3131a2-ee06-425e-b3af-bbf35c00d192";
+    secGptBefore = 262144; # 128 MiB
+    secGptAfter = 2048; # 1 MiB
 
   in {
     description = "Device mapper for Windows 10 VM";
-    after = [ "-.mount" ];
+    unitConfig.RequiresMountsFor = "/home/oxa/vm/pool";
     wantedBy = [ "multi-user.target" ];
     serviceConfig.Type = "oneshot";
     serviceConfig.RemainAfterExit = true;
 
     path = with pkgs; [ utillinux lvm2 ];
     script = ''
-      SEC1=$(blockdev --getsz ${dev1})
-      SEC2=$(blockdev --getsz ${dev2})
-      SEC3=$(blockdev --getsz ${dev3})
+      sec_win=$(blockdev --getsz ${devWin})
+      sec_gpt=$(blockdev --getsz ${devGpt})
+      echo "Windows partition has $sec_win sectors"
+      echo "GPT partition has $sec_gpt sectors"
+      if [[ "$sec_win" -ne ${toString secWin} || "$sec_gpt" -ne ${toString (secGptBefore + secGptAfter)} ]]; then
+        echo "Size mismatch"
+        exit 1
+      fi
+
       dmsetup create ${dmName} <<EOF
-        0 $SEC1 linear ${dev1} 0
-        $SEC1 $SEC2 linear ${dev2} 0
-        $((SEC1 + SEC2)) $SEC3 linear ${dev3} 0
+        0 ${toString secGptBefore} linear ${devGpt} 0
+        ${toString secGptBefore} ${toString secWin} linear ${devWin} 0
+        ${toString (secGptBefore + secWin)} ${toString secGptAfter} linear ${devGpt} ${toString secGptBefore}
       EOF
     '';
     preStop = ''
@@ -56,7 +63,7 @@
       guest account = nobody
     '';
     shares."vm_share" = {
-      path = "/home/oxa/vm_share";
+      path = "/home/oxa/vm/share";
       writable = "yes";
     };
   };

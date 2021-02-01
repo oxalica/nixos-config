@@ -4,42 +4,66 @@
     [ (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
-  boot.initrd.availableKernelModules = [ "xhci_pci" "nvme" "rtsx_pci_sdmmc" ];
+  # Initrd.
+  boot.initrd.availableKernelModules = [ "xhci_pci" "nvme" "usbhid" "rtsx_pci_sdmmc" ];
   boot.initrd.kernelModules = [ ];
+  boot.initrd.luks.devices."btrfs".device = "/dev/disk/by-uuid/8e445c05-75cc-45c7-bebd-46a73cf50a74";
+
+  # Kernel.
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = with config.boot.kernelPackages; [
     # exfat-nofuse
     acpi_call # For TLP
     (pkgs.linuxPackages.isgx.override { inherit kernel; })
   ];
-
-  fileSystems."/" = {
-    device = "/dev/disk/by-uuid/560c1a7d-0e73-412c-b75d-6733452ec44f";
-    fsType = "btrfs";
+  boot.kernel.sysctl = {
+    "kernel.sysrq" = "1";
+    # "vm.swappiness" = 60; # default.
+    "vm.min_free_kbytes" = 256 * 1024;
+    "net.ipv4.tcp_congestion_control" = "bbr";
   };
 
-  fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/9C91-4441";
-    fsType = "vfat";
+  # For NTFS rw mount.
+  boot.supportedFilesystems = [ "ntfs-3g" ];
+
+  # Boot loader.
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.timeout = 1;
+
+  # Filesystems.
+  fileSystems = let
+    espDev = "/dev/disk/by-uuid/9C91-4441";
+    btrfsDev = "/dev/disk/by-uuid/fbfe849d-2d2f-415f-88d3-65ded870e46b";
+
+    btrfs = name: {
+      device = btrfsDev;
+      fsType = "btrfs";
+      options = [ "subvol=${name}"  ];
+    };
+  in {
+    "/" = btrfs "@root";
+    "/.subvols" = btrfs "";
+    "/home" = btrfs "@home";
+    "/nix" = btrfs "@nix";
+    "/boot" = {
+      device = espDev;
+      fsType = "vfat";
+    };
   };
 
   swapDevices = [
     {
-      # 8G
-      device = "/dev/disk/by-partuuid/3fb15a6f-55f6-cd48-8a08-875f15f6d274";
-      randomEncryption = {
-        enable = true;
-        cipher = "aes-xts-plain64";
-      };
+      device = "/var/swapfile";
+      size = 8192; # MiB
     }
   ];
 
+  # Misc.
+
   powerManagement.cpuFreqGovernor = "powersave";
 
-  # High-DPI console
-  console.font = lib.mkDefault "${pkgs.terminus_font}/share/consolefonts/ter-u28n.psf.gz";
-
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader.timeout = 1;
+  # High-resolution display.
+  hardware.video.hidpi.enable = true;
+  console.font = "${pkgs.terminus_font}/share/consolefonts/ter-u24n.psf.gz";
 }
