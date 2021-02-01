@@ -54,6 +54,7 @@
     ) {
       invar = "x86_64-linux";
       blacksteel = "x86_64-linux";
+      iso = "x86_64-linux";
     };
   };
 }
