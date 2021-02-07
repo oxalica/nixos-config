@@ -12,9 +12,9 @@
     };
 
     # https://github.com/NixOS/nixpkgs/pull/101179
-    pr-vscode-lldb.url = "github:nixos/nixpkgs/871ca2455a75af983dafa16a01de3df09e15c497";
+    pr-vscode-lldb.url = "github:nixos/nixpkgs/c5a82fbadbc71def3a04d95ba4d400d397bb0723";
     # https://github.com/NixOS/nixpkgs/pull/109013
-    pr-isgx.url = "github:nixos/nixpkgs/88b7543dbd60b031339585502c891f513071ad72";
+    pr-isgx.url = "github:nixos/nixpkgs/5d5ed1a59cc4c7f4fd63cee75aa31dd92b9c7242";
 
     # Optional.
     secrets = { url = "git+ssh://git@github.com/oxalica/nixos-config-secrets.git"; flake = false; };
