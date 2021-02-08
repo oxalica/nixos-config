@@ -2,8 +2,9 @@
 {
   services.openssh = {
     enable = true;
-    # passwordAuthentication = false;
-    # challengeResponseAuthentication = false;
+    ports = [ 23333 ];
+    passwordAuthentication = false;
+    challengeResponseAuthentication = false;
     extraConfig = ''
       ClientAliveInterval 70
       ClientAliveCountMax 3
