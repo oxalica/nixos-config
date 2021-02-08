@@ -18,8 +18,7 @@
   ];
   boot.kernel.sysctl = {
     "kernel.sysrq" = "1";
-    # "vm.swappiness" = 60; # default.
-    "vm.min_free_kbytes" = 256 * 1024;
+    "vm.swappiness" = 30;
     "net.ipv4.tcp_congestion_control" = "bbr";
   };
 
