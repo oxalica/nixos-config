@@ -16,19 +16,23 @@ Usage:
   exit 1
 }
 
-op="build"
+op=
 target=
-if [[ "$1" =~ build|test|boot|switch ]]; then
-  op="$1"
-  shift
+if [[ "$1" =~ ^(""|build|test|boot|switch)$ ]]; then
+  op="${1:-build}"
+  shift || true # Case of empty op.
   if [[ -n "$1" && "$1" != -* ]]; then
     target="$1"
     shift
   fi
-elif [[ "$1" != -* && "$2" =~ build|test|boot|switch ]]; then
+elif [[ "$1" != -* && "$2" =~ ^(""|build|test|boot|switch)$ ]]; then
   target="$1"
-  op="$2"
-  shift 2
+  op="${2:-build}"
+  shift
+  shift || true # Case of empty op.
+else
+  echo "Invalid parameters: $*"
+  exit 1
 fi
 
 args=()
