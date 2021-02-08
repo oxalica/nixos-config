@@ -86,7 +86,6 @@
     git
     htop
     ltunify # Logitech Unifying receivers.
-    screen
     virt-manager
   ];
 }

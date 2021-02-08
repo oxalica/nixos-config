@@ -66,15 +66,11 @@
   };
 
   programs.mtr.enable = true;
-  programs.iotop.enable = true;
-  programs.iftop.enable = true;
 
   environment.systemPackages = with pkgs; [
     cntr
     curl
-    htop
     ltunify
-    screen
     virt-manager
   ];
 }
