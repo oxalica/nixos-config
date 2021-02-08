@@ -52,8 +52,10 @@
     nixosConfigurations = nixpkgs.lib.mapAttrs (
       name: mkSystem (./nixos/hosts + "/${name}/configuration.nix")
     ) {
-      invar = "x86_64-linux";
       blacksteel = "x86_64-linux";
+      invar = "x86_64-linux";
+      silver = "x86_64-linux";
+
       iso = "x86_64-linux";
     };
   };

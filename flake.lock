@@ -120,11 +120,11 @@
     "secrets": {
       "flake": false,
       "locked": {
-        "lastModified": 1610366633,
-        "narHash": "sha256-PAxloxwBFU6Nh+M+NwhyBtQarUqF5rFDr/oC9Q1mDK4=",
+        "lastModified": 1612793556,
+        "narHash": "sha256-O11fxhP5PKHoOTOR07yR7bIciM/wxqaOATAhJyNrLPI=",
         "ref": "master",
-        "rev": "5aaf223710a10341af20616a754d0ae0c399073b",
-        "revCount": 3,
+        "rev": "f2b54b892c30978902adc15d5bcfe6a000e0de88",
+        "revCount": 4,
         "type": "git",
         "url": "ssh://git@github.com/oxalica/nixos-config-secrets.git"
       },
