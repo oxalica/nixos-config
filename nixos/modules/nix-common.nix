@@ -38,9 +38,9 @@
       };
     };
 
-    # From: https://github.com/cole-h/nixos-config/blob/f22dfeeaadfb16d79b04d2ee8ee8d02b8ef00faa/flake.nix#L116
     nixPath = [
       "nixpkgs=${inputs.nixpkgs}"
+      "home-manager=${inputs.home-manager}"
     ];
   };
 }

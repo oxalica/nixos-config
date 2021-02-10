@@ -2,6 +2,7 @@
 {
   nix.registry = lib.genAttrs [
     "nixpkgs"
+    "home-manager"
     "flake-utils"
     "rust-overlay"
   ] (name: {
