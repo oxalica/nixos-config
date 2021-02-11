@@ -1,5 +1,10 @@
 { lib, pkgs, inputs, ... }:
 {
+  networking.firewall = {
+    enable = true;
+    allowedTCPPorts = [ 23333 23334 23335 23336 ];
+  };
+
   services.openssh = {
     enable = true;
     ports = [ 23333 ];
