@@ -50,7 +50,7 @@
       inherit inputs overlays;
     }) {
       blacksteel = ./nixos/hosts/blacksteel;
-      inver      = ./nixos/hosts/inver;
+      invar      = ./nixos/hosts/invar;
       silver     = ./nixos/hosts/silver;
 
       iso        = ./nixos/hosts/iso;
