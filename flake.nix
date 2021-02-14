@@ -16,8 +16,6 @@
       inputs.flake-utils.follows = "flake-utils";
     };
 
-    # https://github.com/NixOS/nixpkgs/pull/101179
-    pr-vscode-lldb.url = "github:nixos/nixpkgs/c5a82fbadbc71def3a04d95ba4d400d397bb0723";
     # https://github.com/NixOS/nixpkgs/pull/109013
     pr-isgx.url = "github:nixos/nixpkgs/5d5ed1a59cc4c7f4fd63cee75aa31dd92b9c7242";
 
@@ -41,7 +39,6 @@
 
     overlays = {
       rust-overlay = inputs.rust-overlay.overlay;
-      vscode-lldb = prToOverlay inputs.pr-vscode-lldb ["vscode-extensions.vadimcn.vscode-lldb"];
       isgx = prToOverlay inputs.pr-isgx ["linuxPackages.isgx"];
     };
 
