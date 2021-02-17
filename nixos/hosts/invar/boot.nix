@@ -13,6 +13,10 @@
   ];
   boot.extraModulePackages = [ ];
 
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = false;
+  boot.loader.timeout = 1;
+
   boot.initrd.luks.devices."unluks" = {
     device = "/dev/disk/by-uuid/21764e86-fde3-4e51-9652-da9adbdeeb34";
     preLVM = true;
@@ -43,8 +47,4 @@
   # High-DPI console
   console.font = lib.mkDefault "${pkgs.terminus_font}/share/consolefonts/ter-u28n.psf.gz";
   console.earlySetup = true;
-
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader.timeout = 1;
 }
