@@ -83,6 +83,22 @@
         "type": "github"
       }
     },
+    "pr-partition-manager": {
+      "locked": {
+        "lastModified": 1614015079,
+        "narHash": "sha256-iUm0aqVo3eElIOjiXT1zOxTln75bOZTzs/dJ8KFdCWI=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "24ea8cfe75a9671192701b55ab93ef2d6417e780",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "24ea8cfe75a9671192701b55ab93ef2d6417e780",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "flake-utils": "flake-utils",
@@ -90,6 +106,7 @@
         "nixpkgs": "nixpkgs",
         "nixpkgs-stable": "nixpkgs-stable",
         "pr-isgx": "pr-isgx",
+        "pr-partition-manager": "pr-partition-manager",
         "rust-overlay": "rust-overlay",
         "secrets": "secrets"
       }

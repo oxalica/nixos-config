@@ -5,10 +5,15 @@ with lib;
     (ark.override { unfreeEnableUnrar = true; })
     filelight
     kdeconnect
-    partition-manager
     plasma-browser-integration
     spectacle
+
+    # FIXME: nixos module.
+    partition-manager
+    libsForQt5.kpmcore
   ];
+
+  services.dbus.packages = [ pkgs.libsForQt5.kpmcore ];
 
   nixpkgs.config.firefox.enablePlasmaBrowserIntegration = true;
 
