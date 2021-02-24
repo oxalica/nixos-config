@@ -3,8 +3,9 @@
   programs.vim = {
     enable = true;
     plugins = with pkgs.vimPlugins; [
-      vim-surround
       vim-nix
+      vim-surround
+      vim-toml
     ];
     extraConfig = builtins.readFile ./vimrc.vim;
   };
