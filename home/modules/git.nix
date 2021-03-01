@@ -17,6 +17,7 @@
       cp = "cherry-pick";
       l = "log";
       st = "status";
+      sub = "submodule";
     };
 
     extraConfig = {
