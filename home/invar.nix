@@ -7,9 +7,6 @@
   imports = [
     ./modules/rust-nightly-monitor.nix
 
-    ./modules/shell
-    ./modules/vim
-    ./modules/vscode
     ./modules/common-pkgs.nix
     ./modules/git.nix
     ./modules/gpg.nix
@@ -17,9 +14,13 @@
     ./modules/mkX-backup.nix
     ./modules/rime-fcitx.nix
     ./modules/rust.nix
+    ./modules/shell
     ./modules/ssh-scut0.nix
+    ./modules/stretchly.nix
     ./modules/trash.nix
     ./modules/user-dirs.nix
+    ./modules/vim
+    ./modules/vscode
 
     ./plugins/hm-desktop-autostart.nix
   ];

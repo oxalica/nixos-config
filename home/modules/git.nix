@@ -21,6 +21,7 @@
 
     extraConfig = {
       pull.ff = "only";
+      advice.detachedHead = false;
     };
   };
 }
