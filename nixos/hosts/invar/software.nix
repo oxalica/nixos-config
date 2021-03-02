@@ -58,14 +58,14 @@
   };
   users.groups."libvirtd".members = [ "oxa" ];
 
-  # virtualisation.docker = {
-  #   enable = true;
-  #   autoPrune = {
-  #     enable = true;
-  #     dates = "weekly";
-  #   };
-  # };
-  # users.groups."docker".members = [ "oxa" ];
+  virtualisation.docker = {
+    enable = true;
+    autoPrune = {
+      enable = true;
+      dates = "weekly";
+    };
+  };
+  users.groups."docker".members = [ "oxa" ];
 
   services.earlyoom = {
     enable = true;
