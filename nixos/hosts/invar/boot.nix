@@ -17,6 +17,18 @@
   boot.loader.efi.canTouchEfiVariables = false;
   boot.loader.timeout = 1;
 
+  # For dev.
+  boot.binfmt = {
+    emulatedSystems = [ "riscv64-linux" "aarch64-linux" ];
+    registrations."riscv64-linux" = {
+      preserveArgvZero = true;
+      interpreter = let
+        qemu = (lib.systems.elaborate { system = "riscv64-linux"; }).emulator pkgs;
+      in lib.mkForce ''${qemu} -0 "$2" "$1" "''${@:3}" #'';
+    };
+    registrations."aarch64-linux".preserveArgvZero = true;
+  };
+
   boot.initrd.luks.devices."unluks" = {
     device = "/dev/disk/by-uuid/21764e86-fde3-4e51-9652-da9adbdeeb34";
     preLVM = true;
