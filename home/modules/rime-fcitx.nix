@@ -1,37 +1,22 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 
 let
   onChange = ''
     if [[ ! -v fcitxRestarted ]]; then
       fcitxRestarted=1
-      $DRY_RUN_CMD rm -rf "$HOME/.config/fcitx/rime/build"
-      $DRY_RUN_CMD fcitx -dr 2>/dev/null
+      $DRY_RUN_CMD rm -rf "$HOME/.local/share/fcitx5/rime/build"
+      $DRY_RUN_CMD "${pkgs.fcitx5}/bin/fcitx5" -dr 2>/dev/null
     fi
   '';
 
-  rime-emoji-opencc = pkgs.stdenv.mkDerivation {
-    name = "rime-emoji-opencc-stripped";
-
-    src = pkgs.fetchFromGitHub {
-      owner = "rime";
-      repo = "rime-emoji";
-      rev = "6ee7ce65b21cd0fd8df0306a7c77a067f18fb55f";
-      sha256 = "1kmcfs5r4904b4fsq5ngb9ippagjffbz3rfsrs3krlmnzf1aq55c";
-    };
-
-    installPhase = ''
-      cp -r opencc $out
-    '';
-  };
-
 in {
-  xdg.configFile = {
-    "fcitx/rime/opencc" = {
+  xdg.dataFile = {
+    "fcitx5/rime/opencc" = {
       inherit onChange;
-      source = rime-emoji-opencc;
+      source = "${inputs.rime-emoji}/opencc";
     };
 
-    "fcitx/rime/default.custom.yaml" = {
+    "fcitx5/rime/default.custom.yaml" = {
       inherit onChange;
       text = ''
         # encoding: utf-8
@@ -56,7 +41,7 @@ in {
       '';
     };
 
-    "fcitx/rime/double_pinyin.custom.yaml" = {
+    "fcitx5/rime/double_pinyin.custom.yaml" = {
       inherit onChange;
       text = ''
         # encoding: utf-8

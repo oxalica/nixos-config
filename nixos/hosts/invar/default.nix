@@ -5,6 +5,16 @@ inputs.nixpkgs.lib.nixosSystem {
     inputs.home-manager.nixosModules.home-manager
     { nixpkgs.overlays = with overlays; [ rust-overlay partition-manager ]; }
     ./configuration.nix
+    ({ lib, ... }: {
+      options.home-manager.users = with lib.types; lib.mkOption {
+        type = attrsOf (submoduleWith {
+          modules = [ ];
+          specialArgs = {
+            inherit inputs;
+          };
+        });
+      };
+    })
   ];
   specialArgs.inputs = inputs;
 }

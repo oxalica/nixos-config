@@ -16,6 +16,11 @@
       inputs.flake-utils.follows = "flake-utils";
     };
 
+    rime-emoji = {
+      url = "github:rime/rime-emoji";
+      flake = false;
+    };
+
     # https://github.com/NixOS/nixpkgs/pull/109013
     pr-isgx.url = "github:nixos/nixpkgs/5d5ed1a59cc4c7f4fd63cee75aa31dd92b9c7242";
     # https://github.com/NixOS/nixpkgs/pull/114016
