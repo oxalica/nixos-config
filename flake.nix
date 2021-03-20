@@ -21,10 +21,7 @@
       flake = false;
     };
 
-    # https://github.com/NixOS/nixpkgs/pull/109013
-    pr-isgx.url = "github:nixos/nixpkgs/5d5ed1a59cc4c7f4fd63cee75aa31dd92b9c7242";
-    # https://github.com/NixOS/nixpkgs/pull/114016
-    pr-partition-manager.url = "github:nixos/nixpkgs/24ea8cfe75a9671192701b55ab93ef2d6417e780";
+    pr-isgx.url = "github:nixos/nixpkgs/pull/109013/head";
 
     # Optional.
     secrets = {
@@ -47,7 +44,6 @@
     overlays = {
       rust-overlay = inputs.rust-overlay.overlay;
       isgx = prToOverlay inputs.pr-isgx [ "linuxPackages.isgx" ];
-      partition-manager = prToOverlay inputs.pr-partition-manager [ "libsForQt5.kpmcore" "partition-manager" ];
     };
 
   in {

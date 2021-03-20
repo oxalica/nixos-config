@@ -7,13 +7,9 @@ with lib;
     kdeconnect
     plasma-browser-integration
     spectacle
-
-    # FIXME: nixos module.
-    partition-manager
-    libsForQt5.kpmcore
   ];
 
-  services.dbus.packages = [ pkgs.libsForQt5.kpmcore ];
+  programs.partition-manager.enable = true;
 
   nixpkgs.config.firefox.enablePlasmaBrowserIntegration = true;
 
