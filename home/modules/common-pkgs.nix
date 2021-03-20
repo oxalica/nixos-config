@@ -37,7 +37,7 @@ in {
     neofetch htop pv iperf3 loc nmap ncdu dnsutils swapview # Stat
     exa fd ripgrep lsof tealdeer jq loop bc gnupg file pwgen rsync # Util
     libarchive runzip # Compression
-    trash-cli xsel # X-GUI
+    trash-cli xsel wl-clipboard # CLI-Desktop
     # nix-prefetch-git nix-prefetch-github # Nix
 
     # GUI

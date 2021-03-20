@@ -21,20 +21,28 @@ lt() {
 
 # Clipboard input/output.
 +() {
-  if ! command -v xsel >/dev/null; then
-    echo "'xsel' not found" >&2
-    return 1
-  elif [[ -t 0 ]]; then # stdin is tty, print clipboard
-    xsel -ob
-  elif [[ -t 1 ]]; then # stdout is tty, put into clipboard
-    xsel -ib
+  if [[ "$XDG_SESSION_TYPE" == wayland ]]; then
+    if [[ -t 0 ]]; then # stdin is tty, print clipboard
+      wl-paste
+    elif [[ -t 1 ]]; then # stdout is tty, put into clipboard
+      wl-copy
+    else
+      echo "Cannot use '+' as pipe" >&2
+      return 1
+    fi
   else
-    echo "Cannot use '+' as pipe" >&2
-    return 1
+    if [[ -t 0 ]]; then # stdin is tty, print clipboard
+      xsel -ob
+    elif [[ -t 1 ]]; then # stdout is tty, put into clipboard
+      xsel -ib
+    else
+      echo "Cannot use '+' as pipe" >&2
+      return 1
+    fi
   fi
 }
 
 # Realpath of which.
 rwhich() {
-  which $@ | xargs realpath
+  command which $@ | xargs realpath
 }
