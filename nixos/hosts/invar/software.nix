@@ -9,7 +9,7 @@
     "typora"
   ];
 
-  services.xserver.dpi = 144;
+  services.xserver.dpi = 120;
 
   # `services.ntp` may block when stopping.
   services.timesyncd.enable = true;
