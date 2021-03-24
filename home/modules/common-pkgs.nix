@@ -34,23 +34,24 @@ let
 in {
   home.packages = with pkgs; map lib.lowPrio [
     # Console
-    neofetch htop pv iperf3 loc nmap ncdu dnsutils swapview # Stat
+    neofetch htop pv ncdu dnsutils swapview # Stat
     exa fd ripgrep lsof tealdeer jq loop bc gnupg file pwgen rsync # Util
     libarchive runzip # Compression
     trash-cli xsel wl-clipboard # CLI-Desktop
     # nix-prefetch-git nix-prefetch-github # Nix
+    taskwarrior # Task manager
 
     # GUI
     kolourpaint vlc libreoffice # Files
     # typora <- usually broken
     firefox # Browser
-    electrum go-ethereum # Cryptocurrency
-    steam minecraft osu-lazer obs-studio # Games
-    tdesktop hexchat # IM
+    electrum electron-cash monero-gui # Cryptocurrency
+    steam minecraft osu-lazer # Games
+    tdesktop # Messaging
 
     # Dev
-    cachix patchelf sqlite-interactive # Utils
-    gcc gdb gnumake lld binutils # rust's backtrace-sys requires `ar`
+    cachix patchelf # Utils
+    gcc gdb gnumake cmake lld binutils # rust's backtrace-sys requires `ar`
     ghc nodejs idris2 # myIdris <- broken
     python3 myPip # myPython
 
@@ -59,20 +60,13 @@ in {
     ################
 
     # Dev deps
-    pkg-config
-    gtk3
-    openssl.dev
-    # (opencv4.override {
-    #   enableGtk3 = true;
-    #   enableFfmpeg = true;
-    # })
+    pkg-config openssl.dev
 
     # For update scripts
     (lib.lowPrio rustPlatform.rust.rustc)
     (lib.lowPrio rustPlatform.rust.cargo)
-    carnix
-    nodePackages.node2nix
     vgo2nix
-    dotnet-sdk_3
+    dotnetCorePackages.sdk_5_0
+    dotnetCorePackages.net_5_0
   ];
 }
