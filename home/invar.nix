@@ -5,8 +5,6 @@
   # home.file."nix".source = config.lib.file.mkOutOfStoreSymlink ./.;
 
   imports = [
-    ./modules/rust-nightly-monitor.nix
-
     ./modules/common-pkgs.nix
     ./modules/git.nix
     ./modules/gpg.nix
@@ -15,7 +13,6 @@
     ./modules/rime-fcitx.nix
     ./modules/rust.nix
     ./modules/shell
-    ./modules/ssh-scut0.nix
     ./modules/stretchly.nix
     ./modules/trash.nix
     ./modules/user-dirs.nix
