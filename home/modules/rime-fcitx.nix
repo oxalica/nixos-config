@@ -1,19 +1,43 @@
-{ pkgs, inputs, ... }:
+{ lib, pkgs, inputs, ... }:
 
 let
   onChange = ''
     if [[ ! -v fcitxRestarted ]]; then
       fcitxRestarted=1
-      $DRY_RUN_CMD rm -rf "$HOME/.local/share/fcitx5/rime/build"
+      # $DRY_RUN_CMD rm -rf "$HOME/.local/share/fcitx5/rime/build"
       $DRY_RUN_CMD "${pkgs.fcitx5}/bin/fcitx5" -dr 2>/dev/null
     fi
   '';
+
+  extraMap = {
+    "男" = "♂";
+    "女" = "♀";
+    "男女" = "⚤ ⚥ ⚦";
+    "女女" = "⚢";
+    "男男" = "⚣";
+    "度" = "°";
+    "攝氏度" = "℃";
+    "摄氏度" = "℃";
+    "華氏度" = "℉";
+    "华氏度" = "℉";
+    "比特幣" = "₿";
+    "比特币" = "₿";
+  };
+
+  extraMapFile = pkgs.writeText "extra_map.txt"
+    (lib.concatStringsSep "\n" (lib.mapAttrsToList (k: v: "${k}\t${k} ${v}") extraMap));
 
 in {
   xdg.dataFile = {
     "fcitx5/rime/opencc" = {
       inherit onChange;
-      source = "${inputs.rime-emoji}/opencc";
+      # source = "${inputs.rime-emoji}/opencc";
+      source = pkgs.runCommand "opencc-modified" { nativeBuildInputs = [ pkgs.jq ]; } ''
+        cp -rT ${inputs.rime-emoji}/opencc $out
+        chmod -R +w $out
+        jq '.conversion_chain[0].dict.dicts[1].file = $f' --arg f '${extraMapFile}' <$out/emoji.json >$out/emoji.json.tmp
+        mv $out/emoji.json{.tmp,}
+      '';
     };
 
     "fcitx5/rime/default.custom.yaml" = {

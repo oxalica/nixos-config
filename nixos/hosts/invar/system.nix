@@ -9,9 +9,18 @@
   hardware.cpu.amd.updateMicrocode = true;
   hardware.bluetooth.enable = true;
 
-  hardware.pulseaudio.enable = true;
   sound.enable = true;
+  hardware.pulseaudio.enable = true;
   users.groups."audio".members = [ "oxa" ];
+
+  # XXX: No media control on KDE
+  # security.rtkit.enable = true; # Better installed with pipewire.
+  # services.pipewire = {
+  #   enable = true;
+  #   alsa.enable = true;
+  #   alsa.support32Bit = true;
+  #   pulse.enable = true;
+  # };
 
   # Common Settings:
   # INTERVAL=3
