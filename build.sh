@@ -45,7 +45,7 @@ done
 op="${op:-build}"
 
 args=()
-if [[ -z "$target" && "$op" != "build" ]]; then
+if [[ -z "$target" && "$op" != *"build" ]]; then
   args+=(sudo)
 fi
 
