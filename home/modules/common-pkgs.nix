@@ -38,7 +38,6 @@ in {
     exa fd ripgrep lsof tealdeer jq loop bc gnupg file pwgen rsync # Util
     libarchive runzip # Compression
     trash-cli xsel wl-clipboard # CLI-Desktop
-    # nix-prefetch-git nix-prefetch-github # Nix
     taskwarrior # Task manager
 
     # GUI
@@ -54,6 +53,7 @@ in {
     gcc gdb gnumake cmake lld binutils # rust's backtrace-sys requires `ar`
     ghc nodejs idris2 # myIdris <- broken
     python3 myPip # myPython
+    nixpkgs-review # nix
 
     ################
     # Keep from GC #
