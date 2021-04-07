@@ -6,14 +6,13 @@ let
   # Global target
   targetDir = ".cargo/target";
 
-  rust-stable = pkgs.latest.rustChannels.stable.rust.override {
+  rust-stable = pkgs.latest.rustChannels.stable.default.override {
     extensions = [
       "rust-src"
     ];
     targets = [
       "x86_64-unknown-linux-musl"
-      "mips-unknown-linux-musl"
-      "arm-unknown-linux-gnueabihf"
+      "riscv64gc-unknown-linux-gnu"
     ];
   };
 
