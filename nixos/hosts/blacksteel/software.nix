@@ -10,7 +10,7 @@
     "typora"
   ];
 
-  services.xserver.dpi = 144;
+  services.xserver.dpi = 120;
 
   services.openssh = {
     enable = true;

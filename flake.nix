@@ -21,7 +21,6 @@
       flake = false;
     };
 
-    pr-isgx.url = "github:nixos/nixpkgs/pull/109013/head";
     pr-electron-cash.url = "github:nixos/nixpkgs/pull/118723/head";
     # Waiting for https://github.com/NixOS/nixpkgs/pull/118365
     pr-steam.url = "github:nixos/nixpkgs/f5e8bdd07d1afaabf6b37afc5497b1e498b8046f";
@@ -46,7 +45,6 @@
 
     overlays = {
       rust-overlay = inputs.rust-overlay.overlay;
-      isgx = prToOverlay inputs.pr-isgx [ "linuxPackages.isgx" ];
       electron-cash = prToOverlay inputs.pr-electron-cash [ "electron-cash" ];
       steam = final: prev: {
         inherit (import inputs.pr-steam {

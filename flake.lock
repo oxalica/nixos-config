@@ -83,22 +83,6 @@
         "type": "github"
       }
     },
-    "pr-isgx": {
-      "locked": {
-        "lastModified": 1612188284,
-        "narHash": "sha256-5l5tCrAhX5+J6rvnvXRL9JNqfY4sPjplYN/1p48qxek=",
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "5d5ed1a59cc4c7f4fd63cee75aa31dd92b9c7242",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nixos",
-        "ref": "pull/109013/head",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "pr-steam": {
       "locked": {
         "lastModified": 1616174264,
@@ -138,7 +122,6 @@
         "nixpkgs": "nixpkgs",
         "nixpkgs-stable": "nixpkgs-stable",
         "pr-electron-cash": "pr-electron-cash",
-        "pr-isgx": "pr-isgx",
         "pr-steam": "pr-steam",
         "rime-emoji": "rime-emoji",
         "rust-overlay": "rust-overlay",
