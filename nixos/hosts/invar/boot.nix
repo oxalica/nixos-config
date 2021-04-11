@@ -32,6 +32,7 @@
   boot.initrd.luks.devices."unluks" = {
     device = "/dev/disk/by-uuid/21764e86-fde3-4e51-9652-da9adbdeeb34";
     preLVM = true;
+    allowDiscards = true;
   };
 
   fileSystems."/" = {
