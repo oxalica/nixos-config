@@ -1,3 +1,4 @@
+set nocompatible
 set encoding=utf-8 termencoding=utf-8
 set fileencodings=ucs-bom,utf-8,gb18030,latin1
 
@@ -8,17 +9,16 @@ set backspace=indent,eol,start
 
 set cursorline
 set number
-set mouse=a
+set mouse=
 
 syntax on
 colorscheme default
 
-set timeoutlen=500
+set ttimeoutlen=50
 
-nnoremap <c-c> :%y+<cr>
-vnoremap <c-c> :y+<cr>gv
-
-nnoremap z <esc>:set wrap!<cr>
+set <m-z>=z
+nnoremap <m-z> <esc>:set wrap!<cr>
 nnoremap <cr> <esc>:set hlsearch!<cr>
 
-cnoremap w!! w !sudo tee % >/dev/null
+command -nargs=0 Wsudo :w !sudo tee % >/dev/null
+

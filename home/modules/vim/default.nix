@@ -2,11 +2,14 @@
 {
   programs.vim = {
     enable = true;
+    extraConfig = builtins.readFile ./init.vim;
     plugins = with pkgs.vimPlugins; [
+      easymotion
+      vim-cursorword
       vim-nix
       vim-surround
       vim-toml
+      (pkgs.callPackage ./fcitx5-vim {})
     ];
-    extraConfig = builtins.readFile ./vimrc.vim;
   };
 }
