@@ -4,17 +4,18 @@
   programs.home-manager.enable = true;
 
   imports = [
-    ./modules/shell
-    ./modules/vim
-    ./modules/vscode
     ./modules/common-pkgs.nix
+    ./modules/firefox.nix
     ./modules/git.nix
     ./modules/gpg.nix
     ./modules/mail.nix
     ./modules/rime-fcitx.nix
     ./modules/rust.nix
+    ./modules/shell
     ./modules/trash.nix
     ./modules/user-dirs.nix
+    ./modules/vim
+    ./modules/vscode
 
     ./plugins/hm-desktop-autostart.nix
   ];

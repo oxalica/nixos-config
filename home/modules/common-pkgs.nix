@@ -43,7 +43,7 @@ in {
     # GUI
     kolourpaint vlc libreoffice # Files
     # typora <- usually broken
-    firefox # Browser
+    # firefox <- in module
     electrum electron-cash monero-gui # Cryptocurrency
     steam minecraft osu-lazer # Games
     tdesktop # Messaging

@@ -6,6 +6,7 @@
 
   imports = [
     ./modules/common-pkgs.nix
+    ./modules/firefox.nix
     ./modules/git.nix
     ./modules/gpg.nix
     ./modules/mail.nix
