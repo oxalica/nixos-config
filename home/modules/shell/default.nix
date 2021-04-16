@@ -5,6 +5,8 @@
     PATH = "$PATH\${PATH:+:}$HOME/.cargo/bin:$HOME/.local/bin";
   };
 
+  programs.command-not-found.enable = true;
+
   programs.zsh = {
     enable = true;
 
@@ -18,10 +20,16 @@
     };
 
     initExtra = ''
+      # https://github.com/nix-community/home-manager/pull/1933
+      HISTORY_IGNORE='(task *|rm *|\rm *)'
+
       # For prompt.
       source ${pkgs.git}/share/git/contrib/completion/git-prompt.sh
 
       source ${./cmds.zsh}
+
+      mkdir -p "$HOME/.local/share/z"
+      _Z_DATA="$HOME/.local/share/z/z"
     '';
 
     oh-my-zsh = {
