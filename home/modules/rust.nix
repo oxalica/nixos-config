@@ -4,39 +4,29 @@ let
   defaultMaxDays = 15;
 
   # Global target
-  targetDir = ".cargo/target";
+  targetDir = "${home}/.cache/cargo/target";
 
-  rust-stable = pkgs.latest.rustChannels.stable.default.override {
-    extensions = [
-      "rust-src"
-    ];
-    targets = [
-      "x86_64-unknown-linux-musl"
-      "riscv64gc-unknown-linux-gnu"
-    ];
-  };
+  home = config.home.homeDirectory;
 
 in {
-  # home.file.".cargo/config".source = config.lib.file.mkOutOfStoreSymlink "../.config/cargo";
+  home.packages = with pkgs; [
+    (rust-bin.stable.latest.default.override {
+      extensions = [
+        "rust-src"
+      ];
+      targets = [
+        "x86_64-unknown-linux-musl"
+        "riscv64gc-unknown-linux-gnu"
+      ];
+    })
 
-  home.packages = [
-    rust-stable
-  ] ++ (with pkgs; [
     cargo-edit
     cargo-flamegraph
     cargo-insta
-    cargo-license
-    cargo-watch
-  ]);
+  ];
 
-  home.file.".cargo/config".source = let
+  /*
     triple = pkgs.stdenv.hostPlatform.config;
-
-    cargoConfig = {
-      build.target-dir = "${targetDir}";
-      # target."${triple}".linker = linker;
-    };
-
     rust-lld-wrapper = pkgs.writeShellScriptBin "ld.lld" ''
       set -e
       exec -a ld.lld "$(rustc --print sysroot)/lib/rustlib/${triple}/bin/rust-lld" "$@"
@@ -45,14 +35,26 @@ in {
       export PATH="${rust-lld-wrapper}/bin''${PATH:+:}$PATH"
       exec ${pkgs.gcc}/bin/gcc -fuse-ld=lld "$@"
     '';
+  */
 
-  in pkgs.runCommandNoCC "cargo-config" {
-    preferLocalBuild = true;
-    nativeBuildInputs = [ pkgs.remarshal ];
-    value = builtins.toJSON cargoConfig;
-    passAsFile = [ "value" ];
-  } ''
-    json2toml "$valuePath" "$out"
+  # Setup cargo directories.
+  # https://doc.rust-lang.org/cargo/commands/cargo.html?highlight=cargo_home#files
+  home.sessionVariables."CARGO_HOME" = pkgs.runCommand "cargo-home" {} ''
+    mkdir -p $out
+    ln -st $out "${home}"/.cache/cargo/{registry,git}
+    ln -st $out "${home}"/.config/cargo/credentials.toml
+
+    cat >$out/config.toml <<EOF
+    [install]
+    root = "${home}/.local"
+
+    [build]
+    target-dir = "${targetDir}"
+    EOF
+  '';
+  home.activation.setupCargoDirectories = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    $DRY_RUN_CMD mkdir -p "${home}"/{.config/cargo,.cache/cargo/{registry,git}}
+    $DRY_RUN_CMD touch -a "${home}"/.config/cargo/credentials.toml
   '';
 
   systemd.user.services."cargo-clean-target" = {
@@ -61,8 +63,10 @@ in {
       cargo-clean-target = pkgs.writeShellScriptBin "cargo-clean-target" ''
         set -e
         PATH="$PATH:${pkgs.coreutils}/bin:${pkgs.findutils}/bin"
-        targetPath="$HOME/${targetDir}"
+        targetPath="${targetDir}"
         days="${toString defaultMaxDays}"
+
+        [[ -d "$targetPath" ]] || exit 0
 
         countSize() {
           ret=$(du -P -sb "$1")
@@ -87,7 +91,7 @@ in {
   };
   systemd.user.timers."cargo-clean-target" = {
     Timer = {
-      OnCalendar = "Sun";
+      OnCalendar = "Mon";
       Persistent = true;
     };
     Install.WantedBy = [ "timers.target" ];
