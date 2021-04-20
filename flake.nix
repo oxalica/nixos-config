@@ -21,10 +21,6 @@
       flake = false;
     };
 
-    pr-electron-cash.url = "github:nixos/nixpkgs/pull/118723/head";
-    # Waiting for https://github.com/NixOS/nixpkgs/pull/118365
-    pr-steam.url = "github:nixos/nixpkgs/f5e8bdd07d1afaabf6b37afc5497b1e498b8046f";
-
     # Optional.
     secrets = {
       url = "git+ssh://git@github.com/oxalica/nixos-config-secrets.git";
@@ -45,13 +41,6 @@
 
     overlays = {
       rust-overlay = inputs.rust-overlay.overlay;
-      electron-cash = prToOverlay inputs.pr-electron-cash [ "electron-cash" ];
-      steam = final: prev: {
-        inherit (import inputs.pr-steam {
-          inherit (final) system;
-          config.allowUnfree = true;
-        }) steam;
-      };
     };
 
   in {

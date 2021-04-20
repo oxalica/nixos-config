@@ -61,12 +61,5 @@ in {
 
     # Dev deps
     pkg-config openssl.dev
-
-    # For update scripts
-    (lib.lowPrio rustPlatform.rust.rustc)
-    (lib.lowPrio rustPlatform.rust.cargo)
-    vgo2nix
-    dotnetCorePackages.sdk_5_0
-    dotnetCorePackages.net_5_0
   ];
 }
