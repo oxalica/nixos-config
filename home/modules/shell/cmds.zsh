@@ -46,3 +46,8 @@ lt() {
 rwhich() {
   command which $@ | xargs realpath
 }
+
+# Binary diff
+bdiff() {
+    diff <(hexdump -C $1) <(hexdump -C $2) ${@:3}
+}
