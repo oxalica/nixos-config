@@ -9,6 +9,10 @@
     "typora"
   ];
 
+  programs.wireshark.enable = true;
+  programs.wireshark.package = pkgs.wireshark; # Default on is CLI.
+  users.groups."wireshark".members = [ "oxa" ];
+
   services.xserver.dpi = 120;
 
   # `services.ntp` may block when stopping.

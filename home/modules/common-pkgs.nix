@@ -49,6 +49,7 @@ in {
     tdesktop # Messaging
 
     # Dev
+    man-pages # Man
     cachix patchelf # Utils
     gcc gdb gnumake cmake lld binutils # rust's backtrace-sys requires `ar`
     ghc nodejs idris2 # myIdris <- broken
