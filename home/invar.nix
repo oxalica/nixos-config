@@ -15,6 +15,7 @@
     ./modules/rust.nix
     ./modules/shell
     ./modules/stretchly.nix
+    ./modules/tmux.nix
     ./modules/trash.nix
     ./modules/user-dirs.nix
     ./modules/vim
