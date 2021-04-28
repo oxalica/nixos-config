@@ -20,5 +20,16 @@ set <m-z>=z
 nnoremap <m-z> <esc>:set wrap!<cr>
 nnoremap <cr> <esc>:set hlsearch!<cr>
 
+" Wordaround shortcut collision
+inoremap <c-e> <c-w>
+
+" Panes
+nnoremap <c-w>v <esc>:vsplit<cr>
+nnoremap <c-w>s <esc>:split<cr>
+nnoremap <c-w>+ <c-w>+<c-w>+<c-w>+<c-w>+<c-w>+
+nnoremap <c-w>- <c-w>-<c-w>-<c-w>-<c-w>-<c-w>-
+nnoremap <c-w>< <c-w><<c-w><<c-w><<c-w><<c-w><
+nnoremap <c-w>> <c-w>><c-w>><c-w>><c-w>><c-w>>
+
 command -nargs=0 Wsudo :w !sudo tee % >/dev/null
 

@@ -4,9 +4,11 @@
   "update.mode" = "manual";
   "workbench.startupEditor" = "none";
   "workbench.list.keyboardNavigation" = "filter";
-  "window.titleBarStyle" = "custom";
   "explorer.confirmDragAndDrop" = false;
+
   "extensions.autoUpdate" = false;
+  "window.titleBarStyle" = "native";
+  "window.menuBarVisibility" = "toggle";
 
   "editor.fontFamily" = "'Sarasa mono SC'";
   "editor.fontSize" = 16;
@@ -28,13 +30,20 @@
   "[javascript]"."editor.tabSize" = 2;
   "[nix]"."editor.tabSize" = 2;
   "[typescript]"."editor.tabSize" = 2;
-  # "[rust]"."editor.formatOnSave" = true; # Don't break codes
+
+  "[rust]"."editor.formatOnSave" = true; # break codes?
 
   # Don't break patch files.
   "[diff]" = {
+    "editor.renderWhitespace" = "boundary";
     "files.insertFinalNewline" = true;
     "files.trimFinalNewlines" = false;
     "files.trimTrailingWhitespace" = false;
+  };
+
+  "[makefile]" = {
+    "editor.renderWhitespace" = "boundary";
+    "editor.insertSpaces" = false;
   };
 
   "python.linting.enabled" = true;
@@ -50,24 +59,22 @@
 
   "vim.autoindent" = true;
   "vim.surround" = true;
-  "vim.normalModeKeyBindingsNonRecursive" = [{
-    "before" = ["<c-c>"];
-    "after" = [
-      "g" "g" "\"" "+" "y" "G"
-      "<c-o>"
-      "z" "z"
-    ];
-  } {
-    "before" = ["<enter>"];
-    "commands" = [":set hlsearch!"];
-  } ];
-  "vim.visualModeKeyBindingsNonRecursive" = [{
-    "before" = ["<c-c>"];
-    "after" = [
-      "\"" "+" "y"
-      "g" "v"
-    ];
-  }];
+  "vim.easymotion" = true;
+  "vim.normalModeKeyBindingsNonRecursive" = [
+    {
+      "before" = ["<enter>"];
+      "commands" = [":set hlsearch!"];
+    }
+  ];
+  "vim.visualModeKeyBindingsNonRecursive" = [
+    {
+      "before" = ["<c-c>"];
+      "after" = [
+        "\"" "+" "y"
+        "g" "v"
+      ];
+    }
+  ];
 
   "git.terminalAuthentication" = false;
 }

@@ -23,6 +23,9 @@
       # https://github.com/nix-community/home-manager/pull/1933
       HISTORY_IGNORE='(task *|rm *|\rm *)'
 
+      # Wordaround shortcut collision with Vim.
+      bindkey "^e" backward-kill-word
+
       # For prompt.
       source ${pkgs.git}/share/git/contrib/completion/git-prompt.sh
 
