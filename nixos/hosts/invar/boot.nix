@@ -35,19 +35,27 @@
     allowDiscards = true;
   };
 
-  fileSystems."/" = {
-    device = "/dev/disk/by-uuid/b009a0bd-0db7-4ec5-b6d0-ff290488d6a4";
-    fsType = "ext4";
-  };
+  fileSystems = {
+    "/" = {
+      device = "/dev/disk/by-uuid/b009a0bd-0db7-4ec5-b6d0-ff290488d6a4";
+      fsType = "ext4";
+    };
 
-  fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/DDBD-2F2B";
-    fsType = "vfat";
-  };
+    "/boot" = {
+      device = "/dev/disk/by-uuid/DDBD-2F2B";
+      fsType = "vfat";
+    };
 
-  fileSystems."/home" = {
-    device = "/dev/disk/by-uuid/7219f4b1-a9d1-42a4-bfc9-386fa919d44b";
-    fsType = "btrfs";
+    "/.subvols" = {
+      device = "/dev/disk/by-uuid/7219f4b1-a9d1-42a4-bfc9-386fa919d44b";
+      fsType = "btrfs";
+    };
+
+    "/home/oxa" = {
+      device = "/dev/disk/by-uuid/7219f4b1-a9d1-42a4-bfc9-386fa919d44b";
+      fsType = "btrfs";
+      options = [ "subvol=@home-oxa" ];
+    };
   };
 
   swapDevices = [
