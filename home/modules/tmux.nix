@@ -27,10 +27,10 @@
       bind -r > resize-pane -R 5
 
       # Move between panes
-      bind C-h select-pane -L
-      bind C-j select-pane -D
-      bind C-k select-pane -U
-      bind C-l select-pane -R
+      bind -r C-h select-pane -L
+      bind -r C-j select-pane -D
+      bind -r C-k select-pane -U
+      bind -r C-l select-pane -R
     '';
   };
 }
