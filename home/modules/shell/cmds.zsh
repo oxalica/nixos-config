@@ -1,6 +1,8 @@
-alias l="exa --classify"
-alias ll="exa -l --classify --binary"
 alias ls="exa"
+alias l="exa --classify"
+alias la="exa --classify -a"
+alias ll="exa -l --classify --binary"
+alias lla="exa -l --classify --binary -a"
 
 alias n="nix"
 alias nb="nix build"
@@ -47,7 +49,17 @@ rwhich() {
   command which $@ | xargs realpath
 }
 
-# Binary diff
+# Binary diff.
 bdiff() {
     diff <(hexdump -C $1) <(hexdump -C $2) ${@:3}
+}
+
+# Length of stream, in human size.
+len() {
+    wc -c | numfmt --to=iec-i
+}
+
+# mkdir && cd
+mkcd() {
+    mkdir -p $1 && cd $1
 }
