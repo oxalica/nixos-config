@@ -2,7 +2,6 @@
 
 {
   programs.home-manager.enable = true;
-  # home.file."nix".source = config.lib.file.mkOutOfStoreSymlink ./.;
 
   imports = [
     ./modules/common-pkgs.nix
@@ -25,6 +24,20 @@
   ];
 
   fonts.fontconfig.enable = true;
+
+  home.file = let
+    home = config.home.homeDirectory;
+    link = path: config.lib.file.mkOutOfStoreSymlink "${home}/${path}";
+    linkPersonal = path: link "storage/personal/${path}";
+  in {
+    ".local/share/fcitx5/rime/sync".source = linkPersonal "rime-sync";
+    ".local/share/osu".source = linkPersonal "game/osu-lazer";
+    ".local/share/password-store".source = linkPersonal "password-store";
+    ".ssh".source = linkPersonal "ssh";
+    ".taskrc".source = linkPersonal "task/taskrc";
+  };
+
+  programs.gpg.homedir = "${config.home.homeDirectory}/storage/personal/gnupg";
 
   # This value determines the Home Manager release that your
   # configuration is compatible with. This helps avoid breakage
