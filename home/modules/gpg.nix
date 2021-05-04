@@ -19,6 +19,6 @@
 
   programs.password-store = {
     enable = true;
-    package = pkgs.pass;
+    package = pkgs.pass.withExtensions (ps: [ ps.pass-otp ]);
   };
 }

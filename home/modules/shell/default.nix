@@ -17,12 +17,15 @@
       ignoreDups = true;
       ignoreSpace = true;
       share = true;
+
+      ignorePatterns = [
+        "rm *" "\\rm *"
+        "sudo *"
+        "task *@(add|delete|done|modify)*"
+      ];
     };
 
     initExtra = ''
-      # https://github.com/nix-community/home-manager/pull/1933
-      HISTORY_IGNORE='(task *|rm *|\rm *)'
-
       # Wordaround shortcut collision with Vim.
       bindkey "^e" backward-kill-word
 
