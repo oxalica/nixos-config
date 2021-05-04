@@ -32,7 +32,8 @@
   in {
     ".local/share/fcitx5/rime/sync".source = linkPersonal "rime-sync";
     ".local/share/osu".source = linkPersonal "game/osu-lazer";
-    ".local/share/password-store".source = linkPersonal "password-store";
+    ".local/share/password-store".source = linkPersonal "password-store"; # FIXME: Put it in settings?
+    ".gnupg".source = linkPersonal "gnupg"; # FIXME: `passff` doesn't get `GNUPGHOME`.
     ".ssh".source = linkPersonal "ssh";
     ".taskrc".source = linkPersonal "task/taskrc";
   };
