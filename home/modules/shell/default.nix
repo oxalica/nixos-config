@@ -21,7 +21,7 @@
       ignorePatterns = [
         "rm *" "\\rm *"
         "sudo *"
-        "task *@(add|delete|done|modify)*"
+        "task *(append|add|delete|perge|done|modify)*"
       ];
     };
 
