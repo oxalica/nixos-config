@@ -4,6 +4,7 @@
   programs.home-manager.enable = true;
 
   imports = [
+    ./modules/auto-snapshot-storage.nix
     ./modules/common-pkgs.nix
     ./modules/firefox.nix
     ./modules/git.nix
