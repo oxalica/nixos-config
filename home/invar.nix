@@ -41,6 +41,19 @@
 
   programs.gpg.homedir = "${config.home.homeDirectory}/storage/personal/gnupg";
 
+  systemd.user.services."rime-sync" = {
+    Unit.Description = "Export rime dictionary";
+    # https://github.com/fcitx/fcitx5-rime/issues/28#issuecomment-828484970
+    Service.ExecStart = ''${pkgs.qt5.qttools.bin}/bin/qdbus org.fcitx.Fcitx5 /controller org.fcitx.Fcitx.Controller1.SetConfig "fcitx://config/addon/rime/sync" ""'';
+  };
+  systemd.user.timers."rime-sync" = {
+    Timer = {
+      OnCalendar = "*-*-* 03:00:00";
+      Persistent = true;
+    };
+    Install.WantedBy = [ "timers.target" ];
+  };
+
   # This value determines the Home Manager release that your
   # configuration is compatible with. This helps avoid breakage
   # when a new Home Manager release introduces backwards
