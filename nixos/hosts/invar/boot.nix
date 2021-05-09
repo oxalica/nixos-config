@@ -54,7 +54,7 @@
     "/home/oxa" = {
       device = "/dev/disk/by-uuid/7219f4b1-a9d1-42a4-bfc9-386fa919d44b";
       fsType = "btrfs";
-      options = [ "subvol=@home-oxa,user_subvol_rm_allowed" ];
+      options = [ "subvol=@home-oxa" "user_subvol_rm_allowed" ];
     };
   };
 
