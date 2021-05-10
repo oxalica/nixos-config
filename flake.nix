@@ -41,6 +41,12 @@
 
     overlays = {
       rust-overlay = inputs.rust-overlay.overlay;
+      tdesktop-font = final: prev: {
+        tdesktop = prev.tdesktop.overrideAttrs (oldAttrs: {
+          patches = (oldAttrs.patches or []) ++
+            [ ./patches/tdesktop-0001-use-system-font-and-use-stylename.patch ];
+        });
+      };
     };
 
   in {
