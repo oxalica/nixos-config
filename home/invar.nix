@@ -26,6 +26,11 @@
 
   fonts.fontconfig.enable = true;
 
+  # FIXME: sddm doesn't respect `home.sessionVariables`.
+  systemd.user.sessionVariables = {
+    inherit (config.home.sessionVariables) CARGO_HOME GNUPGHOME PASSWORD_STORE_DIR;
+  };
+
   home.file = let
     home = config.home.homeDirectory;
     link = path: config.lib.file.mkOutOfStoreSymlink "${home}/${path}";

@@ -57,14 +57,14 @@ in {
 
   # Setup cargo directories.
   # https://doc.rust-lang.org/cargo/commands/cargo.html?highlight=cargo_home#files
-  home.sessionVariables."CARGO_HOME" = pkgs.runCommandLocal "cargo-home" {
+  home.sessionVariables."CARGO_HOME" = "${pkgs.runCommandLocal "cargo-home" {
     inherit cargoConfig;
   } ''
     mkdir -p $out
     ln -st $out "${home}"/.cache/cargo/{registry,git}
     ln -st $out "${home}"/.config/cargo/credentials.toml
     echo -n "$cargoConfig" >$out/config.toml
-  '';
+  ''}";
 
   home.activation.setupCargoDirectories = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     $DRY_RUN_CMD mkdir -p "${home}"/{.config/cargo,.cache/cargo/{registry,git}}

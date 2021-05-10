@@ -60,5 +60,6 @@ with lib;
     "xdg/kwinrc".source = ./xdg/kwinrc;
     "xdg/kwinrulesrc".source = ./xdg/kwinrulesrc;
     "xdg/spectaclerc".source = ./xdg/spectaclerc;
+    "xdg/startkderc".source = ./xdg/startkderc;
   };
 }
