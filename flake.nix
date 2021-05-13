@@ -41,6 +41,8 @@
 
     overlays = {
       rust-overlay = inputs.rust-overlay.overlay;
+      xdg-path-overlay = import ./xdg-path-overlay.nix;
+
       tdesktop-font = final: prev: {
         tdesktop = prev.tdesktop.overrideAttrs (oldAttrs: {
           patches = (oldAttrs.patches or []) ++

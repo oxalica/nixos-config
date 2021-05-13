@@ -36,6 +36,8 @@
     link = path: config.lib.file.mkOutOfStoreSymlink "${home}/${path}";
     linkPersonal = path: link "storage/personal/${path}";
   in {
+    ".local/share/electron-cash/wallets".source = linkPersonal "cryptocurrency/bch";
+    ".local/share/electrum/wallets".source = linkPersonal "cryptocurrency/btc";
     ".local/share/fcitx5/rime/sync".source = linkPersonal "rime-sync";
     ".local/share/osu".source = linkPersonal "game/osu-lazer";
     ".local/share/password-store".source = linkPersonal "password-store"; # FIXME: Put it in settings?
