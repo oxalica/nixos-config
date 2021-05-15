@@ -34,17 +34,14 @@
 
       source ${./cmds.zsh}
 
-      mkdir -p "$HOME/.local/share/z"
-      _Z_DATA="$HOME/.local/share/z/z"
+      eval "$(zoxide init zsh)"
     '';
 
     oh-my-zsh = {
       enable = true;
       theme = "avit_simple";
       custom = "${./.}";
-      plugins = [
-        "z"
-      ];
+      plugins = [];
     };
   };
 
@@ -52,14 +49,6 @@
     flake-zsh-completion = pkgs.runCommand "flake-nix-completion" {} ''
       install -Dm644 ${./_nix} $out/share/zsh/site-functions/_nix
     '';
-
-    z-man = pkgs.stdenv.mkDerivation {
-      name = "z-man";
-      inherit (pkgs.oh-my-zsh) src;
-      dontConfigure = true;
-      dontBuild = true;
-      installPhase = "install -Dm644 -t $out/share/man/man1 ./plugins/z/z.1";
-    };
 
     scripts = pkgs.runCommand "scripts" {
       inherit (pkgs) bash coreutils jq;
@@ -72,7 +61,7 @@
     '';
 
   in [
-    z-man
+    pkgs.zoxide
     (lib.hiPrio flake-zsh-completion)
     scripts
   ];
