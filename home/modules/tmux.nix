@@ -10,7 +10,7 @@
       set -g prefix C-a
       set -g mouse on
 
-      bind r source-file ~/.tmux.conf
+      bind r source-file ~/.config/tmux/tmux.conf
 
       # Copy mode
       bind -n -T copy-mode-vi v send-keys -X begin-selection
@@ -31,6 +31,12 @@
       bind -r C-j select-pane -D
       bind -r C-k select-pane -U
       bind -r C-l select-pane -R
+
+      # Clear some default bindings.
+      unbind up
+      unbind down
+      unbind left
+      unbind right
     '';
   };
 }
