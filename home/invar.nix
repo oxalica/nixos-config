@@ -6,6 +6,7 @@
   imports = [
     ./modules/auto-snapshot-storage.nix
     ./modules/common-pkgs.nix
+    ./modules/direnv.nix
     ./modules/firefox.nix
     ./modules/git.nix
     ./modules/gpg.nix
