@@ -46,7 +46,7 @@ in {
     # firefox <- in module
     electrum electron-cash monero-gui # Cryptocurrency
     steam minecraft osu-lazer # Games
-    tdesktop # Messaging
+    tdesktop element-desktop # Messaging
 
     # Dev
     man-pages # Man
@@ -55,6 +55,7 @@ in {
     ghc nodejs idris2 # myIdris <- broken
     python3 myPip # myPython
     nixpkgs-review # nix
+    sqlite-interactive # sqlite
 
     ################
     # Keep from GC #
