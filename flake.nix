@@ -23,7 +23,7 @@
 
     # Optional.
     secrets = {
-      url = "git+ssh://git@github.com/oxalica/nixos-config-secrets.git";
+      url = "/home/oxa/storage/repo/nixos-config/secrets";
       flake = false;
     };
   };
