@@ -15,6 +15,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
     };
+    xdgify-overlay = {
+      url = "github:oxalica/xdgify-overlay";
+      # url = "/home/oxa/storage/repo/xdgify-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
+    };
 
     rime-emoji = {
       url = "github:rime/rime-emoji";
@@ -41,7 +47,7 @@
 
     overlays = {
       rust-overlay = inputs.rust-overlay.overlay;
-      xdg-path-overlay = import ./xdg-path-overlay.nix;
+      xdgify-overlay = inputs.xdgify-overlay.overlay;
 
       tdesktop-font = final: prev: {
         tdesktop = prev.tdesktop.overrideAttrs (oldAttrs: {
