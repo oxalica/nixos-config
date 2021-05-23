@@ -66,6 +66,12 @@ in {
     echo -n "$cargoConfig" >$out/config.toml
   ''}";
 
+  # Force enable incremental build to save huge amount of time.
+  #
+  # Annonce: https://blog.rust-lang.org/2021/05/10/Rust-1.52.1.html#short-term-plan
+  # Issue: https://github.com/rust-lang/rust/issues/84970
+  home.sessionVariables."RUSTC_FORCE_INCREMENTAL" = "1";
+
   home.activation.setupCargoDirectories = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     $DRY_RUN_CMD mkdir -p "${home}"/{.config/cargo,.cache/cargo/{registry,git}}
     $DRY_RUN_CMD touch -a "${home}"/.config/cargo/credentials.toml
