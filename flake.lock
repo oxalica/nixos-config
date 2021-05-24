@@ -140,11 +140,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1621793031,
-        "narHash": "sha256-0ufhs6DXLwQn1lSy4vscJZ/MJZdFsTs3ZNfSXAMUeQA=",
+        "lastModified": 1621875305,
+        "narHash": "sha256-j4PuK961AE1fq6SuSuhJcD/YXQ1ZYMHfre7H0ht+jQc=",
         "owner": "oxalica",
         "repo": "xdgify-overlay",
-        "rev": "ec28562022c6940a253dda7a55f578b32e495ca6",
+        "rev": "15f02e3cf9252e0129a66530bcc730a325994872",
         "type": "github"
       },
       "original": {
