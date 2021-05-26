@@ -11,7 +11,6 @@
     ./modules/git.nix
     ./modules/gpg.nix
     ./modules/mail.nix
-    ./modules/mkX-backup.nix
     ./modules/rime-fcitx.nix
     ./modules/rust.nix
     ./modules/shell
@@ -42,7 +41,7 @@
     ".local/share/fcitx5/rime/sync".source = linkPersonal "rime-sync";
     ".local/share/osu".source = linkPersonal "game/osu-lazer";
     ".local/share/password-store".source = linkPersonal "password-store"; # FIXME: Put it in settings?
-    ".gnupg".source = linkPersonal "gnupg"; # FIXME: `passff` doesn't get `GNUPGHOME`.
+    # ".gnupg".source = linkPersonal "gnupg"; # FIXME: `passff` doesn't get `GNUPGHOME`.
     ".ssh".source = linkPersonal "ssh";
     ".taskrc".source = linkPersonal "task/taskrc";
   };

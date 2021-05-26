@@ -77,6 +77,7 @@ in {
     $DRY_RUN_CMD touch -a "${home}"/.config/cargo/credentials.toml
   '';
 
+  /*
   systemd.user.services."cargo-clean-target" = {
     Unit.Description = "Clean global cargo target directory";
     Service.ExecStart = let
@@ -116,4 +117,5 @@ in {
     };
     Install.WantedBy = [ "timers.target" ];
   };
+  */
 }
