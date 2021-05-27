@@ -9,7 +9,7 @@ set backspace=indent,eol,start
 
 set cursorline
 set number
-set mouse=
+set mouse=a
 
 syntax on
 colorscheme default

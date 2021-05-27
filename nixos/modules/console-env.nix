@@ -3,7 +3,7 @@
   programs.vim.defaultEditor = true;
 
   programs.less.enable = true;
-  environment.variables.PAGER = "less --RAW-CONTROL-CHARS --quit-if-one-screen";
+  programs.less.envVariables.LESS = "--RAW-CONTROL-CHARS --quit-if-one-screen --mouse";
 
   programs.iotop.enable = true;
   programs.iftop.enable = true;
