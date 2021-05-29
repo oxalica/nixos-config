@@ -33,6 +33,8 @@
       source ${pkgs.git}/share/git/contrib/completion/git-prompt.sh
 
       source ${./cmds.zsh}
+      source ${pkgs.zsh-fast-syntax-highlighting}/share/zsh/site-functions/fast-syntax-highlighting.plugin.zsh
+      FAST_HIGHLIGHT[use_async]=1 # Improve paste delay for nix store paths.
 
       eval "$(zoxide init zsh)"
     '';
