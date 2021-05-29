@@ -6,9 +6,6 @@
 
     useSandbox = true;
 
-    # FIXME: Workaround for https://github.com/NixOS/nixpkgs/issues/124215
-    sandboxPaths = [ "/bin/sh=${pkgs.bash}/bin/sh" ];
-
     trustedUsers = [ "root" "oxa" ];
 
     gc = {
