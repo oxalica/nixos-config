@@ -1,4 +1,4 @@
-{ lib, pkgs, ... }:
+{ lib, pkgs, config, ... }:
 {
   home.sessionVariables = {
     # Rust and python outputs.
@@ -10,14 +10,19 @@
   programs.zsh = {
     enable = true;
 
-    enableCompletion = true;
-    enableAutosuggestions = true;
+    dotDir = ".config/zsh";
+
+    enableCompletion = false; # We do it ourselves.
 
     history = {
       ignoreDups = true;
       ignoreSpace = true;
+      expireDuplicatesFirst = true;
+      extended = true;
       share = true;
-
+      path = "${config.xdg.dataHome}/zsh/zsh_history";
+      save = 10000;
+      size = 50000;
       ignorePatterns = [
         "rm *" "\\rm *"
         "sudo *rm*"
@@ -26,25 +31,25 @@
     };
 
     initExtra = ''
-      # Wordaround shortcut collision with Vim.
-      bindkey "^e" backward-kill-word
+      # Random settings.
+      setopt interactivecomments
+      setopt hist_verify
+      export LS_COLORS="rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:"
+      autoload -U compinit
 
-      # For prompt.
+      # Init.
       source ${pkgs.git}/share/git/contrib/completion/git-prompt.sh
-
+      source ${./prompt.zsh}
       source ${./cmds.zsh}
+      source ${./key-bindings.zsh}
+      source ${./completion.zsh}
+
+      # Plugins.
+      source ${pkgs.zsh-autosuggestions}/share/zsh-autosuggestions/zsh-autosuggestions.zsh
       source ${pkgs.zsh-fast-syntax-highlighting}/share/zsh/site-functions/fast-syntax-highlighting.plugin.zsh
       FAST_HIGHLIGHT[use_async]=1 # Improve paste delay for nix store paths.
-
       eval "$(zoxide init zsh)"
     '';
-
-    oh-my-zsh = {
-      enable = true;
-      theme = "avit_simple";
-      custom = "${./.}";
-      plugins = [];
-    };
   };
 
   home.packages = let
@@ -64,6 +69,7 @@
 
   in [
     pkgs.zoxide
+    pkgs.nix-zsh-completions
     (lib.hiPrio flake-zsh-completion)
     scripts
   ];

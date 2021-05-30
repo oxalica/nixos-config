@@ -1,5 +1,8 @@
 # AVIT ZSH Theme Simplified
 
+setopt promptsubst
+autoload -U colors && colors
+
 # settings
 typeset +H _current_dir="%{$fg_bold[blue]%}%3~%{$reset_color%}"
 typeset +H _return_status=" %{$fg_bold[red]%}%(?..[%?])%{$reset_color%}"
@@ -27,4 +30,3 @@ _simple_git_prompt_info() {
   echo "${fg[green]}$(__git_ps1)%{$reset_color%}"
 }
 
-MODE_INDICATOR="%{$fg_bold[yellow]%}❮%{$reset_color%}%{$fg[yellow]%}❮❮%{$reset_color%}"
