@@ -9,7 +9,7 @@
 
   desktop-autostart."birdtray" = {
     desktopName = "Birdtray";
-    exec = "birdtray";
+    exec = ''${pkgs.runtimeShell} -c "sleep 5; exec birdtray"'';
   };
 
   systemd.user.services."hydroxide" = {
