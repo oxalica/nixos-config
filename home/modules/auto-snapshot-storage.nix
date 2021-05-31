@@ -29,7 +29,7 @@ in
         for dir in ${lib.escapeShellArgs dirs}; do
           datetime="$(date -u +"%Y-%m-%dT%H:%M:%SZ")"
           del_datetime="$(date -u +"%Y-%m-%dT%H:%M:%SZ" -d "-${toString keepDays} days")"
-          snap_dir="$dir/.snapshot-auto"
+          snap_dir="$dir/.snapshot"
           echo "Create snapshot: $snap_dir/$datetime"
           btrfs -q subvolume snapshot -r "$dir" "$snap_dir/$datetime"
 
