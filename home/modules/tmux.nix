@@ -4,12 +4,18 @@
     enable = true;
     historyLimit = 5000;
     keyMode = "vi";
-    terminal = "screen-256color"; # $TERM
+    terminal = "tmux-256color"; # Use `tmux` to enable italic support.
     prefix = "C-a";
     clock24 = true;
 
     extraConfig = ''
-      set -g mouse on
+      set-option -g mouse on
+      set-option -g escape-time 10 # Don't mess up when Esc followed by some keys.
+
+      # Colors
+      set-option -g status-style bg=colour234,fg=yellow
+      set-option -g pane-active-border-style fg=pink
+      set-option -g window-status-current-style bg=yellow,fg=black
 
       # Reload.
       bind-key r source-file ~/.config/tmux/tmux.conf \; \
