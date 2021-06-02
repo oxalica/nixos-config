@@ -13,6 +13,7 @@
       set-option -g escape-time 10 # Don't mess up when Esc followed by some keys.
 
       # Colors
+      set-option -ga terminal-overrides ",*256col*:Tc" # True colors
       set-option -g status-style bg=colour234,fg=yellow
       set-option -g pane-active-border-style fg=pink
       set-option -g window-status-current-style bg=yellow,fg=black
