@@ -26,14 +26,11 @@ set list
 set listchars=tab:-->,extends:>,precedes:<
 highlight ExtraWhitespace ctermbg=red guibg=red
 match ExtraWhitespace /\s\+$/
-" Don't highlight in insert mode.
-autocmd InsertEnter * match ExtraWhitespace //
+autocmd InsertEnter * match none
 autocmd InsertLeave * match ExtraWhitespace /\s\+$/
 " Use dark color for leading tabs.
 highlight NormalLeadingTab ctermfg=237 guifg=#3a3a3a ctermbg=NONE guibg=NONE
-match NormalLeadingTab /^\t\+\S\@=/
-autocmd InsertEnter * match NormalLeadingTab /^\t\+\S\@=/
-autocmd InsertLeave * match NormalLeadingTab /^\t\+\S\@=/
+let g:match_normal_leading_tab = matchadd('NormalLeadingTab', '^\t\+\S\@=')
 
 " Strip extra spaces.
 function! <SID>StripTrailingWhitespaces()
