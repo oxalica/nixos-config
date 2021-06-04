@@ -19,7 +19,11 @@ set textwidth=120
 set colorcolumn=120
 
 syntax on
-colorscheme lilypink
+if empty(matchstr($TERM, '256color'))
+  colorscheme default
+else
+  colorscheme lilypink
+endif
 
 " Show hidden spaces.
 set list
@@ -58,5 +62,5 @@ nnoremap <c-w>- <c-w>-<c-w>-<c-w>-<c-w>-<c-w>-
 nnoremap <c-w>< <c-w><<c-w><<c-w><<c-w><<c-w><
 nnoremap <c-w>> <c-w>><c-w>><c-w>><c-w>><c-w>>
 
-command -nargs=0 Wsudo :w !sudo tee % >/dev/null
+command -nargs=0 Sudow :w !sudo tee % >/dev/null
 
