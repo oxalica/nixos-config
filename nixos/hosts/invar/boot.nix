@@ -14,6 +14,7 @@
   boot.extraModulePackages = [ ];
 
   boot.loader.systemd-boot.enable = true;
+  boot.loader.systemd-boot.consoleMode = "max"; # Don't clip boot menu.
   boot.loader.efi.canTouchEfiVariables = false;
   boot.loader.timeout = 1;
 
