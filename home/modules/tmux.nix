@@ -50,11 +50,19 @@
       bind-key -T copy-mode-vi TripleClick1Pane send-keys -X select-line \; \
         send-keys -X copy-pipe-no-clear "xsel -ip"
 
-      # Normal mode copy.
-      bind-key -n DoubleClick1Pane select-pane \; copy-mode -M \; send-keys -X select-word \; \
-        send-keys -X copy-pipe-no-clear "xsel -ip"
-      bind-key -n TripleClick1Pane select-pane \; copy-mode -M \; send-keys -X select-line \; \
-        send-keys -X copy-pipe-no-clear "xsel -ip"
+      # Normal mode copy, only if the inner program doesn't have mouse enabled.
+      bind-key -n DoubleClick1Pane if-shell -F "#{||:#{pane_in_mode},#{mouse_any_flag}}" "send -M" {
+        copy-mode -e
+        send-keys -X select-word
+        run-shell -d 0.2 ":"
+        send-keys -X copy-pipe-and-cancel "xsel -ip"
+      }
+      bind-key -n TripleClick1Pane if-shell -F "#{||:#{pane_in_mode},#{mouse_any_flag}}" "send -M" {
+        copy-mode -e
+        send-keys -X select-line
+        run-shell -d 0.2 ":"
+        send-keys -X copy-pipe-and-cancel "xsel -ip"
+      }
 
       # Copy & normal mode paste.
       bind-key -T copy-mode-vi MouseDown2Pane send-keys -X cancel \; \

@@ -16,6 +16,8 @@
       font.size = 12;
 
       shell.program = "tmux";
+
+      mouse.hide_when_typing = true;
     };
   };
 
