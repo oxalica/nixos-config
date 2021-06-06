@@ -1,13 +1,18 @@
 { lib, inputs, ... }:
-{
-  nix.registry = lib.genAttrs [
-    "nixpkgs"
+let
+  included = [
+    # "nixpkgs" # Already included in ./nix-common.nix
     "home-manager"
     "flake-utils"
     "rust-overlay"
-  ] (name: {
+  ];
+in
+{
+  nix.registry = lib.genAttrs included (name: {
     from.type = "indirect";
     from.id = name;
     flake = inputs.${name};
   });
+
+  nix.nixPath = map (name: "${name}=inputs.${name}") included;
 }
