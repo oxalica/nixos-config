@@ -14,5 +14,5 @@ in
     flake = inputs.${name};
   });
 
-  nix.nixPath = map (name: "${name}=inputs.${name}") included;
+  nix.nixPath = map (name: "${name}=${inputs.${name}}") included;
 }
