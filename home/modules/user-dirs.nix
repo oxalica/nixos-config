@@ -1,14 +1,14 @@
 { ... }:
 {
-  xdg.userDirs = let prefix = "$HOME/.local/share/xdg"; in {
+  xdg.userDirs = let nouse = "$HOME/.local/share/user-dirs"; in {
     enable = true;
-    desktop = "$HOME/Desktop";
+    desktop = nouse;
     download = "$HOME/Downloads";
     pictures = "$HOME/Pictures";
-    documents = "$HOME/Misc";
-    music = "$HOME/Misc";
-    publicShare = "$HOME/Misc";
-    templates = "$HOME/Misc";
-    videos = "$HOME/Misc";
+    documents = nouse;
+    music = nouse;
+    publicShare = nouse;
+    templates = nouse;
+    videos = nouse;
   };
 }
