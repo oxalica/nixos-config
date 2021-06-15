@@ -18,35 +18,47 @@ alias t="bsdtar"
 
 # List tree.
 lt() {
-  exa -T --classify --color=always $@ | eval $PAGER
+    exa -T --classify --color=always $@ | eval $PAGER
 }
 
 # Clipboard input/output.
 +() {
-  if [[ "$XDG_SESSION_TYPE" == wayland ]]; then
-    if [[ -t 0 ]]; then # stdin is tty, print clipboard
-      wl-paste
-    elif [[ -t 1 ]]; then # stdout is tty, put into clipboard
-      wl-copy
+    local board
+    if [[ "$XDG_SESSION_TYPE" == wayland ]]; then
+        case $1 in
+            p) board=--primary;;
+            b|"") ;;
+            *) echo "Invalid argument" >&2; return 1;;
+        esac
+        if [[ -t 0 ]]; then # stdin is tty, print clipboard
+            wl-paste $board
+        elif [[ -t 1 ]]; then # stdout is tty, put into clipboard
+            wl-copy $board
+        else
+            echo "Cannot use '+' as pipe" >&2
+            return 1
+        fi
     else
-      echo "Cannot use '+' as pipe" >&2
-      return 1
+        case $1 in
+            p) board=--primary;;
+            s) board=--secondary;;
+            b|"") board=--clipboard;;
+            *) echo "Invalid argument" >&2; return 1;;
+        esac
+        if [[ -t 0 ]]; then # stdin is tty, print clipboard
+            xsel --output $board
+        elif [[ -t 1 ]]; then # stdout is tty, put into clipboard
+            xsel --input $board
+        else
+            echo "Cannot use '+' as pipe" >&2
+            return 1
+        fi
     fi
-  else
-    if [[ -t 0 ]]; then # stdin is tty, print clipboard
-      xsel -ob
-    elif [[ -t 1 ]]; then # stdout is tty, put into clipboard
-      xsel -ib
-    else
-      echo "Cannot use '+' as pipe" >&2
-      return 1
-    fi
-  fi
 }
 
 # Realpath of which.
 rwhich() {
-  command which $@ | xargs realpath
+    command which $@ | xargs realpath
 }
 
 # Binary diff.
@@ -62,4 +74,12 @@ len() {
 # mkdir && cd
 mkcd() {
     mkdir -p $1 && cd $1
+}
+
+# Run with limited memory.
+limitmem() {
+    (( $# < 3 )) && { echo "USAGE: limitmem <High> <Max> <cmds...>" >&2; return 1; }
+    local cmd=(systemd-run --scope --user -p MemorySwapMax=0 -p MemoryHigh=$1 -p MemoryMax=$2 $argv[3,-1])
+    echo -E "+ ${(q)cmd[@]}"
+    $cmd[@]
 }
