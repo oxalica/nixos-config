@@ -28,7 +28,7 @@
     description = "btrbk backup and clean up";
     serviceConfig = {
       Type = "oneshot";
-      ExecStart = "${pkgs.btrbk}/bin/btrbk resume default";
+      ExecStart = "${pkgs.btrbk}/bin/btrbk run default";
     };
   };
 
