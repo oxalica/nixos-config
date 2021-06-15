@@ -5,7 +5,6 @@
 
   imports = [
     ./modules/alacritty.nix
-    ./modules/auto-snapshot-storage.nix
     ./modules/common-pkgs.nix
     ./modules/direnv.nix
     ./modules/firefox.nix

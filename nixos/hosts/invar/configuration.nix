@@ -3,6 +3,7 @@
 {
   imports = [
     ./boot.nix
+    ./btrbk.nix
     ./software.nix
     ./system.nix
 
