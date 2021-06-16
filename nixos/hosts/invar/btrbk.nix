@@ -5,17 +5,16 @@
   # For manual run.
   environment.etc."btrbk/btrbk.conf".source = ./btrbk.conf;
 
-  # Don't check deletion for frequent snapshoting, since it will spin up the target device to check reachable parents.
-  systemd.services.btrbk-snapshot-only = {
-    description = "btrbk snapshot only";
+  systemd.services.btrbk-snapshot = {
+    description = "btrbk snapshot";
     serviceConfig = {
       Type = "oneshot";
-      ExecStart = "${pkgs.btrbk}/bin/btrbk snapshot --preserve default";
+      ExecStart = "${pkgs.btrbk}/bin/btrbk run snapshot";
     };
   };
 
-  systemd.timers.btrbk-snapshot-only = {
-    description = "btrbk snapshot only timer";
+  systemd.timers.btrbk-snapshot = {
+    description = "btrbk snapshot timer";
     wantedBy = [ "timers.target" ];
     timerConfig = {
       OnUnitInactiveSec = "15min";
@@ -23,17 +22,16 @@
     };
   };
 
-  # Snapshot backup and clean up.
-  systemd.services.btrbk-backup = {
-    description = "btrbk backup and clean up";
+  systemd.services.btrbk-backup-wd2t = {
+    description = "btrbk backup wd2t";
     serviceConfig = {
       Type = "oneshot";
-      ExecStart = "${pkgs.btrbk}/bin/btrbk run default";
+      ExecStart = "${pkgs.btrbk}/bin/btrbk run --progress wd2t";
     };
   };
 
-  systemd.timers.btrbk-backup = {
-    description = "btrbk backup and clean up timer";
+  systemd.timers.btrbk-backup-wd2t = {
+    description = "btrbk backup wd2t timer";
     wantedBy = [ "timers.target" ];
     timerConfig.OnCalendar = "03:05:00";
   };
