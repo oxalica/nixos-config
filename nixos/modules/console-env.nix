@@ -14,8 +14,5 @@
   programs.iotop.enable = true;
   programs.iftop.enable = true;
 
-  environment.systemPackages = with pkgs; [
-    htop
-    screen
-  ];
+  environment.systemPackages = with pkgs; [ htop ];
 }

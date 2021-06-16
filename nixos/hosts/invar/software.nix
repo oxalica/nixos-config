@@ -44,12 +44,6 @@
     allowedUDPPorts = [ 137 138 ];
   };
 
-  # services.transmission = {
-  #   enable = true;
-  #   home = "/home/transmission";
-  # };
-  # users.groups."transmission".members = [ "oxa" ];
-
   services.openssh = {
     enable = true;
     passwordAuthentication = false;
@@ -64,15 +58,6 @@
   };
   users.groups."libvirtd".members = [ "oxa" ];
 
-  virtualisation.docker = {
-    enable = true;
-    autoPrune = {
-      enable = true;
-      dates = "weekly";
-    };
-  };
-  users.groups."docker".members = [ "oxa" ];
-
   services.earlyoom = {
     enable = true;
     freeMemThreshold = 5;
@@ -81,7 +66,6 @@
   };
 
   programs.mtr.enable = true;
-  programs.firejail.enable = true;
 
   programs.adb.enable = true;
   users.groups."adbusers".members = [ "oxa" ];
@@ -90,7 +74,6 @@
     cntr # Debug nix build.
     curl
     git
-    htop
     ltunify # Logitech Unifying receivers.
     virt-manager
   ];
