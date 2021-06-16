@@ -3,21 +3,24 @@
   programs.vim = {
     enable = true;
     extraConfig = ''
-      " Plugin settings
-      let g:rustfmt_autosave = 1
+      source ${./init.vim}
 
+      " Plugin settings
+
+      " coc-nvim
       inoremap <silent><expr> <c-@> coc#refresh()
       inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
-      let g:NERDCreateDefaultMappings = 0
+      " coc-rust-analyzer
+      let g:rustfmt_autosave = 1
+
+      " nerdcommenter
       let g:NERDSpaceDelims = 1
       let g:NERDDefaultAlign = 'left'
       let g:NERDCommentEmptyLines = 1
-      " <c-/>
-      nmap  <plug>NERDCommenterToggle
-      xmap  <plug>NERDCommenterToggle
 
-      source ${./init.vim}
+      " vim-sandwich
+      runtime START **/sandwich/keymap/surround.vim
     '';
 
     plugins = with pkgs.vimPlugins; [
@@ -27,7 +30,7 @@
       vim-cursorword
       vim-gitgutter
       vim-nix
-      vim-surround
+      vim-sandwich
       vim-toml
 
       coc-nvim
