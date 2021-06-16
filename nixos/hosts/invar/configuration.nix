@@ -22,6 +22,7 @@
   time.timeZone = "Asia/Shanghai";
 
   users = {
+    mutableUsers = false;
     groups."oxa".gid = 1000;
     users."oxa" = {
       isNormalUser = true;
@@ -29,6 +30,16 @@
       group = "oxa";
       extraGroups = [ "wheel" ];
       shell = pkgs.zsh;
+    } // (if inputs ? secrets then {
+      initialHashedPassword = (import (inputs.secrets + "/passwd.nix")).oxa;
+    } else {
+      initialPassword = "oxa";
+    });
+
+    users."root" = if inputs ? secrets then {
+      initialHashedPassword = (import (inputs.secrets + "/passwd.nix")).root;
+    } else {
+      initialPassword = "root";
     };
   };
 

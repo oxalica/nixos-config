@@ -138,7 +138,7 @@
     "secrets": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-J7QHEDzoyE07LXM9f33DP9bdff7Z2S03WEZKYKAs/k8=",
+        "narHash": "sha256-cCkkzYuI0mYFBhUEY3RKwVoQewDIY3M/lBJLo659w4E=",
         "path": "/home/oxa/storage/repo/nixos-config/secrets",
         "type": "path"
       },

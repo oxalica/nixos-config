@@ -1,9 +1,8 @@
 { config, lib, pkgs, modulesPath, ... }:
 
 {
-  imports = [
-    (modulesPath + "/installer/scan/not-detected.nix")
-  ];
+  # imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
+  hardware.enableRedistributableFirmware = lib.mkDefault true;
 
   boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usbhid" ];
   boot.initrd.kernelModules = [ "dm-snapshot" ];
@@ -36,10 +35,23 @@
     allowDiscards = true;
   };
 
-  fileSystems = {
+  fileSystems = let
+    btrfs = options: {
+      device = "/dev/disk/by-uuid/7219f4b1-a9d1-42a4-bfc9-386fa919d44b";
+      fsType = "btrfs";
+      options = [ "compress-force=zstd" ] ++ options;
+    };
+
+  in {
+    # "/" = {
+    #   device = "/dev/disk/by-uuid/b009a0bd-0db7-4ec5-b6d0-ff290488d6a4";
+    #   fsType = "ext4";
+    # };
+
     "/" = {
-      device = "/dev/disk/by-uuid/b009a0bd-0db7-4ec5-b6d0-ff290488d6a4";
-      fsType = "ext4";
+      device = "none";
+      fsType = "tmpfs";
+      options = [ "defaults" "size=4G" "mode=755" ];
     };
 
     "/boot" = {
@@ -47,24 +59,27 @@
       fsType = "vfat";
     };
 
-    "/.subvols" = {
-      device = "/dev/disk/by-uuid/7219f4b1-a9d1-42a4-bfc9-386fa919d44b";
-      fsType = "btrfs";
-    };
-
-    "/home/oxa" = {
-      device = "/dev/disk/by-uuid/7219f4b1-a9d1-42a4-bfc9-386fa919d44b";
-      fsType = "btrfs";
-      options = [ "subvol=@home-oxa" "user_subvol_rm_allowed" ];
-    };
+    "/.subvols" = btrfs [ "noatime" ];
+    "/nix" = btrfs [ "subvol=/@nix" "noatime" ];
+    "/var" = btrfs [ "subvol=/@var" "noatime" ];
+    "/home/oxa" = btrfs [ "subvol=/@home-oxa" "noatime" ]; # "user_subvol_rm_allowed" ];
   };
 
   swapDevices = [
     {
       device = "/var/swapfile";
-      size = 16 * 1024; # 16G
+      # FIXME: Auto creation sucks on btrfs.
+      # size = 8 * 1024; # 8G
     }
   ];
+
+  environment.etc = {
+    "machine-id".source = "/var/machine-id";
+    "ssh/ssh_host_rsa_key".source = "/var/ssh/ssh_host_rsa_key";
+    "ssh/ssh_host_rsa_key.pub".source = "/var/ssh/ssh_host_rsa_key.pub";
+    "ssh/ssh_host_ed25519_key".source = "/var/ssh/ssh_host_ed25519_key";
+    "ssh/ssh_host_ed25519_key.pub".source = "/var/ssh/ssh_host_ed25519_key.pub";
+  };
 
   # High-DPI console
   # hardware.video.hidpi.enable = true; # It use 80x50 mode, which is too big and has wrong aspect ratio.
