@@ -34,6 +34,10 @@
       merge.tool = "vimdiff";
       merge.conflictstyle = "diff3";
       mergetool.prompt = false;
+
+      core.pager = "less";
+      pager.branch = "less --quit-if-one-screen";
+      pager.stash = "less --quit-if-one-screen";
     };
   };
 }

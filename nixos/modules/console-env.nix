@@ -3,12 +3,13 @@
   programs.vim.defaultEditor = true;
 
   programs.less.enable = true;
-  programs.less.envVariables.LESS = lib.concatStringsSep " " [
-    "--RAW-CONTROL-CHARS"
-    "--quit-if-one-screen"
+  # Override the default value in nixos/modules/programs/environment.nix
+  environment.variables.PAGER = "less";
+  # Don't use `programs.less.envVariables.LESS`, which will be override by `LESS` set by `man`.
+  environment.variables.LESS = lib.concatStringsSep " " [
+    "--RAW-CONTROL-CHARS" # Only allow colors.
     "--mouse"
     "--wheel-lines=5"
-    "--no-init" # Don't clear on exit.
   ];
 
   programs.iotop.enable = true;
