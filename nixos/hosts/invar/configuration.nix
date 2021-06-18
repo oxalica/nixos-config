@@ -16,6 +16,8 @@
     ../../modules/steam-compat.nix
   ] ++ lib.optional (inputs ? secrets) (inputs.secrets + "/nixos-invar.nix");
 
+  systemd.user.services.fcitx5-daemon.enable = lib.mkForce false;
+
   networking.hostName = "invar";
 
   time.timeZone = "Asia/Shanghai";

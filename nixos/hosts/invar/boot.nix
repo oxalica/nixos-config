@@ -39,14 +39,11 @@
     btrfs = options: {
       device = "/dev/disk/by-uuid/7219f4b1-a9d1-42a4-bfc9-386fa919d44b";
       fsType = "btrfs";
-      options = [ "compress-force=zstd" ] ++ options;
+      # zstd:1  W: ~510MiB/s
+      # zstd:3  W: ~330MiB/s
+      options = [ "compress-force=zstd:1" ] ++ options;
     };
-
   in {
-    # "/" = {
-    #   device = "/dev/disk/by-uuid/b009a0bd-0db7-4ec5-b6d0-ff290488d6a4";
-    #   fsType = "ext4";
-    # };
 
     "/" = {
       device = "none";
@@ -62,7 +59,7 @@
     "/.subvols" = btrfs [ "noatime" ];
     "/nix" = btrfs [ "subvol=/@nix" "noatime" ];
     "/var" = btrfs [ "subvol=/@var" "noatime" ];
-    "/home/oxa" = btrfs [ "subvol=/@home-oxa" "noatime" ]; # "user_subvol_rm_allowed" ];
+    "/home/oxa" = btrfs [ "subvol=/@home-oxa" "noatime" ];
   };
 
   swapDevices = [
@@ -72,6 +69,14 @@
       # size = 8 * 1024; # 8G
     }
   ];
+
+  systemd.tmpfiles.rules = [
+    "d /tmp 1777 root root 2d"
+    "q /var/tmp 1777 root root 15d"
+  ];
+  # We already wrote our rules.
+  environment.etc."tmpfiles.d/tmp.conf".source =
+    lib.mkForce (pkgs.writeText "dummy-tmp-conf" "");
 
   environment.etc = {
     "machine-id".source = "/var/machine-id";
