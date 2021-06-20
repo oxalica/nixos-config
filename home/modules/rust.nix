@@ -30,7 +30,8 @@ let
     '';
   };
   lld-linker = pkgs.writeShellScript "lld-linker" ''
-    if [[ -z "$RUST_NO_LLD" ]]; then
+    lld="$(rustc --print sysroot)/lib/rustlib/${rustHostTarget}/bin/rust-lld" || true
+    if [[ -e "$lld" && -z "$RUST_NO_LLD" ]]; then
       export PATH="${lld-wrapper}/bin''${PATH:+:}$PATH"
       exec ${pkgs.gcc}/bin/gcc -fuse-ld=lld "$@"
     else

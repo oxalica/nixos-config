@@ -1,4 +1,15 @@
 { pkgs, ... }:
+let
+  coc-settings = {
+    "rust-analyzer.server.path" = "${pkgs.rust-analyzer}/bin/rust-analyzer";
+  };
+
+  coc-config-home = pkgs.writeTextFile {
+    name = "coc-config-home";
+    destination = "/coc-settings.json";
+    text = builtins.toJSON coc-settings;
+  };
+in
 {
   programs.vim = {
     enable = true;
@@ -8,6 +19,7 @@
       " Plugin settings
 
       " coc-nvim
+      let g:coc_config_home='${coc-config-home}'
       inoremap <silent><expr> <c-@> coc#refresh()
       inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
