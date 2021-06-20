@@ -1,8 +1,8 @@
 { pkgs, ... }:
 
 {
-  virtualisation.docker.enable = true;
-  users.groups."docker".members = [ "oxa" ];
+  # virtualisation.docker.enable = true;
+  # users.groups."docker".members = [ "oxa" ];
 
   virtualisation.libvirtd = {
     enable = true;

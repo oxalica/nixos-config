@@ -101,8 +101,6 @@
     nixosConfigurations = builtins.mapAttrs (name: path: import path {
       inherit inputs overlays;
     }) {
-      blacksteel = ./nixos/hosts/blacksteel;
-      # invar      = ./nixos/hosts/invar;
       silver     = ./nixos/hosts/silver;
 
       iso        = ./nixos/hosts/iso;
@@ -111,6 +109,10 @@
       invar = mkSystem "x86_64-linux"
         (with overlays; [ rust-overlay xdgify-overlay tdesktop-font old-firmware ])
         [ ./nixos/hosts/invar/configuration.nix ];
+
+      blacksteel = mkSystem "x86_64-linux"
+        (with overlays; [ rust-overlay tdesktop-font ])
+        [ ./nixos/hosts/blacksteel/configuration.nix ];
     };
   };
 }

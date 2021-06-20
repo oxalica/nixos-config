@@ -4,7 +4,9 @@
   programs.home-manager.enable = true;
 
   imports = [
+    ./modules/alacritty.nix
     ./modules/common-pkgs.nix
+    ./modules/direnv.nix
     ./modules/firefox.nix
     ./modules/git.nix
     ./modules/gpg.nix

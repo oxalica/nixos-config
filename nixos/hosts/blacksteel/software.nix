@@ -3,7 +3,9 @@
 {
   nixpkgsAllowUnfreeList = [
     "ark" "unrar"
-    "vscode-extension-ms-vscode-cpptools" "vscode-extension-ms-vscode-remote-remote-ssh"
+    "vscode-extension-ms-toolsai-jupyter"
+    "vscode-extension-ms-vscode-cpptools"
+    "vscode-extension-ms-vscode-remote-remote-ssh"
     "steam" "steam-original" "steam-runtime"
     "minecraft-launcher"
     "osu-lazer"
@@ -27,7 +29,7 @@
   services.tlp = {
     enable = true;
     settings = {
-      START_CHARGE_THRESH_BAT0 = 75;
+      START_CHARGE_THRESH_BAT0 = 70;
       STOP_CHARGE_THRESH_BAT0 = 80;
     };
   };
