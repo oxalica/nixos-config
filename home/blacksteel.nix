@@ -14,6 +14,7 @@
     ./modules/rime-fcitx.nix
     ./modules/rust.nix
     ./modules/shell
+    ./modules/tmux.nix
     ./modules/trash.nix
     ./modules/user-dirs.nix
     ./modules/vim

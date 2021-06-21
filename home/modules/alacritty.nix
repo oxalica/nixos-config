@@ -15,7 +15,7 @@
       font.normal.family = "Sarasa Mono SC";
       font.size = 12;
 
-      shell.program = "tmux";
+      shell.program = "${pkgs.tmux}/bin/tmux";
 
       mouse.hide_when_typing = true;
     };
