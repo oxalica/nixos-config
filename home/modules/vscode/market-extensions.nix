@@ -2,8 +2,8 @@
   (extensionFromVscodeMarketplace {
     publisher = "alexcvzz";
     name = "vscode-sqlite";
-    version = "0.12.0";
-    sha256 = "1r1wax2ipf2gdd33jrn287zvv5wj7dv5l7i45df24ljynqxl2vf8";
+    version = "0.13.0";
+    sha256 = "17nx5chvl5gpgc5kgn0s4l0vbzjx8386iarq8kzifq3hzx9hwvlm";
   })
   (extensionFromVscodeMarketplace {
     publisher = "bungcip";
@@ -14,8 +14,8 @@
   (extensionFromVscodeMarketplace {
     publisher = "dbaeumer";
     name = "vscode-eslint";
-    version = "2.1.20";
-    sha256 = "0xk8pxv5jy89fshda845iswryvmgv0yxr11xsdbvd9zdczqhg7wc";
+    version = "2.1.23";
+    sha256 = "1wqcnbj1ckifxfw951sfhq2vyliac10i9101mk46jli36mihkjgi";
   })
   (extensionFromVscodeMarketplace {
     publisher = "dramforever";
@@ -38,8 +38,8 @@
   (extensionFromVscodeMarketplace {
     publisher = "eamodio";
     name = "gitlens";
-    version = "11.4.1";
-    sha256 = "1gqkcv210h595rxwqsgwywjg2c2xnxdjlpqmgg091hd36g7jhcrs";
+    version = "11.5.1";
+    sha256 = "0wy23fnd21jfqw88cyspzf09yvz2bpnlxniz4bc61n4pqm7xxki1";
   })
   (extensionFromVscodeMarketplace {
     publisher = "guidotapia2";
@@ -56,8 +56,8 @@
   (extensionFromVscodeMarketplace {
     publisher = "ms-vscode";
     name = "hexeditor";
-    version = "1.6.0";
-    sha256 = "10bs2l5ihfk3q506vj1qcv85csg9ivwk2jl3l01b84hdhpwk7p0j";
+    version = "1.7.1";
+    sha256 = "1q6avb3fnw1qhsmmwzm38r965qvvyp1l71m5vmpmc6nad1l6qa08";
   })
   (extensionFromVscodeMarketplace {
     publisher = "serayuzgur";
@@ -68,8 +68,8 @@
   (extensionFromVscodeMarketplace {
     publisher = "webfreak";
     name = "debug";
-    version = "0.25.0";
-    sha256 = "0qm2jgkj17a0ca5z21xbqzfjpi0hzxw4h8y2hm8c4kk2bnw02sh1";
+    version = "0.25.1";
+    sha256 = "1l01sv6kwh8dlv3kygkkd0z9m37hahflzd5bx1wwij5p61jg7np9";
   })
   (extensionFromVscodeMarketplace {
     publisher = "ziyasal";
