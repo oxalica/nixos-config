@@ -1,7 +1,6 @@
 { lib, pkgs, ... }:
 
 let
-  /*
   myPython = pkgs.python3.withPackages (ps: with ps; [
     setuptools
     pylint
@@ -17,15 +16,14 @@ let
     #   enableFfmpeg = true;
     # })
   ]);
-  */
 
-  myPip = pkgs.python3Packages.pip.overrideAttrs (old: {
-    postFixup = old.postFixup + ''
-      for file in $out/bin/pip*; do
-        sed '/PYTHONNOUSERSITE/d' --in-place "$file"
-      done
-    '';
-  });
+  # myPip = pkgs.python3Packages.pip.overrideAttrs (old: {
+  #   postFixup = old.postFixup + ''
+  #     for file in $out/bin/pip*; do
+  #       sed '/PYTHONNOUSERSITE/d' --in-place "$file"
+  #     done
+  #   '';
+  # });
 
   myIdris = pkgs.idrisPackages.with-packages (with pkgs.idrisPackages; [
     contrib array
@@ -39,9 +37,10 @@ in {
     libarchive runzip # Compression
     trash-cli xsel wl-clipboard # CLI-Desktop
     taskwarrior # Task manager
+    beancount
 
     # GUI
-    kolourpaint vlc libreoffice # Files
+    kolourpaint vlc libreoffice calibre # Files
     # typora <- usually broken
     # firefox <- in module
     electrum electron-cash monero-gui # Cryptocurrency
@@ -53,7 +52,7 @@ in {
     cachix patchelf # Utils
     gcc gdb gnumake cmake lld binutils # rust's backtrace-sys requires `ar`
     ghc nodejs idris2 # myIdris <- broken
-    python3 myPip # myPython
+    myPython # python3 myPip
     nixpkgs-review # nix
     sqlite-interactive # sqlite
 
