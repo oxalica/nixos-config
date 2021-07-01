@@ -5,6 +5,11 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-20.09";
 
+    archlinuxcn = {
+      url = "github:archlinuxcn/repo";
+      flake = false;
+    };
+
     # `amdgpu` causes GPU reset when using firefox hardware decoding, in current unstable.
     # Checkout old firmware for test.
     # 11 May 00:20 system-128-link -> /nix/store/r5275bdswf52h02zshqx3v448ghp959x-nixos-system-invar-21.05.20210506.6358647/
@@ -30,6 +35,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
     };
+
+    tdesktop-2-8.url = "github:nixos/nixpkgs/2db14a9cb5a9477b80db549b302b15cbebc77b3d";
 
     rime-emoji = {
       url = "github:rime/rime-emoji";
@@ -58,10 +65,23 @@
       rust-overlay = inputs.rust-overlay.overlay;
       xdgify-overlay = inputs.xdgify-overlay.overlay;
 
+      tdesktop-2-8 = prToOverlay inputs.tdesktop-2-8 [ "tdesktop" ];
+
+      tdesktop-fix-tgvoip = final: prev: rec {
+        libtgvoip = prev.libtgvoip.overrideAttrs (oldAttrs: {
+          postPatch = (oldAttrs.postPatch or "") + ''
+            sed "s|#define RTC_DCHECK_IS_ON 1|#define RTC_DCHECK_IS_ON 0|g" -i webrtc_dsp/rtc_base/checks.h
+          '';
+        });
+        tdesktop = prev.tdesktop.override { inherit libtgvoip; };
+      };
+
       tdesktop-font = final: prev: {
         tdesktop = prev.tdesktop.overrideAttrs (oldAttrs: {
-          patches = (oldAttrs.patches or []) ++
-            [ ./patches/tdesktop-0001-use-system-font-and-use-stylename.patch ];
+          postPatch = (oldAttrs.postPatch or "") + ''
+            patch -d Telegram/lib_ui -Np1 -i \
+              ${inputs.archlinuxcn}/archlinuxcn/telegram-desktop-megumifox/0001-use-system-font-and-use-stylename.patch
+          '';
         });
       };
 
@@ -107,7 +127,7 @@
 
     } // {
       invar = mkSystem "x86_64-linux"
-        (with overlays; [ rust-overlay xdgify-overlay tdesktop-font old-firmware ])
+        (with overlays; [ rust-overlay xdgify-overlay tdesktop-2-8 tdesktop-fix-tgvoip tdesktop-font old-firmware ])
         [ ./nixos/hosts/invar/configuration.nix ];
 
       blacksteel = mkSystem "x86_64-linux"

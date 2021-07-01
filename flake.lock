@@ -1,5 +1,21 @@
 {
   "nodes": {
+    "archlinuxcn": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1624878100,
+        "narHash": "sha256-O+lrgkm9IOLoz6u4v6jGuuo1UX1aUYZr7NYHIM3mMvU=",
+        "owner": "archlinuxcn",
+        "repo": "repo",
+        "rev": "6e9b7f3f76373d8f19392e8020685d7a9b82b019",
+        "type": "github"
+      },
+      "original": {
+        "owner": "archlinuxcn",
+        "repo": "repo",
+        "type": "github"
+      }
+    },
     "flake-utils": {
       "locked": {
         "lastModified": 1623875721,
@@ -101,6 +117,7 @@
     },
     "root": {
       "inputs": {
+        "archlinuxcn": "archlinuxcn",
         "flake-utils": "flake-utils",
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs",
@@ -109,6 +126,7 @@
         "rime-emoji": "rime-emoji",
         "rust-overlay": "rust-overlay",
         "secrets": "secrets",
+        "tdesktop-2-8": "tdesktop-2-8",
         "xdgify-overlay": "xdgify-overlay"
       }
     },
@@ -145,6 +163,22 @@
       "original": {
         "path": "/home/oxa/storage/repo/nixos-config/secrets",
         "type": "path"
+      }
+    },
+    "tdesktop-2-8": {
+      "locked": {
+        "lastModified": 1624888664,
+        "narHash": "sha256-GmwHn1kvSMO0Ip3+P9HqAMFFxc+HrJ0NS1NTDtkOJPY=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "2db14a9cb5a9477b80db549b302b15cbebc77b3d",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "2db14a9cb5a9477b80db549b302b15cbebc77b3d",
+        "type": "github"
       }
     },
     "xdgify-overlay": {
