@@ -4,8 +4,7 @@
     enable = true;
     settings = {
       default-key = "5CB0E9E5D5D571F57F540FEACED392DE0C483D00";
-      personal-digest-preferences = "SHA256";
-      cert-digest-algo = "SHA256";
+      personal-compress-preferences = "Uncompressed ZLIB";
     };
   };
 

@@ -1,6 +1,7 @@
 { pkgs, ... }:
 let
   coc-settings = {
+    "rust-analyzer.enable" = false; # Disable by default.
     "rust-analyzer.server.path" = "${pkgs.rust-analyzer}/bin/rust-analyzer";
   };
 
@@ -24,7 +25,7 @@ in
       inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
       " coc-rust-analyzer
-      let g:rustfmt_autosave = 1
+      " let g:rustfmt_autosave = 1
 
       " nerdcommenter
       let g:NERDSpaceDelims = 1
@@ -39,6 +40,7 @@ in
       easymotion
       nerdcommenter
       rust-vim
+      vim-beancount
       vim-cursorword
       vim-gitgutter
       vim-nix
