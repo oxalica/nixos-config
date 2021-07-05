@@ -36,7 +36,7 @@
       inputs.flake-utils.follows = "flake-utils";
     };
 
-    tdesktop-2-8.url = "github:nixos/nixpkgs/2db14a9cb5a9477b80db549b302b15cbebc77b3d";
+    tdesktop-2-8.url = "github:nixos/nixpkgs/20887e4bbfdae3aed6bfa1f53ddf138ee325515e";
 
     rime-emoji = {
       url = "github:rime/rime-emoji";
@@ -66,15 +66,6 @@
       xdgify-overlay = inputs.xdgify-overlay.overlay;
 
       tdesktop-2-8 = prToOverlay inputs.tdesktop-2-8 [ "tdesktop" ];
-
-      tdesktop-fix-tgvoip = final: prev: rec {
-        libtgvoip = prev.libtgvoip.overrideAttrs (oldAttrs: {
-          postPatch = (oldAttrs.postPatch or "") + ''
-            sed "s|#define RTC_DCHECK_IS_ON 1|#define RTC_DCHECK_IS_ON 0|g" -i webrtc_dsp/rtc_base/checks.h
-          '';
-        });
-        tdesktop = prev.tdesktop.override { inherit libtgvoip; };
-      };
 
       tdesktop-font = final: prev: {
         tdesktop = prev.tdesktop.overrideAttrs (oldAttrs: {
@@ -127,7 +118,7 @@
 
     } // {
       invar = mkSystem "x86_64-linux"
-        (with overlays; [ rust-overlay xdgify-overlay tdesktop-2-8 tdesktop-fix-tgvoip tdesktop-font old-firmware ])
+        (with overlays; [ rust-overlay xdgify-overlay tdesktop-2-8 /*tdesktop-font*/ old-firmware ])
         [ ./nixos/hosts/invar/configuration.nix ];
 
       blacksteel = mkSystem "x86_64-linux"
