@@ -36,8 +36,6 @@
       inputs.flake-utils.follows = "flake-utils";
     };
 
-    tdesktop-2-8.url = "github:nixos/nixpkgs/20887e4bbfdae3aed6bfa1f53ddf138ee325515e";
-
     rime-emoji = {
       url = "github:rime/rime-emoji";
       flake = false;
@@ -65,8 +63,6 @@
       rust-overlay = inputs.rust-overlay.overlay;
       xdgify-overlay = inputs.xdgify-overlay.overlay;
 
-      tdesktop-2-8 = prToOverlay inputs.tdesktop-2-8 [ "tdesktop" ];
-
       tdesktop-font = final: prev: {
         tdesktop = prev.tdesktop.overrideAttrs (oldAttrs: {
           postPatch = (oldAttrs.postPatch or "") + ''
@@ -78,6 +74,27 @@
 
       old-firmware = final: prev: {
         inherit (inputs.nixpkgs-old-firmware.legacyPackages.${final.system}) firmwareLinuxNonfree;
+      };
+    };
+
+    # Temporary fix for https://github.com/NixOS/nixpkgs/issues/128893.
+    config-alsa-1-2-5-1 = { lib, pkgs, ... }: {
+      system.replaceRuntimeDependencies = lib.singleton {
+        original = pkgs.alsa-lib;
+        replacement = pkgs.alsa-lib.overrideAttrs (drv: {
+          # NOTES:
+          #
+          # Since the store paths are replaced in the system closure, we can't use
+          # "1.2.5.1" here because it would result in a different length.
+          #
+          # Additionally, the assertion here is to make sure that once version
+          # 1.2.5.1 hits the system we get an error and can remove this altogether.
+          version = assert pkgs.alsa-lib.version == "1.2.5"; "1.2.X";
+          src = pkgs.fetchurl {
+            url = "mirror://alsa/lib/${drv.pname}-1.2.5.1.tar.bz2";
+            hash = "sha256-YoQh2VDOyvI03j+JnVIMCmkjMTyWStdR/6wIHfMxQ44=";
+          };
+        });
       };
     };
 
@@ -118,8 +135,8 @@
 
     } // {
       invar = mkSystem "x86_64-linux"
-        (with overlays; [ rust-overlay xdgify-overlay tdesktop-2-8 /*tdesktop-font*/ old-firmware ])
-        [ ./nixos/hosts/invar/configuration.nix ];
+        (with overlays; [ rust-overlay xdgify-overlay tdesktop-font old-firmware ])
+        [ ./nixos/hosts/invar/configuration.nix config-alsa-1-2-5-1 ];
 
       blacksteel = mkSystem "x86_64-linux"
         (with overlays; [ rust-overlay tdesktop-font ])
