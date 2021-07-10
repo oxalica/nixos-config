@@ -34,8 +34,8 @@ with lib;
     fontDir.enable = true;
     fontconfig.defaultFonts = {
       monospace = [ "Sarasa Mono SC" ];
-      sansSerif = [ "Sarasa UI SC" ];
-      serif = [ "Sarasa UI SC" ];
+      sansSerif = [ "Sarasa Gothic SC" ];
+      serif = [ "Sarasa Gothic SC" ];
       emoji = [ "EmojiOne Color" ];
     };
   };
