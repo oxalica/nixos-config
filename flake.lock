@@ -1,21 +1,5 @@
 {
   "nodes": {
-    "archlinuxcn": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1625543335,
-        "narHash": "sha256-SB82kfZU8XRTdb1j9OA+NC2RVewKn79KykGxGrgJdDM=",
-        "owner": "archlinuxcn",
-        "repo": "repo",
-        "rev": "da52a37e94233e3fa6373340f8eb5d99893f31b7",
-        "type": "github"
-      },
-      "original": {
-        "owner": "archlinuxcn",
-        "repo": "repo",
-        "type": "github"
-      }
-    },
     "flake-utils": {
       "locked": {
         "lastModified": 1623875721,
@@ -117,7 +101,6 @@
     },
     "root": {
       "inputs": {
-        "archlinuxcn": "archlinuxcn",
         "flake-utils": "flake-utils",
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs",

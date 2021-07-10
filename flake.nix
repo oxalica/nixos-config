@@ -5,11 +5,6 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-20.09";
 
-    archlinuxcn = {
-      url = "github:archlinuxcn/repo";
-      flake = false;
-    };
-
     # `amdgpu` causes GPU reset when using firefox hardware decoding, in current unstable.
     # Checkout old firmware for test.
     # 11 May 00:20 system-128-link -> /nix/store/r5275bdswf52h02zshqx3v448ghp959x-nixos-system-invar-21.05.20210506.6358647/
@@ -62,15 +57,6 @@
     overlays = {
       rust-overlay = inputs.rust-overlay.overlay;
       xdgify-overlay = inputs.xdgify-overlay.overlay;
-
-      tdesktop-font = final: prev: {
-        tdesktop = prev.tdesktop.overrideAttrs (oldAttrs: {
-          postPatch = (oldAttrs.postPatch or "") + ''
-            patch -d Telegram/lib_ui -Np1 -i \
-              ${inputs.archlinuxcn}/archlinuxcn/telegram-desktop-megumifox/0001-use-system-font-and-use-stylename.patch
-          '';
-        });
-      };
 
       old-firmware = final: prev: {
         inherit (inputs.nixpkgs-old-firmware.legacyPackages.${final.system}) firmwareLinuxNonfree;
@@ -135,11 +121,11 @@
 
     } // {
       invar = mkSystem "x86_64-linux"
-        (with overlays; [ rust-overlay xdgify-overlay tdesktop-font old-firmware ])
+        (with overlays; [ rust-overlay xdgify-overlay old-firmware ])
         [ ./nixos/hosts/invar/configuration.nix config-alsa-1-2-5-1 ];
 
       blacksteel = mkSystem "x86_64-linux"
-        (with overlays; [ rust-overlay tdesktop-font ])
+        (with overlays; [ rust-overlay ])
         [ ./nixos/hosts/blacksteel/configuration.nix ];
     };
   };
