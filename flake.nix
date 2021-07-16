@@ -14,6 +14,8 @@
     # 25 May 20:31 system-132-link -> /nix/store/jypydm0v61y6jl8bv20ciix0rkdf5gkj-nixos-system-invar-21.05.20210523.900115a/
     nixpkgs-old-firmware.url = "github:nixos/nixpkgs/63586475587d7e0e078291ad4b49b6f6a6885100";
 
+    nixpkgs-nixos-tag.url = "github:nixos/nixpkgs/pull/130388/head";
+
     flake-utils.url = "github:numtide/flake-utils";
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -84,6 +86,18 @@
       };
     };
 
+    config-nixos-tag = { config, lib, pkgs, ... }: let
+      setup-etc-pl = inputs.nixpkgs-nixos-tag + "/nixos/modules/system/etc/setup-etc.pl";
+      etc = config.system.build.etc;
+    in {
+      system.activationScripts.etc = lib.stringAfter [ "users" "groups" ]
+        ''
+          # Set up the statically computed bits of /etc.
+          echo "setting up /etc..."
+          ${pkgs.perl.withPackages (p: [ p.FileSlurp ])}/bin/perl ${setup-etc-pl} ${etc}/etc
+        '';
+    };
+
     # Ref: https://github.com/dramforever/config/blob/63be844019b7ca675ea587da3b3ff0248158d9fc/flake.nix#L24-L28
     system-label = let inherit (inputs) self; in {
       system.configurationRevision = self.rev or null;
@@ -122,7 +136,7 @@
     } // {
       invar = mkSystem "x86_64-linux"
         (with overlays; [ rust-overlay xdgify-overlay old-firmware ])
-        [ ./nixos/hosts/invar/configuration.nix config-alsa-1-2-5-1 ];
+        [ ./nixos/hosts/invar/configuration.nix config-alsa-1-2-5-1 config-nixos-tag ];
 
       blacksteel = mkSystem "x86_64-linux"
         (with overlays; [ rust-overlay ])

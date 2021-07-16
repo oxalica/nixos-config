@@ -51,6 +51,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-nixos-tag": {
+      "locked": {
+        "lastModified": 1626458100,
+        "narHash": "sha256-BrVQmJF0GkbHOqx1Bor4oJpCP6IAs6kYmBRsyT60t0s=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "cba8b52942c5ab38c90b7d7425e4c8acc360656e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "pull/130388/head",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs-old-firmware": {
       "locked": {
         "lastModified": 1620340338,
@@ -104,6 +120,7 @@
         "flake-utils": "flake-utils",
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs",
+        "nixpkgs-nixos-tag": "nixpkgs-nixos-tag",
         "nixpkgs-old-firmware": "nixpkgs-old-firmware",
         "nixpkgs-stable": "nixpkgs-stable",
         "rime-emoji": "rime-emoji",
