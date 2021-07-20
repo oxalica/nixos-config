@@ -9,11 +9,15 @@
   hardware.cpu.amd.updateMicrocode = true;
   hardware.bluetooth.enable = true;
 
-  security.rtkit.enable = true; # Better installed with pipewire.
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
-  };
+  sound.enable = true;
+  hardware.pulseaudio.enable = true;
+  users.groups."audio".members = [ "oxa" ];
+
+  # security.rtkit.enable = true; # Better installed with pipewire.
+  # services.pipewire = {
+  #   enable = true;
+  #   alsa.enable = true;
+  #   alsa.support32Bit = true;
+  #   pulse.enable = true;
+  # };
 }
