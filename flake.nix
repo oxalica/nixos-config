@@ -5,16 +5,8 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-20.09";
 
-    # `amdgpu` causes GPU reset when using firefox hardware decoding, in current unstable.
-    # Checkout old firmware for test.
-    # 11 May 00:20 system-128-link -> /nix/store/r5275bdswf52h02zshqx3v448ghp959x-nixos-system-invar-21.05.20210506.6358647/
-    # 20 May 18:50 system-129-link -> /nix/store/7x4hk9mwzi18nx4x0zx61x4rysmkdb8c-nixos-system-invar-21.05.20210516.7a1fbc3/ <- seems the first bad
-    # 24 May 15:26 system-130-link -> /nix/store/b44fr7qy02yp0c65k30ra7lbxcnh4h2r-nixos-system-invar-21.05.20210523.900115a/
-    # 25 May 01:14 system-131-link -> /nix/store/zyb0s5kjpykfa7gnkwq922svkw0m4mdl-nixos-system-invar-21.05.20210523.900115a/
-    # 25 May 20:31 system-132-link -> /nix/store/jypydm0v61y6jl8bv20ciix0rkdf5gkj-nixos-system-invar-21.05.20210523.900115a/
-    nixpkgs-old-firmware.url = "github:nixos/nixpkgs/63586475587d7e0e078291ad4b49b6f6a6885100";
-
     nixpkgs-nixos-tag.url = "github:nixos/nixpkgs/pull/130388/head";
+    nixpkgs-tdesktop-voice-fix.url = "github:nixos/nixpkgs/pull/130827/head";
 
     flake-utils.url = "github:numtide/flake-utils";
     home-manager = {
@@ -59,9 +51,11 @@
     overlays = {
       rust-overlay = inputs.rust-overlay.overlay;
       xdgify-overlay = inputs.xdgify-overlay.overlay;
+      tdesktop-voice-fix = prToOverlay inputs.nixpkgs-tdesktop-voice-fix [ "tdesktop" ];
 
-      old-firmware = final: prev: {
-        inherit (inputs.nixpkgs-old-firmware.legacyPackages.${final.system}) firmwareLinuxNonfree;
+      # https://github.com/NixOS/nixpkgs/pull/130840
+      skip-osu = final: prev: {
+        osu-lazer = prev.hello;
       };
     };
 
@@ -135,7 +129,7 @@
 
     } // {
       invar = mkSystem "x86_64-linux"
-        (with overlays; [ rust-overlay xdgify-overlay old-firmware ])
+        (with overlays; [ rust-overlay xdgify-overlay tdesktop-voice-fix skip-osu ])
         [ ./nixos/hosts/invar/configuration.nix config-alsa-1-2-5-1 config-nixos-tag ];
 
       blacksteel = mkSystem "x86_64-linux"
