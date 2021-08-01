@@ -6,7 +6,6 @@
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-20.09";
 
     nixpkgs-nixos-tag.url = "github:nixos/nixpkgs/pull/130388/head";
-    nixpkgs-tdesktop-voice-fix.url = "github:nixos/nixpkgs/pull/130827/head";
 
     flake-utils.url = "github:numtide/flake-utils";
     home-manager = {
@@ -51,7 +50,6 @@
     overlays = {
       rust-overlay = inputs.rust-overlay.overlay;
       xdgify-overlay = inputs.xdgify-overlay.overlay;
-      tdesktop-voice-fix = prToOverlay inputs.nixpkgs-tdesktop-voice-fix [ "tdesktop" ];
     };
 
     config-nixos-tag = { config, lib, pkgs, ... }: let
@@ -103,7 +101,7 @@
 
     } // {
       invar = mkSystem "x86_64-linux"
-        (with overlays; [ rust-overlay xdgify-overlay tdesktop-voice-fix ])
+        (with overlays; [ rust-overlay xdgify-overlay ])
         [ ./nixos/hosts/invar/configuration.nix config-nixos-tag ];
 
       blacksteel = mkSystem "x86_64-linux"
