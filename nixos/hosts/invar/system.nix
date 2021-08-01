@@ -9,6 +9,13 @@
   hardware.cpu.amd.updateMicrocode = true;
   hardware.bluetooth.enable = true;
 
+  # https://nixos.wiki/wiki/AMD_GPU#OpenCL
+  hardware.opengl.extraPackages = with pkgs; [
+    rocm-opencl-icd
+    rocm-opencl-runtime
+  ];
+  services.xserver.videoDrivers = [ "amdgpu" ];
+
   sound.enable = true;
   hardware.pulseaudio.enable = true;
   users.groups."audio".members = [ "oxa" ];
