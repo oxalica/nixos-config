@@ -46,7 +46,7 @@
   in {
 
     "/" = {
-      device = "none";
+      device = "tmpfs";
       fsType = "tmpfs";
       options = [ "defaults" "size=8G" "mode=755" ];
     };
