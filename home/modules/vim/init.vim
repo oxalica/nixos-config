@@ -18,6 +18,8 @@ set ttimeoutlen=50
 set textwidth=120
 set colorcolumn=120
 
+let mapleader='\'
+
 syntax on
 if empty(matchstr($TERM, '256color'))
   colorscheme default
@@ -47,8 +49,11 @@ endfun
 autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
 
 " Mappings
-set <m-z>=z
+if !has('nvim')
+  set <m-z>=z
+endif
 nnoremap <m-z> <esc>:set wrap!<cr>
+nnoremap <leader>z <esc>:set wrap!<cr>
 nnoremap <cr> <esc>:set hlsearch!<cr>
 
 " Wordaround shortcut collision
