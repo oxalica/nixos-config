@@ -71,6 +71,8 @@
     enableNotifications = true;
   };
 
+  services.udev.packages = with pkgs; [ logitech-udev-rules ];
+
   programs.mtr.enable = true;
 
   programs.adb.enable = true;
@@ -80,7 +82,7 @@
     cntr # Debug nix build.
     curl
     git
-    ltunify # Logitech Unifying receivers.
     virt-manager
+    solaar # Logitech devices control.
   ];
 }
