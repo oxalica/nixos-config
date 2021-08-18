@@ -5,8 +5,6 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-20.09";
 
-    nixpkgs-nixos-tag.url = "github:nixos/nixpkgs/pull/130388/head";
-
     flake-utils.url = "github:numtide/flake-utils";
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -52,18 +50,6 @@
       xdgify-overlay = inputs.xdgify-overlay.overlay;
     };
 
-    config-nixos-tag = { config, lib, pkgs, ... }: let
-      setup-etc-pl = inputs.nixpkgs-nixos-tag + "/nixos/modules/system/etc/setup-etc.pl";
-      etc = config.system.build.etc;
-    in {
-      system.activationScripts.etc = lib.stringAfter [ "users" "groups" ]
-        ''
-          # Set up the statically computed bits of /etc.
-          echo "setting up /etc..."
-          ${pkgs.perl.withPackages (p: [ p.FileSlurp ])}/bin/perl ${setup-etc-pl} ${etc}/etc
-        '';
-    };
-
     # Ref: https://github.com/dramforever/config/blob/63be844019b7ca675ea587da3b3ff0248158d9fc/flake.nix#L24-L28
     system-label = let inherit (inputs) self; in {
       system.configurationRevision = self.rev or null;
@@ -102,7 +88,7 @@
     } // {
       invar = mkSystem "x86_64-linux"
         (with overlays; [ rust-overlay xdgify-overlay ])
-        [ ./nixos/hosts/invar/configuration.nix config-nixos-tag ];
+        [ ./nixos/hosts/invar/configuration.nix ];
 
       blacksteel = mkSystem "x86_64-linux"
         (with overlays; [ rust-overlay ])
