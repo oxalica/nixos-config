@@ -1,6 +1,8 @@
 " ================ Setting ================
 " Core.
 set nocompatible
+set undofile
+set lazyredraw
 set mouse=a
 set scrolloff=5
 
@@ -21,9 +23,6 @@ set cursorline
 set textwidth=120
 set colorcolumn=120
 
-let mapleader='\'
-
-syntax on
 if empty(matchstr($TERM, '256color'))
   colorscheme default
 else
@@ -51,7 +50,25 @@ function! <SID>StripTrailingWhitespaces()
 endfun
 autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
 
+" XDGify for vim
+if !has('nvim')
+  if empty($XDG_DATA_HOME)
+    let $XDG_DATA_HOME = $HOME . "/.local/share"
+  endif
+  call mkdir($XDG_DATA_HOME . '/vim/undo', 'p')
+  call mkdir($XDG_DATA_HOME . '/vim/swap', 'p')
+  call mkdir($XDG_DATA_HOME . '/vim/backup', 'p')
+  set undodir=$XDG_DATA_HOME/vim/undo
+  set directory=.,$XDG_DATA_HOME/vim/swap
+  set backupdir=.,$XDG_DATA_HOME/vim/backup
+  set viminfofile=$XDG_DATA_HOME/vim/viminfo
+endif
+
 " ================ Mapping ================
+
+let mapleader='\'
+
+nnoremap Y y$
 
 if !has('nvim')
   set <m-z>=z
@@ -59,9 +76,6 @@ endif
 nnoremap <m-z> <esc>:set wrap!<cr>
 nnoremap <leader>z <esc>:set wrap!<cr>
 nnoremap <cr> <esc>:set hlsearch!<cr>
-
-" Wordaround shortcut collision
-inoremap <c-e> <c-w>
 
 " Panes
 nnoremap <c-w>v <esc>:vsplit<cr>
