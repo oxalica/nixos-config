@@ -5,7 +5,9 @@
     PATH = "$PATH\${PATH:+:}$HOME/.cargo/bin:$HOME/.local/bin";
   };
 
-  programs.command-not-found.enable = true;
+  # The default `command-not-found` relies on nix-channel. Use `nix-index` instead.
+  programs.command-not-found.enable = false;
+  programs.nix-index.enable = true;
 
   programs.zsh = {
     enable = true;
