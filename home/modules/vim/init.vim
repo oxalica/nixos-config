@@ -1,20 +1,23 @@
+" ================ Setting ================
+" Core.
 set nocompatible
+set mouse=a
+set scrolloff=5
+
+" Encoding.
 set encoding=utf-8 termencoding=utf-8
 set fileencodings=ucs-bom,utf-8,gb18030,latin1
 
+" Input.
 set tabstop=4 shiftwidth=4 softtabstop=4
 set autoindent smarttab cindent
 set expandtab
 set backspace=indent,eol,start
-
-set cursorline
-set number
-set mouse=a
-set scrolloff=5
-
 set ttimeoutlen=50
 
-" Line limit.
+" Render.
+set number
+set cursorline
 set textwidth=120
 set colorcolumn=120
 
@@ -48,7 +51,8 @@ function! <SID>StripTrailingWhitespaces()
 endfun
 autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
 
-" Mappings
+" ================ Mapping ================
+
 if !has('nvim')
   set <m-z>=z
 endif
@@ -69,3 +73,38 @@ nnoremap <c-w>> <c-w>><c-w>><c-w>><c-w>><c-w>>
 
 command -nargs=0 Sudow :w !sudo tee % >/dev/null
 
+" ================ Plugins ================
+
+" fcitx-vim
+let g:fcitx5_remote = '@@fcitx5@@/bin/fcitx5-remote'
+
+" nerdcommenter
+let g:NERDSpaceDelims = 1
+let g:NERDDefaultAlign = 'left'
+let g:NERDCommentEmptyLines = 1
+
+" vim-highlightedyank
+let g:highlightedyank_highlight_duration = 200
+
+" vim-sandwich
+runtime START **/sandwich/keymap/surround.vim
+" Use behavior of vim-surround for left parenthesis input. https://github.com/machakann/vim-sandwich/issues/44
+let g:sandwich#recipes += [
+  \   {'buns': ['{ ', ' }'], 'nesting': 1, 'match_syntax': 1, 'kind': ['add', 'replace'], 'action': ['add'], 'input': ['{']},
+  \   {'buns': ['[ ', ' ]'], 'nesting': 1, 'match_syntax': 1, 'kind': ['add', 'replace'], 'action': ['add'], 'input': ['[']},
+  \   {'buns': ['( ', ' )'], 'nesting': 1, 'match_syntax': 1, 'kind': ['add', 'replace'], 'action': ['add'], 'input': ['(']},
+  \   {'buns': ['{\s*', '\s*}'],   'nesting': 1, 'regex': 1, 'match_syntax': 1, 'kind': ['delete', 'replace', 'textobj'], 'action': ['delete'], 'input': ['{']},
+  \   {'buns': ['\[\s*', '\s*\]'], 'nesting': 1, 'regex': 1, 'match_syntax': 1, 'kind': ['delete', 'replace', 'textobj'], 'action': ['delete'], 'input': ['[']},
+  \   {'buns': ['(\s*', '\s*)'],   'nesting': 1, 'regex': 1, 'match_syntax': 1, 'kind': ['delete', 'replace', 'textobj'], 'action': ['delete'], 'input': ['(']},
+  \ ]
+
+" coc-nvim
+let g:coc_start_at_startup=has('nvim')
+inoremap <silent><expr> <c-@> coc#refresh()
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+nnoremap <leader>a <Plug>(coc-codeaction-line)
+
+" coc-rust-analyzer
+" let g:rustfmt_autosave = 1
+
+" vim: sw=2 et :
