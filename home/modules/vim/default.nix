@@ -4,6 +4,7 @@ let
     # Edit & navigate.
     easymotion
     # fcitx-vim
+    fzf-vim
     nerdcommenter
     vim-cursorword
     vim-gitgutter
@@ -39,8 +40,9 @@ let
 
   extraConfig =
     lib.replaceStrings
-      [ "@@fcitx5@@" ]
-      [ "${pkgs.fcitx5}" ]
+      [ "@@fcitx5@@" "@@fd@@" ]
+      (with pkgs; map (p: toString (lib.getBin p))
+        [ fcitx5 fd ])
       (builtins.readFile ./init.vim);
 
 in

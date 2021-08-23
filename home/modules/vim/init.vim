@@ -51,10 +51,10 @@ endfun
 autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
 
 " XDGify for vim
+if empty($XDG_DATA_HOME)
+  let $XDG_DATA_HOME = $HOME . "/.local/share"
+endif
 if !has('nvim')
-  if empty($XDG_DATA_HOME)
-    let $XDG_DATA_HOME = $HOME . "/.local/share"
-  endif
   call mkdir($XDG_DATA_HOME . '/vim/undo', 'p')
   call mkdir($XDG_DATA_HOME . '/vim/swap', 'p')
   call mkdir($XDG_DATA_HOME . '/vim/backup', 'p')
@@ -91,6 +91,27 @@ command -nargs=0 Sudow :w !sudo tee % >/dev/null
 
 " fcitx-vim
 let g:fcitx5_remote = '@@fcitx5@@/bin/fcitx5-remote'
+
+" fzf-vim
+let g:fzf_history_dir = $XDG_DATA_HOME . '/fzf.vim/history'
+let g:fzf_layout = { 'up': '40%' }
+let g:fzf_action = {
+    \ 'ctrl-t': 'tab split',
+    \ 'ctrl-s': 'split',
+    \ 'ctrl-v': 'vsplit',
+    \ }
+let $FZF_DEFAULT_COMMAND = '@@fd@@/bin/fd'
+let $FZF_DEFAULT_OPTS = '--layout=reverse --info=inline'
+function CurrentOpenedDir()
+  let p = expand('%:h')
+  if empty(p)
+    return getcwd()
+  else
+    return p
+  endif
+endfunction
+nnoremap <silent> <leader>ff :call fzf#run(fzf#wrap({}))<cr>
+nnoremap <silent> <leader>f. :call fzf#run(fzf#wrap({ 'dir': CurrentOpenedDir() }))<cr>
 
 " nerdcommenter
 let g:NERDSpaceDelims = 1
