@@ -54,14 +54,12 @@
       bind-key -n DoubleClick1Pane if-shell -F "#{||:#{pane_in_mode},#{mouse_any_flag}}" "send -M" {
         copy-mode -e
         send-keys -X select-word
-        run-shell -d 0.2 ":"
-        send-keys -X copy-pipe-and-cancel "xsel -ip"
+        send-keys -X copy-pipe-no-clear "xsel -ip"
       }
       bind-key -n TripleClick1Pane if-shell -F "#{||:#{pane_in_mode},#{mouse_any_flag}}" "send -M" {
         copy-mode -e
         send-keys -X select-line
-        run-shell -d 0.2 ":"
-        send-keys -X copy-pipe-and-cancel "xsel -ip"
+        send-keys -X copy-pipe-no-clear "xsel -ip"
       }
 
       # Copy & normal mode paste.
