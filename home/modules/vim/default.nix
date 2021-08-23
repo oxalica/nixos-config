@@ -19,6 +19,7 @@ let
     vim-beancount
     vim-cursorword
     vim-gitgutter
+    vim-highlightedyank
     vim-nix
     vim-sandwich
     vim-toml
@@ -61,6 +62,9 @@ let
     let g:NERDSpaceDelims = 1
     let g:NERDDefaultAlign = 'left'
     let g:NERDCommentEmptyLines = 1
+
+    " vim-highlightedyank
+    let g:highlightedyank_highlight_duration = 200
 
     " vim-sandwich
     runtime START **/sandwich/keymap/surround.vim
