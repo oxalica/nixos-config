@@ -22,6 +22,11 @@
       inputs.flake-utils.follows = "flake-utils";
     };
 
+    registry-crates-io = {
+      url = "github:rust-lang/crates.io-index";
+      flake = false;
+    };
+
     rime-emoji = {
       url = "github:rime/rime-emoji";
       flake = false;
