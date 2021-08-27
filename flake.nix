@@ -3,7 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-20.09";
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-21.05";
 
     flake-utils.url = "github:numtide/flake-utils";
     home-manager = {
@@ -64,7 +64,7 @@
         else lib.warn "Repo is dirty, revision will not be available in system label" "dirty";
     };
 
-    mkSystem = system: overlays: modules: inputs.nixpkgs.lib.nixosSystem {
+    mkDesktopSystem = system: overlays: modules: inputs.nixpkgs.lib.nixosSystem {
       inherit system;
       specialArgs.inputs = inputs;
       modules = [
@@ -82,22 +82,33 @@
       ] ++ modules;
     };
 
+    mkServerSystem = system: overlays: modules: inputs.nixpkgs-stable.lib.nixosSystem {
+      inherit system;
+      specialArgs.inputs = inputs // { nixpkgs = inputs.nixpkgs-stable; };
+      modules = [
+        system-label
+      ] ++ modules;
+    };
+
   in {
     nixosConfigurations = builtins.mapAttrs (name: path: import path {
       inherit inputs overlays;
     }) {
-      silver     = ./nixos/hosts/silver;
 
       iso        = ./nixos/hosts/iso;
 
     } // {
-      invar = mkSystem "x86_64-linux"
+      invar = mkDesktopSystem "x86_64-linux"
         (with overlays; [ rust-overlay xdgify-overlay ])
         [ ./nixos/hosts/invar/configuration.nix ];
 
-      blacksteel = mkSystem "x86_64-linux"
+      blacksteel = mkDesktopSystem "x86_64-linux"
         (with overlays; [ rust-overlay ])
         [ ./nixos/hosts/blacksteel/configuration.nix ];
+
+      silver = mkServerSystem "x86_64-linux"
+        []
+        [ ./nixos/hosts/silver/configuration.nix ];
     };
   };
 }
