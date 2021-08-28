@@ -91,13 +91,7 @@
     };
 
   in {
-    nixosConfigurations = builtins.mapAttrs (name: path: import path {
-      inherit inputs overlays;
-    }) {
-
-      iso        = ./nixos/hosts/iso;
-
-    } // {
+    nixosConfigurations = {
       invar = mkDesktopSystem "x86_64-linux"
         (with overlays; [ rust-overlay xdgify-overlay ])
         [ ./nixos/hosts/invar/configuration.nix ];
@@ -109,6 +103,12 @@
       silver = mkServerSystem "x86_64-linux"
         []
         [ ./nixos/hosts/silver/configuration.nix ];
+
+      iso = inputs.nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [ ./nixos/hosts/iso/configuration.nix ];
+        specialArgs.inputs = inputs;
+      };
     };
   };
 }
