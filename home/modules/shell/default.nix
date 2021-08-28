@@ -3,6 +3,14 @@
   home.sessionVariables = {
     # Rust and python outputs.
     PATH = "$PATH\${PATH:+:}$HOME/.cargo/bin:$HOME/.local/bin";
+
+    FZF_DEFAULT_COMMAND = "${lib.getBin pkgs.fd}/bin/fd";
+    FZF_DEFAULT_OPTS = lib.concatStringsSep " " [
+      "--layout=reverse"
+      "--info=inline"
+      "--preview-window=down"
+      "--bind=ctrl-p:up,ctrl-n:down,up:previous-history,down:next-history"
+    ];
   };
 
   # The default `command-not-found` relies on nix-channel. Use `nix-index` instead.
@@ -70,10 +78,12 @@
       done
     '';
 
-  in [
-    pkgs.zoxide
-    pkgs.nix-zsh-completions
+  in with pkgs; [
+    zoxide
+    nix-zsh-completions
     (lib.hiPrio flake-zsh-completion)
+    fzf
+
     scripts
   ];
 }

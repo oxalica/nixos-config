@@ -14,6 +14,7 @@ let
     # File types.
     rust-vim
     vim-beancount
+    vim-markdown
     vim-nix
     vim-toml
 
@@ -30,9 +31,8 @@ let
 
   extraConfig =
     lib.replaceStrings
-      [ "@@fcitx5@@" "@@fd@@" ]
-      (with pkgs; map (p: toString (lib.getBin p))
-        [ fcitx5 fd ])
+      [ "@@fcitx5-remote@@" ]
+      [ "${lib.getBin pkgs.fcitx5}/bin/fcitx5-remote" ]
       (builtins.readFile ./init.vim);
 
 in

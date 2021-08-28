@@ -90,28 +90,31 @@ command -nargs=0 Sudow :w !sudo tee % >/dev/null
 " ================ Plugins ================
 
 " fcitx-vim
-let g:fcitx5_remote = '@@fcitx5@@/bin/fcitx5-remote'
+let g:fcitx5_remote = '@@fcitx5-remote@@'
 
 " fzf-vim
 let g:fzf_history_dir = $XDG_DATA_HOME . '/fzf.vim/history'
-let g:fzf_layout = { 'up': '40%' }
 let g:fzf_action = {
     \ 'ctrl-t': 'tab split',
     \ 'ctrl-s': 'split',
     \ 'ctrl-v': 'vsplit',
     \ }
-let $FZF_DEFAULT_COMMAND = '@@fd@@/bin/fd'
-let $FZF_DEFAULT_OPTS = '--layout=reverse --info=inline'
-function CurrentOpenedDir()
-  let p = expand('%:h')
-  if empty(p)
-    return getcwd()
-  else
-    return p
+function FzfAt(path)
+  let full_path = fnamemodify(a:path, ':p')
+  let name = 'fd-' . substitute(full_path, '/', '%', 'g')
+  let simple_path = fnamemodify(full_path, ':~:.')
+  if empty(simple_path)
+    let simple_path = getcwd() . '/'
   endif
+  if len(simple_path) > 32
+    let simple_path = pathshorten(simple_path[:-2]) . '/'
+  endif
+  let opts = { 'dir': full_path, 'options': ['--prompt', simple_path] }
+  " Run in fullscreen mode.
+  call fzf#run(fzf#wrap(name, opts, 1))
 endfunction
-nnoremap <silent> <leader>ff :call fzf#run(fzf#wrap({}))<cr>
-nnoremap <silent> <leader>f. :call fzf#run(fzf#wrap({ 'dir': CurrentOpenedDir() }))<cr>
+nnoremap <silent> <leader>ff :call FzfAt('.')<cr>
+nnoremap <silent> <leader>f. :call FzfAt(expand('%:p:h'))<cr>
 
 " nerdcommenter
 let g:NERDSpaceDelims = 1
