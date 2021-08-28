@@ -16,15 +16,15 @@
   ];
   services.xserver.videoDrivers = [ "amdgpu" ];
 
-  sound.enable = true;
-  hardware.pulseaudio.enable = true;
-  users.groups."audio".members = [ "oxa" ];
+  # sound.enable = true;
+  # hardware.pulseaudio.enable = true;
+  # users.groups."audio".members = [ "oxa" ];
 
-  # security.rtkit.enable = true; # Better installed with pipewire.
-  # services.pipewire = {
-  #   enable = true;
-  #   alsa.enable = true;
-  #   alsa.support32Bit = true;
-  #   pulse.enable = true;
-  # };
+  security.rtkit.enable = true; # Better installed with pipewire.
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+  };
 }
