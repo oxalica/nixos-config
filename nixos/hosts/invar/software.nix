@@ -78,6 +78,9 @@
   programs.adb.enable = true;
   users.groups."adbusers".members = [ "oxa" ];
 
+  # Don't work with flake.
+  programs.command-not-found.enable = false;
+
   environment.systemPackages = with pkgs; [
     cntr # Debug nix build.
     curl

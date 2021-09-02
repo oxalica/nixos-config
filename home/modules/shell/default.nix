@@ -15,7 +15,12 @@
 
   # The default `command-not-found` relies on nix-channel. Use `nix-index` instead.
   programs.command-not-found.enable = false;
-  programs.nix-index.enable = true;
+  programs.nix-index = {
+    enable = true;
+    # Don't install the hook.
+    enableBashIntegration = false;
+    enableZshIntegration = false;
+  };
 
   programs.zsh = {
     enable = true;
