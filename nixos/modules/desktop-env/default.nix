@@ -30,13 +30,13 @@ with lib;
   security.pam.services.sddm.enableKwallet = true;
 
   fonts = {
-    fonts = with pkgs; [ sarasa-gothic emojione ];
+    fonts = with pkgs; [ sarasa-gothic noto-fonts-emoji ];
     fontDir.enable = true;
     fontconfig.defaultFonts = {
       monospace = [ "Sarasa Mono SC" ];
       sansSerif = [ "Sarasa Gothic SC" ];
       serif = [ "Sarasa Gothic SC" ];
-      emoji = [ "EmojiOne Color" ];
+      emoji = [ "Noto Color Emoji" ];
     };
   };
 
