@@ -41,7 +41,6 @@ in {
 
     # GUI
     kolourpaint vlc libreoffice calibre # Files
-    # typora <- usually broken
     # firefox <- in module
     electrum electron-cash monero-gui # Cryptocurrency
     steam minecraft osu-lazer # Games

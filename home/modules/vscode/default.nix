@@ -12,9 +12,9 @@
       eamodio.gitlens
       justusadam.language-haskell
       matklad.rust-analyzer
-      ms-python.python
-      ms-vscode-remote.remote-ssh
-      ms-vscode.cpptools
+      # ms-python.python
+      # ms-vscode-remote.remote-ssh
+      # ms-vscode.cpptools
       serayuzgur.crates
       vadimcn.vscode-lldb
       vscodevim.vim
