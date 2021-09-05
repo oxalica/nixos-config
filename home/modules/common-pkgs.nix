@@ -33,7 +33,8 @@ in {
   home.packages = with pkgs; map lib.lowPrio [
     # Console
     neofetch htop pv ncdu dnsutils swapview # Stat
-    exa fd ripgrep lsof tealdeer jq loop bc gnupg file pwgen rsync # Util
+    exa fd ripgrep lsof tealdeer jq loop bc file rsync # Util
+    gnupg age pwgen # Crypto
     libarchive runzip # Compression
     trash-cli xsel wl-clipboard # CLI-Desktop
     taskwarrior # Task manager

@@ -23,4 +23,9 @@
     nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
     */
   };
+
+  environment.systemPackages = with pkgs; [
+    neofetch htop pv ncdu file
+    zstd gnupg age libarchive runzip
+  ];
 }
