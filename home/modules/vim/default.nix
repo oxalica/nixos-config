@@ -10,6 +10,7 @@ let
     vim-gitgutter
     vim-highlightedyank
     vim-sandwich
+    vim-smoothie
 
     # File types.
     rust-vim

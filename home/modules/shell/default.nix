@@ -10,6 +10,7 @@
       "--info=inline"
       "--preview-window=down"
       "--bind=ctrl-p:up,ctrl-n:down,up:previous-history,down:next-history"
+      "--exact" # Substring matching by default, `'`-quote for subsequence matching.
     ];
   };
 

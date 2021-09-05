@@ -136,6 +136,9 @@ let g:sandwich#recipes += [
   \   {'buns': ['(\s*', '\s*)'],   'nesting': 1, 'regex': 1, 'match_syntax': 1, 'kind': ['delete', 'replace', 'textobj'], 'action': ['delete'], 'input': ['(']},
   \ ]
 
+" vim-smoothie
+let g:smoothie_speed_linear_factor = 20
+
 " coc-nvim
 let g:coc_start_at_startup=has('nvim')
 inoremap <silent><expr> <c-@> coc#refresh()

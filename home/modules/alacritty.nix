@@ -15,7 +15,8 @@
       font.normal.family = "Sarasa Mono SC";
       font.size = 12;
 
-      shell.program = "${pkgs.tmux}/bin/tmux";
+      # Set initial command on shortcuts, not for all alacritty.
+      # shell.program = "${pkgs.tmux}/bin/tmux";
 
       mouse.hide_when_typing = true;
     };
