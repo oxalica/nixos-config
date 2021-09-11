@@ -4,7 +4,7 @@
     enable = true;
     historyLimit = 5000;
     keyMode = "vi";
-    terminal = "tmux-256color"; # Use `tmux` to enable italic support.
+    terminal = "tmux-256color"; # Fix italic and true color support.
     prefix = "C-a";
     clock24 = true;
 
@@ -12,8 +12,21 @@
       set-option -g mouse on
       set-option -g escape-time 10 # Don't mess up when Esc followed by some keys.
 
+      # Fixups
+      # For true colors
+      # https://gist.github.com/XVilka/8346728
+      set -sa terminal-overrides "alacritty:Tc"
+      set -sa terminal-overrides "xterm-256color:Tc"
+      # hyperlink (experimental)
+      set -sa terminal-overrides '*:Hls=\E]8;id=%p1%s;%p2%s\E\\:Hlr=\E]8;;\E\\'
+      # SGR 53 (overline)
+      set -sa terminal-overrides '*:Smol=\E[53m'
+      # styled underscore
+      set -sa terminal-overrides '*:Smulx=\E[4::%p1%dm'
+      # underscore colors
+      set -sa terminal-overrides '*:Setulc=\E[58::2::%p1%{65536}%/%d::%p1%{256}%/%{255}%&%d::%p1%{255}%&%d%;m'
+
       # Colors
-      set-option -ga terminal-overrides ",*256col*:Tc" # True colors
       set-option -g status-style bg=colour234,fg=yellow
       set-option -g pane-active-border-style fg=pink
       set-option -g window-status-current-style bg=yellow,fg=black

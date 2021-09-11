@@ -23,7 +23,7 @@ set cursorline
 set textwidth=120
 set colorcolumn=120
 
-if empty(matchstr($TERM, '256color'))
+if empty($COLORTERM)
   colorscheme default
 else
   colorscheme lilypink
@@ -143,7 +143,21 @@ let g:smoothie_speed_linear_factor = 20
 let g:coc_start_at_startup=has('nvim')
 inoremap <silent><expr> <c-@> coc#refresh()
 inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-nnoremap <leader>a <Plug>(coc-codeaction-line)
+
+" Goto-like
+nmap <silent> <leader>gd <Plug>(coc-definition)
+nmap <silent> <leader>gy <Plug>(coc-type-definition)
+nmap <silent> <leader>gi <Plug>(coc-implementation)
+nmap <silent> <leader>gr <Plug>(coc-references)
+
+" Actions
+xmap <leader>a <Plug>(coc-codeaction-selected)
+" for file
+nmap <leader>af <Plug>(coc-codeaction)
+" for line
+nmap <leader>al <Plug>(coc-codeaction-line)
+" for cursor empty range
+nmap <leader>a<space> <Plug>(coc-codeaction-cursor)
 
 " coc-rust-analyzer
 " let g:rustfmt_autosave = 1
