@@ -1,20 +1,24 @@
 { lib, pkgs, ... }:
 let
   plugins = with pkgs.vimPlugins; [
-    # Edit & navigate.
+    # Functional extension.
     easymotion
     fcitx-vim
     fzf-vim
     nerdcommenter
     vim-cursorword
+    vim-fugitive
     vim-gitgutter
     vim-highlightedyank
+    vim-matchup
     vim-sandwich
     vim-smoothie
 
     # File types.
+    jsonc-vim
     rust-vim
     vim-beancount
+    vim-glsl
     vim-markdown
     vim-nix
     vim-toml
