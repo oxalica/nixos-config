@@ -25,9 +25,9 @@
         "browser.aboutConfig.showWarning" = false;
         "browser.toolbars.bookmarks.visibility" = "always";
         "font.language.group" = "zh-CN";
-        "font.name.monospace.zh-CN" = "Sarasa Mono SC";
-        "font.name.sans-serif.zh-CN" = "Sarasa Gothic SC";
-        "font.name.serif.zh-CN" = "Sarasa Gothic SC";
+        "font.name.monospace.zh-CN" = "monospace";
+        "font.name.sans-serif.zh-CN" = "sans-serif";
+        "font.name.serif.zh-CN" = "serif";
 
         # Hardware video decoding support.
         # See: https://wiki.archlinux.org/index.php/Firefox#Hardware_video_acceleration

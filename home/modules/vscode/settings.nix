@@ -10,9 +10,8 @@
   "window.titleBarStyle" = "native";
   "window.menuBarVisibility" = "toggle";
 
-  "editor.fontFamily" = "'Sarasa mono SC'";
   "editor.fontSize" = 16;
-  "editor.fontLigatures" = true;
+  "editor.fontLigatures" = false;
 
   "editor.detectIndentation" = true;
   "editor.insertSpaces" = true;

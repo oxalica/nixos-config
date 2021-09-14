@@ -24,8 +24,6 @@
     ./plugins/hm-desktop-autostart.nix
   ];
 
-  fonts.fontconfig.enable = true;
-
   # FIXME: sddm doesn't respect `home.sessionVariables`.
   systemd.user.sessionVariables = {
     inherit (config.home.sessionVariables) CARGO_HOME GNUPGHOME PASSWORD_STORE_DIR;

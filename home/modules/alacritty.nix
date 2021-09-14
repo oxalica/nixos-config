@@ -12,7 +12,6 @@
       scrolling.history = 1000; # Should not matter since we have tmux.
       scrolling.multiplier = 5;
 
-      font.normal.family = "Sarasa Mono SC";
       font.size = 12;
 
       # Set initial command on shortcuts, not for all alacritty.
