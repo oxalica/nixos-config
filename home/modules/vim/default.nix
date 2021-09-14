@@ -29,6 +29,7 @@ let
 
     # Color scheme.
     (pkgs.vimUtils.buildVimPlugin {
+      pname = "lilypink";
       name = "lilypink";
       src = ./lilypink;
     })
