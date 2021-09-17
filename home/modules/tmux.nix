@@ -27,9 +27,15 @@
       set -sa terminal-overrides '*:Setulc=\E[58::2::%p1%{65536}%/%d::%p1%{256}%/%{255}%&%d::%p1%{255}%&%d%;m'
 
       # Colors
-      set-option -g status-style bg=colour234,fg=yellow
-      set-option -g pane-active-border-style fg=pink
+      set-option -g status-style bg=black,fg=yellow
       set-option -g window-status-current-style bg=yellow,fg=black
+      set-option -g message-style bg=black,fg=yellow
+      set-option -g message-command-style bg=yellow,fg=black
+      set-option -g pane-active-border-style fg=magenta
+
+      # Custom window title
+      set-option -g automatic-rename on
+      set-option -g automatic-rename-format '#{b:pane_current_path}:#{?#{!=:#{window_panes},1},#{window_panes}:,}#{pane_current_command}'
 
       # Reload.
       bind-key r source-file ~/.config/tmux/tmux.conf \; \
