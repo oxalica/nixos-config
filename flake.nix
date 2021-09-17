@@ -34,7 +34,7 @@
 
     # Optional.
     secrets = {
-      url = "/home/oxa/storage/repo/nixos-config/secrets";
+      url = "/home/oxa/storage/repo/nixos-config-secrets";
       flake = false;
     };
   };
