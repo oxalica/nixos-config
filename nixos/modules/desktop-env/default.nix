@@ -4,20 +4,14 @@ with lib;
   environment.systemPackages = with pkgs; [
     (ark.override { unfreeEnableUnrar = true; })
     filelight
-    kdeconnect
     plasma-browser-integration
-    spectacle
+    flameshot
   ];
 
   programs.partition-manager.enable = true;
+  programs.kdeconnect.enable = true;
 
   nixpkgs.config.firefox.enablePlasmaBrowserIntegration = true;
-
-  # FIXME: For kdeconnect. See https://github.com/NixOS/nixpkgs/pull/63899
-  networking.firewall = {
-    allowedTCPPortRanges = [{ from = 1714; to = 1764; }];
-    allowedUDPPortRanges = [{ from = 1714; to = 1764; }];
-  };
 
   services.xserver = {
     enable = true;
@@ -98,7 +92,6 @@ with lib;
     "xdg/kglobalshortcutsrc".source = ./xdg/kglobalshortcutsrc;
     "xdg/kwinrc".source = ./xdg/kwinrc;
     "xdg/kwinrulesrc".source = ./xdg/kwinrulesrc;
-    "xdg/spectaclerc".source = ./xdg/spectaclerc;
     "xdg/startkderc".source = ./xdg/startkderc;
   };
 }
