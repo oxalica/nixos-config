@@ -4,6 +4,7 @@ set undofile
 set lazyredraw
 set mouse=a
 set scrolloff=5
+set updatetime=1000
 if has("unnamedplus") && !empty($DISPLAY)
   set clipboard^=unnamedplus
 endif

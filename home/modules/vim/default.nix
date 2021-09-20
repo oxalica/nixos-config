@@ -14,6 +14,10 @@ let
     vim-sandwich
     vim-smoothie
 
+    # Plugins of plugins.
+    fugitive-gitlab-vim
+    vim-rhubarb # GitHub support for vim-fugitive.
+
     # File types.
     jsonc-vim
     rust-vim
