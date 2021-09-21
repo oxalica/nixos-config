@@ -6,6 +6,7 @@ let
     fcitx-vim
     fzf-vim
     nerdcommenter
+    vim-better-whitespace
     vim-cursorword
     vim-fugitive
     vim-gitgutter

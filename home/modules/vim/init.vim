@@ -31,33 +31,17 @@ set number
 set cursorline
 set textwidth=120
 set colorcolumn=120
+set list
+set listchars=tab:-->,extends:>,precedes:<
+
+" Render tab indicators as NonText (dark grey).
+let g:match_tab = matchadd("NonText", '\t', 1)
 
 if empty($COLORTERM)
   colorscheme default
 else
   colorscheme lilypink
 endif
-
-" Show hidden spaces. {{{1
-set list
-set listchars=tab:-->,extends:>,precedes:<
-highlight ExtraWhitespace ctermbg=red guibg=red
-match ExtraWhitespace /\s\+$/
-autocmd InsertEnter * match none
-autocmd InsertLeave * match ExtraWhitespace /\s\+$/
-" Use dark color for leading tabs.
-highlight NormalLeadingTab ctermfg=237 guifg=#3a3a3a ctermbg=NONE guibg=NONE
-let g:match_normal_leading_tab = matchadd('NormalLeadingTab', '^\t\+\S\@=')
-
-" Strip extra spaces. {{{1
-function! <SID>StripTrailingWhitespaces()
-  if !&binary && &filetype != '' && &filetype != 'diff'
-    let l:save = winsaveview()
-    keeppatterns %s/\s\+$//e
-    call winrestview(l:save)
-  endif
-endfun
-autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
 
 " XDGify for vim. {{{1
 if empty($XDG_CONFIG_HOME)
@@ -134,6 +118,9 @@ nnoremap <silent> <leader>f. :call FzfAt(expand('%:p:h'))<cr>
 let g:NERDSpaceDelims = 1
 let g:NERDDefaultAlign = 'left'
 let g:NERDCommentEmptyLines = 1
+
+" vim-better-whitespace
+let g:show_spaces_that_precede_tabs = 1
 
 " vim-highlightedyank {{{2
 let g:highlightedyank_highlight_duration = 200
