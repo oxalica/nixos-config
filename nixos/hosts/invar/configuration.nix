@@ -16,6 +16,10 @@
     ../../modules/steam-compat.nix
   ] ++ lib.optional (inputs ? secrets) (inputs.secrets + "/nixos-invar.nix");
 
+  nix.extraOptions = ''
+    experimental-features = nix-command flakes ca-references ca-derivations
+  '';
+
   systemd.user.services.fcitx5-daemon.enable = lib.mkForce false;
 
   networking.hostName = "invar";
