@@ -1,19 +1,11 @@
 " Core. {{{1
-set nocompatible
+" Vim is always in nocompatible mode when this file is loaded.
 set undofile
 set lazyredraw
 set mouse=a
 set scrolloff=5
 set updatetime=1000
-if has("unnamedplus") && !empty($DISPLAY)
-  set clipboard^=unnamedplus
-endif
-if !has("nvim") && &term =~ '^tmux\|^alacritty'
-  " Cursor shape
-  let &t_SI = "\<Esc>[6 q"
-  let &t_SR = "\<Esc>[4 q"
-  let &t_EI = "\<Esc>[2 q"
-endif
+set foldmethod=marker
 
 " Encoding. {{{1
 set encoding=utf-8 termencoding=utf-8
@@ -43,14 +35,17 @@ else
   colorscheme lilypink
 endif
 
-" XDGify for vim. {{{1
+" XDG & Vim fixup. {{{1
+
 if empty($XDG_CONFIG_HOME)
   let $XDG_CONFIG_HOME = $HOME . "/.config"
 endif
 if empty($XDG_DATA_HOME)
   let $XDG_DATA_HOME = $HOME . "/.local/share"
 endif
+
 if !has('nvim')
+  " XDGify.
   call mkdir($XDG_DATA_HOME . '/vim/undo', 'p')
   call mkdir($XDG_DATA_HOME . '/vim/swap', 'p')
   call mkdir($XDG_DATA_HOME . '/vim/backup', 'p')
@@ -58,6 +53,18 @@ if !has('nvim')
   set directory=.,$XDG_DATA_HOME/vim/swap
   set backupdir=.,$XDG_DATA_HOME/vim/backup
   set viminfofile=$XDG_DATA_HOME/vim/viminfo
+
+  " Cursor shape.
+  if &term =~ '^tmux\|^alacritty'
+    let &t_SI = "\e[6 q"
+    let &t_SR = "\e[4 q"
+    let &t_EI = "\e[2 q"
+  endif
+
+  " <M-> escapes.
+  for c in split("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz", '\zs')
+    exec "set <m-" . c . ">=\e" . c
+  endfor
 endif
 
 " Mapping. {{{1
@@ -65,15 +72,9 @@ endif
 let mapleader='\'
 nnoremap Y y$
 
-if !has('nvim')
-  set <m-z>=z
-endif
-nnoremap <m-z> :set wrap!<cr>
-inoremap <m-z> :set wrap!<cr>
-inoremap <silent><expr> <m-z> execute("set wrap!")
-nnoremap <leader>z :set wrap!<cr>
-
-nnoremap <cr> :set hlsearch!<cr>
+map <m-z> <cmd>set wrap!<cr>
+imap <expr> <m-z> execute('set wrap!')
+nnoremap <cr> <cmd>hlsearch!<cr>
 
 " Panes
 nnoremap <c-w>v :vsplit<cr>
@@ -113,6 +114,8 @@ function FzfAt(path)
 endfunction
 nnoremap <silent> <leader>ff :call FzfAt('.')<cr>
 nnoremap <silent> <leader>f. :call FzfAt(expand('%:p:h'))<cr>
+" Fullscreen by default for :Rg
+command! -nargs=* Rg call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case -- ".shellescape(<q-args>), 1, fzf#vim#with_preview(), 1)
 
 " nerdcommenter {{{2
 let g:NERDSpaceDelims = 1
@@ -126,7 +129,8 @@ let g:show_spaces_that_precede_tabs = 1
 let g:highlightedyank_highlight_duration = 200
 
 " vim-sandwich {{{2
-runtime START **/sandwich/keymap/surround.vim
+" Use vim-surround keymap.
+runtime PACK macros/sandwich/keymap/surround.vim
 " Use behavior of vim-surround for left parenthesis input. https://github.com/machakann/vim-sandwich/issues/44
 let g:sandwich#recipes += [
   \   {'buns': ['{ ', ' }'], 'nesting': 1, 'match_syntax': 1, 'kind': ['add', 'replace'], 'action': ['add'], 'input': ['{']},
@@ -171,12 +175,11 @@ nmap <leader>f  <Plug>(coc-format-selected)
 " Actions
 xmap <leader>a <Plug>(coc-codeaction-selected)
 " for file
-nmap <leader>af <Plug>(coc-codeaction)
+nmap <leader>ag <Plug>(coc-codeaction)
 " for line
-nmap <leader>al <Plug>(coc-codeaction-line)
+nmap <leader>aa <Plug>(coc-codeaction-line)
 " for cursor empty range
 nmap <leader>a<space> <Plug>(coc-codeaction-cursor)
-imap <c-a> <Plug>(coc-codeaction-cursor)
 
 " Map function and class text objects
 " NOTE: Requires 'textDocument.documentSymbol' support from the language server.
