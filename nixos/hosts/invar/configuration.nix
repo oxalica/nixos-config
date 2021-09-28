@@ -1,4 +1,4 @@
-{ lib, config, pkgs, inputs, ... }:
+{ lib, pkgs, inputs, ... }:
 
 {
   imports = [
@@ -14,7 +14,7 @@
     ../../modules/nix-registry.nix
     ../../modules/nixpkgs-allow-unfree-list.nix
     ../../modules/steam-compat.nix
-  ] ++ lib.optional (inputs ? secrets) (inputs.secrets + "/nixos-invar.nix");
+  ] ++ lib.optional (inputs ? secrets) inputs.secrets.nixosModules.invar;
 
   nix.extraOptions = ''
     experimental-features = nix-command flakes ca-references ca-derivations
@@ -35,15 +35,11 @@
       group = "oxa";
       extraGroups = [ "wheel" ];
       shell = pkgs.zsh;
-    } // (if inputs ? secrets then {
-      initialHashedPassword = (import (inputs.secrets + "/passwd.nix")).oxa;
-    } else {
+    } // lib.optionalAttrs (!(inputs ? secrets)) {
       initialPassword = "oxa";
-    });
+    };
 
-    users."root" = if inputs ? secrets then {
-      initialHashedPassword = (import (inputs.secrets + "/passwd.nix")).root;
-    } else {
+    users."root" = lib.optionalAttrs (!(inputs ? secrets)) {
       initialPassword = "root";
     };
   };

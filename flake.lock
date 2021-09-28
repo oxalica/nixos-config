@@ -136,15 +136,18 @@
       }
     },
     "secrets": {
-      "flake": false,
       "locked": {
-        "narHash": "sha256-8LWBe4JmrfveV6rDa1dBwUjTDCuq9tWXaSqiyUT2nYI=",
-        "path": "/home/oxa/storage/repo/nixos-config-secrets",
-        "type": "path"
+        "lastModified": 1632864196,
+        "narHash": "sha256-dpGcUXy/fpBAU7vaGqcmH0SMkUY+RE9sVtF1pLm0vZg=",
+        "ref": "master",
+        "rev": "116f146d7e0a450379e624b2062ed30f43d0d95d",
+        "revCount": 8,
+        "type": "git",
+        "url": "file:///home/oxa/storage/repo/nixos-config-secrets"
       },
       "original": {
-        "path": "/home/oxa/storage/repo/nixos-config-secrets",
-        "type": "path"
+        "type": "git",
+        "url": "file:///home/oxa/storage/repo/nixos-config-secrets"
       }
     },
     "xdgify-overlay": {

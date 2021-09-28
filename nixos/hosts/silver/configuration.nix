@@ -8,7 +8,7 @@
     ../../modules/console-env.nix
     ../../modules/nix-binary-cache-mirror.nix
     ../../modules/nix-common.nix
-  ] ++ lib.optional (inputs ? secrets) (inputs.secrets + "/nixos-silver.nix");
+  ] ++ lib.optional (inputs ? secrets) (inputs.secrets.nixosModules.silver);
 
   time.timeZone = "Asia/Shanghai";
 

@@ -15,7 +15,7 @@
     ../../modules/nix-registry.nix
     ../../modules/nixpkgs-allow-unfree-list.nix
     ../../modules/steam-compat.nix
-  ] ++ lib.optional (inputs ? secrets) (inputs.secrets + "/nixos-blacksteel.nix");
+  ] ++ lib.optional (inputs ? secrets) (inputs.secrets.nixosModules.blacksteel);
 
   networking.hostName = "blacksteel";
 

@@ -33,10 +33,7 @@
     };
 
     # Optional.
-    secrets = {
-      url = "/home/oxa/storage/repo/nixos-config-secrets";
-      flake = false;
-    };
+    secrets.url = "/home/oxa/storage/repo/nixos-config-secrets";
   };
 
   outputs = inputs: let
