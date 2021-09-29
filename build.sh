@@ -54,9 +54,6 @@ if [[ -n "$target" && "$op" != "build" ]]; then
   args+=(
     --use-remote-sudo
     --target-host "$target"
-    # Building on remote host is broken currently.
-    # See: https://nixos.wiki/wiki/Flakes#Using_nix_flakes_with_NixOS
-    --build-host "localhost"
   )
   # Required by `--use-remote-sudo`
   export NIX_SSHOPTS="-t"
