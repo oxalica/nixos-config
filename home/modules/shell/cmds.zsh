@@ -10,6 +10,7 @@ alias nf="nix flake"
 alias nr="nix repl"
 alias nrp="nix repl '<nixpkgs>'"
 
+alias v="nvim"
 alias g="git"
 alias py="python"
 alias rl="readlink"

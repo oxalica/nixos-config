@@ -67,6 +67,22 @@
         "type": "github"
       }
     },
+    "pr-fix-markdown-preview-nvim": {
+      "locked": {
+        "lastModified": 1632879630,
+        "narHash": "sha256-QMIqg901M9MZ8uz5nAUgGeGj2IYtZ6AP64XcwwCN1v4=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "2d1cfc588248909680b6800dc26d0c1385287092",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "pull/139827/head",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "registry-crates-io": {
       "flake": false,
       "locked": {
@@ -105,6 +121,7 @@
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs",
         "nixpkgs-stable": "nixpkgs-stable",
+        "pr-fix-markdown-preview-nvim": "pr-fix-markdown-preview-nvim",
         "registry-crates-io": "registry-crates-io",
         "rime-emoji": "rime-emoji",
         "rust-overlay": "rust-overlay",

@@ -74,7 +74,7 @@ nnoremap Y y$
 
 map <m-z> <cmd>set wrap!<cr>
 imap <expr> <m-z> execute('set wrap!')
-nnoremap <cr> <cmd>hlsearch!<cr>
+nnoremap <cr> <cmd>set hlsearch! \| set hlsearch?<cr>
 
 " Panes
 nnoremap <c-w>v :vsplit<cr>
@@ -84,7 +84,8 @@ nnoremap <c-w>- <c-w>-<c-w>-<c-w>-<c-w>-<c-w>-
 nnoremap <c-w>< <c-w><<c-w><<c-w><<c-w><<c-w><
 nnoremap <c-w>> <c-w>><c-w>><c-w>><c-w>><c-w>>
 
-command -nargs=0 Sudow :w !sudo tee % >/dev/null
+command -nargs=0 Sudow w !sudo tee % >/dev/null
+command -nargs=* W w <args>
 
 " Plugins. {{{1
 
