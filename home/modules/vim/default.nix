@@ -42,16 +42,46 @@ let
       };
     })
 
+    # Color scheme.
+    # FIXME: https://nixpk.gs/pr-tracker.html?pr=140634
+    (pkgs.vimUtils.buildVimPlugin {
+      pname = "nightfox-nvim";
+      version = "2021-10-04";
+      src = pkgs.fetchFromGitHub {
+        owner = "EdenEast";
+        repo = "nightfox.nvim";
+        rev = "15dfe546111a96e5f30198d5bd163658acdbbe3b";
+        hash = "sha256-ZXWo418LxML0WEEJFfdXBY5GxehJ3Es2du5LVyKKAyg=";
+      };
+    })
+  ];
+
+  vimPlugins = with pkgs.vimPlugins; [
+  ];
+
+  nvimPlugins = with pkgs.vimPlugins; [
     # LSP.
     coc-nvim
     coc-rust-analyzer
 
-    # Color scheme.
-    (pkgs.vimUtils.buildVimPlugin {
-      pname = "lilypink";
-      name = "lilypink";
-      src = ./lilypink;
-    })
+    # Tree sitter.
+    {
+      plugin = nvim-treesitter.withPlugins (_: pkgs.tree-sitter.allGrammars);
+      config = ''
+        lua <<EOF
+          require("nvim-treesitter.configs").setup {
+            highlight = {
+              enable = true,
+            },
+            playground = {
+              enable = true,
+            },
+          }
+        EOF
+      '';
+    }
+    nvim-treesitter-context
+    playground
   ];
 
   extraConfig =
@@ -64,12 +94,14 @@ in
 {
   programs.vim = {
     enable = true;
-    inherit extraConfig plugins;
+    plugins = plugins ++ vimPlugins;
+    inherit extraConfig;
   };
 
   programs.neovim = {
     enable = true;
-    inherit extraConfig plugins;
+    plugins = plugins ++ nvimPlugins;
+    inherit extraConfig;
 
     coc.enable = true;
     coc.settings = {

@@ -29,12 +29,6 @@ set listchars=tab:-->,extends:>,precedes:<
 " Render tab indicators as NonText (dark grey).
 let g:match_tab = matchadd("NonText", '\t', 1)
 
-if empty($COLORTERM)
-  colorscheme default
-else
-  colorscheme lilypink
-endif
-
 " XDG & Vim fixup. {{{1
 
 if empty($XDG_CONFIG_HOME)
@@ -86,6 +80,14 @@ nnoremap <c-w>> <c-w>><c-w>><c-w>><c-w>><c-w>>
 
 command -nargs=0 Sudow w !sudo tee % >/dev/null
 command -nargs=* W w <args>
+
+function! Syn()
+  if !exists("*synstack")
+    return
+  endif
+  echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
+endfunc
+command -nargs=0 Syn call Syn()
 
 " Plugins. {{{1
 
@@ -147,57 +149,93 @@ let g:smoothie_speed_linear_factor = 20
 
 " coc-nvim {{{2
 " https://github.com/neoclide/coc.nvim
+if has('nvim')
+  let g:coc_start_at_startup = has('nvim')
+  " Home manager's `programs.neovim.coc` always writes to `$XDG_CONFIG_HOME/nvim/coc-settings.json`.
+  let g:coc_config_home = $XDG_CONFIG_HOME . "/nvim"
+  let g:coc_data_home = $XDG_DATA_HOME . "/coc"
 
-let g:coc_start_at_startup = has('nvim')
-" Home manager's `programs.neovim.coc` always writes to `$XDG_CONFIG_HOME/nvim/coc-settings.json`.
-let g:coc_config_home = $XDG_CONFIG_HOME . "/nvim"
-let g:coc_data_home = $XDG_DATA_HOME . "/coc"
+  inoremap <silent><expr> <c-@> coc#refresh()
+  inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
-inoremap <silent><expr> <c-@> coc#refresh()
-inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+  " Diagnostic
+  nmap <silent> [g <Plug>(coc-diagnostic-prev)
+  nmap <silent> ]g <Plug>(coc-diagnostic-next)
 
-" Diagnostic
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
+  " Goto-like
+  nmap <silent> <leader>gd <Plug>(coc-definition)
+  nmap <silent> <leader>gy <Plug>(coc-type-definition)
+  nmap <silent> <leader>gi <Plug>(coc-implementation)
+  nmap <silent> <leader>gr <Plug>(coc-references)
 
-" Goto-like
-nmap <silent> <leader>gd <Plug>(coc-definition)
-nmap <silent> <leader>gy <Plug>(coc-type-definition)
-nmap <silent> <leader>gi <Plug>(coc-implementation)
-nmap <silent> <leader>gr <Plug>(coc-references)
+  " Renaming
+  nmap <leader>rn <Plug>(coc-rename)
 
-" Renaming
-nmap <leader>rn <Plug>(coc-rename)
+  " Formatting selected code
+  xmap <leader>f  <Plug>(coc-format-selected)
+  nmap <leader>f  <Plug>(coc-format-selected)
 
-" Formatting selected code
-xmap <leader>f  <Plug>(coc-format-selected)
-nmap <leader>f  <Plug>(coc-format-selected)
+  " Actions
+  xmap <leader>a <Plug>(coc-codeaction-selected)
+  " for file
+  nmap <leader>ag <Plug>(coc-codeaction)
+  " for line
+  nmap <leader>aa <Plug>(coc-codeaction-line)
+  " for cursor empty range
+  nmap <leader>a<space> <Plug>(coc-codeaction-cursor)
 
-" Actions
-xmap <leader>a <Plug>(coc-codeaction-selected)
-" for file
-nmap <leader>ag <Plug>(coc-codeaction)
-" for line
-nmap <leader>aa <Plug>(coc-codeaction-line)
-" for cursor empty range
-nmap <leader>a<space> <Plug>(coc-codeaction-cursor)
+  " Map function and class text objects
+  " NOTE: Requires 'textDocument.documentSymbol' support from the language server.
+  xmap if <Plug>(coc-funcobj-i)
+  omap if <Plug>(coc-funcobj-i)
+  xmap af <Plug>(coc-funcobj-a)
+  omap af <Plug>(coc-funcobj-a)
+  xmap ic <Plug>(coc-classobj-i)
+  omap ic <Plug>(coc-classobj-i)
+  xmap ac <Plug>(coc-classobj-a)
+  omap ac <Plug>(coc-classobj-a)
 
-" Map function and class text objects
-" NOTE: Requires 'textDocument.documentSymbol' support from the language server.
-xmap if <Plug>(coc-funcobj-i)
-omap if <Plug>(coc-funcobj-i)
-xmap af <Plug>(coc-funcobj-a)
-omap af <Plug>(coc-funcobj-a)
-xmap ic <Plug>(coc-classobj-i)
-omap ic <Plug>(coc-classobj-i)
-xmap ac <Plug>(coc-classobj-a)
-omap ac <Plug>(coc-classobj-a)
+  " Add `:Format` command to format current buffer.
+  command! -nargs=0 Format :call CocAction('format')
+end
 
-" Add `:Format` command to format current buffer.
-command! -nargs=0 Format :call CocAction('format')
+" Color schemes. {{{1
 
-" coc-rust-analyzer {{{2
-" let g:rustfmt_autosave = 1
+" Manually bring plugin into scope. Required for vim.
+packadd nightfox-nvim
+lua <<EOF
+  require("nightfox").setup {
+    fox = "nightfox",
+    colors = {
+      hint = "blue";
+    };
+    hlgroups = {
+      SpecialKey = { fg = "${magenta_dm}" },
+
+      -- better-whitespace.vim
+      ExtraWhitespace = { bg = "${error}" },
+
+      -- vim-highlightedyank
+      HighlightedyankRegion = { bg = "${bg_search}" },
+
+      -- coc.nvim
+      CocErrorSign = { fg = "${error}" },
+      CocWarningSign = { fg = "${warning}" },
+      CocHintSign = { fg = "${hint}" },
+      CocErrorHighlight = { bg = "${bg_alt}", style = "NONE" },
+      CocWarningHighlight = { bg = "${bg_alt}", style = "NONE" },
+      CocHintHighlight = { bg = "${bg_alt}", style = "NONE" },
+    },
+  }
+EOF
+
+if !empty($COLORTERM)
+  if !has('nvim')
+    let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+  endif
+  colorscheme nightfox
+endif
 
 " }}}1
 " vim: sw=2 et :
