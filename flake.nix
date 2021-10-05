@@ -32,8 +32,6 @@
       flake = false;
     };
 
-    pr-fix-markdown-preview-nvim.url = "github:nixos/nixpkgs/pull/139827/head";
-
     # Optional.
     secrets.url = "/home/oxa/storage/repo/nixos-config-secrets";
   };
@@ -52,7 +50,6 @@
     overlays = {
       rust-overlay = inputs.rust-overlay.overlay;
       xdgify-overlay = inputs.xdgify-overlay.overlay;
-      markdown-preview-nvim = prToOverlay inputs.pr-fix-markdown-preview-nvim [ "vimPlugins.markdown-preview-nvim" ];
     };
 
     # Ref: https://github.com/dramforever/config/blob/63be844019b7ca675ea587da3b3ff0248158d9fc/flake.nix#L24-L28
@@ -93,7 +90,7 @@
   in {
     nixosConfigurations = {
       invar = mkDesktopSystem "x86_64-linux"
-        (with overlays; [ rust-overlay xdgify-overlay markdown-preview-nvim ])
+        (with overlays; [ rust-overlay xdgify-overlay ])
         [ ./nixos/hosts/invar/configuration.nix ];
 
       blacksteel = mkDesktopSystem "x86_64-linux"
