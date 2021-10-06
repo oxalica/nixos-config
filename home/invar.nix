@@ -19,7 +19,6 @@
     ./modules/trash.nix
     ./modules/user-dirs.nix
     ./modules/vim
-    ./modules/vscode
 
     ./plugins/hm-desktop-autostart.nix
   ];
@@ -41,7 +40,8 @@
     ".local/share/password-store".source = linkPersonal "password-store"; # FIXME: Put it in settings?
     # ".gnupg".source = linkPersonal "gnupg"; # FIXME: `passff` doesn't get `GNUPGHOME`.
     ".ssh".source = linkPersonal "ssh";
-    ".taskrc".source = linkPersonal "task/taskrc";
+
+    ".config/task/taskrc".source = linkPersonal "task/taskrc";
   };
 
   programs.gpg.homedir = "${config.home.homeDirectory}/storage/personal/gnupg";
