@@ -103,6 +103,10 @@ command -nargs=0 Syn call Syn()
 
 " Plugins. {{{1
 
+" auto-pairs
+let g:AutoPairsCenterLine = 0
+let g:AutoPairsMultilineClose = 0
+
 " fcitx-vim {{{2
 let g:fcitx5_remote = '@@fcitx5-remote@@'
 
@@ -198,17 +202,6 @@ if has('nvim')
   nmap <leader>aa <Plug>(coc-codeaction-line)
   " for cursor empty range
   nmap <leader>a<space> <Plug>(coc-codeaction-cursor)
-
-  " Map function and class text objects
-  " NOTE: Requires 'textDocument.documentSymbol' support from the language server.
-  xmap if <Plug>(coc-funcobj-i)
-  omap if <Plug>(coc-funcobj-i)
-  xmap af <Plug>(coc-funcobj-a)
-  omap af <Plug>(coc-funcobj-a)
-  xmap ic <Plug>(coc-classobj-i)
-  omap ic <Plug>(coc-classobj-i)
-  xmap ac <Plug>(coc-classobj-a)
-  omap ac <Plug>(coc-classobj-a)
 
   " Add `:Format` command to format current buffer.
   command! -nargs=0 Format :call CocAction('format')

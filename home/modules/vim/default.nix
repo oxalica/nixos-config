@@ -1,4 +1,4 @@
-{ lib, pkgs, ... }:
+{ lib, pkgs, inputs, ... }:
 let
   plugins = with pkgs.vimPlugins; [
     # Functional extension.
@@ -43,16 +43,10 @@ let
     })
 
     # Color scheme.
-    # FIXME: https://nixpk.gs/pr-tracker.html?pr=140634
     (pkgs.vimUtils.buildVimPlugin {
       pname = "nightfox-nvim";
-      version = "2021-10-04";
-      src = pkgs.fetchFromGitHub {
-        owner = "EdenEast";
-        repo = "nightfox.nvim";
-        rev = "15dfe546111a96e5f30198d5bd163658acdbbe3b";
-        hash = "sha256-ZXWo418LxML0WEEJFfdXBY5GxehJ3Es2du5LVyKKAyg=";
-      };
+      version = "fixed";
+      src = inputs.nightfox-vim;
     })
   ];
 
@@ -66,7 +60,29 @@ let
 
     # Tree sitter.
     {
-      plugin = nvim-treesitter.withPlugins (_: pkgs.tree-sitter.allGrammars);
+      plugin = let
+        plugins = ps: builtins.attrValues (ps // {
+          tree-sitter-nix = ps.tree-sitter-nix.overrideAttrs (old: {
+            version = "fixed";
+            src = inputs.tree-sitter-nix;
+          });
+          tree-sitter-bash = ps.tree-sitter-bash.overrideAttrs (old: {
+            version = "fixed";
+            src = inputs.tree-sitter-bash;
+          });
+        });
+        nvim-treesitter = (pkgs.vimPlugins.nvim-treesitter.withPlugins plugins).overrideAttrs (old: {
+          version = "master";
+          src = inputs.nvim-treesitter;
+          postInstall = old.postInstall or "" + ''
+            for x in highlights locals; do
+              cp -f ${inputs.tree-sitter-nix}/queries/nvim-$x.scm $out/queries/nix/$x.scm
+            done
+          '';
+        });
+      in
+        nvim-treesitter;
+
       config = ''
         lua <<EOF
           require("nvim-treesitter.configs").setup {
@@ -76,11 +92,50 @@ let
             playground = {
               enable = true,
             },
+            refactor = {
+              highlight_definition = { enable = true },
+              navigation = {
+                enable = true,
+                keymaps = {
+                  goto_definition = "gnd",
+                  list_definitions = "gnD",
+                  list_definitions_toc = "gO",
+                  goto_next_usage = "<a-*>",
+                  goto_previous_usage = "<a-#>",
+                },
+              },
+            },
+            textobjects = {
+              select = {
+                enable = true,
+                keymaps = {
+                  ["af"] = "@function.outer",
+                  ["if"] = "@function.inner",
+                  ["ac"] = "@class.outer",
+                  ["ic"] = "@class.inner",
+                },
+              },
+              move = {
+                enable = true,
+                goto_next_start = {
+                  ["]f"] = "@function.outer",
+                  ["]b"] = "@block.outer",
+                  ["]]"] = "@class.outer",
+                },
+                goto_previous_start = {
+                  ["[f"] = "@function.outer",
+                  ["[b"] = "@block.outer",
+                  ["[["] = "@class.outer",
+                },
+              },
+            },
           }
         EOF
       '';
     }
     nvim-treesitter-context
+    nvim-treesitter-refactor
+    nvim-treesitter-textobjects
     playground
   ];
 

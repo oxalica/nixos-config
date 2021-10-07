@@ -32,6 +32,26 @@
       flake = false;
     };
 
+    nightfox-vim = {
+      url = "github:oxalica/nightfox.vim";
+      # url = "/home/oxa/repo/fork/nightfox.vim";
+      flake = false;
+    };
+
+    nvim-treesitter = {
+      url = "github:nvim-treesitter/nvim-treesitter";
+      flake = false;
+    };
+    tree-sitter-nix = {
+      url = "github:oxalica/tree-sitter-nix";
+      # url = "/home/oxa/repo/fork/tree-sitter-nix";
+      flake = false;
+    };
+    tree-sitter-bash = {
+      url = "github:tree-sitter/tree-sitter-bash/pull/109/head";
+      flake = false;
+    };
+
     # Optional.
     secrets.url = "/home/oxa/storage/repo/nixos-config-secrets";
   };

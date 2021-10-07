@@ -35,6 +35,22 @@
         "type": "github"
       }
     },
+    "nightfox-vim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1634230822,
+        "narHash": "sha256-DlhHiaWmzq8bQ7vrmlcVqtC+jPEa2gcwnPsH5Ibz4fs=",
+        "owner": "oxalica",
+        "repo": "nightfox.vim",
+        "rev": "3d8040f0e61ebb55e25ec1bffabb382cb77c20f9",
+        "type": "github"
+      },
+      "original": {
+        "owner": "oxalica",
+        "repo": "nightfox.vim",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1633617995,
@@ -64,6 +80,22 @@
         "owner": "nixos",
         "ref": "nixos-21.05",
         "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nvim-treesitter": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1633641885,
+        "narHash": "sha256-pXHZEDf9LGnC1zDg9gXEJr8FcWYnP+46qm3IzQy6Tb0=",
+        "owner": "nvim-treesitter",
+        "repo": "nvim-treesitter",
+        "rev": "ea0f6614b7f67d141b68a8c68dcfbe0dca19009a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nvim-treesitter",
+        "repo": "nvim-treesitter",
         "type": "github"
       }
     },
@@ -103,12 +135,16 @@
       "inputs": {
         "flake-utils": "flake-utils",
         "home-manager": "home-manager",
+        "nightfox-vim": "nightfox-vim",
         "nixpkgs": "nixpkgs",
         "nixpkgs-stable": "nixpkgs-stable",
+        "nvim-treesitter": "nvim-treesitter",
         "registry-crates-io": "registry-crates-io",
         "rime-emoji": "rime-emoji",
         "rust-overlay": "rust-overlay",
         "secrets": "secrets",
+        "tree-sitter-bash": "tree-sitter-bash",
+        "tree-sitter-nix": "tree-sitter-nix",
         "xdgify-overlay": "xdgify-overlay"
       }
     },
@@ -148,6 +184,39 @@
       "original": {
         "type": "git",
         "url": "file:///home/oxa/storage/repo/nixos-config-secrets"
+      }
+    },
+    "tree-sitter-bash": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1633879017,
+        "narHash": "sha256-7Kl5nRNaMESLqAdnTogXXg02qE6Ewe21A/kN4t7yGU4=",
+        "owner": "tree-sitter",
+        "repo": "tree-sitter-bash",
+        "rev": "bb07c4add516209899f6bf1c518bf9fc1f3cff5b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "tree-sitter",
+        "ref": "pull/109/head",
+        "repo": "tree-sitter-bash",
+        "type": "github"
+      }
+    },
+    "tree-sitter-nix": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1634165171,
+        "narHash": "sha256-74btsNFMYsCsQ9rxmgUJAfe+LY0DV9IHNnOPF+4tmM0=",
+        "owner": "oxalica",
+        "repo": "tree-sitter-nix",
+        "rev": "20875a4fd52b7c52c022fa93918b984df5f37b6b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "oxalica",
+        "repo": "tree-sitter-nix",
+        "type": "github"
       }
     },
     "xdgify-overlay": {
