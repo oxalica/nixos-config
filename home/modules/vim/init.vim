@@ -7,27 +7,39 @@ set scrolloff=5
 set updatetime=1000
 set foldmethod=marker
 
+" No undo for tmp files
+autocmd BufWritePre /tmp/*,/var/tmp/*,/dev/shm/* setlocal noundofile nobackup
+
 " Encoding. {{{1
 set encoding=utf-8 termencoding=utf-8
 set fileencodings=ucs-bom,utf-8,gb18030,latin1
 
 " Input. {{{1
-set tabstop=4 shiftwidth=4 softtabstop=4
-set autoindent smarttab cindent
-set expandtab
+set tabstop=8 shiftwidth=4 softtabstop=4
+set autoindent smarttab expandtab
 set backspace=indent,eol,start
-set ttimeoutlen=50
+set ttimeoutlen=1
 
 " Render. {{{1
 set number
 set cursorline
-set textwidth=120
-set colorcolumn=120
+set signcolumn=yes
+set textwidth=99
 set list
 set listchars=tab:-->,extends:>,precedes:<
 
-" Render tab indicators as NonText (dark grey).
-let g:match_tab = matchadd("NonText", '\t', 1)
+" Always show status line
+set laststatus=2
+" Reference: https://github.com/lilydjwg/dotvim/blob/07c4467153f2f44264fdb0e23c085b56cad519db/vimrc#L548
+" <path/to/file [+][preview][RO][filetype][binary][encoding][BOM][dos][noeol]
+"   === char code, line, column, byte position, percentage
+set statusline=%<%f\ %m%r%y
+  \%{&bin?'[binary]':''}
+  \%{!&bin&&&fenc!='utf-8'&&&fenc!=''?'['.&fenc.']':''}
+  \%{!&bin&&&bomb?'[BOM]':''}
+  \%{!&bin&&&ff!='unix'?'['.&ff.']':''}
+  \%{!&eol?'[noeol]':&bin?'[eol]':''}
+  \\ %LL%=\ 0x%-6.B\ %-22.(%lL,%cC%V,%oB%)\ %P
 
 " XDG & Vim fixup. {{{1
 
@@ -127,6 +139,9 @@ let g:NERDCommentEmptyLines = 1
 
 " vim-better-whitespace
 let g:show_spaces_that_precede_tabs = 1
+
+" vim-cursorword
+let g:cursorword_delay = 0 " Immediate refresh
 
 " vim-highlightedyank {{{2
 let g:highlightedyank_highlight_duration = 200
