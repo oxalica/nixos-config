@@ -82,5 +82,13 @@ limitmem() {
     (( $# < 3 )) && { echo "USAGE: limitmem <High> <Max> <cmds...>" >&2; return 1; }
     local cmd=(systemd-run --scope --user -p MemorySwapMax=0 -p MemoryHigh=$1 -p MemoryMax=$2 $argv[3,-1])
     echo -E "+ ${(q)cmd[@]}"
-    $cmd[@]
+    ${cmd[@]}
+}
+
+# Patch interpreter to the dynamic linker.
+patchinterp() {
+    local interp glibc
+    interp="$(patchelf --print-interpreter $1)" || return 1
+    [[ $interp != /nix/store/* ]] || { echo "Already patched: $interp"; return 1; }
+    linker="$(nix eval --raw nixpkgs#bintools.dynamicLinker)" && patchelf --set-interpreter $linker $1
 }
