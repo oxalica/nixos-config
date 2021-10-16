@@ -21,9 +21,10 @@
       settings = {
         # Random config
         "ui.systemUsesDarkTheme" = true;
-
         "browser.aboutConfig.showWarning" = false;
         "browser.toolbars.bookmarks.visibility" = "always";
+
+        # Let our font-config choose final fonts.
         "font.language.group" = "zh-CN";
         "font.name.monospace.zh-CN" = "monospace";
         "font.name.sans-serif.zh-CN" = "sans-serif";
@@ -36,7 +37,13 @@
         "media.ffvpx.enabled" = false;
         "media.rdd-vpx.enabled" = false;
         "media.navigator.mediadatadecoder_vpx_enabled" = true;
-        "media.av1.enabled" = false;
+        "media.av1.enabled" = false; # My GPU doesn't support this.
+
+        # Enable user chrome, which is by default disabled.
+        "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
+
+        # Site isolation.
+        "fission.autostart" = true;
       };
 
       # Hide tab
