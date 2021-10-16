@@ -7,15 +7,16 @@ let
     fcitx-vim
     fzf-vim
     nerdcommenter
+    sleuth # Shift width autodetection.
     tabular
-    vim-better-whitespace
+    vim-better-whitespace # Highlight trailing spaces except in current editing line.
     vim-cursorword
     vim-fugitive
     vim-gitgutter
     vim-highlightedyank
     vim-matchup
     vim-sandwich
-    vim-smoothie
+    vim-smoothie # Smooth scroll.
 
     # Plugins of plugins.
     fugitive-gitlab-vim

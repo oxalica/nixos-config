@@ -17,6 +17,9 @@ set fileencodings=ucs-bom,utf-8,gb18030,latin1
 " Input. {{{1
 set tabstop=8 shiftwidth=4 softtabstop=4
 set autoindent smarttab expandtab
+" Always use lexical indentation for content inside parenthesis (function call, if conditions, etc).
+set cinoptions=(s
+
 set backspace=indent,eol,start
 set ttimeoutlen=1
 
@@ -39,7 +42,8 @@ set statusline=%<%f\ %m%r%y
   \%{!&bin&&&bomb?'[BOM]':''}
   \%{!&bin&&&ff!='unix'?'['.&ff.']':''}
   \%{!&eol?'[noeol]':&bin?'[eol]':''}
-  \\ %LL%=\ 0x%-6.B\ %-22.(%lL,%cC%V,%oB%)\ %P
+  \\ %LL\ \ %-8.{has('nvim')?coc#status():''}
+  \%=\ 0x%-4.B\ %-16.(%lL,%cC%V,%oB%)\ %P
 
 " XDG & Vim fixup. {{{1
 
@@ -141,10 +145,14 @@ let g:NERDSpaceDelims = 1
 let g:NERDDefaultAlign = 'left'
 let g:NERDCommentEmptyLines = 1
 
-" vim-better-whitespace
+" sleuth {{{2
+" Don't search for neighbor files. Just detect the file itself.
+let g:sleuth_neighbor_limit = 0
+
+" vim-better-whitespace {{{2
 let g:show_spaces_that_precede_tabs = 1
 
-" vim-cursorword
+" vim-cursorword {{{2
 let g:cursorword_delay = 0 " Immediate refresh
 
 " vim-highlightedyank {{{2
@@ -174,8 +182,8 @@ if has('nvim')
   let g:coc_config_home = $XDG_CONFIG_HOME . "/nvim"
   let g:coc_data_home = $XDG_DATA_HOME . "/coc"
 
-  inoremap <silent><expr> <c-@> coc#refresh()
-  inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+  inoremap <silent><expr> <c-space> coc#refresh()
+  inoremap <silent><expr> <tab> pumvisible() ? coc#_select_confirm() : "\<tab>"
 
   " Diagnostic
   nmap <silent> [g <Plug>(coc-diagnostic-prev)
