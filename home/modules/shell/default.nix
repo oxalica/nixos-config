@@ -46,6 +46,7 @@
       ];
     };
 
+    # bash
     initExtra = ''
       # Random settings.
       setopt interactivecomments

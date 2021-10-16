@@ -8,6 +8,7 @@
     prefix = "C-a";
     clock24 = true;
 
+    # tmux
     extraConfig = ''
       set-option -g mouse on
       set-option -g escape-time 10 # Don't mess up when Esc followed by some keys.

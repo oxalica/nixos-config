@@ -84,6 +84,7 @@ let
       in
         nvim-treesitter;
 
+      # vim
       config = ''
         lua <<EOF
           require("nvim-treesitter.configs").setup {

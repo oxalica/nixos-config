@@ -10,20 +10,7 @@ let
     requests
     toml
     matplotlib
-
-    # (opencv4.override {
-    #   enableGtk3 = true;
-    #   enableFfmpeg = true;
-    # })
   ]);
-
-  # myPip = pkgs.python3Packages.pip.overrideAttrs (old: {
-  #   postFixup = old.postFixup + ''
-  #     for file in $out/bin/pip*; do
-  #       sed '/PYTHONNOUSERSITE/d' --in-place "$file"
-  #     done
-  #   '';
-  # });
 
   myIdris = pkgs.idrisPackages.with-packages (with pkgs.idrisPackages; [
     contrib array
@@ -51,16 +38,9 @@ in {
     man-pages # Man
     cachix patchelf # Utils
     gcc gdb gnumake cmake lld binutils # rust's backtrace-sys requires `ar`
-    ghc nodejs idris2 # myIdris <- broken
-    myPython # python3 myPip
+    ghc nodejs idris2 myIdris # <- broken
+    myPython # python3
     nixpkgs-review # nix
     sqlite-interactive # sqlite
-
-    ################
-    # Keep from GC #
-    ################
-
-    # Dev deps
-    pkg-config openssl.dev
   ];
 }

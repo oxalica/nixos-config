@@ -1,6 +1,7 @@
 { lib, pkgs, inputs, ... }:
 
 let
+  # bash
   onChange = ''
     if [[ ! -v fcitxRestarted ]]; then
       fcitxRestarted=1
@@ -42,6 +43,7 @@ in {
 
     "fcitx5/rime/default.custom.yaml" = {
       inherit onChange;
+      # yaml
       text = ''
         # encoding: utf-8
 
@@ -67,6 +69,7 @@ in {
 
     "fcitx5/rime/double_pinyin.custom.yaml" = {
       inherit onChange;
+      # yaml
       text = ''
         # encoding: utf-8
 
