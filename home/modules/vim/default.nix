@@ -76,7 +76,7 @@ let
           version = "master";
           src = inputs.nvim-treesitter;
           postInstall = old.postInstall or "" + ''
-            for x in highlights locals; do
+            for x in highlights locals injections; do
               cp -f ${inputs.tree-sitter-nix}/queries/nvim-$x.scm $out/queries/nix/$x.scm
             done
           '';
