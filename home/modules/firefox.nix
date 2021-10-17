@@ -6,11 +6,25 @@
     package = (pkgs.firefox.override {
       cfg.enablePlasmaBrowserIntegration = true;
     }).overrideAttrs (old: {
+      nativeBuildInputs = old.nativeBuildInputs or [] ++ [ pkgs.zip pkgs.unzip pkgs.breakpointHook ];
+
       # Hardware video decoding support.
       # See: https://wiki.archlinux.org/index.php/Firefox#Hardware_video_acceleration
+      # bash
       buildCommand = old.buildCommand + ''
         sed '/exec /i [[ "$XDG_SESSION_TYPE" == x11 ]] && export MOZ_X11_EGL=1' \
           --in-place "$out/bin/firefox"
+
+        # Rebind C-W to C-S-W for closing tab.
+        cd "$(mktemp -d)"
+        file="$out/lib/firefox/browser/omni.ja"
+        path=chrome/browser/content/browser/browser.xhtml
+        unzip "$file"
+        sed -E '/id="key_close"/ s/modifiers=".*"/modifiers="accel,shift"/' \
+          --in-place "$path"
+        # Remove the symlink first.
+        rm "$file"
+        zip -r "$file" *
       '';
     });
 
@@ -44,6 +58,8 @@
 
         # Site isolation.
         "fission.autostart" = true;
+
+        "browser.quitShortcut.disabled" = true; # Prevent C-Q to exit browser.
       };
 
       # Hide tab
