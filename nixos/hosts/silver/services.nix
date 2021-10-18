@@ -55,7 +55,7 @@
     '';
     scriptArgs = let
       # Secret is required.
-      cfg = inputs.secrets.keys.silver.ddns;
+      cfg = inputs.secrets.keys.ddns.silver;
     in "'${cfg.host}' '${cfg.domain}' '${cfg.key}'";
   };
   systemd.timers."update-ddns" = {

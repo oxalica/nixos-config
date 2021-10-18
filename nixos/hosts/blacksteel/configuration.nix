@@ -17,6 +17,9 @@
     ../../modules/steam-compat.nix
   ] ++ lib.optional (inputs ? secrets) (inputs.secrets.nixosModules.blacksteel);
 
+  # Global ssh settings. Also for remote builders.
+  programs.ssh = lib.optionalAttrs (inputs ? secrets) inputs.secrets.keys.ssh;
+
   networking.hostName = "blacksteel";
 
   time.timeZone = "Asia/Shanghai";
