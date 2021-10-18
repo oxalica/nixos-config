@@ -68,6 +68,14 @@
     overlays = {
       rust-overlay = inputs.rust-overlay.overlay;
       xdgify-overlay = inputs.xdgify-overlay.overlay;
+
+      fcitx5-qt-wayland = final: prev: {
+        libsForQt5 = prev.libsForQt5.overrideScope' (finalScope: prevScope: {
+          fcitx5-qt = prevScope.fcitx5-qt.overrideAttrs (old: {
+            patches = old.patches or [] ++ [ ./patches/fcitx5-qt-disable-position-clamping.patch ];
+          });
+        });
+      };
     };
 
     # Ref: https://github.com/dramforever/config/blob/63be844019b7ca675ea587da3b3ff0248158d9fc/flake.nix#L24-L28
@@ -108,7 +116,7 @@
   in {
     nixosConfigurations = {
       invar = mkDesktopSystem "x86_64-linux"
-        (with overlays; [ rust-overlay xdgify-overlay ])
+        (with overlays; [ rust-overlay xdgify-overlay fcitx5-qt-wayland ])
         [ ./nixos/hosts/invar/configuration.nix ];
 
       blacksteel = mkDesktopSystem "x86_64-linux"

@@ -1,0 +1,12 @@
+--- a/qt5/platforminputcontext/fcitxcandidatewindow.cpp
++++ b/qt5/platforminputcontext/fcitxcandidatewindow.cpp
+@@ -407,7 +407,7 @@ void fcitx::FcitxCandidateWindow::updateClientSideUI(
+     // Try to apply the screen edge detection over the window, because if we
+     // intent to use this with wayland. It we have no information above screen
+     // edge.
+-    if (isWayland_) {
++    if (0) {
+         screenGeometry = QRect(QPoint(0, 0), window->size());
+         cursorRect.translate(window->framePosition());
+         auto margins = window->frameMargins();
+
