@@ -16,4 +16,8 @@
   programs.iftop.enable = true;
 
   environment.systemPackages = with pkgs; [ htop procs ];
+
+  # Enable zsh related system configurations.
+  # This is required for sddm to source /etc/set-environment in login script.
+  programs.zsh.enable = true;
 }
