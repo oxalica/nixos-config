@@ -35,19 +35,19 @@
         "type": "github"
       }
     },
-    "nightfox-vim": {
+    "neovim": {
       "flake": false,
       "locked": {
-        "lastModified": 1634230822,
-        "narHash": "sha256-DlhHiaWmzq8bQ7vrmlcVqtC+jPEa2gcwnPsH5Ibz4fs=",
-        "owner": "oxalica",
-        "repo": "nightfox.vim",
-        "rev": "3d8040f0e61ebb55e25ec1bffabb382cb77c20f9",
+        "lastModified": 1634572901,
+        "narHash": "sha256-Rbm5tPbZwSAcQrKalUsR5m1N1zVYvL2OBo1/VXW7Pc0=",
+        "owner": "neovim",
+        "repo": "neovim",
+        "rev": "bcc9ba51faa54f0fd6b1cb0a3f69332971a112a2",
         "type": "github"
       },
       "original": {
-        "owner": "oxalica",
-        "repo": "nightfox.vim",
+        "owner": "neovim",
+        "repo": "neovim",
         "type": "github"
       }
     },
@@ -135,7 +135,7 @@
       "inputs": {
         "flake-utils": "flake-utils",
         "home-manager": "home-manager",
-        "nightfox-vim": "nightfox-vim",
+        "neovim": "neovim",
         "nixpkgs": "nixpkgs",
         "nixpkgs-stable": "nixpkgs-stable",
         "nvim-treesitter": "nvim-treesitter",

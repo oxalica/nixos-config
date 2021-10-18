@@ -218,7 +218,7 @@ end
 " Color schemes. {{{1
 
 " Manually bring plugin into scope. Required for vim.
-packadd nightfox-nvim
+packadd nightfox.nvim
 lua <<EOF
   require("nightfox").setup {
     fox = "nightfox",

@@ -32,12 +32,10 @@
       flake = false;
     };
 
-    nightfox-vim = {
-      url = "github:oxalica/nightfox.vim";
-      # url = "/home/oxa/repo/fork/nightfox.vim";
+    neovim = {
+      url = "github:neovim/neovim";
       flake = false;
     };
-
     nvim-treesitter = {
       url = "github:nvim-treesitter/nvim-treesitter";
       flake = false;

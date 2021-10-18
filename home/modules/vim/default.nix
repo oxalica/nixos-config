@@ -44,11 +44,7 @@ let
     })
 
     # Color scheme.
-    (pkgs.vimUtils.buildVimPlugin {
-      pname = "nightfox-nvim";
-      version = "fixed";
-      src = inputs.nightfox-vim;
-    })
+    nightfox-nvim
   ];
 
   vimPlugins = with pkgs.vimPlugins; [
@@ -157,6 +153,11 @@ in
 
   programs.neovim = {
     enable = true;
+    package = pkgs.neovim-unwrapped.overrideAttrs (old: {
+      src = inputs.neovim;
+      version = lib.substring 0 6 inputs.neovim.lastModifiedDate;
+    });
+
     plugins = plugins ++ nvimPlugins;
     inherit extraConfig;
 
