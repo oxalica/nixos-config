@@ -53,7 +53,13 @@ let
   nvimPlugins = with pkgs.vimPlugins; [
     # LSP.
     coc-nvim
-    coc-rust-analyzer
+    {
+      plugin = coc-rust-analyzer;
+      # FIXME: https://github.com/neoclide/coc.nvim/issues/3388#issuecomment-930759776
+      config = ''
+        packadd coc-rust-analyzer
+      '';
+    }
 
     # Tree sitter.
     {
