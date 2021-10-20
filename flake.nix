@@ -76,6 +76,22 @@
           });
         });
       };
+
+      # FIXME: https://github.com/NixOS/nixpkgs/issues/141873
+      flameshot-fix = final: prev: {
+        flameshot = prev.flameshot.overrideAttrs (old: {
+          patches = old.patches or [] ++ [
+            (final.fetchpatch {
+              url = "https://github.com/flameshot-org/flameshot/commit/7977cbb52c2d785abd0d85d9df5991e8f7cae441.patch";
+              sha256 = "sha256-wWa9Y+4flBiggOMuX7KQyL+q3f2cALGeQBGusX2x6sk=";
+            })
+          ];
+          postInstall = old.postInstall or "" + ''
+            sed -E "s#Exec=[^ ]*flameshot#Exec=$out#" \
+              --in-place "$out/share/applications/org.flameshot.Flameshot.desktop"
+          '';
+        });
+      };
     };
 
     # Ref: https://github.com/dramforever/config/blob/63be844019b7ca675ea587da3b3ff0248158d9fc/flake.nix#L24-L28
@@ -116,7 +132,7 @@
   in {
     nixosConfigurations = {
       invar = mkDesktopSystem "x86_64-linux"
-        (with overlays; [ rust-overlay xdgify-overlay fcitx5-qt-wayland ])
+        (with overlays; [ rust-overlay xdgify-overlay fcitx5-qt-wayland flameshot-fix ])
         [ ./nixos/hosts/invar/configuration.nix ];
 
       blacksteel = mkDesktopSystem "x86_64-linux"
