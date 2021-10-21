@@ -92,6 +92,18 @@
           '';
         });
       };
+
+      # FIXME: https://github.com/alacritty/alacritty/commit/58985a4dcbe464230b5d2566ee68e2d34a1788c8
+      alacritty-pty-error = final: prev: {
+        alacritty = prev.alacritty.overrideAttrs (old: {
+          patches = old.patches or [] ++ [
+            (final.fetchpatch {
+              url = "https://github.com/alacritty/alacritty/commit/58985a4dcbe464230b5d2566ee68e2d34a1788c8.patch";
+              sha256 = "sha256-Z6589yRrQtpx3/vNqkMiGgGsLysd/QyfaX7trqX+k5c=";
+            })
+          ];
+        });
+      };
     };
 
     # Ref: https://github.com/dramforever/config/blob/63be844019b7ca675ea587da3b3ff0248158d9fc/flake.nix#L24-L28
@@ -132,7 +144,13 @@
   in {
     nixosConfigurations = {
       invar = mkDesktopSystem "x86_64-linux"
-        (with overlays; [ rust-overlay xdgify-overlay fcitx5-qt-wayland flameshot-fix ])
+        (with overlays; [
+          rust-overlay
+          xdgify-overlay
+          fcitx5-qt-wayland
+          flameshot-fix
+          alacritty-pty-error
+        ])
         [ ./nixos/hosts/invar/configuration.nix ];
 
       blacksteel = mkDesktopSystem "x86_64-linux"
