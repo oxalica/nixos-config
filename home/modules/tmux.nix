@@ -10,8 +10,9 @@
 
     # tmux
     extraConfig = ''
-      set-option -g mouse on
-      set-option -g escape-time 10 # Don't mess up when Esc followed by some keys.
+      set -g mouse on
+      set -g escape-time 1 # Don't mess up when Esc followed by some keys.
+      set -g set-clipboard on
 
       # Fixups
       # For true colors
@@ -28,71 +29,41 @@
       set -sa terminal-overrides '*:Setulc=\E[58::2::%p1%{65536}%/%d::%p1%{256}%/%{255}%&%d::%p1%{255}%&%d%;m'
 
       # Colors
-      set-option -g status-style bg=black,fg=yellow
-      set-option -g window-status-current-style bg=yellow,fg=black
-      set-option -g message-style bg=black,fg=yellow
-      set-option -g message-command-style bg=yellow,fg=black
-      set-option -g pane-active-border-style fg=magenta
+      set -g status-style bg=black,fg=yellow
+      set -g window-status-current-style bg=yellow,fg=black
+      set -g message-style bg=black,fg=yellow
+      set -g message-command-style bg=yellow,fg=black
+      set -g pane-active-border-style fg=magenta
 
       # Custom window title
-      set-option -g automatic-rename on
-      set-option -g automatic-rename-format '#{b:pane_current_path}:#{?#{!=:#{window_panes},1},#{window_panes}:,}#{pane_current_command}'
+      set -g automatic-rename on
+      set -g automatic-rename-format '#{b:pane_current_path}:#{?#{!=:#{window_panes},1},#{window_panes}:,}#{pane_current_command}'
 
       # Reload.
-      bind-key r source-file ~/.config/tmux/tmux.conf \; \
+      bind r source-file ~/.config/tmux/tmux.conf \; \
         display-message "source-file done"
 
       # Split panes.
-      bind-key v split-window -h -c "#{pane_current_path}"
-      bind-key s split-window -v -c "#{pane_current_path}"
+      bind v split-window -h -c "#{pane_current_path}"
+      bind s split-window -v -c "#{pane_current_path}"
 
       # Resize panes.
-      bind-key -r H resize-pane -L 5
-      bind-key -r J resize-pane -D 5
-      bind-key -r K resize-pane -U 5
-      bind-key -r L resize-pane -R 5
+      bind -r H resize-pane -L 5
+      bind -r J resize-pane -D 5
+      bind -r K resize-pane -U 5
+      bind -r L resize-pane -R 5
 
       # Move between panes.
-      bind-key -r C-h select-pane -L
-      bind-key -r C-j select-pane -D
-      bind-key -r C-k select-pane -U
-      bind-key -r C-l select-pane -R
-
-      # Copy & paste.
-      set-option -s set-clipboard off
-      # Copy mode.
-      bind-key -T copy-mode-vi v send-keys -X begin-selection
-      bind-key -T copy-mode-vi V send-keys -X rectangle-toggle
-      bind-key -T copy-mode-vi y send-keys -X copy-pipe-and-cancel "xsel -ib"
-      bind-key -T copy-mode-vi MouseDragEnd1Pane send-keys -X copy-pipe-no-clear "xsel -ip"
-      bind-key -T copy-mode-vi DoubleClick1Pane send-keys -X select-word \; \
-        send-keys -X copy-pipe-no-clear "xsel -ip"
-      bind-key -T copy-mode-vi TripleClick1Pane send-keys -X select-line \; \
-        send-keys -X copy-pipe-no-clear "xsel -ip"
-
-      # Normal mode copy, only if the inner program doesn't have mouse enabled.
-      bind-key -n DoubleClick1Pane if-shell -F "#{||:#{pane_in_mode},#{mouse_any_flag}}" "send -M" {
-        copy-mode -e
-        send-keys -X select-word
-        send-keys -X copy-pipe-no-clear "xsel -ip"
-      }
-      bind-key -n TripleClick1Pane if-shell -F "#{||:#{pane_in_mode},#{mouse_any_flag}}" "send -M" {
-        copy-mode -e
-        send-keys -X select-line
-        send-keys -X copy-pipe-no-clear "xsel -ip"
-      }
-
-      # Copy & normal mode paste.
-      bind-key -T copy-mode-vi MouseDown2Pane send-keys -X cancel \; \
-        run "tmux set-buffer -b primary_selection \"$(xsel -op)\"; tmux paste-buffer -b primary_selection"
-      bind-key -n MouseDown2Pane select-pane \; \
-        run "tmux set-buffer -b primary_selection \"$(xsel -op)\"; tmux paste-buffer -b primary_selection"
+      bind -r C-h select-pane -L
+      bind -r C-j select-pane -D
+      bind -r C-k select-pane -U
+      bind -r C-l select-pane -R
 
       # Clear some default bindings.
-      unbind-key up
-      unbind-key down
-      unbind-key left
-      unbind-key right
+      unbind up
+      unbind down
+      unbind left
+      unbind right
     '';
   };
 }
