@@ -3,13 +3,9 @@
 {
   nixpkgsAllowUnfreeList = [
     "ark" "unrar"
-    "vscode-extension-ms-toolsai-jupyter"
-    "vscode-extension-ms-vscode-cpptools"
-    "vscode-extension-ms-vscode-remote-remote-ssh"
     "steam" "steam-original" "steam-runtime"
     "minecraft-launcher"
     "osu-lazer"
-    "typora"
   ];
 
   services.xserver.dpi = 120;

@@ -18,7 +18,6 @@
     ./modules/trash.nix
     ./modules/user-dirs.nix
     ./modules/vim
-    ./modules/vscode
 
     ./plugins/hm-desktop-autostart.nix
   ];
