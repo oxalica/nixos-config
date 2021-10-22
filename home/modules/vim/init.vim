@@ -80,7 +80,7 @@ endif
 " Mapping. {{{1
 
 let mapleader='\'
-nnoremap Y y$
+nmap Y y$
 
 map <m-z> <cmd>set wrap!<cr>
 imap <expr> <m-z> execute('set wrap!')
@@ -182,7 +182,7 @@ if has('nvim')
   let g:coc_config_home = $XDG_CONFIG_HOME . "/nvim"
   let g:coc_data_home = $XDG_DATA_HOME . "/coc"
 
-  inoremap <silent><expr> <c-space> coc#refresh()
+  inoremap <silent><expr> <c-tab> coc#refresh()
   inoremap <silent><expr> <tab> pumvisible() ? coc#_select_confirm() : "\<tab>"
 
   " Diagnostic

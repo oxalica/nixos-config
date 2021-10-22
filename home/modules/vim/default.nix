@@ -48,6 +48,9 @@ let
   ];
 
   vimPlugins = with pkgs.vimPlugins; [
+    # Vim doens't have native wayland clipboard support.
+    # https://github.com/vim/vim/issues/5157
+    vim-wayland-clipboard
   ];
 
   nvimPlugins = with pkgs.vimPlugins; [
