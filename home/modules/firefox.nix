@@ -14,6 +14,8 @@
       buildCommand = old.buildCommand + ''
         sed '/exec /i [[ "$XDG_SESSION_TYPE" == x11 ]] && export MOZ_X11_EGL=1' \
           --in-place "$out/bin/firefox"
+        sed '/exec /i [[ "$XDG_SESSION_TYPE" == wayland ]] && export MOZ_ENABLE_WAYLAND=1' \
+          --in-place "$out/bin/firefox"
 
         # Rebind C-W to C-S-W for closing tab.
         cd "$(mktemp -d)"
