@@ -16,6 +16,14 @@
     '';
   };
 
+  virtualisation.libvirtd = {
+    enable = true;
+    onBoot = "ignore";
+  };
+  users.groups."libvirtd".members = [ "oxa" ];
+
+  environment.systemPackages = [ pkgs.qemu ];
+
   systemd.services."update-ddns" = {
     description = "Update dynamic DNS record";
     requires = [ "network.target" ];
