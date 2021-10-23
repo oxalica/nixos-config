@@ -17,8 +17,12 @@ with lib;
     enable = true;
     layout = "us";
 
-    desktopManager.plasma5.enable = true;
     displayManager.sddm.enable = true;
+    desktopManager.plasma5 = {
+      enable = true;
+      useQtScaling = true;
+      runUsingSystemd = true;
+    };
   };
 
   security.pam.services.sddm.enableKwallet = true;
@@ -92,6 +96,5 @@ with lib;
     "xdg/kglobalshortcutsrc".source = ./xdg/kglobalshortcutsrc;
     "xdg/kwinrc".source = ./xdg/kwinrc;
     "xdg/kwinrulesrc".source = ./xdg/kwinrulesrc;
-    "xdg/startkderc".source = ./xdg/startkderc;
   };
 }
