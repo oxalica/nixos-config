@@ -49,6 +49,10 @@
       url = "github:tree-sitter/tree-sitter-bash/pull/109/head";
       flake = false;
     };
+    rust-vim-enhanced = {
+      url = "github:Iron-E/rust.vim/feature/struct-definition-identifiers";
+      flake = false;
+    };
 
     # Optional.
     secrets.url = "/home/oxa/storage/repo/nixos-config-secrets";
@@ -77,23 +81,7 @@
         });
       };
 
-      # FIXME: https://github.com/NixOS/nixpkgs/issues/141873
-      flameshot-fix = final: prev: {
-        flameshot = prev.flameshot.overrideAttrs (old: {
-          patches = old.patches or [] ++ [
-            (final.fetchpatch {
-              url = "https://github.com/flameshot-org/flameshot/commit/7977cbb52c2d785abd0d85d9df5991e8f7cae441.patch";
-              sha256 = "sha256-wWa9Y+4flBiggOMuX7KQyL+q3f2cALGeQBGusX2x6sk=";
-            })
-          ];
-          postInstall = old.postInstall or "" + ''
-            sed -E "s#Exec=[^ ]*flameshot#Exec=$out#" \
-              --in-place "$out/share/applications/org.flameshot.Flameshot.desktop"
-          '';
-        });
-      };
-
-      # FIXME: https://github.com/alacritty/alacritty/commit/58985a4dcbe464230b5d2566ee68e2d34a1788c8
+      # FIXME: https://github.com/NixOS/nixpkgs/pull/142669
       alacritty-pty-error = final: prev: {
         alacritty = prev.alacritty.overrideAttrs (old: {
           patches = old.patches or [] ++ [
@@ -148,13 +136,15 @@
           rust-overlay
           xdgify-overlay
           fcitx5-qt-wayland
-          flameshot-fix
           alacritty-pty-error
         ])
         [ ./nixos/hosts/invar/configuration.nix ];
 
       blacksteel = mkDesktopSystem "x86_64-linux"
-        (with overlays; [ rust-overlay ])
+        (with overlays; [
+          rust-overlay
+          alacritty-pty-error
+        ])
         [ ./nixos/hosts/blacksteel/configuration.nix ];
 
       silver = mkServerSystem "x86_64-linux"

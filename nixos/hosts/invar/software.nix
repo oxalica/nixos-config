@@ -69,7 +69,6 @@
   virtualisation.libvirtd = {
     enable = true;
     onBoot = "ignore";
-    qemuPackage = pkgs.qemu;
   };
   users.groups."libvirtd".members = [ "oxa" ];
 

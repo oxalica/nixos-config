@@ -31,16 +31,11 @@ let
     vim-markdown
     vim-nix
     vim-toml
+    # Advanced type highlighting: https://github.com/rust-lang/rust.vim/pull/431
     (pkgs.vimUtils.buildVimPlugin {
       pname = "rust-vim";
-      version = "2021-08-18";
-      # Advanced type highlighting: https://github.com/rust-lang/rust.vim/pull/431
-      src = pkgs.fetchFromGitHub {
-        owner = "Iron-E";
-        repo = "rust.vim";
-        rev = "dd8fcd5be9a0d8b83dc1515974959f6c92881d8d";
-        hash = "sha256-qPN/dfKKEKSqeKT7cHrJvyx8sZMziJm0QS8kTIQC13Q=";
-      };
+      version = lib.substring 0 6 inputs.rust-vim-enhanced.lastModifiedDate;
+      src = inputs.rust-vim-enhanced;
     })
 
     # Color scheme.
