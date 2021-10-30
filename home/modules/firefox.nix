@@ -88,4 +88,7 @@
     enable = true;
     browsers = [ "firefox" ];
   };
+
+  # https://bugzilla.mozilla.org/show_bug.cgi?id=1699942
+  home.packages = [ pkgs.arc-theme ];
 }
