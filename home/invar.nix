@@ -20,7 +20,7 @@
     ./modules/user-dirs.nix
     ./modules/vim
 
-    ./plugins/hm-desktop-autostart.nix
+    ./plugins/xdg-state-dir.nix
   ];
 
   systemd.user.sessionVariables = {

@@ -4,8 +4,6 @@
     pkgs.stretchly
   ];
 
-  desktop-autostart."stretchly" = {
-    desktopName = "Stretchly";
-    exec = "stretchly";
-  };
+  xdg.configFile."autostart/stretchly.desktop".source =
+    "${pkgs.stretchly}/share/applications/stretchly.desktop";
 }

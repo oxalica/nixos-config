@@ -18,8 +18,6 @@
     ./modules/trash.nix
     ./modules/user-dirs.nix
     ./modules/vim
-
-    ./plugins/hm-desktop-autostart.nix
   ];
 
   # This value determines the Home Manager release that your

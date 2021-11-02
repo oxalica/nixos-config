@@ -1,5 +1,4 @@
 { pkgs, ... }:
-
 {
   home.packages = with pkgs; [
     hydroxide
@@ -14,14 +13,6 @@
     }))
   ];
 
-  desktop-autostart."birdtray" = {
-    desktopName = "Birdtray";
-    exec = ''${pkgs.runtimeShell} -c "sleep 5; exec birdtray"'';
-  };
-
-  systemd.user.services."hydroxide" = {
-    Unit.Description = "Bridge to ProtonMail";
-    Install.WantedBy = [ "default.target" ];
-    Service.ExecStart = "${pkgs.hydroxide}/bin/hydroxide serve";
-  };
+  xdg.configFile."autostart/birdtray.desktop".source =
+    "${pkgs.birdtray}/share/applications/com.ulduzsoft.Birdtray.desktop";
 }
