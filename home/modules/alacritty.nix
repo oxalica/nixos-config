@@ -5,6 +5,10 @@
 
     # https://github.com/alacritty/alacritty/blob/master/alacritty.yml
     settings = {
+      import = [
+        "${pkgs.vimPlugins.nightfox-nvim}/extra/nightfox/nightfox_alacritty.yml"
+      ];
+
       window.padding = { x = 4; y = 0; };
       # window.startup_mode = "Fullscreen";
       window.startup_mode = "Maximized";
