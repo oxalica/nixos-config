@@ -23,6 +23,8 @@
   networking.useDHCP = false;
   networking.interfaces.enp0s31f6.useDHCP = true;
 
+  security.sudo.wheelNeedsPassword = false;
+
   users = {
     groups = {
       oxa.gid = 1000;
