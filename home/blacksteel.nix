@@ -18,6 +18,8 @@
     ./modules/trash.nix
     ./modules/user-dirs.nix
     ./modules/vim
+
+    ./plugins/xdg-state-dir.nix
   ];
 
   # This value determines the Home Manager release that your
