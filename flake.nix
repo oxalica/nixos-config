@@ -72,24 +72,13 @@
     overlays = {
       rust-overlay = inputs.rust-overlay.overlay;
       xdgify-overlay = inputs.xdgify-overlay.overlay;
+      prefer-remote-fetch = final: prev: prev.prefer-remote-fetch final prev;
 
       fcitx5-qt-wayland = final: prev: {
         libsForQt5 = prev.libsForQt5.overrideScope' (finalScope: prevScope: {
           fcitx5-qt = prevScope.fcitx5-qt.overrideAttrs (old: {
             patches = old.patches or [] ++ [ ./patches/fcitx5-qt-disable-position-clamping.patch ];
           });
-        });
-      };
-
-      # FIXME: https://github.com/NixOS/nixpkgs/pull/142669
-      alacritty-pty-error = final: prev: {
-        alacritty = prev.alacritty.overrideAttrs (old: {
-          patches = old.patches or [] ++ [
-            (final.fetchpatch {
-              url = "https://github.com/alacritty/alacritty/commit/58985a4dcbe464230b5d2566ee68e2d34a1788c8.patch";
-              sha256 = "sha256-Z6589yRrQtpx3/vNqkMiGgGsLysd/QyfaX7trqX+k5c=";
-            })
-          ];
         });
       };
     };
@@ -133,17 +122,16 @@
     nixosConfigurations = {
       invar = mkDesktopSystem "x86_64-linux"
         (with overlays; [
+          # prefer-remote-fetch
           rust-overlay
           xdgify-overlay
           fcitx5-qt-wayland
-          alacritty-pty-error
         ])
         [ ./nixos/hosts/invar/configuration.nix ];
 
       blacksteel = mkDesktopSystem "x86_64-linux"
         (with overlays; [
           rust-overlay
-          alacritty-pty-error
         ])
         [ ./nixos/hosts/blacksteel/configuration.nix ];
 
