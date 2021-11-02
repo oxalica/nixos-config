@@ -7,13 +7,13 @@
     ./software.nix
     ./system.nix
 
-    ../../modules/console-env.nix
-    ../../modules/desktop-env
-    ../../modules/nix-binary-cache-mirror.nix
-    ../../modules/nix-common.nix
-    ../../modules/nix-registry.nix
-    ../../modules/nixpkgs-allow-unfree-list.nix
-    ../../modules/steam-compat.nix
+    ../modules/console-env.nix
+    ../modules/desktop-env
+    ../modules/nix-binary-cache-mirror.nix
+    ../modules/nix-common.nix
+    ../modules/nix-registry.nix
+    ../modules/nixpkgs-allow-unfree-list.nix
+    ../modules/steam-compat.nix
   ] ++ lib.optional (inputs ? secrets) inputs.secrets.nixosModules.invar;
 
   nix.extraOptions = ''
@@ -50,7 +50,7 @@
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
-    users.oxa = import ../../../home/invar.nix;
+    users.oxa = import ../../home/invar.nix;
   };
 
   # This value determines the NixOS release from which the default

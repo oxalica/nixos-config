@@ -2,7 +2,7 @@
 {
   imports = [
     (modulesPath + "/installer/cd-dvd/installation-cd-minimal.nix")
-    ../../modules/nix-binary-cache-mirror.nix
+    ../modules/nix-binary-cache-mirror.nix
   ];
 
   isoImage = {

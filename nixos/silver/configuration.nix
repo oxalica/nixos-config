@@ -5,9 +5,9 @@
     ./boot.nix
     ./services.nix
 
-    ../../modules/console-env.nix
-    ../../modules/nix-binary-cache-mirror.nix
-    ../../modules/nix-common.nix
+    ../modules/console-env.nix
+    ../modules/nix-binary-cache-mirror.nix
+    ../modules/nix-common.nix
   ] ++ lib.optional (inputs ? secrets) (inputs.secrets.nixosModules.silver);
 
   # Global ssh settings. Also for remote builders.

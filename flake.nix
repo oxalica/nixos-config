@@ -119,21 +119,21 @@
           rust-overlay
           fcitx5-qt-wayland
         ])
-        [ ./nixos/hosts/invar/configuration.nix ];
+        [ ./nixos/invar/configuration.nix ];
 
       blacksteel = mkDesktopSystem "x86_64-linux"
         (with overlays; [
           rust-overlay
         ])
-        [ ./nixos/hosts/blacksteel/configuration.nix ];
+        [ ./nixos/blacksteel/configuration.nix ];
 
       silver = mkServerSystem "x86_64-linux"
         []
-        [ ./nixos/hosts/silver/configuration.nix ];
+        [ ./nixos/silver/configuration.nix ];
 
       iso = inputs.nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
-        modules = [ ./nixos/hosts/iso/configuration.nix ];
+        modules = [ ./nixos/iso/configuration.nix ];
         specialArgs.inputs = inputs;
       };
     };
