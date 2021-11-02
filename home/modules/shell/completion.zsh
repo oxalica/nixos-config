@@ -1,7 +1,7 @@
 # Modified from: https://github.com/ohmyzsh/ohmyzsh/blob/706b2f3765d41bee2853b17724888d1a3f6f00d9/lib/completion.zsh
 
 ZSH_CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/zsh"
-ZSH_COMPDUMP="${XDG_DATA_HOME:-$HOME/.local/share}/zsh/zcompdump"
+ZSH_COMPDUMP="${XDG_CACHE_HOME:-$HOME/.cache}/zsh/zcompdump"
 mkdir -p "$(dirname "$ZSH_COMPDUMP")"
 
 # fixme - the load process here seems a bit bizarre

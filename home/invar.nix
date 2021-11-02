@@ -23,7 +23,6 @@
     ./plugins/hm-desktop-autostart.nix
   ];
 
-  # FIXME: sddm doesn't respect `home.sessionVariables`.
   systemd.user.sessionVariables = {
     inherit (config.home.sessionVariables) CARGO_HOME GNUPGHOME PASSWORD_STORE_DIR;
   };
@@ -33,14 +32,12 @@
     link = path: config.lib.file.mkOutOfStoreSymlink "${home}/${path}";
     linkPersonal = path: link "storage/personal/${path}";
   in {
-    ".local/share/electron-cash/wallets".source = linkPersonal "cryptocurrency/bch";
-    ".local/share/electrum/wallets".source = linkPersonal "cryptocurrency/btc";
     ".local/share/fcitx5/rime/sync".source = linkPersonal "rime-sync";
     ".local/share/osu".source = linkPersonal "game/osu-lazer";
-    ".local/share/password-store".source = linkPersonal "password-store"; # FIXME: Put it in settings?
-    # ".gnupg".source = linkPersonal "gnupg"; # FIXME: `passff` doesn't get `GNUPGHOME`.
+    ".local/share/password-store".source = linkPersonal "password-store";
     ".ssh".source = linkPersonal "ssh";
 
+    # FIXME: Include it in this repo.
     ".config/task/taskrc".source = linkPersonal "task/taskrc";
   };
 

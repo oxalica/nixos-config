@@ -36,7 +36,7 @@
       expireDuplicatesFirst = true;
       extended = true;
       share = true;
-      path = "${config.xdg.dataHome}/zsh/zsh_history";
+      path = "${config.xdg.stateHome}/zsh/history";
       save = 10000;
       size = 50000;
       ignorePatterns = [

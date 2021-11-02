@@ -15,12 +15,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
     };
-    xdgify-overlay = {
-      url = "github:oxalica/xdgify-overlay";
-      # url = "/home/oxa/storage/repo/xdgify-overlay";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-utils.follows = "flake-utils";
-    };
 
     registry-crates-io = {
       url = "github:rust-lang/crates.io-index";
@@ -71,7 +65,6 @@
 
     overlays = {
       rust-overlay = inputs.rust-overlay.overlay;
-      xdgify-overlay = inputs.xdgify-overlay.overlay;
       prefer-remote-fetch = final: prev: prev.prefer-remote-fetch final prev;
 
       fcitx5-qt-wayland = final: prev: {
@@ -124,7 +117,6 @@
         (with overlays; [
           # prefer-remote-fetch
           rust-overlay
-          xdgify-overlay
           fcitx5-qt-wayland
         ])
         [ ./nixos/hosts/invar/configuration.nix ];

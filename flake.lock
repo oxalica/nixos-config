@@ -145,8 +145,7 @@
         "rust-vim-enhanced": "rust-vim-enhanced",
         "secrets": "secrets",
         "tree-sitter-bash": "tree-sitter-bash",
-        "tree-sitter-nix": "tree-sitter-nix",
-        "xdgify-overlay": "xdgify-overlay"
+        "tree-sitter-nix": "tree-sitter-nix"
       }
     },
     "rust-overlay": {
@@ -234,29 +233,6 @@
       "original": {
         "owner": "oxalica",
         "repo": "tree-sitter-nix",
-        "type": "github"
-      }
-    },
-    "xdgify-overlay": {
-      "inputs": {
-        "flake-utils": [
-          "flake-utils"
-        ],
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1623087078,
-        "narHash": "sha256-D9nWLOatDoZNKP1bOfATs1Xtbjev44HjmI3NcmkCr/k=",
-        "owner": "oxalica",
-        "repo": "xdgify-overlay",
-        "rev": "60ca89ff1358f0705e51b14aa2116fa44a4c73c4",
-        "type": "github"
-      },
-      "original": {
-        "owner": "oxalica",
-        "repo": "xdgify-overlay",
         "type": "github"
       }
     }
