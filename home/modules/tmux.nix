@@ -29,7 +29,7 @@
       set -sa terminal-overrides '*:Setulc=\E[58::2::%p1%{65536}%/%d::%p1%{256}%/%{255}%&%d::%p1%{255}%&%d%;m'
 
       # Colors
-      set -g status-style bg=black,fg=yellow
+      set -g status-style fg=yellow
       set -g window-status-current-style bg=yellow,fg=black
       set -g message-style bg=black,fg=yellow
       set -g message-command-style bg=yellow,fg=black

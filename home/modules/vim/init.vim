@@ -155,6 +155,10 @@ let g:show_spaces_that_precede_tabs = 1
 " vim-cursorword {{{2
 let g:cursorword_delay = 0 " Immediate refresh
 
+" vim-fugitive {{{2
+command -nargs=* GG tab Git <args>
+command -nargs=* Gl tab Git log --max-count=500 <args>
+
 " vim-highlightedyank {{{2
 let g:highlightedyank_highlight_duration = 200
 

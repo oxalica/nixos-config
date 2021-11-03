@@ -25,13 +25,15 @@
     };
 
     extraConfig = {
+      init.defaultBranch = "main";
+
       pull.ff = "only";
       advice.detachedHead = false;
 
-      diff.tool = "vimdiff";
+      diff.tool = "nvimdiff";
       difftool.prompt = false;
 
-      merge.tool = "vimdiff";
+      merge.tool = "nvimdiff";
       merge.conflictstyle = "diff3";
       mergetool.prompt = false;
 
