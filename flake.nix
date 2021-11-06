@@ -64,7 +64,7 @@
       ) pathStrs);
 
     overlays = {
-      rawmv = final: prev: { rawmv = final.callPackage ./pkgs/rawmv.nix {}; };
+      mypkgs = final: prev: import ./pkgs { inherit (final) callPackage; };
       rust-overlay = inputs.rust-overlay.overlay;
       prefer-remote-fetch = final: prev: prev.prefer-remote-fetch final prev;
 
@@ -117,7 +117,7 @@
       invar = mkDesktopSystem "x86_64-linux"
         (with overlays; [
           # prefer-remote-fetch
-          rawmv
+          mypkgs
           rust-overlay
           fcitx5-qt-wayland
         ])

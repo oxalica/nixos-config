@@ -25,7 +25,7 @@ in {
     libarchive runzip # Compression
     trash-cli xsel wl-clipboard # CLI-Desktop
     taskwarrior # Task manager
-    beancount
+    beancount double-entry-generator
 
     # GUI
     kolourpaint vlc libreoffice calibre # Files
