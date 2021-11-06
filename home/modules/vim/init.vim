@@ -137,8 +137,9 @@ function FzfAt(path)
 endfunction
 nnoremap <silent> <leader>ff :call FzfAt('.')<cr>
 nnoremap <silent> <leader>f. :call FzfAt(expand('%:p:h'))<cr>
+nnoremap <silent> <leader>fp :call FzfAt(expand('%:p:h:h'))<cr>
 " Fullscreen by default for :Rg
-command! -nargs=* Rg call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case -- ".shellescape(<q-args>), 1, fzf#vim#with_preview(), 1)
+command! -nargs=1 Rg call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case -- ".shellescape(<q-args>), 1, fzf#vim#with_preview(), 1)
 
 " nerdcommenter {{{2
 let g:NERDSpaceDelims = 1
@@ -157,7 +158,7 @@ let g:cursorword_delay = 0 " Immediate refresh
 
 " vim-fugitive {{{2
 command -nargs=* GG tab Git <args>
-command -nargs=* Gl tab Git log --max-count=500 <args>
+command -nargs=* GL tab Git log --max-count=500 <args>
 
 " vim-highlightedyank {{{2
 let g:highlightedyank_highlight_duration = 200

@@ -223,11 +223,11 @@
     "tree-sitter-nix": {
       "flake": false,
       "locked": {
-        "lastModified": 1634345467,
-        "narHash": "sha256-61+3uq9FXLUYKJyHxgPamA0nzkvsWkaLhlTN4NU1gtk=",
+        "lastModified": 1636228839,
+        "narHash": "sha256-3v/oirP2IVrSJ8GLqkuAhxs7ZbNrxieGm0wjESzO2bE=",
         "owner": "oxalica",
         "repo": "tree-sitter-nix",
-        "rev": "23703e4ea588d3d2a7b03504952a15fe3276d1bd",
+        "rev": "459369060cc050f83d2793fb4ac7fcc8e074d6ea",
         "type": "github"
       },
       "original": {

@@ -34,7 +34,7 @@ let
     # Advanced type highlighting: https://github.com/rust-lang/rust.vim/pull/431
     (pkgs.vimUtils.buildVimPlugin {
       pname = "rust-vim";
-      version = lib.substring 0 6 inputs.rust-vim-enhanced.lastModifiedDate;
+      version = lib.substring 0 8 inputs.rust-vim-enhanced.lastModifiedDate;
       src = inputs.rust-vim-enhanced;
     })
 
@@ -59,7 +59,7 @@ let
       '';
     }
 
-    # Tree sitter.
+    # Tree sitter {{{
     {
       plugin = let
         plugins = ps: builtins.attrValues (ps // {
@@ -76,7 +76,7 @@ let
           version = "master";
           src = inputs.nvim-treesitter;
           postInstall = old.postInstall or "" + ''
-            for x in highlights locals injections; do
+            for x in highlights locals injections indents; do
               cp -f ${inputs.tree-sitter-nix}/queries/nvim-$x.scm $out/queries/nix/$x.scm
             done
           '';
@@ -135,10 +135,22 @@ let
         EOF
       '';
     }
+    # }}}
     nvim-treesitter-context
     nvim-treesitter-refactor
     nvim-treesitter-textobjects
     playground
+
+    # vim-crates {{{
+    {
+      plugin = vim-crates;
+      # vim
+      config = ''
+        highlight link Crates WarningMsg
+        autocmd BufNewFile,BufRead Cargo.toml call crates#toggle()
+      '';
+    }
+    # }}}
   ];
 
   extraConfig =
@@ -159,7 +171,7 @@ in
     enable = true;
     package = pkgs.neovim-unwrapped.overrideAttrs (old: {
       src = inputs.neovim;
-      version = lib.substring 0 6 inputs.neovim.lastModifiedDate;
+      version = lib.substring 0 8 inputs.neovim.lastModifiedDate;
     });
 
     plugins = plugins ++ nvimPlugins;
