@@ -5,6 +5,7 @@
     settings = {
       default-key = "5CB0E9E5D5D571F57F540FEACED392DE0C483D00";
       personal-compress-preferences = "Uncompressed ZLIB";
+      keyserver = "hkps://keys.openpgp.org";
     };
   };
 
