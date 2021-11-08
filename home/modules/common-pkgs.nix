@@ -24,12 +24,10 @@ in {
     gnupg age pwgen # Crypto
     libarchive runzip # Compression
     trash-cli xsel wl-clipboard # CLI-Desktop
-    taskwarrior # Task manager
     beancount double-entry-generator
 
     # GUI
     kolourpaint vlc libreoffice calibre # Files
-    # firefox <- in module
     electrum electron-cash monero-gui # Cryptocurrency
     steam minecraft osu-lazer # Games
     tdesktop element-desktop # Messaging

@@ -15,6 +15,7 @@
     ./modules/rust.nix
     ./modules/shell
     ./modules/stretchly.nix
+    ./modules/task.nix
     ./modules/tmux.nix
     ./modules/trash.nix
     ./modules/user-dirs.nix
@@ -35,10 +36,8 @@
     ".local/share/fcitx5/rime/sync".source = linkPersonal "rime-sync";
     ".local/share/osu".source = linkPersonal "game/osu-lazer";
     ".local/share/password-store".source = linkPersonal "password-store";
+    ".local/share/task".source = linkPersonal "taskwarrior";
     ".ssh".source = linkPersonal "ssh";
-
-    # FIXME: Include it in this repo.
-    ".config/task/taskrc".source = linkPersonal "task/taskrc";
   };
 
   programs.gpg.homedir = "${config.home.homeDirectory}/storage/personal/gnupg";
