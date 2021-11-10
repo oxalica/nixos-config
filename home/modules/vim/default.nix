@@ -179,7 +179,8 @@ in
 
     coc.enable = true;
     coc.settings = {
-      "rust-analyzer.server.path" = "${pkgs.rust-analyzer}/bin/rust-analyzer";
+      rust-analyzer.server.path = "${pkgs.rust-analyzer}/bin/rust-analyzer";
+      rust-analyzer.checkOnSave.command = "clippy";
     };
   };
 }
