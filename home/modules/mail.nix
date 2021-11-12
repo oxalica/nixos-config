@@ -15,4 +15,12 @@
 
   xdg.configFile."autostart/birdtray.desktop".source =
     "${pkgs.birdtray}/share/applications/com.ulduzsoft.Birdtray.desktop";
+
+  systemd.user.services."hydroxide" = {
+    Unit.Description = "Bridge to ProtonMail";
+    Install.WantedBy = [ "default.target" ];
+    Service.ExecStart = "${pkgs.hydroxide}/bin/hydroxide serve";
+    Service.Restart = "on-failure";
+    Service.RestartSec = 10;
+  };
 }
