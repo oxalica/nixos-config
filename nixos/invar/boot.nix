@@ -87,7 +87,6 @@
   };
 
   # High-DPI console
-  # hardware.video.hidpi.enable = true; # It use 80x50 mode, which is too big and has wrong aspect ratio.
-  console.font = "${pkgs.terminus_font}/share/consolefonts/ter-u28n.psf.gz";
-  console.earlySetup = true;
+  hardware.video.hidpi.enable = true;
+  console.font = "${pkgs.terminus_font}/share/consolefonts/ter-v28n.psf.gz";
 }
