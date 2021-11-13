@@ -3,17 +3,11 @@
   programs.firefox = {
     enable = true;
 
-    package = (pkgs.firefox.override {
-      cfg.enablePlasmaBrowserIntegration = true;
-    }).overrideAttrs (old: {
-      nativeBuildInputs = old.nativeBuildInputs or [] ++ [ pkgs.zip pkgs.unzip pkgs.breakpointHook ];
+    package = pkgs.firefox.overrideAttrs (old: {
+      nativeBuildInputs = old.nativeBuildInputs or [] ++ [ pkgs.zip pkgs.unzip ];
 
-      # Hardware video decoding support.
-      # See: https://wiki.archlinux.org/index.php/Firefox#Hardware_video_acceleration
       # bash
       buildCommand = old.buildCommand + ''
-        sed '/exec /i [[ "$XDG_SESSION_TYPE" == x11 ]] && export MOZ_X11_EGL=1' \
-          --in-place "$out/bin/firefox"
         sed '/exec /i [[ "$XDG_SESSION_TYPE" == wayland ]] && export MOZ_ENABLE_WAYLAND=1' \
           --in-place "$out/bin/firefox"
 
