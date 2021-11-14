@@ -20,9 +20,9 @@
     ./modules/trash.nix
     ./modules/user-dirs.nix
     ./modules/vim
-
-    ./plugins/xdg-state-dir.nix
   ];
+
+  xdg.enable = true;
 
   systemd.user.sessionVariables = {
     inherit (config.home.sessionVariables) CARGO_HOME GNUPGHOME PASSWORD_STORE_DIR;

@@ -75,6 +75,24 @@
           });
         });
       };
+
+      fcitx5-gtk-wayland = final: prev: {
+        fcitx5-gtk = prev.fcitx5-gtk.overrideAttrs (old: {
+          version = "20211112";
+          src = final.fetchFromGitHub {
+            owner = "fcitx";
+            repo = "fcitx5-gtk";
+            rev = "96511d2f07a489fc8ae6bf2e91067ab94483edd5";
+            sha256 = "FjCH+pP/yVKk/gtSg7iTj1s1fdhPKWTJevPV2U2PiNQ=";
+          };
+        });
+      };
+
+      flameshot-fix-desktop = final: prev: {
+        flameshot = prev.flameshot.overrideAttrs (old: {
+          cmakeFlags = null;
+        });
+      };
     };
 
     # Ref: https://github.com/dramforever/config/blob/63be844019b7ca675ea587da3b3ff0248158d9fc/flake.nix#L24-L28
@@ -120,6 +138,8 @@
           mypkgs
           rust-overlay
           fcitx5-qt-wayland
+          fcitx5-gtk-wayland
+          flameshot-fix-desktop
         ])
         [ ./nixos/invar/configuration.nix ];
 
