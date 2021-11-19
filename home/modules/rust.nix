@@ -49,6 +49,8 @@ in {
       targets = [
         "x86_64-unknown-linux-musl"
         "riscv64gc-unknown-linux-gnu"
+        "wasm32-unknown-unknown"
+        "wasm32-wasi"
       ];
     })
 
