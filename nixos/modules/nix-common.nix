@@ -29,6 +29,8 @@
       stalled-download-timeout = 10
 
       keep-outputs = true # Keep build-dependencies.
+
+      builders-use-substitutes = true
     '';
 
     registry = {
