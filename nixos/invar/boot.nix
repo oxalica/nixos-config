@@ -41,14 +41,14 @@
       fsType = "btrfs";
       # zstd:1  W: ~510MiB/s
       # zstd:3  W: ~330MiB/s
-      options = [ "compress-force=zstd:1" ] ++ options;
+      options = [ "compress-force=zstd:1" "noatime" ] ++ options;
     };
   in {
 
     "/" = {
       device = "tmpfs";
       fsType = "tmpfs";
-      options = [ "defaults" "size=8G" "mode=755" ];
+      options = [ "defaults" "size=12G" "mode=755" ];
     };
 
     "/boot" = {
@@ -56,10 +56,10 @@
       fsType = "vfat";
     };
 
-    "/.subvols" = btrfs [ "noatime" ];
-    "/nix" = btrfs [ "subvol=/@nix" "noatime" ];
-    "/var" = btrfs [ "subvol=/@var" "noatime" ];
-    "/home/oxa" = btrfs [ "subvol=/@home-oxa" "noatime" ];
+    "/.subvols" = btrfs [ ];
+    "/nix" = btrfs [ "subvol=/@nix" ];
+    "/var" = btrfs [ "subvol=/@var" ];
+    "/home/oxa" = btrfs [ "subvol=/@home-oxa" ];
   };
 
   swapDevices = [
