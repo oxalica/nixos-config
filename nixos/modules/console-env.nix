@@ -12,10 +12,18 @@
     "--wheel-lines=5"
   ];
 
+  environment.systemPackages = with pkgs; [
+    procs ncdu swapview smartmontools # Stat
+    pv exa fd ripgrep lsof jq loop bc file rsync dnsutils # Utilities
+    gnupg age pwgen # Crypto
+    libarchive # Compression
+  ];
+
+  programs.tmux.enable = true;
+
+  programs.htop.enable = true;
   programs.iotop.enable = true;
   programs.iftop.enable = true;
-
-  environment.systemPackages = with pkgs; [ htop procs tmux pv ];
 
   # Enable zsh related system configurations.
   # This is required for sddm to source /etc/set-environment in login script.

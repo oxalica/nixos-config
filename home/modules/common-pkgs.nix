@@ -19,12 +19,10 @@ let
 in {
   home.packages = with pkgs; map lib.lowPrio [
     # Console
-    neofetch htop pv ncdu dnsutils swapview # Stat
-    exa fd ripgrep lsof tealdeer jq loop bc file rsync # Util
-    gnupg age pwgen # Crypto
-    libarchive runzip # Compression
+    runzip # Random stuff
     trash-cli xsel wl-clipboard # CLI-Desktop
-    beancount double-entry-generator
+    beancount double-entry-generator # Accounting
+    tealdeer man-pages # Manual
 
     # GUI
     kolourpaint vlc libreoffice calibre # Files
@@ -33,12 +31,10 @@ in {
     tdesktop element-desktop # Messaging
 
     # Dev
-    man-pages # Man
     cachix patchelf # Utils
-    gcc gdb gnumake cmake lld binutils # rust's backtrace-sys requires `ar`
-    ghc nodejs idris2 myIdris # <- broken
-    myPython # python3
-    nixpkgs-review # nix
+    gcc ghc nodejs idris2 myIdris myPython # Compiler & interpreters
+    gdb gnumake cmake lld binutils # Tools
+    nixpkgs-review nixpkgs-fmt nixfmt # nix
     sqlite-interactive # sqlite
   ];
 }
