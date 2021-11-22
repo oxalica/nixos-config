@@ -2,7 +2,7 @@
 with lib;
 {
   environment.systemPackages = with pkgs; [
-    (ark.override { unfreeEnableUnrar = true; })
+    ark
     filelight
     plasma-browser-integration
     flameshot

@@ -2,7 +2,7 @@
 
 {
   nixpkgsAllowUnfreeList = [
-    "ark" "unrar"
+    "unrar"
     "steam" "steam-original" "steam-runtime"
     "minecraft-launcher"
     "osu-lazer"
