@@ -154,6 +154,10 @@
         []
         [ ./nixos/silver/configuration.nix ];
 
+      lithium = mkServerSystem "x86_64-linux"
+        []
+        [ ./nixos/lithium/configuration.nix ];
+
       iso = inputs.nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [ ./nixos/iso/configuration.nix ];
