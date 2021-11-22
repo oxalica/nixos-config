@@ -78,6 +78,7 @@ with lib;
   };
 
   i18n = {
+    supportedLocales = [ "all" ]; # Override console-env.
     defaultLocale = "en_US.UTF-8";
     inputMethod = {
       enabled = "fcitx5";

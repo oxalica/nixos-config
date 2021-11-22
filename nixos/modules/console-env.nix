@@ -1,5 +1,9 @@
 { lib, pkgs, ... }:
 {
+  # Reduce closure size.
+  i18n.supportedLocales = lib.mkDefault [ "en_US.UTF-8/UTF-8" ];
+  i18n.defaultLocale = lib.mkDefault "en_US.UTF-8";
+
   programs.vim.defaultEditor = true;
 
   programs.less.enable = true;
@@ -13,7 +17,7 @@
   ];
 
   environment.systemPackages = with pkgs; [
-    procs ncdu swapview smartmontools # Stat
+    htop procs ncdu swapview smartmontools # Stat
     pv exa fd ripgrep lsof jq loop bc file rsync dnsutils # Utilities
     gnupg age pwgen # Crypto
     libarchive # Compression
@@ -21,7 +25,7 @@
 
   programs.tmux.enable = true;
 
-  programs.htop.enable = true;
+  # programs.htop.enable = true; # Not available in nixos-21.05
   programs.iotop.enable = true;
   programs.iftop.enable = true;
 
