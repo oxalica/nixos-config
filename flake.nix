@@ -2,17 +2,17 @@
   description = "oxalica's NixOS configuration";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-21.05";
 
     flake-utils.url = "github:numtide/flake-utils";
     home-manager = {
       url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     rust-overlay = {
       url = "github:oxalica/rust-overlay";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
       inputs.flake-utils.follows = "flake-utils";
     };
 
@@ -54,7 +54,7 @@
 
   outputs = inputs: let
 
-    inherit (inputs.nixpkgs) lib;
+    inherit (inputs.nixpkgs-unstable) lib;
 
     prToOverlay = pr: pathStrs: final: prev:
       with lib;
@@ -104,9 +104,9 @@
         else lib.warn "Repo is dirty, revision will not be available in system label" "dirty";
     };
 
-    mkDesktopSystem = system: overlays: modules: inputs.nixpkgs.lib.nixosSystem {
+    mkDesktopSystem = system: overlays: modules: inputs.nixpkgs-unstable.lib.nixosSystem {
       inherit system;
-      specialArgs.inputs = inputs;
+      specialArgs.inputs = inputs // { nixpkgs = inputs.nixpkgs-unstable; };
       modules = [
         system-label
         inputs.home-manager.nixosModules.home-manager
@@ -158,7 +158,7 @@
         []
         [ ./nixos/lithium/configuration.nix ];
 
-      iso = inputs.nixpkgs.lib.nixosSystem {
+      iso = inputs.nixpkgs-unstable.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [ ./nixos/iso/configuration.nix ];
         specialArgs.inputs = inputs;
