@@ -145,6 +145,7 @@
 
       blacksteel = mkDesktopSystem "x86_64-linux"
         (with overlays; [
+          mypkgs
           rust-overlay
         ])
         [ ./nixos/blacksteel/configuration.nix ];
