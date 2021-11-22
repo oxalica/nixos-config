@@ -22,11 +22,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1637249535,
-        "narHash": "sha256-RCatEYQ+uqsZOZpN4ZOtSoO7CJTiQpHNdPjUA0jtejw=",
+        "lastModified": 1637516270,
+        "narHash": "sha256-qTffAQ0kWA2qXMJUVMDsgXVbzMNI0BfR78vB/4QFA+o=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "2452979efe92128b03e3c27567267066c2825fab",
+        "rev": "15ae861e1bfad90e0d14106551544e9e07cbcb10",
         "type": "github"
       },
       "original": {
@@ -38,11 +38,11 @@
     "neovim": {
       "flake": false,
       "locked": {
-        "lastModified": 1637272186,
-        "narHash": "sha256-oyBhg4kPD9mIbRhYXth5GCrKKfSM5dQRn8Hk2P08CRY=",
+        "lastModified": 1637598128,
+        "narHash": "sha256-/bEs1+BUDXf8aYbnpHQDa4x/l0qOZDeoAxL/MSODV3g=",
         "owner": "neovim",
         "repo": "neovim",
-        "rev": "f71be1f87b40bf863b6cf6b4fbcebffdd3297d88",
+        "rev": "fd6df7481a88006fd60bc8980b4db1000ddeda27",
         "type": "github"
       },
       "original": {
@@ -53,11 +53,11 @@
     },
     "nixpkgs-stable": {
       "locked": {
-        "lastModified": 1636944046,
-        "narHash": "sha256-74KLDsiWSBsYXKj/ql9EGbw1TbIJRE7clFkhl30HV/c=",
+        "lastModified": 1637448181,
+        "narHash": "sha256-ujcXli4esmtIHUBjE1BjmMuBWrcNvlHZrVXx56i5B1M=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "46251a79f752ae1d46ef733e8e9760b6d3429da4",
+        "rev": "d5b65f812cd4f5a8fa74b406075b59a46f1cfd98",
         "type": "github"
       },
       "original": {
@@ -69,11 +69,11 @@
     },
     "nixpkgs-unstable": {
       "locked": {
-        "lastModified": 1637550001,
-        "narHash": "sha256-WzwiXc1iIvMTKGnAuRAdrIWFIcEexB3EZH9nFnWuG+Q=",
+        "lastModified": 1637595801,
+        "narHash": "sha256-LkIMwVFKCuEqidaUdg8uxwpESAXjsPo4oCz3eJ7RaRw=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "726f7c9688bad4574abee4f47565bf272daf8f81",
+        "rev": "263ef4cc4146c9fab808085487438c625d4426a9",
         "type": "github"
       },
       "original": {
@@ -86,11 +86,11 @@
     "nvim-treesitter": {
       "flake": false,
       "locked": {
-        "lastModified": 1637241369,
-        "narHash": "sha256-nAsseeLg4FLbjR4HyGvCwSvl68iSuzaoE6n9abrSSn8=",
+        "lastModified": 1637426336,
+        "narHash": "sha256-9nvnc++DNsXvvwRq45pgtN6uptqKrNC9hS8rwLLcWXg=",
         "owner": "nvim-treesitter",
         "repo": "nvim-treesitter",
-        "rev": "190bcc8d56c0b4c5047492d17b1615c6e89139af",
+        "rev": "89fbb9b39e9ff4049c797397721d44facbd246df",
         "type": "github"
       },
       "original": {
@@ -102,11 +102,11 @@
     "registry-crates-io": {
       "flake": false,
       "locked": {
-        "lastModified": 1637283119,
-        "narHash": "sha256-o+rg2r/omPym+vMdxGbWJ3IzLArACvtOA3aDMuBU9Jk=",
+        "lastModified": 1637622411,
+        "narHash": "sha256-Ne/yRIupDeTNW8Kk+kK9jRmIoX+uqLyYsRnYZs/AR1M=",
         "owner": "rust-lang",
         "repo": "crates.io-index",
-        "rev": "a9ffe5cdd08b490450ccf0d3daf5b8bf60625d2c",
+        "rev": "66562498ad6e3e680ee687c2ad54d230d4d6ce88",
         "type": "github"
       },
       "original": {
@@ -158,11 +158,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1637201710,
-        "narHash": "sha256-CxlxEp9NWvivBm+Z0TTVd5xF5aZed3isdNp4CmVQ6BM=",
+        "lastModified": 1637547617,
+        "narHash": "sha256-Np1goZstrIqgfUBK0VACXkgnRqKOoSTiZmAEK+PWkAY=",
         "owner": "oxalica",
         "repo": "rust-overlay",
-        "rev": "85733f85cd860760e3ed536b6e8a6ed0cd1ebde4",
+        "rev": "472b5cd7968d3cc7f09b70d7418a607a8c615612",
         "type": "github"
       },
       "original": {
@@ -174,11 +174,11 @@
     "rust-vim-enhanced": {
       "flake": false,
       "locked": {
-        "lastModified": 1636845232,
-        "narHash": "sha256-dviBWzypzhYy5d8jng51Y0zlijUq+LGSC4d5kAl2DbY=",
+        "lastModified": 1637433297,
+        "narHash": "sha256-CGq1DRZzI/mmxMGXPK+RxfWQrA1vsEDLjab1w3f9P98=",
         "owner": "Iron-E",
         "repo": "rust.vim",
-        "rev": "77d9a074631705353527ded680f829781b4db947",
+        "rev": "e02430f387a7b26c8d66959840b463a3a17e8ffe",
         "type": "github"
       },
       "original": {
