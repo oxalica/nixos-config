@@ -58,6 +58,10 @@ if [[ -n "$target" && "$op" != "build" ]]; then
   # Required by `--use-remote-sudo`
   export NIX_SSHOPTS="-t"
 fi
+
+# https://github.com/nix-community/home-manager/issues/1262
+args+=(--option allow-import-from-derivation true)
+
 args+=("$@")
 
 set -x

@@ -31,6 +31,8 @@
       keep-outputs = true # Keep build-dependencies.
 
       builders-use-substitutes = true
+
+      allow-import-from-derivation = false
     '';
 
     registry = {

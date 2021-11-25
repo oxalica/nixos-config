@@ -71,10 +71,6 @@
   };
 
   home.packages = let
-    flake-zsh-completion = pkgs.runCommand "flake-nix-completion" {} ''
-      install -Dm644 ${./_nix} $out/share/zsh/site-functions/_nix
-    '';
-
     scripts = pkgs.runCommand "scripts" {
       inherit (pkgs) bash coreutils jq;
     } ''
@@ -88,7 +84,7 @@
   in with pkgs; [
     zoxide
     nix-zsh-completions
-    (lib.hiPrio flake-zsh-completion)
+    (lib.hiPrio nixFlakes) # Prefer nix's builtin completion.
     fzf
 
     scripts
