@@ -22,11 +22,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1637516270,
-        "narHash": "sha256-qTffAQ0kWA2qXMJUVMDsgXVbzMNI0BfR78vB/4QFA+o=",
+        "lastModified": 1637875789,
+        "narHash": "sha256-kwW26kGhqNsWpTz+prw/pAfqz673GojbxZuB0boc1eM=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "15ae861e1bfad90e0d14106551544e9e07cbcb10",
+        "rev": "579f2e8bebb954a103a96b905c27b10f15ef38c7",
         "type": "github"
       },
       "original": {
@@ -69,11 +69,11 @@
     },
     "nixpkgs-unstable": {
       "locked": {
-        "lastModified": 1637595801,
-        "narHash": "sha256-LkIMwVFKCuEqidaUdg8uxwpESAXjsPo4oCz3eJ7RaRw=",
+        "lastModified": 1637841632,
+        "narHash": "sha256-QYqiKHdda0EOnLGQCHE+GluD/Lq2EJj4hVTooPM55Ic=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "263ef4cc4146c9fab808085487438c625d4426a9",
+        "rev": "73369f8d0864854d1acfa7f1e6217f7d6b6e3fa1",
         "type": "github"
       },
       "original": {
@@ -190,11 +190,11 @@
     },
     "secrets": {
       "locked": {
-        "lastModified": 1637621982,
-        "narHash": "sha256-mhfLDsnAnG6XYfSE5WJje276rabGYnkD3HGibyAAwQI=",
+        "lastModified": 1637858586,
+        "narHash": "sha256-wV4snUiYNGz8BFcYwM269OdPfSOhcDBK/+nQeyLNJ5I=",
         "ref": "master",
-        "rev": "604a17d5759a90290f165a47985fa9ec62524033",
-        "revCount": 14,
+        "rev": "fd27019f1978800b35ff54f7b8674b6831d72716",
+        "revCount": 15,
         "type": "git",
         "url": "file:///home/oxa/storage/repo/nixos-config-secrets"
       },
