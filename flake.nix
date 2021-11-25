@@ -87,12 +87,6 @@
           };
         });
       };
-
-      flameshot-fix-desktop = final: prev: {
-        flameshot = prev.flameshot.overrideAttrs (old: {
-          cmakeFlags = null;
-        });
-      };
     };
 
     # Ref: https://github.com/dramforever/config/blob/63be844019b7ca675ea587da3b3ff0248158d9fc/flake.nix#L24-L28
@@ -139,7 +133,6 @@
           rust-overlay
           fcitx5-qt-wayland
           fcitx5-gtk-wayland
-          flameshot-fix-desktop
         ])
         [ ./nixos/invar/configuration.nix ];
 

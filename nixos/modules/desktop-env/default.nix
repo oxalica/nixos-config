@@ -5,7 +5,6 @@ with lib;
     ark
     filelight
     plasma-browser-integration
-    flameshot
   ];
 
   programs.partition-manager.enable = true;
