@@ -52,9 +52,9 @@
     secrets.url = "/home/oxa/storage/repo/nixos-config-secrets";
   };
 
-  outputs = inputs: let
+  outputs = { nixpkgs-unstable, nixpkgs-stable, flake-utils, ... }@inputs: let
 
-    inherit (inputs.nixpkgs-unstable) lib;
+    inherit (nixpkgs-unstable) lib;
 
     prToOverlay = pr: pathStrs: final: prev:
       with lib;
@@ -66,17 +66,16 @@
     overlays = {
       mypkgs = final: prev: import ./pkgs { inherit (final) callPackage; };
       rust-overlay = inputs.rust-overlay.overlay;
+
       prefer-remote-fetch = final: prev: prev.prefer-remote-fetch final prev;
 
-      fcitx5-qt-wayland = final: prev: {
+      fcitx5-wayland-fix = final: prev: {
         libsForQt5 = prev.libsForQt5.overrideScope' (finalScope: prevScope: {
           fcitx5-qt = prevScope.fcitx5-qt.overrideAttrs (old: {
             patches = old.patches or [] ++ [ ./patches/fcitx5-qt-disable-position-clamping.patch ];
           });
         });
-      };
 
-      fcitx5-gtk-wayland = final: prev: {
         fcitx5-gtk = prev.fcitx5-gtk.overrideAttrs (old: {
           version = "20211112";
           src = final.fetchFromGitHub {
@@ -89,73 +88,64 @@
       };
     };
 
-    # Ref: https://github.com/dramforever/config/blob/63be844019b7ca675ea587da3b3ff0248158d9fc/flake.nix#L24-L28
-    system-label = let inherit (inputs) self; in {
-      system.configurationRevision = self.rev or null;
-      system.nixos.label =
-        if self.sourceInfo ? lastModifiedDate && self.sourceInfo ? shortRev
-        then "${lib.substring 0 8 self.sourceInfo.lastModifiedDate}.${self.sourceInfo.shortRev}"
-        else lib.warn "Repo is dirty, revision will not be available in system label" "dirty";
-    };
+    nixosModules = {
+      # Ref: https://github.com/dramforever/config/blob/63be844019b7ca675ea587da3b3ff0248158d9fc/flake.nix#L24-L28
+      system-label = let inherit (inputs) self; in {
+        system.configurationRevision = self.rev or null;
+        system.nixos.label =
+          if self.sourceInfo ? lastModifiedDate && self.sourceInfo ? shortRev
+          then "${lib.substring 0 8 self.sourceInfo.lastModifiedDate}.${self.sourceInfo.shortRev}"
+          else lib.warn "Repo is dirty, revision will not be available in system label" "dirty";
+      };
 
-    mkDesktopSystem = system: overlays: modules: inputs.nixpkgs-unstable.lib.nixosSystem {
-      inherit system;
-      specialArgs.inputs = inputs // { nixpkgs = inputs.nixpkgs-unstable; };
-      modules = [
-        system-label
-        inputs.home-manager.nixosModules.home-manager
-        { nixpkgs.overlays = overlays; }
-        ({ lib, ... }: {
-          options.home-manager.users = with lib.types; lib.mkOption {
-            type = attrsOf (submoduleWith {
-              modules = [ ];
-              specialArgs.inputs = inputs;
-            });
+      home-manager = { config, inputs, ... }: {
+        imports = [ inputs.home-manager.nixosModules.home-manager ];
+        home-manager = {
+          useGlobalPkgs = true;
+          useUserPackages = true;
+          verbose = true;
+          extraSpecialArgs = {
+            inherit inputs;
+            super = config;
           };
-        })
-      ] ++ modules;
+        };
+      };
     };
 
-    mkServerSystem = system: overlays: modules: inputs.nixpkgs-stable.lib.nixosSystem {
+    mkSystem = name: system: nixpkgs: { extraOverlays ? [], extraModules ? [] }: nixpkgs.lib.nixosSystem {
       inherit system;
-      specialArgs.inputs = inputs // { nixpkgs = inputs.nixpkgs-stable; };
-      modules = [
+      specialArgs.inputs = inputs // { inherit nixpkgs; };
+      modules = with nixosModules; [
         system-label
-      ] ++ modules;
+        {
+          networking.hostName = name;
+          nixpkgs.overlays = with overlays; [
+            mypkgs
+            rust-overlay
+          ] ++ extraOverlays;
+        }
+        ./nixos/${name}/configuration.nix
+      ] ++ extraModules;
     };
 
   in {
+    inherit overlays nixosModules;
+
     nixosConfigurations = {
-      invar = mkDesktopSystem "x86_64-linux"
-        (with overlays; [
-          # prefer-remote-fetch
-          mypkgs
-          rust-overlay
-          fcitx5-qt-wayland
-          fcitx5-gtk-wayland
-        ])
-        [ ./nixos/invar/configuration.nix ];
-
-      blacksteel = mkDesktopSystem "x86_64-linux"
-        (with overlays; [
-          mypkgs
-          rust-overlay
-        ])
-        [ ./nixos/blacksteel/configuration.nix ];
-
-      silver = mkServerSystem "x86_64-linux"
-        []
-        [ ./nixos/silver/configuration.nix ];
-
-      lithium = mkServerSystem "x86_64-linux"
-        []
-        [ ./nixos/lithium/configuration.nix ];
-
-      iso = inputs.nixpkgs-unstable.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [ ./nixos/iso/configuration.nix ];
-        specialArgs.inputs = inputs;
+      invar = mkSystem "invar" "x86_64-linux" inputs.nixpkgs-unstable {
+        extraOverlays = with overlays; [ fcitx5-wayland-fix ];
+        extraModules = with nixosModules; [ home-manager ];
       };
+
+      blacksteel = mkSystem "blacksteel" "x86_64-linux" inputs.nixpkgs-unstable {
+        extraModules = with nixosModules; [ home-manager ];
+      };
+
+      silver = mkSystem "silver" "x86_64-linux" inputs.nixpkgs-stable { };
+
+      lithium = mkSystem "lithium" "x86_64-linux" inputs.nixpkgs-stable { };
+
+      iso = mkSystem "iso" "x86_64-linux" inputs.nixpkgs-unstable { };
     };
   };
 }

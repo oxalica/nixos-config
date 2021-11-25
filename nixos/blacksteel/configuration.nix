@@ -8,13 +8,14 @@
     ./system.nix
     ./vm.nix
 
-    ../modules/desktop-env
     ../modules/console-env.nix
+    ../modules/desktop-env
     ../modules/nix-binary-cache-mirror.nix
     ../modules/nix-common.nix
     ../modules/nix-registry.nix
     ../modules/nixpkgs-allow-unfree-list.nix
     ../modules/steam-compat.nix
+    ../modules/user-oxa.nix
   ] ++ lib.optional (inputs ? secrets) (inputs.secrets.nixosModules.blacksteel);
 
   # Global ssh settings. Also for remote builders.
@@ -24,22 +25,9 @@
 
   time.timeZone = "Asia/Shanghai";
 
-  users = {
-    groups."oxa".gid = 1000;
-    users."oxa" = {
-      isNormalUser = true;
-      uid = 1000;
-      group = "oxa";
-      extraGroups = [ "wheel" ];
-      shell = pkgs.zsh;
-    };
-  };
+  users.users."oxa".shell = pkgs.zsh;
 
-  home-manager = {
-    useGlobalPkgs = true;
-    useUserPackages = true;
-    users.oxa = import ../../home/blacksteel.nix;
-  };
+  home-manager.users."oxa" = import ../../home/blacksteel.nix;
 
   # This value determines the NixOS release with which your system is to be
   # compatible, in order to avoid breaking some software such as database

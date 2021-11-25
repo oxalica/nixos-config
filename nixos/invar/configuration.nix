@@ -14,6 +14,7 @@
     ../modules/nix-registry.nix
     ../modules/nixpkgs-allow-unfree-list.nix
     ../modules/steam-compat.nix
+    ../modules/user-oxa.nix
   ] ++ lib.optional (inputs ? secrets) inputs.secrets.nixosModules.invar;
 
   nix.extraOptions = ''
@@ -31,12 +32,8 @@
 
   users = {
     mutableUsers = false;
-    groups."oxa".gid = 1000;
+
     users."oxa" = {
-      isNormalUser = true;
-      uid = 1000;
-      group = "oxa";
-      extraGroups = [ "wheel" ];
       shell = pkgs.zsh;
     } // lib.optionalAttrs (!(inputs ? secrets)) {
       initialPassword = "oxa";
@@ -47,11 +44,7 @@
     };
   };
 
-  home-manager = {
-    useGlobalPkgs = true;
-    useUserPackages = true;
-    users.oxa = import ../../home/invar.nix;
-  };
+  home-manager.users."oxa" = import ../../home/invar.nix;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

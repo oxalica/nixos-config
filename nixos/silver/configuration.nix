@@ -8,6 +8,7 @@
     ../modules/console-env.nix
     ../modules/nix-binary-cache-mirror.nix
     ../modules/nix-common.nix
+    ../modules/user-oxa.nix
   ] ++ lib.optional (inputs ? secrets) (inputs.secrets.nixosModules.silver);
 
   # Global ssh settings. Also for remote builders.
@@ -24,18 +25,6 @@
   networking.interfaces.enp0s31f6.useDHCP = true;
 
   security.sudo.wheelNeedsPassword = false;
-
-  users = {
-    groups = {
-      oxa.gid = 1000;
-    };
-    users.oxa = {
-      isNormalUser = true;
-      uid = 1000;
-      group = "oxa";
-      extraGroups = [ "wheel" ];
-    };
-  };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

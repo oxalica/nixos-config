@@ -4,6 +4,8 @@
     (modulesPath + "/profiles/qemu-guest.nix")
 
     ./vultr-image.nix
+
+    ../modules/user-oxa.nix
   ];
 
   boot.loader.grub.enable = true;
@@ -31,20 +33,10 @@
   networking.interfaces.enp1s0.useDHCP = true;
   networking.firewall.enable = false; # Already have a hardware firewall.
 
-  users = {
-    groups.oxa.gid = 1000;
-    users.oxa = {
-      isNormalUser = true;
-      uid = 1000;
-      group = "oxa";
-      extraGroups = [ "wheel" ];
-
-      openssh.authorizedKeys.keys = [
-        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJYl9bIMoMrs8gWUmIAF42mGnKVxqY6c+g2gmE6u2E/B oxa@invar"
-        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICU0P/fbBnnPCVni+efxfl//NQ1jeOe4lUDH6okvLzr1 oxa@blacksteel"
-      ];
-    };
-  };
+  users.users."oxa".openssh.authorizedKeys.keys = [
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJYl9bIMoMrs8gWUmIAF42mGnKVxqY6c+g2gmE6u2E/B oxa@invar"
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICU0P/fbBnnPCVni+efxfl//NQ1jeOe4lUDH6okvLzr1 oxa@blacksteel"
+  ];
 
   services.getty.autologinUser = "oxa";
 
