@@ -28,8 +28,4 @@
   # programs.htop.enable = true; # Not available in nixos-21.05
   programs.iotop.enable = true;
   programs.iftop.enable = true;
-
-  # Enable zsh related system configurations.
-  # This is required for sddm to source /etc/set-environment in login script.
-  programs.zsh.enable = true;
 }

@@ -7,6 +7,10 @@ with lib;
     plasma-browser-integration
   ];
 
+  # Enable zsh related system configurations.
+  # This is required for sddm to source /etc/set-environment in login script.
+  programs.zsh.enable = true;
+
   programs.partition-manager.enable = true;
   programs.kdeconnect.enable = true;
 
