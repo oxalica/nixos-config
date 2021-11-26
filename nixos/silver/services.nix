@@ -1,4 +1,4 @@
-{ lib, pkgs, inputs, ... }:
+{ lib, config, pkgs, ... }:
 {
   networking.firewall = {
     enable = true;
@@ -25,6 +25,10 @@
 
   environment.systemPackages = [ pkgs.qemu ];
 
+  sops.secrets."ddns_env" = {
+    sopsFile = ../../secrets/silver.yaml;
+    restartUnits = [ "update-ddns.service" ];
+  };
   systemd.services."update-ddns" = {
     description = "Update dynamic DNS record";
     requires = [ "network.target" ];
@@ -32,40 +36,36 @@
     serviceConfig = {
       Type = "oneshot";
       Restart = "on-failure";
-      RestartSec = 61;
+      RestartSec = 90;
+      SupplementaryGroups = [ config.users.groups.keys.name ];
     };
-    startLimitIntervalSec = 60;
-    startLimitBurst = 1;
     path = with pkgs; [ curl dnsutils ];
     script = ''
       set -eo pipefail
       export https_proxy=
+      export http_proxy=
       export all_proxy=
 
-      host="$1"
-      domain="$2"
-      key="$3"
-
-      ip="$(curl -sSL "https://api-ipv4.ip.sb/ip")"
-      echo "Current IP: $ip"
-      old_ip=
-      old_ip="$(dig "$host.$domain" A @8.8.8.8 | sed -nE 's/^[^;].*\sA\s*(\S+)$/\1/p')" || true
-      echo "Old IP: ''${old_ip:-(unknown)}"
-      if [[ "$ip" == "$old_ip" ]]; then
-        echo "Identical"
-        exit
+      source /run/secrets/ddns_env
+      if [[ -z "$DDNS_HOST" || -z "$DDNS_DOMAIN" || -z "$DDNS_KEY" ]]; then
+        echo "DDNS environment not set"
+        exit 1
       fi
+      echo "Updating host=$DDNS_HOST domain=$DDNS_DOMAIN key=<''${#DDNS_KEY}bytes>"
 
-      resp="$(curl -sSL "https://dynamicdns.park-your-domain.com/update?host=$host&domain=$domain&password=$key&ip=$ip")"
+      ip=
+      ip="$(curl -sS -4 ifconfig.co)" || true
+      echo "Current IP: ''${ip:-(unknown)}"
+      old_ip=
+      old_ip="$(dig +short "$DDNS_HOST.$DDNS_DOMAIN" A @223.5.5.5)" || true
+      echo "Old IP: ''${old_ip:-(unknown)}"
+
+      resp="$(curl -sSL "https://dynamicdns.park-your-domain.com/update?host=$DDNS_HOST&domain=$DDNS_DOMAIN&password=$DDNS_KEY&ip=$ip")"
       if [[ ! "$resp" =~ "<ErrCount>0</ErrCount>" ]]; then
         echo "$resp"
         exit 1
       fi
     '';
-    scriptArgs = let
-      # Secret is required.
-      cfg = inputs.secrets.keys.ddns.silver;
-    in "'${cfg.host}' '${cfg.domain}' '${cfg.key}'";
   };
   systemd.timers."update-ddns" = {
     wantedBy = [ "timers.target" ];

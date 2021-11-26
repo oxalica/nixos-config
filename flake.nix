@@ -151,7 +151,9 @@
         extraModules = with nixosModules; [ home-manager sops ];
       };
 
-      silver = mkSystem "silver" "x86_64-linux" inputs.nixpkgs-stable { };
+      silver = mkSystem "silver" "x86_64-linux" inputs.nixpkgs-stable {
+        extraModules = with nixosModules; [ sops ];
+      };
 
       lithium = mkSystem "lithium" "x86_64-linux" inputs.nixpkgs-stable { };
 
