@@ -21,9 +21,6 @@
     experimental-features = nix-command flakes ca-references ca-derivations
   '';
 
-  # Global ssh settings. Also for remote builders.
-  programs.ssh = lib.optionalAttrs (inputs ? secrets) inputs.secrets.keys.ssh;
-
   systemd.user.services.fcitx5-daemon.enable = lib.mkForce false;
 
   networking.hostName = "invar";

@@ -144,6 +144,7 @@
         "rust-overlay": "rust-overlay",
         "rust-vim-enhanced": "rust-vim-enhanced",
         "secrets": "secrets",
+        "sops-nix": "sops-nix",
         "tree-sitter-bash": "tree-sitter-bash",
         "tree-sitter-nix": "tree-sitter-nix"
       }
@@ -201,6 +202,26 @@
       "original": {
         "type": "git",
         "url": "file:///home/oxa/storage/repo/nixos-config-secrets"
+      }
+    },
+    "sops-nix": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs-unstable"
+        ]
+      },
+      "locked": {
+        "lastModified": 1637735079,
+        "narHash": "sha256-VC6FEfYHkNMrCd9+0nATtUQAtkWOrkH4gzwGHNG4TTQ=",
+        "owner": "Mic92",
+        "repo": "sops-nix",
+        "rev": "871408582627f43d0ecc5e4595dcf20cfe2ee227",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Mic92",
+        "repo": "sops-nix",
+        "type": "github"
       }
     },
     "tree-sitter-bash": {

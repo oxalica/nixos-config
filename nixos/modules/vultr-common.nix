@@ -1,4 +1,4 @@
-{ lib, config, pkgs, modulesPath, ... }:
+{ lib, config, pkgs, modulesPath, my, ... }:
 {
   imports = [
     (modulesPath + "/profiles/qemu-guest.nix")
@@ -34,8 +34,8 @@
   networking.firewall.enable = false; # Already have a hardware firewall.
 
   users.users."oxa".openssh.authorizedKeys.keys = [
-    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJYl9bIMoMrs8gWUmIAF42mGnKVxqY6c+g2gmE6u2E/B oxa@invar"
-    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICU0P/fbBnnPCVni+efxfl//NQ1jeOe4lUDH6okvLzr1 oxa@blacksteel"
+    my.ssh.identities.oxa-invar
+    my.ssh.identities.oxa-blacksteel
   ];
 
   services.getty.autologinUser = "oxa";

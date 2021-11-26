@@ -15,6 +15,10 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
       inputs.flake-utils.follows = "flake-utils";
     };
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
 
     registry-crates-io = {
       url = "github:rust-lang/crates.io-index";
@@ -110,11 +114,17 @@
           };
         };
       };
+
+      sops = {
+        imports = [ inputs.sops-nix.nixosModules.sops ];
+        sops.age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
+      };
     };
 
     mkSystem = name: system: nixpkgs: { extraOverlays ? [], extraModules ? [] }: nixpkgs.lib.nixosSystem {
       inherit system;
       specialArgs.inputs = inputs // { inherit nixpkgs; };
+      specialArgs.my = import ./my.nix;
       modules = with nixosModules; [
         system-label
         {
@@ -134,11 +144,11 @@
     nixosConfigurations = {
       invar = mkSystem "invar" "x86_64-linux" inputs.nixpkgs-unstable {
         extraOverlays = with overlays; [ fcitx5-wayland-fix ];
-        extraModules = with nixosModules; [ home-manager ];
+        extraModules = with nixosModules; [ home-manager sops ];
       };
 
       blacksteel = mkSystem "blacksteel" "x86_64-linux" inputs.nixpkgs-unstable {
-        extraModules = with nixosModules; [ home-manager ];
+        extraModules = with nixosModules; [ home-manager sops ];
       };
 
       silver = mkSystem "silver" "x86_64-linux" inputs.nixpkgs-stable { };
@@ -147,5 +157,12 @@
 
       iso = mkSystem "iso" "x86_64-linux" inputs.nixpkgs-unstable { };
     };
-  };
+
+  } // flake-utils.lib.eachDefaultSystem (system: {
+    devShell =
+      with nixpkgs-unstable.legacyPackages.${system};
+      mkShell {
+        packages = [ sops ssh-to-age ];
+      };
+  });
 }

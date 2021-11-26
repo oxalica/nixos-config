@@ -11,9 +11,6 @@
     ../modules/user-oxa.nix
   ] ++ lib.optional (inputs ? secrets) (inputs.secrets.nixosModules.silver);
 
-  # Global ssh settings. Also for remote builders.
-  programs.ssh = lib.optionalAttrs (inputs ? secrets) inputs.secrets.keys.ssh;
-
   time.timeZone = "Asia/Shanghai";
 
   hardware.cpu.intel.updateMicrocode = true;

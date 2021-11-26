@@ -18,6 +18,18 @@
     permitRootLogin = "no";
   };
 
+  # Global ssh settings. Also for remote builders.
+  programs.ssh = {
+    knownHosts = my.ssh.knownHosts;
+    extraConfig = ''
+      Include /run/secrets/ssh/hosts
+    '';
+  };
+  sops.secrets."ssh/hosts" = {
+    sopsFile = ../../secrets/ssh.yaml;
+    mode = "0444";
+  };
+
   networking.firewall = {
     logRefusedConnections = false;
   };

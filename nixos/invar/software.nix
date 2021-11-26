@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, my, ... }:
 {
   nixpkgsAllowUnfreeList = [
     "unrar"
@@ -64,6 +64,18 @@
         rounds = 100;
       }
     ];
+  };
+
+  # Global ssh settings. Also for remote builders.
+  programs.ssh = {
+    knownHosts = my.ssh.knownHosts;
+    extraConfig = ''
+      Include /run/secrets/ssh/hosts
+    '';
+  };
+  sops.secrets."ssh/hosts" = {
+    sopsFile = ../../secrets/ssh.yaml;
+    mode = "0444";
   };
 
   virtualisation.libvirtd = {
