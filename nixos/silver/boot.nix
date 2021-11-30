@@ -39,15 +39,7 @@
   ];
 
   # For dev.
-  boot.binfmt = {
-    emulatedSystems = [ "riscv64-linux" ];
-    registrations."riscv64-linux" = {
-      preserveArgvZero = true;
-      interpreter = let
-        qemu = (lib.systems.elaborate { system = "riscv64-linux"; }).emulator pkgs;
-      in lib.mkForce ''${qemu} -0 "$2" "$1" "''${@:3}" #'';
-    };
-  };
+  boot.binfmt.emulatedSystems = [ "riscv64-linux" ];
 
   # Misc.
   powerManagement.cpuFreqGovernor = "ondemand";

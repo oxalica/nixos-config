@@ -2,8 +2,9 @@
   description = "oxalica's NixOS configuration";
 
   inputs = {
-    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-21.05";
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-21.05";
+    nixpkgs-binfmt-fix.url = "github:NixOS/nixpkgs/pull/143060/head";
 
     flake-utils.url = "github:numtide/flake-utils";
     home-manager = {
@@ -119,6 +120,16 @@
         imports = [ inputs.sops-nix.nixosModules.sops ];
         sops.age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
       };
+
+      binfmt-fix = { config, ... }: {
+        disabledModules = [ "system/boot/binfmt.nix" ];
+        imports = [ (inputs.nixpkgs-binfmt-fix + "/nixos/modules/system/boot/binfmt.nix") ];
+        nixpkgs.overlays = [
+          (final: prev: {
+            inherit (inputs.nixpkgs-binfmt-fix.legacyPackages.${config.nixpkgs.system}) wrapQemuBinfmtP;
+          })
+        ];
+      };
     };
 
     mkSystem = name: system: nixpkgs: { extraOverlays ? [], extraModules ? [] }: nixpkgs.lib.nixosSystem {
@@ -144,7 +155,7 @@
     nixosConfigurations = {
       invar = mkSystem "invar" "x86_64-linux" inputs.nixpkgs-unstable {
         extraOverlays = with overlays; [ fcitx5-wayland-fix ];
-        extraModules = with nixosModules; [ home-manager sops ];
+        extraModules = with nixosModules; [ home-manager sops binfmt-fix ];
       };
 
       blacksteel = mkSystem "blacksteel" "x86_64-linux" inputs.nixpkgs-unstable {
@@ -152,7 +163,7 @@
       };
 
       silver = mkSystem "silver" "x86_64-linux" inputs.nixpkgs-stable {
-        extraModules = with nixosModules; [ sops ];
+        extraModules = with nixosModules; [ sops binfmt-fix ];
       };
 
       lithium = mkSystem "lithium" "x86_64-linux" inputs.nixpkgs-stable { };
