@@ -42,6 +42,6 @@ in
     fsType = "ext4";
     partitionTableType = "legacy";
     label = "nixos"; # Root filesystem label.
-    # copyChannel = false; # Not available in nixos-21.05.
+    copyChannel = false;
   };
 }

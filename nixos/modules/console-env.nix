@@ -17,7 +17,7 @@
   ];
 
   environment.systemPackages = with pkgs; [
-    htop procs ncdu swapview smartmontools # Stat
+    procs ncdu swapview smartmontools # Stat
     pv exa fd ripgrep lsof jq loop bc file rsync dnsutils # Utilities
     gnupg age pwgen # Crypto
     libarchive # Compression
@@ -25,7 +25,7 @@
 
   programs.tmux.enable = true;
 
-  # programs.htop.enable = true; # Not available in nixos-21.05
+  programs.htop.enable = true;
   programs.iotop.enable = true;
   programs.iftop.enable = true;
 }
