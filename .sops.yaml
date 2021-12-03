@@ -14,14 +14,20 @@ creation_rules:
         - *blacksteel
         - *silver
 
-  - path_regex: /silver/secret\.yaml$
-    key_groups:
-      - age:
-        - *oxa
-        - *silver
-
   - path_regex: /invar/secret\.yaml$
     key_groups:
       - age:
         - *oxa
         - *invar
+
+  - path_regex: /blacksteel/secret\.yaml$
+    key_groups:
+      - age:
+        - *oxa
+        - *blacksteel
+
+  - path_regex: /silver/secret\.yaml$
+    key_groups:
+      - age:
+        - *oxa
+        - *silver

@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, my, ... }:
 
 {
   nixpkgsAllowUnfreeList = [
@@ -22,7 +22,7 @@
   programs.ssh = {
     knownHosts = my.ssh.knownHosts;
     extraConfig = ''
-      Include ${config.secrets.ssh-hosts}
+      Include ${config.sops.secrets.ssh-hosts.path}
     '';
   };
   sops.secrets.ssh-hosts = {

@@ -1,4 +1,4 @@
-{ lib, pkgs, inputs, ... }:
+{ lib, config, pkgs, inputs, ... }:
 
 {
   imports = [
@@ -22,7 +22,11 @@
 
   time.timeZone = "Asia/Shanghai";
 
-  users.users."oxa".shell = pkgs.zsh;
+  sops.secrets.passwd.neededForUsers = true;
+  users.users."oxa" = {
+    shell = pkgs.zsh;
+    passwordFile = config.sops.secrets.passwd.path;
+  };
 
   home-manager.users."oxa" = import ../../home/blacksteel.nix;
 
