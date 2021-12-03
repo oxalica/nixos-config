@@ -14,7 +14,7 @@ creation_rules:
         - *blacksteel
         - *silver
 
-  - path_regex: secrets/silver\.yaml$
+  - path_regex: /silver/secret\.yaml$
     key_groups:
       - age:
         - *oxa

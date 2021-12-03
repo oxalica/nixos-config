@@ -25,10 +25,7 @@
 
   environment.systemPackages = [ pkgs.qemu ];
 
-  sops.secrets."ddns_env" = {
-    sopsFile = ../../secrets/silver.yaml;
-    restartUnits = [ "update-ddns.service" ];
-  };
+  sops.secrets.ddns_env.restartUnits = [ "update-ddns.service" ];
   systemd.services."update-ddns" = {
     description = "Update dynamic DNS record";
     requires = [ "network.target" ];
@@ -46,7 +43,7 @@
       export http_proxy=
       export all_proxy=
 
-      source /run/secrets/ddns_env
+      source ${config.sops.secrets.ddns_env.path}
       if [[ -z "$DDNS_HOST" || -z "$DDNS_DOMAIN" || -z "$DDNS_KEY" ]]; then
         echo "DDNS environment not set"
         exit 1

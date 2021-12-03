@@ -70,10 +70,10 @@
   programs.ssh = {
     knownHosts = my.ssh.knownHosts;
     extraConfig = ''
-      Include /run/secrets/ssh/hosts
+      Include ${config.sops.secrets.ssh-hosts.path}
     '';
   };
-  sops.secrets."ssh/hosts" = {
+  sops.secrets.ssh-hosts = {
     sopsFile = ../../secrets/ssh.yaml;
     mode = "0444";
   };
