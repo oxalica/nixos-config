@@ -1,4 +1,4 @@
-{ lib, pkgs, inputs, ... }:
+{ lib, config, pkgs, inputs, ... }:
 
 {
   imports = [
@@ -17,6 +17,8 @@
     ../modules/user-oxa.nix
   ] ++ lib.optional (inputs ? secrets) inputs.secrets.nixosModules.invar;
 
+  sops.age.sshKeyPaths = lib.mkForce [ "/var/ssh/ssh_host_ed25519_key" ];
+
   nix.extraOptions = ''
     experimental-features = nix-command flakes ca-references ca-derivations
   '';
@@ -27,17 +29,12 @@
 
   time.timeZone = "Asia/Shanghai";
 
+  sops.secrets.passwd.neededForUsers = true;
   users = {
     mutableUsers = false;
-
     users."oxa" = {
       shell = pkgs.zsh;
-    } // lib.optionalAttrs (!(inputs ? secrets)) {
-      initialPassword = "oxa";
-    };
-
-    users."root" = lib.optionalAttrs (!(inputs ? secrets)) {
-      initialPassword = "root";
+      passwordFile = config.sops.secrets.passwd.path;
     };
   };
 

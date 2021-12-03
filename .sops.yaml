@@ -20,9 +20,8 @@ creation_rules:
         - *oxa
         - *silver
 
-  - path_regex: secrets/user\.yaml$
+  - path_regex: /invar/secret\.yaml$
     key_groups:
       - age:
         - *oxa
         - *invar
-        - *blacksteel
