@@ -25,50 +25,14 @@
 
   environment.systemPackages = [ pkgs.qemu ];
 
-  sops.secrets.ddns_env.restartUnits = [ "update-ddns.service" ];
-  systemd.services."update-ddns" = {
-    description = "Update dynamic DNS record";
-    requires = [ "network.target" ];
-    after = [ "network.target" ];
-    serviceConfig = {
-      Type = "oneshot";
-      Restart = "on-failure";
-      RestartSec = 90;
-      SupplementaryGroups = [ config.users.groups.keys.name ];
-    };
-    path = with pkgs; [ curl dnsutils ];
-    script = ''
-      set -eo pipefail
-      export https_proxy=
-      export http_proxy=
-      export all_proxy=
-
-      source ${config.sops.secrets.ddns_env.path}
-      if [[ -z "$DDNS_HOST" || -z "$DDNS_DOMAIN" || -z "$DDNS_KEY" ]]; then
-        echo "DDNS environment not set"
-        exit 1
-      fi
-      echo "Updating host=$DDNS_HOST domain=$DDNS_DOMAIN key=<''${#DDNS_KEY}bytes>"
-
-      ip=
-      ip="$(curl -sS -4 ifconfig.co)" || true
-      echo "Current IP: ''${ip:-(unknown)}"
-      old_ip=
-      old_ip="$(dig +short "$DDNS_HOST.$DDNS_DOMAIN" A @223.5.5.5)" || true
-      echo "Old IP: ''${old_ip:-(unknown)}"
-
-      resp="$(curl -sSL "https://dynamicdns.park-your-domain.com/update?host=$DDNS_HOST&domain=$DDNS_DOMAIN&password=$DDNS_KEY&ip=$ip")"
-      if [[ ! "$resp" =~ "<ErrCount>0</ErrCount>" ]]; then
-        echo "$resp"
-        exit 1
-      fi
-    '';
-  };
-  systemd.timers."update-ddns" = {
-    wantedBy = [ "timers.target" ];
-    timerConfig = {
-      OnCalendar = "*-*-* *:00/10:00";
-      OnBootSec = 30;
-    };
+  sops.secrets.ddclient-password.restartUnits = [ "ddclient.service" ];
+  services.ddclient = {
+    enable = true;
+    interval = "10min";
+    ipv6 = false;
+    ssl = true;
+    use = "web, web=dynamicdns.park-your-domain.com/getip";
+    server = "dynamicdns.park-your-domain.com";
+    passwordFile = config.sops.secrets.ddclient-password.path;
   };
 }
