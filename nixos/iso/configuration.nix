@@ -3,6 +3,7 @@
   imports = [
     (modulesPath + "/installer/cd-dvd/installation-cd-minimal.nix")
     ../modules/nix-binary-cache-mirror.nix
+    ../modules/console-env.nix
   ];
 
   isoImage = {
@@ -25,7 +26,7 @@
   };
 
   environment.systemPackages = with pkgs; [
-    neofetch htop pv ncdu file
-    zstd gnupg age libarchive runzip
+    neofetch zstd
+    gnupg age ssh-to-age
   ];
 }

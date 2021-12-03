@@ -170,7 +170,7 @@
 
       lithium = mkSystem "lithium" "x86_64-linux" inputs.nixpkgs-stable { };
 
-      iso = mkSystem "iso" "x86_64-linux" inputs.nixpkgs-unstable { };
+      iso = mkSystem "iso" "x86_64-linux" inputs.nixpkgs-stable { };
     };
 
   } // flake-utils.lib.eachDefaultSystem (system: {
