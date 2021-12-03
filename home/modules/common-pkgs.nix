@@ -29,6 +29,7 @@ in {
     electrum electron-cash monero-gui # Cryptocurrency
     steam minecraft osu-lazer # Games
     tdesktop element-desktop # Messaging
+    simplescreenrecorder obs-studio # Recording
 
     # Dev
     cachix patchelf # Utils
