@@ -182,7 +182,9 @@ let g:smoothie_speed_linear_factor = 20
 " coc-nvim {{{2
 " https://github.com/neoclide/coc.nvim
 if has('nvim')
-  let g:coc_start_at_startup = has('nvim')
+  " It consumes quite a lot of resource.
+  let g:coc_start_at_startup = v:false
+
   " Home manager's `programs.neovim.coc` always writes to `$XDG_CONFIG_HOME/nvim/coc-settings.json`.
   let g:coc_config_home = $XDG_CONFIG_HOME . "/nvim"
   let g:coc_data_home = $XDG_DATA_HOME . "/coc"

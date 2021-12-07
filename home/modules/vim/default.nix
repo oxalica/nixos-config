@@ -181,6 +181,8 @@ in
     coc.settings = {
       rust-analyzer.server.path = "${pkgs.rust-analyzer}/bin/rust-analyzer";
       rust-analyzer.checkOnSave.command = "clippy";
+      rust-analyzer.completion.postfix.enable = false;
+      rust-analyzer.assist.importGranularity = "module";
     };
   };
 }
