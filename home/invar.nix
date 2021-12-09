@@ -11,6 +11,7 @@
     ./modules/git.nix
     ./modules/gpg.nix
     ./modules/mail.nix
+    ./modules/nvim
     ./modules/rime-fcitx.nix
     ./modules/rust.nix
     ./modules/shell
@@ -19,7 +20,6 @@
     ./modules/tmux.nix
     ./modules/trash.nix
     ./modules/user-dirs.nix
-    ./modules/vim
   ];
 
   xdg.enable = true;

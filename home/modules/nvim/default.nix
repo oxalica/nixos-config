@@ -1,5 +1,12 @@
 { lib, pkgs, inputs, ... }:
 let
+
+  extraConfig =
+    lib.replaceStrings
+      [ "@@fcitx5-remote@@" ]
+      [ "${lib.getBin pkgs.fcitx5}/bin/fcitx5-remote" ]
+      (builtins.readFile ./init.vim);
+
   plugins = with pkgs.vimPlugins; [
     # Functional extension.
     auto-pairs
@@ -40,15 +47,7 @@ let
 
     # Color scheme.
     nightfox-nvim
-  ];
 
-  vimPlugins = with pkgs.vimPlugins; [
-    # Vim doens't have native wayland clipboard support.
-    # https://github.com/vim/vim/issues/5157
-    vim-wayland-clipboard
-  ];
-
-  nvimPlugins = with pkgs.vimPlugins; [
     # LSP.
     coc-nvim
     {
@@ -153,20 +152,8 @@ let
     # }}}
   ];
 
-  extraConfig =
-    lib.replaceStrings
-      [ "@@fcitx5-remote@@" ]
-      [ "${lib.getBin pkgs.fcitx5}/bin/fcitx5-remote" ]
-      (builtins.readFile ./init.vim);
-
 in
 {
-  programs.vim = {
-    enable = true;
-    plugins = plugins ++ vimPlugins;
-    inherit extraConfig;
-  };
-
   programs.neovim = {
     enable = true;
     package = pkgs.neovim-unwrapped.overrideAttrs (old: {
@@ -174,8 +161,7 @@ in
       version = lib.substring 0 8 inputs.neovim.lastModifiedDate;
     });
 
-    plugins = plugins ++ nvimPlugins;
-    inherit extraConfig;
+    inherit plugins extraConfig;
 
     coc.enable = true;
     coc.settings = {
