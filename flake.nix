@@ -5,6 +5,7 @@
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-21.11";
     nixpkgs-binfmt-fix.url = "github:NixOS/nixpkgs/pull/143060/head";
+    nixpkgs-vim-plugins.url = "github:NixOS/nixpkgs/pull/148265/head";
 
     flake-utils.url = "github:numtide/flake-utils";
     home-manager = {
@@ -91,6 +92,8 @@
           };
         });
       };
+
+      vim-plugins = prToOverlay inputs.nixpkgs-vim-plugins [ "vimPlugins" ];
     };
 
     nixosModules = {
@@ -156,7 +159,7 @@
 
     nixosConfigurations = {
       invar = mkSystem "invar" "x86_64-linux" inputs.nixpkgs-unstable {
-        extraOverlays = with overlays; [ fcitx5-wayland-fix ];
+        extraOverlays = with overlays; [ fcitx5-wayland-fix vim-plugins ];
         extraModules = with nixosModules; [ home-manager sops binfmt-fix ];
       };
 

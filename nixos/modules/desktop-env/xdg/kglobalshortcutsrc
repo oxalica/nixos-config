@@ -12,3 +12,11 @@ Walk Through Windows (Reverse)[$i]=Alt+Shift+Backtab,Alt+Shift+Backtab,Walk Thro
 Walk Through Windows Alternative[$i]=none,none,Walk Through Windows Alternative
 Walk Through Windows Alternative (Reverse)[$i]=none,none,Walk Through Windows Alternative (Reverse)
 
+[org.kde.spectacle.desktop]
+ActiveWindowScreenShot=Ctrl+Shift+Print,Meta+Print,Capture Active Window
+CurrentMonitorScreenShot=,none,Capture Current Monitor
+FullScreenScreenShot=none,Shift+Print,Capture Entire Desktop
+RectangularRegionScreenShot=Ctrl+Print,Meta+Shift+Print,Capture Rectangular Region
+WindowUnderCursorScreenShot=Meta+Ctrl+Print,Meta+Ctrl+Print,Capture Window Under Cursor
+_k_friendly_name=Spectacle
+_launch=,Print,Launch Spectacle

@@ -25,6 +25,13 @@ with lib;
       enable = true;
       useQtScaling = true;
       runUsingSystemd = true;
+
+      kdeglobals.KDE.SingleClick = false;
+      kwinrc = {
+        Desktops.Number = 3;
+        Desktops.Rows = 1;
+        Windows.RollOverDesktops = true;
+      };
     };
   };
 
@@ -96,9 +103,6 @@ with lib;
   };
 
   environment.etc = {
-    "xdg/kdeglobals".source = ./xdg/kdeglobals;
     "xdg/kglobalshortcutsrc".source = ./xdg/kglobalshortcutsrc;
-    "xdg/kwinrc".source = ./xdg/kwinrc;
-    "xdg/kwinrulesrc".source = ./xdg/kwinrulesrc;
   };
 }
