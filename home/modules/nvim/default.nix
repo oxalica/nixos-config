@@ -3,6 +3,8 @@ let
   withConf = plugin: config: { inherit plugin config; };
 
   plugins = with pkgs.vimPlugins; [
+    vim-nix # For word recognition.
+
     easymotion
 
     (withConf fcitx-vim ''
@@ -369,4 +371,7 @@ in
       source ${./init.lua}
     '';
   };
+
+  pam.sessionVariables.EDITOR = "nvim";
+  home.sessionVariables.EDITOR = "nvim";
 }
