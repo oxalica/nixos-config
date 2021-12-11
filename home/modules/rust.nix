@@ -25,9 +25,11 @@ let
   enableLld = true;
   rustHostTarget = pkgs.rust.toRustTarget pkgs.stdenv.hostPlatform;
   lld-wrapper = pkgs.wrapBintoolsWith {
+    # `--no-rosegment` is required for flamegraph
+    # https://github.com/flamegraph-rs/flamegraph#cargo-flamegraph
     bintools = pkgs.writeShellScriptBin "ld.lld" ''
       set -e
-      exec -a ld.lld "$(rustc --print sysroot)/lib/rustlib/${rustHostTarget}/bin/rust-lld" "$@"
+      exec -a ld.lld "$(rustc --print sysroot)/lib/rustlib/${rustHostTarget}/bin/rust-lld" --no-rosegment "$@"
     '';
   };
   lld-linker = pkgs.writeShellScript "lld-linker" ''
