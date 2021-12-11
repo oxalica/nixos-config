@@ -31,3 +31,9 @@ creation_rules:
       - age:
         - *oxa
         - *silver
+
+  - path_regex: /lithium/secret\.yaml$
+    key_groups:
+      - age:
+        - *oxa
+        - *lithium

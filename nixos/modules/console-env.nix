@@ -27,6 +27,9 @@
   programs.iotop.enable = true;
   programs.iftop.enable = true;
 
+  # Don't stuck for searching missing command.
+  programs.command-not-found.enable = false;
+
   # Minimal Vim config.
   programs.vim.defaultEditor = true;
   programs.vim.package = pkgs.vim_configurable.customize {

@@ -171,7 +171,9 @@
         extraModules = with nixosModules; [ sops binfmt-fix ];
       };
 
-      lithium = mkSystem "lithium" "x86_64-linux" inputs.nixpkgs-stable { };
+      lithium = mkSystem "lithium" "x86_64-linux" inputs.nixpkgs-stable {
+        extraModules = with nixosModules; [ sops ];
+      };
 
       iso = mkSystem "iso" "x86_64-linux" inputs.nixpkgs-stable { };
     };
