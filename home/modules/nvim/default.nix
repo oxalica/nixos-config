@@ -245,8 +245,6 @@ let
         });
       });
       nvim-treesitter = (pkgs.vimPlugins.nvim-treesitter.withPlugins plugins).overrideAttrs (old: {
-        version = "master";
-        src = inputs.nvim-treesitter;
         postInstall = old.postInstall or "" + ''
           for x in highlights locals injections indents; do
             cp -f ${inputs.tree-sitter-nix}/queries/nvim-$x.scm $out/queries/nix/$x.scm
@@ -358,10 +356,6 @@ in
 {
   programs.neovim = {
     enable = true;
-    package = pkgs.neovim-unwrapped.overrideAttrs (old: {
-      src = inputs.neovim;
-      version = lib.substring 0 8 inputs.neovim.lastModifiedDate;
-    });
 
     withRuby = false;
 

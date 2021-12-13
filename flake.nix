@@ -5,7 +5,6 @@
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-21.11";
     nixpkgs-binfmt-fix.url = "github:NixOS/nixpkgs/pull/143060/head";
-    nixpkgs-vim-plugins.url = "github:NixOS/nixpkgs/pull/148265/head";
 
     flake-utils.url = "github:numtide/flake-utils";
     home-manager = {
@@ -32,25 +31,14 @@
       flake = false;
     };
 
-    neovim = {
-      url = "github:neovim/neovim";
-      flake = false;
-    };
-    nvim-treesitter = {
-      url = "github:nvim-treesitter/nvim-treesitter";
-      flake = false;
-    };
     tree-sitter-nix = {
       url = "github:oxalica/tree-sitter-nix";
       # url = "/home/oxa/repo/fork/tree-sitter-nix";
       flake = false;
     };
     tree-sitter-bash = {
-      url = "github:tree-sitter/tree-sitter-bash/pull/109/head";
-      flake = false;
-    };
-    rust-vim-enhanced = {
-      url = "github:Iron-E/rust.vim/feature/struct-definition-identifiers";
+      # Support for zsh.
+      url = "github:tree-sitter/tree-sitter-bash/pull/115/head";
       flake = false;
     };
 
@@ -92,8 +80,6 @@
           };
         });
       };
-
-      vim-plugins = prToOverlay inputs.nixpkgs-vim-plugins [ "vimPlugins" ];
     };
 
     nixosModules = {
@@ -159,7 +145,7 @@
 
     nixosConfigurations = {
       invar = mkSystem "invar" "x86_64-linux" inputs.nixpkgs-unstable {
-        extraOverlays = with overlays; [ fcitx5-wayland-fix vim-plugins ];
+        extraOverlays = with overlays; [ fcitx5-wayland-fix ];
         extraModules = with nixosModules; [ home-manager sops binfmt-fix ];
       };
 
