@@ -117,7 +117,11 @@ let
 
     # nvim-cmp {{{
     # https://github.com/neovim/nvim-lspconfig/wiki/Autocompletion
-    luasnip
+    (luasnip.overrideAttrs (old: {
+      version = "master";
+      src = inputs.luasnip;
+    }))
+    cmp_luasnip
     cmp-nvim-lsp
     cmp-path
     cmp-buffer
@@ -141,11 +145,13 @@ let
             ['<C-e>'] = cmp.mapping.close(),
             ['<tab>'] = cmp.mapping.confirm { select = true },
           },
-          sources = {
+          sources = cmp.config.sources({
             { name = 'nvim_lsp' },
+            { name = 'luasnip' },
+          }, {
             { name = 'path' },
             { name = 'buffer' },
-          },
+          }),
         }
       EOF
     '')
