@@ -226,7 +226,7 @@ let
           autostart = false,
           on_attach = on_attach,
           capabilities = capabilities,
-          cmd = { '${lib.getBin pkgs.rust-analyzer}/bin/rust-analyzer' },
+          cmd = { 'rust-analyzer' },
           settings = {
             ['rust-analyzer.checkOnSave.command'] = 'clippy',
             ['rust-analyzer.completion.postfix.enable'] = false,
@@ -371,6 +371,9 @@ in
       source ${./init.lua}
     '';
   };
+
+  # Used by LSP.
+  home.packages = [ pkgs.rust-analyzer ];
 
   pam.sessionVariables.EDITOR = "nvim";
   home.sessionVariables.EDITOR = "nvim";
