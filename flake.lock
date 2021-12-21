@@ -35,6 +35,23 @@
         "type": "github"
       }
     },
+    "meta-sifive": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1638461064,
+        "narHash": "sha256-Toh80cXl+w1QFrbZnCP2Bjg2eN1V8vItACOO7/rWx0k=",
+        "owner": "sifive",
+        "repo": "meta-sifive",
+        "rev": "dc0441b841dba14ead2cba8f6f7c086c11ad89b0",
+        "type": "github"
+      },
+      "original": {
+        "owner": "sifive",
+        "ref": "2021.11.00",
+        "repo": "meta-sifive",
+        "type": "github"
+      }
+    },
     "nixpkgs-binfmt-fix": {
       "locked": {
         "lastModified": 1638426048,
@@ -119,6 +136,7 @@
       "inputs": {
         "flake-utils": "flake-utils",
         "home-manager": "home-manager",
+        "meta-sifive": "meta-sifive",
         "nixpkgs-binfmt-fix": "nixpkgs-binfmt-fix",
         "nixpkgs-stable": "nixpkgs-stable",
         "nixpkgs-unstable": "nixpkgs-unstable",

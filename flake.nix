@@ -20,6 +20,10 @@
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
+    meta-sifive = {
+      url = "github:sifive/meta-sifive/2021.11.00";
+      flake = false;
+    };
 
     registry-crates-io = {
       url = "github:rust-lang/crates.io-index";
@@ -163,6 +167,13 @@
 
       copper = mkSystem "copper" "x86_64-linux" inputs.nixpkgs-stable {
         extraModules = with nixosModules; [ sops ];
+      };
+
+      # Use cross-system.
+      unmatched = mkSystem "unmatched" "x86_64-linux" inputs.nixpkgs-unstable {
+        extraModules = with nixosModules; [
+          { nixpkgs.crossSystem.config = "riscv64-unknown-linux-gnu"; }
+        ];
       };
 
       iso = mkSystem "iso" "x86_64-linux" inputs.nixpkgs-stable { };
