@@ -68,6 +68,9 @@
     lm_sensors
     pciutils
     htop
+    git
+    lsof
+    btrfs-progs
     # radeontop
   ];
 
@@ -79,6 +82,9 @@
   i18n.defaultLocale = lib.mkDefault "en_US.UTF-8";
   fonts.fontconfig.enable = false;
   programs.command-not-found.enable = false;
+
+  # Don't use vim_configurable.
+  programs.vim.defaultEditor = true;
 
   nix.extraOptions = ''
     experimental-features = nix-command flakes
