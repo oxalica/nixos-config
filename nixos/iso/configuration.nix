@@ -27,6 +27,6 @@
 
   environment.systemPackages = with pkgs; [
     neofetch zstd
-    gnupg age ssh-to-age
+    gnupg age sops ssh-to-age
   ];
 }

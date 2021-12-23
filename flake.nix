@@ -163,12 +163,5 @@
 
       iso = mkSystem "iso" "x86_64-linux" inputs.nixpkgs-stable { };
     };
-
-  } // flake-utils.lib.eachDefaultSystem (system: {
-    devShell =
-      with nixpkgs-unstable.legacyPackages.${system};
-      mkShell {
-        packages = [ sops ssh-to-age ];
-      };
-  });
+  };
 }
