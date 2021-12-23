@@ -22,12 +22,8 @@
     fsType = "ext4";
   };
 
-  swapDevices = [
-    {
-      device = "/var/swapfile";
-      size = 1024; # 512 MiB
-    }
-  ];
+  # The initial partition is very small. Do not enable swap on it, or the system will freeze.
+  swapDevices = [ ];
 
   networking.useDHCP = false;
   networking.interfaces.enp1s0.useDHCP = true;
@@ -41,6 +37,8 @@
   services.getty.autologinUser = "oxa";
 
   security.sudo.wheelNeedsPassword = false;
+
+  nix.autoOptimiseStore = lib.mkForce false;
 
   services.openssh = {
     enable = true;

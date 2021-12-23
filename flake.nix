@@ -161,6 +161,10 @@
         extraModules = with nixosModules; [ sops ];
       };
 
+      copper = mkSystem "copper" "x86_64-linux" inputs.nixpkgs-stable {
+        extraModules = with nixosModules; [ sops ];
+      };
+
       iso = mkSystem "iso" "x86_64-linux" inputs.nixpkgs-stable { };
     };
   };

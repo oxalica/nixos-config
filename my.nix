@@ -13,8 +13,8 @@
       publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAVLDuh0BHrcbD5Nsla2C/ylOHkbN4UkcRYZP5dj9kCs";
     };
     copper = {
-      hostNames = [ "|1|VLnsdh/DVlvGZH6aVA0J8K685Dk=|I7BmmPjbRqtq2yyE5RBIAXFdOkc=" ];
-      publicKey = "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBII0BywXrUjKi42/TU1MwWjiJbYK/TwAOagV/y/LYzd9aXYPHMsZPJypsPQH5gjGEDGLiaSUYPjPOzoChsFyO3U=";
+      hostNames = [ "|1|dBmAkr6d+gTzhvfiA8p7l+H34co=|3U8aEJXTtWbmM/j/c+qAGKb44d8=" ];
+      publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIO1TnA8NpurpJFgf4xZZvJrgFpkaE9y6qRgFiFe1mX21";
     };
     lithium = {
       hostNames = [ "|1|03iz3vLed3+JuFU4jY9i+nna9Uc=|F1vUXreBxQBexS9B8ocVVVvv8Hc=" ];

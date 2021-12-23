@@ -156,8 +156,11 @@
     },
     "secrets": {
       "locked": {
-        "lastModified": 1638502647,
-        "narHash": "sha256-P8PkMEd6ATqqixoXLA2gTO0bfNtcHZ0Ai2jEOQFC95c=",
+        "lastModified": 1640273662,
+        "narHash": "sha256-K02fkkY+HyfsDt5u04NsoVAS61EEefQdmiKHjdNgIUY=",
+        "ref": "master",
+        "rev": "e557fbf1eeed174ae616765980e3cee9c1a84936",
+        "revCount": 17,
         "type": "git",
         "url": "file:///home/oxa/storage/repo/nixos-config-secrets"
       },

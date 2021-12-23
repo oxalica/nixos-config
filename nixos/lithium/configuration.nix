@@ -8,6 +8,13 @@
     inputs.secrets.nixosModules.lithium
   ];
 
+  swapDevices = [
+    {
+      device = "/var/swapfile";
+      size = 1024;
+    }
+  ];
+
   environment.systemPackages = with pkgs; [
     wireguard-tools
     git
