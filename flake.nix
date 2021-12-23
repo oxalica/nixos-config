@@ -41,11 +41,6 @@
       url = "github:tree-sitter/tree-sitter-bash/pull/115/head";
       flake = false;
     };
-    luasnip = {
-      # https://github.com/L3MON4D3/LuaSnip/issues/239
-      url = "github:L3MON4D3/LuaSnip";
-      flake = false;
-    };
 
     # Optional.
     secrets.url = "/home/oxa/storage/repo/nixos-config-secrets";

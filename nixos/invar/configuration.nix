@@ -20,7 +20,7 @@
   sops.age.sshKeyPaths = lib.mkForce [ "/var/ssh/ssh_host_ed25519_key" ];
 
   nix.extraOptions = ''
-    experimental-features = nix-command flakes ca-references ca-derivations
+    experimental-features = nix-command flakes ca-derivations
   '';
 
   systemd.user.services.fcitx5-daemon.enable = lib.mkForce false;

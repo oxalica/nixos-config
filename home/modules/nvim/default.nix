@@ -117,10 +117,7 @@ let
 
     # nvim-cmp {{{
     # https://github.com/neovim/nvim-lspconfig/wiki/Autocompletion
-    (luasnip.overrideAttrs (old: {
-      version = "master";
-      src = inputs.luasnip;
-    }))
+    luasnip
     cmp_luasnip
     cmp-nvim-lsp
     cmp-path
