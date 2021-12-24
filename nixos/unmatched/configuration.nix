@@ -2,7 +2,7 @@
 { config, pkgs, lib, modulesPath, inputs, my, ... }:
 {
   imports = [
-    (modulesPath + "/installer/sd-card/sd-image.nix")
+    # (modulesPath + "/installer/sd-card/sd-image.nix")
     # ../modules/console-env.nix
   ];
 
@@ -17,6 +17,7 @@
     })
   ];
 
+  /*
   sdImage = {
     populateRootCommands = ''
       mkdir -p ./files/boot
@@ -24,13 +25,14 @@
     '';
     populateFirmwareCommands = "";
   };
+  */
 
   boot.loader = {
     grub.enable = false;
     generic-extlinux-compatible.enable = true;
   };
   boot.initrd.kernelModules = [ "nvme" "mmc_block" "mmc_spi" "spi_sifive" "spi_nor" "uas" "sdhci_pci" ];
-  boot.kernelParams = [ ];
+  boot.kernelParams = [ "loglevel=7" ]; # DEBUG
   boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.kernelPatches = map (patch: { name = patch; patch = inputs.meta-sifive + "/recipes-kernel/linux/files/${patch}"; }) [
     "0001-riscv-sifive-fu740-cpu-1-2-3-4-set-compatible-to-sif.patch"
@@ -55,6 +57,15 @@
       ERRATA_SIFIVE_CIP_1200 y
     '';
   }];
+
+  fileSystems."/" = {
+    device = "/dev/disk/by-uuid/27b822c9-7087-4f52-8b7e-88a0ac476808";
+    fsType = "ext4";
+  };
+  fileSystems."/boot" = {
+    device = "/dev/disk/by-uuid/3A9E-9961";
+    fsType = "vfat";
+  };
 
   documentation.nixos.enable = false;
   services.udisks2.enable = false;
