@@ -66,6 +66,12 @@
     device = "/dev/disk/by-uuid/3A9E-9961";
     fsType = "vfat";
   };
+  swapDevices = [
+    {
+      device = "/var/swapfile";
+      size = 4 * 1024; # 4G
+    }
+  ];
 
   systemd.services."pwm-fan" = {
     description = "PWM fan control";
@@ -110,6 +116,7 @@
     git
     lsof
     btrfs-progs
+    tmux
     # radeontop
   ];
 
@@ -127,6 +134,7 @@
 
   nix.extraOptions = ''
     experimental-features = nix-command flakes
+    keep-outputs = true # Keep build-dependencies.
   '';
 
   users = {
