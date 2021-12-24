@@ -67,6 +67,34 @@
     fsType = "vfat";
   };
 
+  systemd.services."pwm-fan" = {
+    description = "PWM fan control";
+    wantedBy = [ "basic.target" ];
+    after = [ "-.mount" ];
+    path = [ pkgs.coreutils ];
+
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+      Restart = "on-failure";
+    };
+
+    script = ''
+      cd /sys/class/pwm/pwmchip4
+      [[ -d pwm2 ]] || echo 2 >export
+      cd pwm2
+      echo 0 >duty_cycle || true
+      echo 10000000 >period
+      echo 800000 >duty_cycle
+      echo 1 >enable
+    '';
+
+    preStop = ''
+      cd /sys/class/pwm/pwmchip4
+      [[ ! -d pwm2 ]] || echo 0 >pwm2/enable
+    '';
+  };
+
   documentation.nixos.enable = false;
   services.udisks2.enable = false;
   security.polkit.enable = false;
