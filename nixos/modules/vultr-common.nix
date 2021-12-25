@@ -28,6 +28,10 @@
   networking.useDHCP = false;
   networking.interfaces.enp1s0.useDHCP = true;
   networking.firewall.enable = false; # Already have a hardware firewall.
+  networking.nameservers = [
+    # "1.1.1.1" "1.0.0.1"
+    "2606:4700:4700::1111" "2606:4700:4700::1001"
+  ];
 
   users.users."oxa".openssh.authorizedKeys.keys = [
     my.ssh.identities.oxa-invar
