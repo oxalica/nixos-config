@@ -5,6 +5,7 @@
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-21.11";
     nixpkgs-binfmt-fix.url = "github:NixOS/nixpkgs/pull/143060/head";
+    nixpkgs-unmatched.url = "github:oxalica/nixpkgs/test/unmatched";
 
     flake-utils.url = "github:numtide/flake-utils";
     home-manager = {

@@ -84,6 +84,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-unmatched": {
+      "locked": {
+        "lastModified": 1640371711,
+        "narHash": "sha256-lmU9kIQlSTO3ujqIvwt++esQ8/ynleTFa3pKGKoRtc8=",
+        "owner": "oxalica",
+        "repo": "nixpkgs",
+        "rev": "6491cbe1504dd4c0c47dffa5b61f9f751dc12a37",
+        "type": "github"
+      },
+      "original": {
+        "owner": "oxalica",
+        "ref": "test/unmatched",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs-unstable": {
       "locked": {
         "lastModified": 1640139330,
@@ -139,6 +155,7 @@
         "meta-sifive": "meta-sifive",
         "nixpkgs-binfmt-fix": "nixpkgs-binfmt-fix",
         "nixpkgs-stable": "nixpkgs-stable",
+        "nixpkgs-unmatched": "nixpkgs-unmatched",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "registry-crates-io": "registry-crates-io",
         "rime-emoji": "rime-emoji",

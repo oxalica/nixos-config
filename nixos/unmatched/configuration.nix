@@ -30,6 +30,7 @@
   boot.loader = {
     grub.enable = false;
     generic-extlinux-compatible.enable = true;
+    generic-extlinux-compatible.configurationLimit = 5;
   };
   boot.initrd.kernelModules = [ "nvme" "mmc_block" "mmc_spi" "spi_sifive" "spi_nor" "uas" "sdhci_pci" ];
   boot.kernelParams = [ "loglevel=7" ]; # DEBUG
@@ -132,10 +133,20 @@
   # Don't use vim_configurable.
   programs.vim.defaultEditor = true;
 
-  nix.extraOptions = ''
-    experimental-features = nix-command flakes
-    keep-outputs = true # Keep build-dependencies.
-  '';
+  nix = {
+    extraOptions = ''
+      experimental-features = nix-command flakes
+      keep-outputs = true # Keep build-dependencies.
+      flake-registry = /etc/nix/registry.json
+    '';
+
+    registry = {
+      nixpkgs = {
+        from = { id = "nixpkgs"; type = "indirect"; };
+        flake = inputs.nixpkgs-unmatched;
+      };
+    };
+  };
 
   users = {
     mutableUsers = false;
