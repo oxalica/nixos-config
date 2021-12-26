@@ -146,6 +146,10 @@
         flake = inputs.nixpkgs-unmatched;
       };
     };
+
+    binaryCaches = lib.mkBefore [
+      "https://riscv64.cachix.org"
+    ];
   };
 
   users = {

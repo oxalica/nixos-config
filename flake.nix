@@ -170,8 +170,8 @@
         extraModules = with nixosModules; [ sops ];
       };
 
-      # Use cross-system.
-      unmatched = mkSystem "unmatched" "x86_64-linux" inputs.nixpkgs-unstable {
+      unmatched = mkSystem "unmatched" "riscv64-linux" inputs.nixpkgs-unmatched { };
+      unmatched-cross = mkSystem "unmatched" "x86_64-linux" inputs.nixpkgs-unmatched {
         extraModules = with nixosModules; [
           { nixpkgs.crossSystem.config = "riscv64-unknown-linux-gnu"; }
         ];
