@@ -86,11 +86,11 @@
     },
     "nixpkgs-unmatched": {
       "locked": {
-        "lastModified": 1640371711,
-        "narHash": "sha256-lmU9kIQlSTO3ujqIvwt++esQ8/ynleTFa3pKGKoRtc8=",
+        "lastModified": 1640634550,
+        "narHash": "sha256-ko2PufxypZBHKulS5gKXJq3QZHwWk6PaeyfNA2uCtko=",
         "owner": "oxalica",
         "repo": "nixpkgs",
-        "rev": "6491cbe1504dd4c0c47dffa5b61f9f751dc12a37",
+        "rev": "c1129d507a0a500e89e9f96b13531d97015ef698",
         "type": "github"
       },
       "original": {
