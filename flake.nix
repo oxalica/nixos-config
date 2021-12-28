@@ -5,6 +5,7 @@
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-21.11";
     nixpkgs-binfmt-fix.url = "github:NixOS/nixpkgs/pull/143060/head";
+    nixpkgs-old.url = "github:NixOS/nixpkgs/81cef6b70fb5d5cdba5a0fef3f714c2dadaf0d6d";
 
     flake-utils.url = "github:numtide/flake-utils";
     home-manager = {
@@ -80,6 +81,10 @@
           };
         });
       };
+
+      old-electrum = final: prev: {
+        inherit (inputs.nixpkgs-old.legacyPackages.${final.stdenv.system}) electrum;
+      };
     };
 
     nixosModules = {
@@ -145,7 +150,7 @@
 
     nixosConfigurations = {
       invar = mkSystem "invar" "x86_64-linux" inputs.nixpkgs-unstable {
-        extraOverlays = with overlays; [ fcitx5-wayland-fix ];
+        extraOverlays = with overlays; [ fcitx5-wayland-fix old-electrum ];
         extraModules = with nixosModules; [ home-manager sops binfmt-fix ];
       };
 
