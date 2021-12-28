@@ -35,6 +35,22 @@
         "type": "github"
       }
     },
+    "luasnip": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1640711657,
+        "narHash": "sha256-9DMBNom2tiSfbc89EKqVii1YZ9cXDB+Y65P5XfJ85Bc=",
+        "owner": "L3MON4D3",
+        "repo": "LuaSnip",
+        "rev": "6a9b2575162181fc0512d2afbd20034aaaf43f97",
+        "type": "github"
+      },
+      "original": {
+        "owner": "L3MON4D3",
+        "repo": "LuaSnip",
+        "type": "github"
+      }
+    },
     "nixpkgs-binfmt-fix": {
       "locked": {
         "lastModified": 1638426048,
@@ -135,6 +151,7 @@
       "inputs": {
         "flake-utils": "flake-utils",
         "home-manager": "home-manager",
+        "luasnip": "luasnip",
         "nixpkgs-binfmt-fix": "nixpkgs-binfmt-fix",
         "nixpkgs-old": "nixpkgs-old",
         "nixpkgs-stable": "nixpkgs-stable",

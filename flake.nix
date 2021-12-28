@@ -42,6 +42,10 @@
       url = "github:tree-sitter/tree-sitter-bash/pull/115/head";
       flake = false;
     };
+    luasnip = {
+      url = "github:L3MON4D3/LuaSnip";
+      flake = false;
+    };
 
     # Optional.
     secrets.url = "/home/oxa/storage/repo/nixos-config-secrets";
@@ -84,6 +88,15 @@
 
       old-electrum = final: prev: {
         inherit (inputs.nixpkgs-old.legacyPackages.${final.stdenv.system}) electrum;
+      };
+
+      luasnip-master = final: prev: {
+        vimPlugins = prev.vimPlugins // {
+          luasnip = prev.vimPlugins.luasnip.overrideAttrs (old: {
+            version = "master";
+            src = inputs.luasnip;
+          });
+        };
       };
     };
 
@@ -150,7 +163,7 @@
 
     nixosConfigurations = {
       invar = mkSystem "invar" "x86_64-linux" inputs.nixpkgs-unstable {
-        extraOverlays = with overlays; [ fcitx5-wayland-fix old-electrum ];
+        extraOverlays = with overlays; [ fcitx5-wayland-fix old-electrum luasnip-master ];
         extraModules = with nixosModules; [ home-manager sops binfmt-fix ];
       };
 
