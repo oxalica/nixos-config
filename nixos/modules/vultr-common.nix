@@ -36,6 +36,8 @@
   users.users."oxa".openssh.authorizedKeys.keys = [
     my.ssh.identities.oxa-invar
     my.ssh.identities.oxa-blacksteel
+    my.ssh.identities.invar
+    my.ssh.identities.blacksteel
   ];
 
   services.getty.autologinUser = "oxa";

@@ -6,6 +6,7 @@
     nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-21.11";
     nixpkgs-binfmt-fix.url = "github:NixOS/nixpkgs/pull/143060/head";
     nixpkgs-old.url = "github:NixOS/nixpkgs/81cef6b70fb5d5cdba5a0fef3f714c2dadaf0d6d";
+    nixpkgs-unmatched.url = "github:oxalica/nixpkgs/test/unmatched";
 
     flake-utils.url = "github:numtide/flake-utils";
     home-manager = {
@@ -20,6 +21,10 @@
     sops-nix = {
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
+    meta-sifive = {
+      url = "github:sifive/meta-sifive/2021.11.00";
+      flake = false;
     };
 
     registry-crates-io = {
@@ -182,6 +187,13 @@
 
       copper = mkSystem "copper" "x86_64-linux" inputs.nixpkgs-stable {
         extraModules = with nixosModules; [ sops ];
+      };
+
+      unmatched = mkSystem "unmatched" "riscv64-linux" inputs.nixpkgs-unmatched { };
+      unmatched-cross = mkSystem "unmatched" "x86_64-linux" inputs.nixpkgs-unmatched {
+        extraModules = with nixosModules; [
+          { nixpkgs.crossSystem.config = "riscv64-unknown-linux-gnu"; }
+        ];
       };
 
       iso = mkSystem "iso" "x86_64-linux" inputs.nixpkgs-stable { };
