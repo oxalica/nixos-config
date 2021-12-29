@@ -43,21 +43,36 @@
     "0005-SiFive-HiFive-Unleashed-Add-PWM-LEDs-D1-D2-D3-D4.patch"
     "0006-riscv-sifive-unleashed-define-opp-table-cpufreq.patch"
     "riscv-sbi-srst-support.patch"
-  ] ++ [{
-    name = "sifive";
-    patch = null;
-    extraConfig = ''
-      SOC_SIFIVE y
-      PCIE_FU740 y
-      PWM_SIFIVE y
-      EDAC_SIFIVE y
-      SIFIVE_L2 y
-      RISCV_ERRATA_ALTERNATIVE y
-      ERRATA_SIFIVE y
-      ERRATA_SIFIVE_CIP_453 y
-      ERRATA_SIFIVE_CIP_1200 y
-    '';
-  }];
+  ] ++ [
+    {
+      name = "sifive";
+      patch = null;
+      extraConfig = ''
+        SOC_SIFIVE y
+        PCIE_FU740 y
+        PWM_SIFIVE y
+        EDAC_SIFIVE y
+        SIFIVE_L2 y
+        RISCV_ERRATA_ALTERNATIVE y
+        ERRATA_SIFIVE y
+        ERRATA_SIFIVE_CIP_453 y
+        ERRATA_SIFIVE_CIP_1200 y
+      '';
+    }
+    # https://github.com/zhaofengli/unmatched-nixos/blob/e04fff15b62846d5151c0d98da79398e238b69f6/pkgs/linux/default.nix
+    {
+      name = "cpufreq";
+      patch = null;
+      extraConfig = ''
+        CPU_IDLE y
+        CPU_FREQ y
+        CPU_FREQ_DEFAULT_GOV_USERSPACE y
+        CPU_FREQ_GOV_PERFORMANCE y
+        CPU_FREQ_GOV_USERSPACE y
+        CPU_FREQ_GOV_ONDEMAND y
+      '';
+    }
+  ];
 
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/27b822c9-7087-4f52-8b7e-88a0ac476808";
