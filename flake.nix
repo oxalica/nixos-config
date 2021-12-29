@@ -168,6 +168,7 @@
       };
 
       blacksteel = mkSystem "blacksteel" "x86_64-linux" inputs.nixpkgs-unstable {
+        extraOverlays = with overlays; [ old-electrum luasnip-master ];
         extraModules = with nixosModules; [ home-manager sops ];
       };
 
