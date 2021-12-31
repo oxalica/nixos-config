@@ -48,11 +48,12 @@ args=()
 if [[ -z "$name" && "$op" != *"build" ]]; then
   args+=(sudo)
 fi
+name="${name:-$(hostname)}"
 
 targetHost="$(nix eval --raw .#nixosConfigurations.$name.config.networking.hostName)"
 
-args+=(nixos-rebuild "$op" --flake ".#${name:-$(hostname)}")
-if [[ -n "$name" && "$op" != "build" ]]; then
+args+=(nixos-rebuild "$op" --flake ".#$name")
+if [[ "$name" != "$(hostname)" && "$op" != "build" ]]; then
   args+=(
     --use-remote-sudo
     --target-host "$targetHost"
