@@ -99,6 +99,24 @@
   programs.adb.enable = true;
   users.groups."adbusers".members = [ "oxa" ];
 
+  systemd.services.revssh = {
+    description = "Reverse ssh";
+    requires = [ "network-online.target" ];
+    after = [ "network.target" "network-online.target" ];
+    wantedBy = [ "multi-user.target" ];
+    path = [ pkgs.openssh ];
+    script = ''
+      ssh -N -R 2222:localhost:22 \
+        -o ServerAliveInterval=60 \
+        -o ServerAliveCountMax=3 \
+        lithium
+    '';
+    serviceConfig = {
+      Restart = "always";
+      RestartSec = 60;
+    };
+  };
+
   environment.systemPackages = with pkgs; [
     cntr # Debug nix build.
     curl
