@@ -9,6 +9,8 @@
 
   hardware.logitech.wireless.enable = true;
 
+  hardware.gpgSmartcards.enable = true;
+
   hardware.pulseaudio.enable = true;
   sound.enable = true;
   # sound.mediaKeys.enable = true;
