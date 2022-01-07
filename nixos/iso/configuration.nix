@@ -1,4 +1,4 @@
-{ lib, config, pkgs, modulesPath, inputs, ... }:
+{ lib, pkgs, modulesPath, ... }:
 {
   imports = [
     (modulesPath + "/installer/cd-dvd/installation-cd-minimal.nix")
@@ -9,12 +9,16 @@
   isoImage = {
     isoBaseName = "nixoxa";
     volumeID = "NIXOXA";
+    # Worse compression but way faster.
+    # squashfsCompression = "zstd -Xcompression-level 6";
   };
 
-  # Nix flake.
   nix = {
-    package = pkgs.nixFlakes;
-    useSandbox = true;
+    extraOptions = ''
+      experimental-features = nix-command flakes
+      flake-registry = /etc/nix/registry.json
+    '';
+
     /*
     FIXME: Will introduce 2 nixpkgs in store.
     registry.nixpkgs = {
@@ -26,7 +30,8 @@
   };
 
   environment.systemPackages = with pkgs; [
-    neofetch zstd
-    gnupg age sops ssh-to-age
+    neofetch
   ];
+
+  system.stateVersion = "21.11";
 }

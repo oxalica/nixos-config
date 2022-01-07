@@ -14,6 +14,8 @@ with lib;
   programs.partition-manager.enable = true;
   programs.kdeconnect.enable = true;
 
+  programs.gnupg.agent.pinentryFlavor = "qt";
+
   nixpkgs.config.firefox.enablePlasmaBrowserIntegration = true;
 
   services.xserver = {

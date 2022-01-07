@@ -17,8 +17,8 @@
   environment.systemPackages = with pkgs; [
     procs ncdu swapview smartmontools # Stat
     pv exa fd ripgrep lsof jq loop bc file rsync dnsutils # Utilities
-    gnupg age pwgen # Crypto
-    libarchive # Compression
+    gnupg age pwgen sops ssh-to-age # Crypto
+    libarchive zstd # Compression
   ];
 
   programs.tmux.enable = true;
@@ -30,38 +30,10 @@
   # Don't stuck for searching missing command.
   programs.command-not-found.enable = false;
 
-  # Minimal Vim config.
   programs.vim.defaultEditor = true;
-  programs.vim.package = pkgs.vim_configurable.customize {
-    name = "vim";
-    # vim
-    vimrcConfig.customRC = ''
-      " Core.
-      set mouse=a
-      set scrolloff=5
 
-      " Encoding.
-      set encoding=utf-8 termencoding=utf-8
-      set fileencodings=ucs-bom,utf-8,gb18030,default
-
-      " Input.
-      set shiftwidth=4 softtabstop=4
-      set autoindent smarttab expandtab
-      set ttimeoutlen=1
-
-      " Render.
-      set number
-      set cursorline
-      syntax on
-
-      " XDG.
-      if empty($XDG_STATE_HOME)
-        let $XDG_STATE_HOME = $HOME . "/.local/state"
-      endif
-      set viminfofile=$XDG_STATE_HOME/vim/viminfo
-
-      " Mapping.
-      command -nargs=0 Sudow w !sudo tee % >/dev/null
-    '';
+  programs.gnupg.agent = {
+    enable = true;
+    pinentryFlavor = lib.mkDefault "tty";
   };
 }
