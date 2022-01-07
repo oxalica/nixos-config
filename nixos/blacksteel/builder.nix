@@ -1,7 +1,7 @@
 { lib, pkgs, inputs, ... }:
 
 {
-  nix.distributedBuilds = true;
+  nix.distributedBuilds = false; # No.
   nix.buildMachines = [
     /*
     {

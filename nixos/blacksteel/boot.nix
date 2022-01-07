@@ -35,25 +35,17 @@
     allowDiscards = true;
   };
 
-  fileSystems = let
-    espDev = "/dev/disk/by-uuid/9C91-4441";
-    btrfsDev = "/dev/disk/by-uuid/fbfe849d-2d2f-415f-88d3-65ded870e46b";
-
-    btrfs = options: {
-      device = btrfsDev;
+  fileSystems = {
+    "/" = {
+      device = "/dev/disk/by-uuid/fbfe849d-2d2f-415f-88d3-65ded870e46b";
       fsType = "btrfs";
-      options = [ "noatime" "compress-force=zstd:1" ] ++ options;
+      options = [ "noatime" "compress-force=zstd:1" "subvol=@" ];
     };
-  in {
+
     "/boot" = {
-      device = espDev;
+      device = "/dev/disk/by-uuid/9C91-4441";
       fsType = "vfat";
     };
-
-    "/" = btrfs [ "subvol=/@root" ];
-    "/.subvols" = btrfs [];
-    "/home" = btrfs [ "subvol=/@home" ];
-    "/nix" = btrfs [ "subvol=/@nix" ];
   };
 
   swapDevices = [
