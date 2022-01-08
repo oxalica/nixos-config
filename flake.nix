@@ -120,7 +120,7 @@
     mkSystem = name: system: nixpkgs: { extraOverlays ? [], extraModules ? [] }: nixpkgs.lib.nixosSystem {
       inherit system;
       specialArgs.inputs = inputs // { inherit nixpkgs; };
-      specialArgs.my = import ./my.nix;
+      specialArgs.my = import ./my;
       modules = with nixosModules; [
         system-label
         {

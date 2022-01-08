@@ -1,4 +1,4 @@
-{ lib, config, pkgs, modulesPath, ... }:
+{ lib, config, pkgs, modulesPath, my, ... }:
 {
   # imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
   hardware.enableRedistributableFirmware = lib.mkDefault true;
@@ -30,9 +30,15 @@
   boot.loader.timeout = 1;
 
   # Filesystems.
-  boot.initrd.luks.devices."btrfs" = {
-    device = "/dev/disk/by-uuid/8e445c05-75cc-45c7-bebd-46a73cf50a74";
-    allowDiscards = true;
+  boot.initrd.luks = {
+    gpgSupport = true;
+    devices."btrfs" = {
+      device = "/dev/disk/by-uuid/8e445c05-75cc-45c7-bebd-46a73cf50a74";
+      allowDiscards = true;
+      gpgCard.gracePeriod = 15;
+      gpgCard.encryptedPass = ./luks-encrypted-pass.gpg.asc;
+      gpgCard.publicKey = my.gpg.publicKeyFile;
+    };
   };
 
   fileSystems = {

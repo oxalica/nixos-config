@@ -1,4 +1,8 @@
 {
+  gpg = {
+    publicKeyFile = ./gpg-pubkey.asc;
+  };
+
   ssh = rec {
     identities = {
       oxa-invar = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJYl9bIMoMrs8gWUmIAF42mGnKVxqY6c+g2gmE6u2E/B oxa@invar";
