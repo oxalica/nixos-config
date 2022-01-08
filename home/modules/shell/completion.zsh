@@ -1,8 +1,8 @@
 # Modified from: https://github.com/ohmyzsh/ohmyzsh/blob/706b2f3765d41bee2853b17724888d1a3f6f00d9/lib/completion.zsh
 
 ZSH_CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/zsh"
-ZSH_COMPDUMP="${XDG_CACHE_HOME:-$HOME/.cache}/zsh/zcompdump"
-mkdir -p "$(dirname "$ZSH_COMPDUMP")"
+ZSH_COMPDUMP="$ZSH_CACHE_DIR/zcompdump"
+mkdir -p $ZSH_CACHE_DIR
 
 # fixme - the load process here seems a bit bizarre
 zmodload -i zsh/complist
@@ -19,63 +19,45 @@ setopt always_to_end
 bindkey -M menuselect '^o' accept-and-infer-next-history
 zstyle ':completion:*:*:*:*:*' menu select
 
-# case insensitive (all), partial-word and substring completion
-if [[ "$CASE_SENSITIVE" = true ]]; then
-  zstyle ':completion:*' matcher-list 'r:|=*' 'l:|=* r:|=*'
-else
-  if [[ "$HYPHEN_INSENSITIVE" = true ]]; then
-    zstyle ':completion:*' matcher-list 'm:{a-zA-Z-_}={A-Za-z_-}' 'r:|=*' 'l:|=* r:|=*'
-  else
-    zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|=*' 'l:|=* r:|=*'
-  fi
-fi
-unset CASE_SENSITIVE HYPHEN_INSENSITIVE
+# Don't try to expand multiple partial paths.
+zstyle ':completion:*' path-completion false
+
+# 1. Prefix completion.
+# 2. Substring completion.
+zstyle ':completion:*' matcher-list 'r:|=*' 'l:|=* r:|=*'
 
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
-
-# disable named-directories autocompletion
-zstyle ':completion:*:cd:*' tag-order local-directories directory-stack path-directories
 
 # Use caching so that commands like apt and dpkg complete are useable
 zstyle ':completion:*' use-cache yes
 zstyle ':completion:*' cache-path $ZSH_CACHE_DIR
 
-if [[ $COMPLETION_WAITING_DOTS = true ]]; then
-  expand-or-complete-with-dots() {
-    print -Pn "%F{red}...%f"
-    zle expand-or-complete
-    zle redisplay
-  }
-  zle -N expand-or-complete-with-dots
-  # Set the function as the default tab completion widget
-  bindkey "^I" expand-or-complete-with-dots
-fi
+# Completing indicator.
+expand-or-complete-with-dots() {
+  print -Pn "%F{blue}...%f"
+  zle expand-or-complete
+  zle redisplay
+}
+zle -N expand-or-complete-with-dots
+bindkey '^I' expand-or-complete-with-dots
 
-# automatically load bash completion functions
+# Load bash completion functions.
 autoload -U +X bashcompinit && bashcompinit
 
-# Save the location of the current completion dump file.
+# Dump the current completion states.
+() {
+  local fpath_real=${fpath:P}
+  local fpath_line="# fpath: ${fpath_real[*]}"
+  local need_init=0
 
-# Construct zcompdump OMZ metadata
-zcompdump_fpath="# fpath: $fpath"
+  if [[ "$(tail -n1 $ZSH_COMPDUMP 2>/dev/null)" != "$fpath_line" ]]; then
+    need_init=1
+  fi
 
-# Delete the zcompdump file if OMZ zcompdump metadata changed
-if ! command grep -q -Fx "$zcompdump_fpath" "$ZSH_COMPDUMP" 2>/dev/null; then
-  command rm -f "$ZSH_COMPDUMP"
-  zcompdump_refresh=1
-fi
+  autoload -U compinit
+  compinit -u -C -d $ZSH_COMPDUMP
 
-# Load from all found directories
-autoload -U compinit
-compinit -u -C -d "${ZSH_COMPDUMP}"
-
-# Append zcompdump metadata if missing
-if (( $zcompdump_refresh )); then
-  # Use `tee` in case the $ZSH_COMPDUMP filename is invalid, to silence the error
-  # See https://github.com/ohmyzsh/ohmyzsh/commit/dd1a7269#commitcomment-39003489
-  tee -a "$ZSH_COMPDUMP" &>/dev/null <<EOF
-$zcompdump_fpath
-EOF
-fi
-
-unset zcompdump_fpath zcompdump_refresh
+  if (( $need_init )); then
+    printf '\n%s' $fpath_line >>$ZSH_COMPDUMP
+  fi
+}

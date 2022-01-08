@@ -1,20 +1,18 @@
 # AVIT ZSH Theme Simplified
 
 setopt promptsubst
-autoload -U colors && colors
 
-# settings
-typeset +H _current_dir="%{$fg_bold[blue]%}%3~%{$reset_color%}"
-typeset +H _return_status=" %{$fg_bold[red]%}%(?..[%?])%{$reset_color%}"
-typeset +H _shell_level="%(2L. <%L>.)"
+typeset +H _current_dir='%B%F{blue}%3~%f%b'
+typeset +H _return_status=' %(?..%B%F{red}[%?]%f%b)'
+typeset +H _shell_level='%(2L. <%L>.)'
 
 PROMPT='
-$(_user_host)${_current_dir}$(_simple_git_prompt_info)${_shell_level}${_return_status}
-%{%(!.${fg[red]}.${fg[white]})%}>%{$reset_color%} '
+$(_user_host)${_current_dir}$(_git_info)${_shell_level}${_return_status}
+%(!.%F{red}.%F{white})>%f '
 
-PROMPT2='%{%(!.${fg[red]}.${fg[white]})%}|%{$reset_color%} '
+PROMPT2='%(!.%F{red}.%F{white})|%f '
 
-function _user_host() {
+_user_host() {
   local me
   if [[ -n $SSH_CONNECTION ]]; then
     me="%n@%m"
@@ -22,11 +20,10 @@ function _user_host() {
     me="%n"
   fi
   if [[ -n $me ]]; then
-    echo "%{$fg[cyan]%}$me%{$reset_color%}:"
+    echo -nE "%F{cyan}$me%f "
   fi
 }
 
-_simple_git_prompt_info() {
-  echo "${fg[green]}$(__git_ps1)%{$reset_color%}"
+_git_info() {
+  echo -nE "%F{green}$(__git_ps1)%f"
 }
-
