@@ -4,8 +4,6 @@
   inputs = {
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-21.11";
-    nixpkgs-binfmt-fix.url = "github:NixOS/nixpkgs/pull/143060/head";
-    nixpkgs-old.url = "github:NixOS/nixpkgs/81cef6b70fb5d5cdba5a0fef3f714c2dadaf0d6d";
     nixpkgs-unmatched.url = "github:oxalica/nixpkgs/test/unmatched";
 
     flake-utils.url = "github:numtide/flake-utils";
@@ -43,12 +41,8 @@
       flake = false;
     };
     tree-sitter-bash = {
-      # Support for zsh.
-      url = "github:tree-sitter/tree-sitter-bash/pull/115/head";
-      flake = false;
-    };
-    luasnip = {
-      url = "github:L3MON4D3/LuaSnip";
+      # With support for zsh.
+      url = "github:tree-sitter/tree-sitter-bash";
       flake = false;
     };
 
@@ -90,19 +84,6 @@
           };
         });
       };
-
-      old-electrum = final: prev: {
-        inherit (inputs.nixpkgs-old.legacyPackages.${final.stdenv.system}) electrum;
-      };
-
-      luasnip-master = final: prev: {
-        vimPlugins = prev.vimPlugins // {
-          luasnip = prev.vimPlugins.luasnip.overrideAttrs (old: {
-            version = "master";
-            src = inputs.luasnip;
-          });
-        };
-      };
     };
 
     nixosModules = {
@@ -134,16 +115,6 @@
         sops.gnupg.sshKeyPaths = [];
         sops.defaultSopsFile = ./nixos/${config.networking.hostName}/secret.yaml;
       };
-
-      binfmt-fix = { config, ... }: {
-        disabledModules = [ "system/boot/binfmt.nix" ];
-        imports = [ (inputs.nixpkgs-binfmt-fix + "/nixos/modules/system/boot/binfmt.nix") ];
-        nixpkgs.overlays = [
-          (final: prev: {
-            inherit (inputs.nixpkgs-binfmt-fix.legacyPackages.${config.nixpkgs.system}) wrapQemuBinfmtP;
-          })
-        ];
-      };
     };
 
     mkSystem = name: system: nixpkgs: { extraOverlays ? [], extraModules ? [] }: nixpkgs.lib.nixosSystem {
@@ -168,17 +139,17 @@
 
     nixosConfigurations = {
       invar = mkSystem "invar" "x86_64-linux" inputs.nixpkgs-unstable {
-        extraOverlays = with overlays; [ fcitx5-wayland-fix old-electrum luasnip-master ];
-        extraModules = with nixosModules; [ home-manager sops binfmt-fix ];
+        extraOverlays = with overlays; [ fcitx5-wayland-fix ];
+        extraModules = with nixosModules; [ home-manager sops ];
       };
 
       blacksteel = mkSystem "blacksteel" "x86_64-linux" inputs.nixpkgs-unstable {
-        extraOverlays = with overlays; [ old-electrum luasnip-master ];
+        extraOverlays = with overlays; [ ];
         extraModules = with nixosModules; [ home-manager sops ];
       };
 
       silver = mkSystem "silver" "x86_64-linux" inputs.nixpkgs-stable {
-        extraModules = with nixosModules; [ sops binfmt-fix ];
+        extraModules = with nixosModules; [ sops ];
       };
 
       lithium = mkSystem "lithium" "x86_64-linux" inputs.nixpkgs-stable {
