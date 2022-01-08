@@ -14,8 +14,9 @@ alias v="nvim"
 alias g="git"
 alias py="python"
 alias rl="readlink"
-alias rm="echo 'rm: You are WRONG.'"
+alias rp="realpath"
 alias t="bsdtar"
+alias hex="hexdump -C"
 
 # List tree.
 lt() {
