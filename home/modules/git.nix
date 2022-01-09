@@ -1,12 +1,13 @@
-{ ... }:
+{ my, ... }:
 {
   programs.git = {
     enable = true;
-    signing.signByDefault = true;
 
     userName = "oxalica";
     userEmail = "oxalicc@pm.me";
-    signing.key = "5CB0E9E5D5D571F57F540FEACED392DE0C483D00";
+
+    signing.signByDefault = false;
+    signing.key = my.gpg.fingerprint;
 
     ignores = [ "*~" "*.swp" ]; # vim swap file
 

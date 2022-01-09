@@ -1,10 +1,12 @@
-{ pkgs, ... }:
+{ pkgs, my, ... }:
 {
   programs.gpg = {
     enable = true;
     settings = {
-      default-key = "5CB0E9E5D5D571F57F540FEACED392DE0C483D00";
-      personal-compress-preferences = "Uncompressed ZLIB";
+      default-key = my.gpg.fingerprint;
+      personal-cipher-preferences = "AES256 AES192 AES TWOFISH";
+      personal-digest-preferences = "SHA512 SHA256";
+      personal-compress-preferences = "ZLIB BZIP2 Uncompressed";
       keyserver = "hkps://keys.openpgp.org";
     };
   };
@@ -12,9 +14,6 @@
   services.gpg-agent = {
     enable = true;
     pinentryFlavor = "qt";
-    # enableSshSupport = true;
-    defaultCacheTtl = 12 * 3600;
-    maxCacheTtl = 24 * 3600;
   };
 
   programs.password-store = {

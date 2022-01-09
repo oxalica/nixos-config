@@ -96,14 +96,14 @@
           else lib.warn "Repo is dirty, revision will not be available in system label" "dirty";
       };
 
-      home-manager = { config, inputs, ... }: {
+      home-manager = { config, inputs, my, ... }: {
         imports = [ inputs.home-manager.nixosModules.home-manager ];
         home-manager = {
           useGlobalPkgs = true;
           useUserPackages = true;
           verbose = true;
           extraSpecialArgs = {
-            inherit inputs;
+            inherit inputs my;
             super = config;
           };
         };
