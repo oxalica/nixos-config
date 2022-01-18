@@ -237,16 +237,50 @@ let
 
     # Tree sitter. {{{
     (let
-      plugins = ps: builtins.attrValues (ps // {
-        tree-sitter-nix = ps.tree-sitter-nix.overrideAttrs (old: {
-          version = "fixed";
-          src = inputs.tree-sitter-nix;
-        });
-        tree-sitter-bash = ps.tree-sitter-bash.overrideAttrs (old: {
+      plugins = ps: with ps; [
+        tree-sitter-agda
+        (tree-sitter-bash.overrideAttrs (old: {
           version = "fixed";
           src = inputs.tree-sitter-bash;
-        });
-      });
+        }))
+        tree-sitter-beancount
+        tree-sitter-c
+        tree-sitter-clojure
+        tree-sitter-cmake
+        tree-sitter-commonlisp
+        tree-sitter-cpp
+        tree-sitter-css
+        tree-sitter-dockerfile
+        tree-sitter-glsl
+        tree-sitter-go
+        tree-sitter-gomod
+        tree-sitter-haskell
+        tree-sitter-html
+        tree-sitter-java
+        tree-sitter-javascript
+        tree-sitter-json
+        tree-sitter-latex
+        tree-sitter-llvm
+        tree-sitter-lua
+        tree-sitter-make
+        # tree-sitter-markdown # Highly broken
+        (tree-sitter-nix.overrideAttrs (old: {
+          version = "fixed";
+          src = inputs.tree-sitter-nix;
+        }))
+        tree-sitter-perl
+        tree-sitter-python
+        tree-sitter-query
+        tree-sitter-regex
+        tree-sitter-rst
+        tree-sitter-rust
+        tree-sitter-toml
+        tree-sitter-tsx
+        tree-sitter-typescript
+        tree-sitter-vim
+        tree-sitter-yaml
+      ];
+
       nvim-treesitter = (pkgs.vimPlugins.nvim-treesitter.withPlugins plugins).overrideAttrs (old: {
         postInstall = old.postInstall or "" + ''
           for x in highlights locals injections indents; do
