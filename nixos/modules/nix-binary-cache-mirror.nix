@@ -1,6 +1,6 @@
 { lib, ... }:
 {
-  nix.binaryCaches = lib.mkBefore [
+  nix.settings.substituters = lib.mkBefore [
     # "https://mirror.sjtu.edu.cn/nix-channels/store" # Frequent download stall.
     "https://mirrors.bfsu.edu.cn/nix-channels/store"
 

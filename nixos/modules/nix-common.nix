@@ -4,21 +4,16 @@
     # Ensure that flake support is enabled.
     package = pkgs.nixFlakes;
 
-    useSandbox = true;
-
-    trustedUsers = [ "root" "oxa" ];
-
     gc = {
       automatic = true;
       dates = "Wed";
       options = "--delete-older-than 8d";
     };
 
-    autoOptimiseStore = true;
-    # optimise = {
-    #   automatic = true;
-    #   dates = [ "Thu" ];
-    # };
+    settings = {
+      trusted-users = [ "root" "@wheel" ];
+      auto-optimise-store = true;
+    };
 
     extraOptions = ''
       experimental-features = nix-command flakes

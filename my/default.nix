@@ -15,20 +15,20 @@
       blacksteel.publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICVBNvOEn0ncdylnKQIFKd75muElg5TBaMFWrbamAlx+";
 
       silver = {
-        hostNames = [ "|1|djhJoriV/JqzO+LqNj6+kJ0SLFk=|SHA3YNffReFWcG8oW5AvH4EePek=" ];
+        extraHostNames = [ "|1|djhJoriV/JqzO+LqNj6+kJ0SLFk=|SHA3YNffReFWcG8oW5AvH4EePek=" ];
         publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAVLDuh0BHrcbD5Nsla2C/ylOHkbN4UkcRYZP5dj9kCs";
       };
       copper = {
-        hostNames = [ "|1|dBmAkr6d+gTzhvfiA8p7l+H34co=|3U8aEJXTtWbmM/j/c+qAGKb44d8=" ];
+        extraHostNames = [ "|1|dBmAkr6d+gTzhvfiA8p7l+H34co=|3U8aEJXTtWbmM/j/c+qAGKb44d8=" ];
         publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIO1TnA8NpurpJFgf4xZZvJrgFpkaE9y6qRgFiFe1mX21";
       };
       lithium = {
-        hostNames = [ "|1|03iz3vLed3+JuFU4jY9i+nna9Uc=|F1vUXreBxQBexS9B8ocVVVvv8Hc=" ];
+        extraHostNames = [ "|1|03iz3vLed3+JuFU4jY9i+nna9Uc=|F1vUXreBxQBexS9B8ocVVVvv8Hc=" ];
         publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGafc2sPL47lOJECY1K2X7p2nzfxrLoCMvJ15W/wiJ80";
       };
 
       hex0 = {
-        hostNames = [ "|1|8qZR6bR7/4FL6i7++APyedULh2s=|9OcPkxvketTeD5jQTqTxqcCbufg=" ];
+        extraHostNames = [ "|1|8qZR6bR7/4FL6i7++APyedULh2s=|9OcPkxvketTeD5jQTqTxqcCbufg=" ];
         publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBGiu2G4V9jdAF2JRNN1+3tqYfCldPrwepwYFs1usW9C";
       };
     };
