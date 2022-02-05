@@ -2,11 +2,10 @@
 
 {
   imports = [
-    ./boot.nix
     ./btrbk.nix
     ./builder.nix
+    ./hardware.nix
     ./software.nix
-    ./system.nix
     ./vm.nix
 
     ../modules/console-env.nix

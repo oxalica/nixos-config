@@ -1,7 +1,6 @@
 { lib, config, pkgs, modulesPath, my, ... }:
 {
-  # imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
-  hardware.enableRedistributableFirmware = lib.mkDefault true;
+  imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
 
   # Initrd.
   boot.initrd.availableKernelModules = [ "xhci_pci" "nvme" "usbhid" "rtsx_pci_sdmmc" ];
@@ -10,16 +9,12 @@
   # Kernel.
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = with config.boot.kernelPackages; [
-    # exfat-nofuse
     acpi_call # For TLP
-    # (pkgs.linuxPackages.isgx.override { inherit kernel; })
   ];
   boot.kernel.sysctl = {
     "kernel.sysrq" = "1";
-    "vm.swappiness" = 10;
     "net.ipv4.tcp_congestion_control" = "bbr";
   };
-
   # For NTFS rw mount.
   boot.supportedFilesystems = [ "ntfs-3g" ];
 
@@ -61,11 +56,25 @@
     }
   ];
 
-  # Misc.
-
+  # CPU.
   powerManagement.cpuFreqGovernor = "powersave";
+  hardware.cpu.intel.updateMicrocode = true;
 
   # High-resolution display.
   hardware.video.hidpi.enable = true;
   console.font = "${pkgs.terminus_font}/share/consolefonts/ter-v28n.psf.gz";
+
+  # Other devices.
+
+  services.xserver.xkbOptions = "ctrl:swapcaps";
+  console.useXkbConfig = true;
+
+  hardware.bluetooth.enable = true;
+
+  hardware.logitech.wireless.enable = true;
+
+  hardware.gpgSmartcards.enable = true;
+
+  hardware.pulseaudio.enable = true;
+  sound.enable = true;
 }
