@@ -80,5 +80,6 @@
     curl
     ltunify
     virt-manager
+    btrfs_map_physical
   ];
 }
