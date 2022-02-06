@@ -15,6 +15,10 @@
     "kernel.sysrq" = "1";
     "net.ipv4.tcp_congestion_control" = "bbr";
   };
+  # For hibernate-resume.
+  # /var/swap/swap-resume: 131891830784 / 4096 = 32200154
+  boot.resumeDevice = "/dev/disk/by-uuid/fbfe849d-2d2f-415f-88d3-65ded870e46b";
+  boot.kernelParams = [ "resume_offset=32200154" ];
   # For NTFS rw mount.
   boot.supportedFilesystems = [ "ntfs-3g" ];
 
@@ -27,7 +31,7 @@
   # Filesystems.
   boot.initrd.luks = {
     gpgSupport = true;
-    devices."btrfs" = {
+    devices."luksroot" = {
       device = "/dev/disk/by-uuid/8e445c05-75cc-45c7-bebd-46a73cf50a74";
       allowDiscards = true;
       gpgCard.gracePeriod = 15;
@@ -51,8 +55,7 @@
 
   swapDevices = [
     {
-      device = "/var/swapfile";
-      size = 8192; # MiB
+      device = "/var/swap/swap-resume";
     }
   ];
 
