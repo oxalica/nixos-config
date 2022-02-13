@@ -20,7 +20,7 @@
 
   networking.hostName = "blacksteel";
 
-  time.timeZone = "Asia/Bangkok";
+  time.timeZone = "Asia/Shanghai";
 
   sops.secrets.passwd.neededForUsers = true;
   users.users."oxa" = {
