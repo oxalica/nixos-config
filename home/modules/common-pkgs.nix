@@ -21,7 +21,8 @@ in {
     # GUI
     kolourpaint vlc libreoffice calibre # Files
     electrum electron-cash monero-gui # Cryptocurrency
-    steam minecraft # Games
+    # Workaround: `anki` is too old to work. https://github.com/NixOS/nixpkgs/issues/78449
+    steam polymc anki-bin # Games
     tdesktop element-desktop # Messaging
     simplescreenrecorder obs-studio # Recording
 

@@ -4,8 +4,6 @@
   nixpkgsAllowUnfreeList = [
     "unrar"
     "steam" "steam-original" "steam-runtime"
-    "minecraft-launcher"
-    "osu-lazer"
   ];
 
   services.xserver.dpi = 120;
