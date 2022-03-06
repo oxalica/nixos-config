@@ -9,7 +9,7 @@
     enable = true;
     ports = [ 23333 ];
     passwordAuthentication = false;
-    challengeResponseAuthentication = false;
+    kbdInteractiveAuthentication = false;
     extraConfig = ''
       ClientAliveInterval 70
       ClientAliveCountMax 3

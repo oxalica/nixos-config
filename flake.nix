@@ -149,7 +149,7 @@
 
     nixosConfigurations = {
       invar = mkSystem "invar" "x86_64-linux" inputs.nixpkgs-unstable {
-        extraOverlays = with overlays; [ fcitx5-wayland-fix ];
+        extraOverlays = with overlays; [ fcitx5-wayland-fix electron-cash-fix ];
         extraModules = with nixosModules; [ home-manager sops ];
       };
 

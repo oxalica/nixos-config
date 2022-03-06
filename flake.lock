@@ -22,11 +22,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1645970334,
-        "narHash": "sha256-6nn4YF9bPtkxkB7bM6yJO3m//p3sGilxNQFjm1epLEM=",
+        "lastModified": 1646364779,
+        "narHash": "sha256-481vkO9b3h++bHzLbGDDhgpBoXQ0Wlo4lm4h5/EJMO4=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "ea85f4b1fdf3f25cf97dc49f4a9ec4eafda2ea25",
+        "rev": "d119cea3763977801ad66330668c1ab4346cb7f7",
         "type": "github"
       },
       "original": {
@@ -54,11 +54,11 @@
     },
     "nixpkgs-stable": {
       "locked": {
-        "lastModified": 1646162891,
-        "narHash": "sha256-Yoyur5LD3nRKFZRwVi2lHZi2HKoWUJFAHgIFcYsRhho=",
+        "lastModified": 1646406548,
+        "narHash": "sha256-xp+3f76ycZXNf9pG65Ef9KfDl1fas2UQu/cBe/pLd+c=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "b099eaa0e01a45fc3459bbe987c3405c425ef05c",
+        "rev": "47cd6702934434dd02bc53a67dbce3e5493e33a2",
         "type": "github"
       },
       "original": {
@@ -103,11 +103,11 @@
     "registry-crates-io": {
       "flake": false,
       "locked": {
-        "lastModified": 1646301344,
-        "narHash": "sha256-9m79MyRFTR1EOgiqKletPIgwT10y7jeJ7V/FAD2xxqM=",
+        "lastModified": 1646553622,
+        "narHash": "sha256-Uf9a7FoO+o+xsZaIEaZKRVs34OBQ3fCjwIyGjriRVmE=",
         "owner": "rust-lang",
         "repo": "crates.io-index",
-        "rev": "de46888271e59c8895db8fdfe1416e3294bb1a94",
+        "rev": "d857f9406cdfb502e8ae9a985e3ecde6ee12851e",
         "type": "github"
       },
       "original": {
@@ -159,11 +159,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1646274381,
-        "narHash": "sha256-kglX5g7HhSWiTGKz1WOA8DWclj0Wwsq8I50wgY4eS3I=",
+        "lastModified": 1646533330,
+        "narHash": "sha256-JwtPZekfbIwUFO5xza9sDHOxKsT5E2PFBkJxtvNOI7M=",
         "owner": "oxalica",
         "repo": "rust-overlay",
-        "rev": "245c2712f502849041a1b1d0cc6a7588e94b2e3f",
+        "rev": "1a459694c46b984f4f55bfe4a59d874c828fb1e8",
         "type": "github"
       },
       "original": {
@@ -176,9 +176,6 @@
       "locked": {
         "lastModified": 1640273662,
         "narHash": "sha256-K02fkkY+HyfsDt5u04NsoVAS61EEefQdmiKHjdNgIUY=",
-        "ref": "master",
-        "rev": "e557fbf1eeed174ae616765980e3cee9c1a84936",
-        "revCount": 17,
         "type": "git",
         "url": "file:///home/oxa/storage/repo/nixos-config-secrets"
       },
