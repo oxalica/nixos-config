@@ -77,6 +77,9 @@
     "ssh/ssh_host_ed25519_key.pub".source = "/var/ssh/ssh_host_ed25519_key.pub";
   };
 
+  services.xserver.xkbOptions = "ctrl:swapcaps";
+  console.useXkbConfig = true;
+
   # High-DPI console
   hardware.video.hidpi.enable = true;
   console.font = "${pkgs.terminus_font}/share/consolefonts/ter-v28n.psf.gz";
