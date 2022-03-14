@@ -14,9 +14,15 @@
     "--wheel-lines=5"
   ];
 
+  # Default:
+  # - nano # Already have vim.
+  # - perl # No.
+  # - rsync strace # Already in systemPackages.
+  environment.defaultPackages = [ ];
+
   environment.systemPackages = with pkgs; [
     procs ncdu swapview smartmontools # Stat
-    pv exa fd ripgrep lsof jq loop bc file rsync dnsutils # Utilities
+    strace pv exa fd ripgrep lsof jq loop bc file rsync dnsutils # Utilities
     gnupg age pwgen sops ssh-to-age # Crypto
     libarchive zstd # Compression
   ];

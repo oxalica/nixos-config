@@ -10,7 +10,7 @@
     isoBaseName = "nixoxa";
     volumeID = "NIXOXA";
     # Worse compression but way faster.
-    # squashfsCompression = "zstd -Xcompression-level 6";
+    squashfsCompression = "zstd -Xcompression-level 6";
   };
 
   nix = {
