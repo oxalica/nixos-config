@@ -1,38 +1,47 @@
 { pkgs, ... }:
+let
+  globalSettings = {
+    timestamp_format = "long-iso";
+    preserve_day_of_week = "monday";
+    preserve_hour_of_day = "6";
+  };
+
+in
 {
-  environment.systemPackages = [ pkgs.btrbk ];
+  # 15min snapshot.
+  services.btrbk.instances.snapshot = {
+    onCalendar = "*:00/15";
+    settings = globalSettings // {
+      volume."/" = {
+        snapshot_dir = ".btrbk/snapshot";
+        snapshot_create = "onchange";
+        snapshot_preserve_min = "6h";
 
-  # For manual run.
-  environment.etc."btrbk/btrbk.conf".source = ./btrbk.conf;
-
-  systemd.services.btrbk-snapshot = {
-    description = "btrbk snapshot";
-    serviceConfig = {
-      Type = "oneshot";
-      ExecStart = "${pkgs.btrbk}/bin/btrbk run snapshot";
+        subvolume."home/oxa".snapshot_preserve = "48h 7d";
+        subvolume."home/oxa/storage".snapshot_preserve = "48h 7d 4w";
+        subvolume."home/oxa/archive".snapshot_preserve = "48h 7d 4w";
+      };
     };
   };
 
-  systemd.timers.btrbk-snapshot = {
-    description = "btrbk snapshot timer";
-    wantedBy = [ "timers.target" ];
-    timerConfig = {
-      OnUnitInactiveSec = "15min";
-      OnBootSec = "15min";
-    };
-  };
+  # Manual backup.
+  services.btrbk.instances.backup-wd2t = {
+    # FIXME: Cannot disable the coresponding timer.
+    onCalendar = "2112-01-01";
+    settings = globalSettings // {
+      volume."/" = {
+        snapshot_dir = ".btrbk/backup-wd2t";
+        snapshot_create = "ondemand"; # Always create.
+        snapshot_preserve_min = "latest";
 
-  systemd.services.btrbk-backup-wd2t = {
-    description = "btrbk backup wd2t";
-    serviceConfig = {
-      Type = "oneshot";
-      ExecStart = "${pkgs.btrbk}/bin/btrbk run --progress wd2t";
-    };
-  };
+        target = "send-receive /run/media/oxa/WD2T-external-store/backup-invar";
+        target_preserve_min = "1d";
+        target_preserve = "7d 4w *m";
 
-  systemd.timers.btrbk-backup-wd2t = {
-    description = "btrbk backup wd2t timer";
-    wantedBy = [ "timers.target" ];
-    timerConfig.OnCalendar = "03:05:00";
+        subvolume."home/oxa" = {};
+        subvolume."home/oxa/storage" = {};
+        subvolume."home/oxa/archive" = {};
+      };
+    };
   };
 }
