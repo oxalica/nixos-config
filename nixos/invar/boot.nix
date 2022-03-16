@@ -26,31 +26,19 @@
     allowDiscards = true;
   };
 
-  fileSystems = let
-    btrfs = options: {
+  fileSystems = {
+    "/" = {
       device = "/dev/disk/by-uuid/7219f4b1-a9d1-42a4-bfc9-386fa919d44b";
       fsType = "btrfs";
       # zstd:1  W: ~510MiB/s
       # zstd:3  W: ~330MiB/s
-      options = [ "compress-force=zstd:1" "noatime" ] ++ options;
-    };
-  in {
-
-    "/" = {
-      device = "tmpfs";
-      fsType = "tmpfs";
-      options = [ "defaults" "size=12G" "mode=755" ];
+      options = [ "compress-force=zstd:1" "noatime" "subvol=/@" ];
     };
 
     "/boot" = {
       device = "/dev/disk/by-uuid/DDBD-2F2B";
       fsType = "vfat";
     };
-
-    "/.subvols" = btrfs [ ];
-    "/nix" = btrfs [ "subvol=/@nix" ];
-    "/var" = btrfs [ "subvol=/@var" ];
-    "/home/oxa" = btrfs [ "subvol=/@home-oxa" ];
   };
 
   swapDevices = [
@@ -60,14 +48,6 @@
       # size = 16 * 1024; # 16G
     }
   ];
-
-  systemd.tmpfiles.rules = [
-    "d /tmp 1777 root root 2d"
-    "q /var/tmp 1777 root root 15d"
-  ];
-  # We already wrote our rules.
-  environment.etc."tmpfiles.d/tmp.conf".source =
-    lib.mkForce (pkgs.writeText "dummy-tmp-conf" "");
 
   environment.etc = {
     "machine-id".source = "/var/machine-id";
