@@ -14,6 +14,8 @@
   services.gpg-agent = {
     enable = true;
     pinentryFlavor = "qt";
+    defaultCacheTtl = 2 * 3600;
+    maxCacheTtl = 24 * 3600;
   };
 
   programs.password-store = {
