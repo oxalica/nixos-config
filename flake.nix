@@ -84,16 +84,6 @@
           };
         });
       };
-
-      # https://github.com/Electron-Cash/Electron-Cash/pull/2396
-      electron-cash-fix = final: prev: {
-        electron-cash = prev.electron-cash.overrideAttrs (old: {
-          postPatch = ''
-            substituteInPlace contrib/requirements/requirements.txt \
-              --replace "qdarkstyle==2.6.8" "qdarkstyle>=2.8"
-          '' + old.postPatch;
-        });
-      };
     };
 
     nixosModules = {
@@ -149,12 +139,12 @@
 
     nixosConfigurations = {
       invar = mkSystem "invar" "x86_64-linux" inputs.nixpkgs-unstable {
-        extraOverlays = with overlays; [ fcitx5-wayland-fix electron-cash-fix ];
+        extraOverlays = with overlays; [ fcitx5-wayland-fix ];
         extraModules = with nixosModules; [ home-manager sops ];
       };
 
       blacksteel = mkSystem "blacksteel" "x86_64-linux" inputs.nixpkgs-unstable {
-        extraOverlays = with overlays; [ electron-cash-fix ];
+        extraOverlays = with overlays; [ ];
         extraModules = with nixosModules; [ home-manager sops ];
       };
 
