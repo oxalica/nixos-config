@@ -231,6 +231,13 @@ let
             ['rust-analyzer.assist.importGranularity'] = 'module',
           },
         }
+
+        lsp.pyright.setup {
+          autostart = true,
+          on_attach = on_attach,
+          capabilities = capabilities,
+          cmd = { '${pkgs.pyright}/bin/pyright-langserver', '--stdio' },
+        }
       EOF
     '')
     # }}}
