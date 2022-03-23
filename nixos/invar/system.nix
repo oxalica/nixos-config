@@ -9,8 +9,6 @@
   hardware.cpu.amd.updateMicrocode = true;
   hardware.bluetooth.enable = true;
 
-  services.xserver.videoDrivers = [ "amdgpu" ];
-
   # sound.enable = true;
   # hardware.pulseaudio.enable = true;
   # users.groups."audio".members = [ "oxa" ];

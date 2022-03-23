@@ -17,6 +17,9 @@
     ../modules/user-oxa.nix
   ] ++ lib.optional (inputs ? secrets) inputs.secrets.nixosModules.invar;
 
+  # Release the beast.
+  services.xserver.displayManager.defaultSession = "plasmawayland";
+
   sops.age.sshKeyPaths = lib.mkForce [ "/var/ssh/ssh_host_ed25519_key" ];
 
   nix.extraOptions = ''
