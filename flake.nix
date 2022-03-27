@@ -73,16 +73,6 @@
             patches = old.patches or [] ++ [ ./patches/fcitx5-qt-disable-position-clamping.patch ];
           });
         });
-
-        fcitx5-gtk = prev.fcitx5-gtk.overrideAttrs (old: {
-          version = "20211112";
-          src = final.fetchFromGitHub {
-            owner = "fcitx";
-            repo = "fcitx5-gtk";
-            rev = "96511d2f07a489fc8ae6bf2e91067ab94483edd5";
-            sha256 = "FjCH+pP/yVKk/gtSg7iTj1s1fdhPKWTJevPV2U2PiNQ=";
-          };
-        });
       };
     };
 

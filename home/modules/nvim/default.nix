@@ -368,11 +368,10 @@ let
     (withConf nightfox-nvim /* vim */ ''
       lua <<EOF
         require("nightfox").setup {
-          fox = "nightfox",
-          colors = {
+          pallets = {
             comment = "#768390", -- From GitHub, to increse contract.
           },
-          hlgroups = {
+          groups = {
             SpecialKey = { fg = "''${magenta_dm}" },
             NonText = { fg = "#526175" }, -- The original low-contract 'comment' color.
 
