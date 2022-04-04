@@ -1,4 +1,4 @@
-{ my, ... }:
+{ pkgs, my, ... }:
 {
   programs.git = {
     enable = true;
@@ -31,6 +31,7 @@
       pull.ff = "only";
       advice.detachedHead = false;
 
+      diff.external = "${pkgs.difftastic}/bin/difft";
       diff.tool = "nvimdiff";
       difftool.prompt = false;
 
