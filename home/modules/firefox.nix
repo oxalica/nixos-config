@@ -12,15 +12,18 @@
           --in-place "$out/bin/firefox"
 
         # Rebind C-W to C-S-W for closing tab.
-        cd "$(mktemp -d)"
+        from1='<key id="key_close" data-l10n-id="close-shortcut" command="cmd_close" modifiers="accel" reserved="true"/>'
+        tooo1='<key id="key_close" data-l10n-id="close-shortcut" command="cmd_close" modifiers="accel,shift" reserved="true"/>'
+        from2='<key id="key_closeWindow" data-l10n-id="close-shortcut" command="cmd_closeWindow" modifiers="accel,shift" reserved="true"/>'
+        tooo2='                                                                                                                     '
         file="$out/lib/firefox/browser/omni.ja"
-        path=chrome/browser/content/browser/browser.xhtml
-        unzip "$file"
-        sed -E '/id="key_close"/ s/modifiers=".*"/modifiers="accel,shift"/' \
-          --in-place "$path"
-        # Remove the symlink first.
-        rm "$file"
-        zip -r "$file" *
+        # The original file is a symlink.
+        sed -E "s|$from1|$tooo1|; s|$from2|$tooo2|" "$file" >"$file.new"
+        size1="$(stat -L -c '%s' "$file")"
+        size2="$(stat -L -c '%s' "$file.new")"
+        echo "$size1 $size2"
+        [[ $size1 -eq $size2 ]]
+        mv "$file.new" "$file"
       '';
     });
 
