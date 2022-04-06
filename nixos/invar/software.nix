@@ -99,6 +99,12 @@
   programs.adb.enable = true;
   users.groups."adbusers".members = [ "oxa" ];
 
+  services.transmission = {
+    enable = true;
+    home = "/home/transmission";
+  };
+  users.groups."transmission".members = [ "oxa" ];
+
   environment.systemPackages = with pkgs; [
     cntr # Debug nix build.
     curl

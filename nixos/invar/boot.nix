@@ -60,6 +60,8 @@
   services.xserver.xkbOptions = "ctrl:swapcaps";
   console.useXkbConfig = true;
 
+  powerManagement.cpuFreqGovernor = "ondemand";
+
   # High-DPI console
   hardware.video.hidpi.enable = true;
   console.font = "${pkgs.terminus_font}/share/consolefonts/ter-v28n.psf.gz";
