@@ -368,7 +368,7 @@ let
     (withConf nightfox-nvim /* vim */ ''
       lua <<EOF
         require("nightfox").setup {
-          pallets = {
+          palette = {
             comment = "#768390", -- From GitHub, to increse contract.
           },
           groups = {

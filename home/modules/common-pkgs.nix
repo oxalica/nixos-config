@@ -19,7 +19,8 @@ in {
     sops ssh-to-age # Sops
 
     # GUI
-    kolourpaint vlc libreoffice calibre # Files
+    kolourpaint vlc libreoffice  # Files
+    # calibre <- FIXME: broken
     electrum electron-cash monero-gui # Cryptocurrency
     # Workaround: `anki` is too old to work. https://github.com/NixOS/nixpkgs/issues/78449
     steam polymc anki-bin # Games
