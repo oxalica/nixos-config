@@ -5,58 +5,116 @@ let
   plugins = with pkgs.vimPlugins; [
     vim-nix # For word recognition.
 
-    easymotion
+    # Commen dependencies.
+    vim-repeat
+    plenary-nvim
+
+    (withConf hop-nvim /* vim */ ''
+      lua require('hop').setup()
+      nnoremap gw <cmd>HopWord<cr>
+      nnoremap gf <cmd>HopChar1<cr>
+      nnoremap g/ <cmd>HopPattern<cr>
+    '')
 
     (withConf fcitx-vim ''
       let g:fcitx5_remote = '${lib.getBin pkgs.fcitx5}/bin/fcitx5-remote'
     '')
 
-    # fzf-vim {{{
-    (withConf fzf-vim /* vim */ ''
-      lua vim.g.fzf_history_dir = (vim.env.XDG_STATE_HOME or vim.env.HOME .. '/.local/state') .. '/fzf.vim/history'
-      let g:fzf_action = {
-          \ 'ctrl-t': 'tab split',
-          \ 'ctrl-s': 'split',
-          \ 'ctrl-v': 'vsplit',
-          \ }
-      function FzfAt(path, hidden)
-        let source = '${lib.getBin pkgs.fd}/bin/fd'
-        if a:hidden
-          let source .= ' --hidden'
-        endif
-        let dir = a:path
-        if empty(dir)
-          let dir = '.'
-        endif
-        let show_dir = dir
-        if len(show_dir) > &columns / 2
-          let show_dir = pathshorten(show_dir)
-        endif
-        let prompt = fnamemodify(getcwd(), ':h') . '/' . show_dir . '/'
-        let options = ['--prompt', prompt]
-        let opts = { 'dir': a:path, 'source': source, 'options': options }
-        call fzf#run(fzf#wrap('files', opts))
-      endfunction
-      nnoremap <silent> <leader>ff :call FzfAt('.', v:false)<cr>
-      nnoremap <silent> <leader>fh :call FzfAt('.', v:true)<cr>
-      nnoremap <silent> <leader>f. :call FzfAt(expand('%:h'), v:false)<cr>
-      nnoremap <silent> <leader>fp :call FzfAt(expand('%:h:h'), v:false)<cr>
-      " Fullscreen by default for :Rg
-      command! -nargs=1 Rg call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case -- ".shellescape(<q-args>), 1, fzf#vim#with_preview(), 1)
+    # telescope {{{
+    telescope-fzf-native-nvim
+    (withConf telescope-nvim /* vim */ ''
+      lua <<EOF
+        require("telescope").setup {
+          defaults = {
+            mappings = {
+              i = {
+                ["<esc>"] = require("telescope.actions").close,
+                ["<m-p>"] = require("telescope.actions.layout").toggle_preview,
+              },
+            },
+          },
+          extensions = {
+            fzf = { fuzzy = false }, -- Substring matching by default.
+          },
+          pickers = {
+            find_files = {
+              find_command = {
+                "fd",
+                "--hidden",
+                "--type=file",
+                "--exclude=.git",
+              },
+            },
+          },
+        }
+        require('telescope').load_extension('fzf')
+      EOF
+
+      nnoremap <leader>ff <cmd>Telescope find_files<cr>
+      nnoremap <leader>fr <cmd>Telescope live_grep<cr>
+      nnoremap <leader>fb <cmd>Telescope buffers<cr>
+      nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+
+      nnoremap <leader>ft <cmd>Telescope treesitter<cr>
+      nnoremap <leader>fd <cmd>Telescope lsp_definitions<cr>
     '')
     # }}}
 
-    (withConf gitsigns-nvim ''
-      lua require('gitsigns').setup()
+    (withConf gitsigns-nvim /* vim */ ''
+      lua <<EOF
+        require('gitsigns').setup {
+          on_attach = function(bufnr)
+            local gs = package.loaded.gitsigns
+
+            local function map(mode, l, r, opts)
+              opts = opts or {}
+              opts.buffer = bufnr
+              vim.keymap.set(mode, l, r, opts)
+            end
+
+            -- Navigation
+            map('n', ']c', function()
+              if vim.wo.diff then return ']c' end
+              vim.schedule(function() gs.next_hunk() end)
+              return '<Ignore>'
+            end, {expr=true})
+
+            map('n', '[c', function()
+              if vim.wo.diff then return '[c' end
+              vim.schedule(function() gs.prev_hunk() end)
+              return '<Ignore>'
+            end, {expr=true})
+
+            -- Actions
+            map({'n', 'v'}, '<leader>hs', '<cmd>Gitsigns stage_hunk<CR>')
+            map({'n', 'v'}, '<leader>hr', '<cmd>Gitsigns reset_hunk<CR>')
+            -- map('n', '<leader>hS', gs.stage_buffer)
+            map('n', '<leader>hu', gs.undo_stage_hunk)
+            -- map('n', '<leader>hR', gs.reset_buffer)
+            map('n', '<leader>hp', gs.preview_hunk)
+            -- map('n', '<leader>hb', function() gs.blame_line{full=true} end)
+            map('n', '<leader>tb', gs.toggle_current_line_blame)
+            map('n', '<leader>hd', gs.diffthis)
+            map('n', '<leader>hD', function() gs.diffthis('~') end)
+            -- map('n', '<leader>td', gs.toggle_deleted)
+
+            -- Text object
+            map({'o', 'x'}, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
+          end
+        }
+      EOF
     '')
 
     markdown-preview-nvim
 
     (withConf nerdcommenter ''
+      let g:NERDCreateDefaultMappings = 1
       let g:NERDSpaceDelims = 1
       let g:NERDDefaultAlign = 'left'
       let g:NERDCommentEmptyLines = 1
+      let g:NERDTrimTrailingWhitespace = 1
     '')
+
 
     # Don't search for neighbor files. Just detect the file itself.
     (withConf sleuth ''
@@ -89,13 +147,7 @@ let
     fugitive-gitlab-vim
     vim-rhubarb
 
-    (withConf vim-highlightedyank ''
-      let g:highlightedyank_highlight_duration = 200
-    '')
-
-    vim-repeat
-
-    # vim-sandwich {{{
+    # vim-sandwich
     (withConf vim-sandwich /* vim */ ''
       " Use vim-surround keymap.
       runtime PACK macros/sandwich/keymap/surround.vim
@@ -109,7 +161,6 @@ let
         \   {'buns': ['(\s*', '\s*)'],   'nesting': 1, 'regex': 1, 'match_syntax': 1, 'kind': ['delete', 'replace', 'textobj'], 'action': ['delete'], 'input': ['(']},
         \ ]
     '')
-    # }}}
 
     (withConf vim-smoothie ''
       let g:smoothie_speed_linear_factor = 20
@@ -225,10 +276,19 @@ let
           capabilities = capabilities,
           cmd = { 'rust-analyzer' },
           settings = {
-            ['rust-analyzer.checkOnSave.command'] = 'clippy',
-            ['rust-analyzer.completion.postfix.enable'] = false,
-            ['rust-analyzer.assist.importEnforceGranularity'] = true,
-            ['rust-analyzer.assist.importGranularity'] = 'module',
+            ['rust-analyzer'] = {
+              checkOnSave = { command = 'clippy' },
+              assist = {
+                importEnforceGranularity = true,
+                importGranularity = 'module',
+              },
+              completion = {
+                autoself = { enable = false },
+                postfix = { enable = false },
+                addCallArgumentSnippets = false,
+                snippets = {},
+              },
+            },
           },
         }
 
@@ -347,10 +407,10 @@ let
             incremental_selection = {
               enable = true,
               keymaps = {
-                init_selection = "gnn",
-                node_incremental = "grn",
-                scope_incremental = "grc",
-                node_decremental = "grm",
+                init_selection = "\\[",
+                node_incremental = "\\[",
+                node_decremental = "\\]",
+                scope_incremental = "\\{",
               },
             },
           }
@@ -368,18 +428,14 @@ let
     (withConf nightfox-nvim /* vim */ ''
       lua <<EOF
         require("nightfox").setup {
-          palette = {
-            comment = "#768390", -- From GitHub, to increse contract.
+          palettes = {
+            nightfox = {
+              comment = "#768390", -- From GitHub, to increse contract.
+            },
           },
           groups = {
-            SpecialKey = { fg = "''${magenta_dm}" },
-            NonText = { fg = "#526175" }, -- The original low-contract 'comment' color.
-
-            -- better-whitespace.vim
-            ExtraWhitespace = { bg = "''${error}" },
-
-            -- vim-highlightedyank
-            HighlightedyankRegion = { bg = "''${bg_search}" },
+            -- vim-better-whitespace
+            ExtraWhitespace = { bg = "palette.red.dim" },
 
             -- vim-cursorword
             CursorWord0 = { style = "underline" },
@@ -395,18 +451,82 @@ let
     # }}}
   ];
 
+  # extraConfig {{{
+  extraConfig = /* vim */ ''
+    " Core.
+    set fileencodings=ucs-bom,utf-8,gb18030,latin1
+    set foldmethod=marker
+    set lazyredraw
+    set mouse=a
+    set scrolloff=5
+    set undofile
+
+    " No undo for tmp files
+    autocmd BufWritePre /tmp/*,/var/tmp/*,/dev/shm/* setlocal noundofile nobackup
+
+    " Input.
+    set shiftwidth=4
+    set softtabstop=4
+    set expandtab
+    set ttimeoutlen=1
+
+    " Render.
+    set number
+    set cursorline
+    set signcolumn=yes " Always show.
+    set list
+    set listchars=tab:-->,extends:>,precedes:<
+
+    " Highlight on yank.
+    autocmd TextYankPost * silent! lua vim.highlight.on_yank {higroup="IncSearch", timeout=200}
+
+    " Status line.
+    " Reference: https://github.com/lilydjwg/dotvim/blob/07c4467153f2f44264fdb0e23c085b56cad519db/vimrc#L548
+    " <path/to/file [+][preview][RO][filetype][binary][encoding][BOM][dos][noeol]
+    "   === char code, line, column, byte position, percentage
+    set laststatus=2 " Always shown.
+    let &statusline=
+      \ '%<%f %m%r%y' ..
+      \ '%{&bin?"[binary]":""}' ..
+      \ '%{!&bin&&&fenc!="utf-8"&&&fenc!=""?"[".&fenc."]":""}' ..
+      \ '%{!&bin&&&bomb?"[BOM]":""}' ..
+      \ '%{!&bin&&&ff!="unix"?"[".&ff."]":""}' ..
+      \ '%{!&eol?"[noeol]":&bin?"[eol]":""}' ..
+      \ ' %LL  %-8.{luaeval("require[[lsp-status]].status()")}' ..
+      \ '%=' ..
+      \ ' 0x%-4.B %-16.(%lL,%cC%V,%oB%) %P'
+
+    " Mapping.
+
+    let g:mapleader='\'
+
+    " Command-like.
+    noremap  <m-z> <cmd>set wrap!<bar>set wrap?<cr>
+    noremap! <m-z> <cmd>set wrap!<bar>set wrap?<cr>
+    noremap  <m-cr> <cmd>set hlsearch!<bar>set hlsearch?<cr>
+    noremap! <m-cr> <cmd>set hlsearch!<bar>set hlsearch?<cr>
+
+    " Panes
+    noremap <c-w>v <cmd>vsplit<cr>
+    noremap <c-w>s <cmd>split<cr>
+    noremap <c-w>+ <c-w>+<c-w>+<c-w>+<c-w>+<c-w>+
+    noremap <c-w>- <c-w>-<c-w>-<c-w>-<c-w>-<c-w>-
+    noremap <c-w><lt> <c-w><lt><c-w><lt><c-w><lt><c-w><lt><c-w><lt>
+    noremap <c-w>> <c-w>><c-w>><c-w>><c-w>><c-w>>
+
+    " Commands.
+
+    command -nargs=0 Sudow w !sudo tee % >/dev/null
+    command -nargs=* W w <args>
+  '';
+  # }}}
+
 in
 {
   programs.neovim = {
     enable = true;
-
     withRuby = false;
-
-    inherit plugins;
-
-    extraConfig = ''
-      source ${./init.lua}
-    '';
+    inherit plugins extraConfig;
   };
 
   # Used by LSP.
