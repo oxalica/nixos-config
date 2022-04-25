@@ -28,9 +28,19 @@ let
           defaults = {
             mappings = {
               i = {
-                ["<esc>"] = require("telescope.actions").close,
                 ["<m-p>"] = require("telescope.actions.layout").toggle_preview,
+                ["<esc>"] = require("telescope.actions").close,
+                ["<up>"] = require("telescope.actions").cycle_history_prev,
+                ["<down>"] = require("telescope.actions").cycle_history_next,
               },
+            },
+            sorting_strategy = "ascending",
+            layout_strategy = "horizontal",
+            layout_config = { prompt_position = "top" },
+            preview = {
+              filesize_limit = 1, -- 1MiB
+              msg_bg_fillchar = ".",
+              hide_on_startup = false,
             },
           },
           extensions = {
@@ -38,25 +48,33 @@ let
           },
           pickers = {
             find_files = {
-              find_command = {
-                "fd",
-                "--hidden",
-                "--type=file",
-                "--exclude=.git",
-              },
+              -- Search hidden files.
+              find_command = { "fd", "--hidden", "--type=file", "--exclude=.git" },
             },
           },
         }
         require('telescope').load_extension('fzf')
+
+        vim.api.nvim_create_user_command("Rg", function(args)
+          require('telescope.builtin').grep_string {
+            use_regex = not args.bang,
+            search = args.args,
+          }
+        end, { nargs = 1, bang = true })
       EOF
 
       nnoremap <leader>ff <cmd>Telescope find_files<cr>
+      nnoremap <leader>f. <cmd>Telescope find_files cwd=%:h<cr>
+      nnoremap <leader>fp <cmd>Telescope find_files cwd=%:h:h<cr>
+
       nnoremap <leader>fr <cmd>Telescope live_grep<cr>
+      nnoremap <leader>fw <cmd>Telescope grep_string<cr>
       nnoremap <leader>fb <cmd>Telescope buffers<cr>
       nnoremap <leader>fh <cmd>Telescope help_tags<cr>
-
       nnoremap <leader>ft <cmd>Telescope treesitter<cr>
-      nnoremap <leader>fd <cmd>Telescope lsp_definitions<cr>
+      nnoremap <leader>fd <cmd>Telescope diagnostics<cr>
+      nnoremap <leader>fa <cmd>Telescope lsp_workspace_symbols<cr>
+      nnoremap <leader>fs <cmd>Telescope lsp_document_symbols<cr>
     '')
     # }}}
 
