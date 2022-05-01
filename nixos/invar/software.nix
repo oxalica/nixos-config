@@ -31,6 +31,7 @@
   # Local samba for VM
   services.samba = {
     enable = true;
+    enableNmbd = false; # We don't need discovery.
     extraConfig = ''
       bind interfaces only = yes
       interfaces = lo virbr0
