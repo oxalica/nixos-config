@@ -9,13 +9,18 @@
       personal-compress-preferences = "ZLIB BZIP2 Uncompressed";
       keyserver = "hkps://keys.openpgp.org";
     };
+    scdaemonSettings = {
+      deny-admin = true;
+    };
   };
 
   services.gpg-agent = {
     enable = true;
+    enableScDaemon = true;
+
     pinentryFlavor = "qt";
-    defaultCacheTtl = 2 * 3600;
-    maxCacheTtl = 24 * 3600;
+    defaultCacheTtl = 600; # Default
+    maxCacheTtl = 1800; # Default
   };
 
   programs.password-store = {
