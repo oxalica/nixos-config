@@ -19,6 +19,7 @@
     sops-nix = {
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.nixpkgs-21_11.follows = "nixpkgs-stable";
     };
     meta-sifive = {
       url = "github:sifive/meta-sifive/2021.11.00";

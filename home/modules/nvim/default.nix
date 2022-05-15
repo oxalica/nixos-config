@@ -446,18 +446,21 @@ let
     (withConf nightfox-nvim /* vim */ ''
       lua <<EOF
         require("nightfox").setup {
+          -- FIXME: Remove since https://github.com/EdenEast/nightfox.nvim/pull/158
           palettes = {
             nightfox = {
               comment = "#768390", -- From GitHub, to increse contract.
             },
           },
           groups = {
-            -- vim-better-whitespace
-            ExtraWhitespace = { bg = "palette.red.dim" },
+            all = {
+              -- vim-better-whitespace
+              ExtraWhitespace = { bg = "palette.red.dim" },
 
-            -- vim-cursorword
-            CursorWord0 = { style = "underline" },
-            CursorWord1 = { style = "underline" },
+              -- vim-cursorword
+              CursorWord0 = { style = "underline" },
+              CursorWord1 = { style = "underline" },
+            },
           },
         }
 
