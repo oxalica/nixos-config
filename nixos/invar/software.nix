@@ -113,5 +113,6 @@
     virt-manager
     solaar # Logitech devices control.
     rawmv # Subvolume operations.
+    compsize
   ];
 }
