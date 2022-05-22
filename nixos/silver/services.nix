@@ -9,7 +9,6 @@
     enable = true;
     ports = [ 23333 ];
     passwordAuthentication = false;
-    kbdInteractiveAuthentication = false;
     extraConfig = ''
       ClientAliveInterval 70
       ClientAliveCountMax 3
@@ -25,14 +24,25 @@
 
   environment.systemPackages = [ pkgs.qemu ];
 
-  sops.secrets.ddclient-password.restartUnits = [ "ddclient.service" ];
-  services.ddclient = {
-    enable = true;
-    interval = "10min";
-    ipv6 = false;
-    ssl = true;
-    use = "web, web=dynamicdns.park-your-domain.com/getip";
-    server = "dynamicdns.park-your-domain.com";
-    passwordFile = config.sops.secrets.ddclient-password.path;
+  sops.secrets.reverse-ssh-host.restartUnits = [ "reverse-ssh.service" ];
+  systemd.services."reverse-ssh" = {
+    wants = [ "network-online.target" ];
+    after = [ "network-online.target" ];
+    wantedBy = [ "multi-user.target" ];
+    serviceConfig = {
+      Type = "simple";
+      Restart = "always";
+      RestartSec = 60;
+      SupplementaryGroups = [ config.users.groups.keys.name ];
+    };
+    path = [ pkgs.openssh ];
+    script = ''
+      ssh -N -R 2222:localhost:${toString (lib.head config.services.openssh.ports)} \
+        -o ServerAliveInterval=60 \
+        -o ServerAliveCountMax=3 \
+        -o StrictHostKeyChecking=yes \
+        -o IdentityFile=/etc/ssh/ssh_host_ed25519_key \
+        "$(cat ${config.sops.secrets.reverse-ssh-host.path})"
+    '';
   };
 }
