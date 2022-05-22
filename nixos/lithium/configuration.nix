@@ -1,12 +1,24 @@
-{ inputs, config, pkgs, ... }:
+{ config, pkgs, inputs, my, ... }:
 {
   imports = [
     ../modules/vultr-common.nix
     ../modules/console-env.nix
-    ../modules/nix-common.nix
+    # ../modules/nix-common.nix # FIXME: Bad for stable channel.
 
     inputs.secrets.nixosModules.lithium
   ];
+
+  # See above.
+  nix = {
+    # Ensure that flake support is enabled.
+    package = pkgs.nixFlakes;
+    gc = {
+      automatic = true;
+      dates = "Wed";
+      options = "--delete-older-than 8d";
+    };
+    trustedUsers = [ "root" "@wheel" ];
+  };
 
   swapDevices = [
     {
@@ -45,6 +57,16 @@
     preStop = ''
       wg-quick down ${configPath}
     '';
+  };
+
+  users.groups."reverse-ssh" = {};
+  users.users."reverse-ssh" = {
+    isSystemUser = true;
+    shell = pkgs.shadow;
+    group = config.users.groups.reverse-ssh.name;
+    openssh.authorizedKeys.keys = [
+      my.ssh.identities.silver
+    ];
   };
 
   system.stateVersion = "21.11";
