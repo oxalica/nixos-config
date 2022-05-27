@@ -6,6 +6,9 @@
     nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-21.11";
     nixpkgs-unmatched.url = "github:oxalica/nixpkgs/test/unmatched";
 
+    # FIXME: Wait for https://github.com/NixOS/nixpkgs/pull/174218
+    nixpkgs-fcitx5-qt-fix.url = "github:NixOS/nixpkgs/pull/174218/head";
+
     flake-utils.url = "github:numtide/flake-utils";
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -19,15 +22,12 @@
     sops-nix = {
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
-      inputs.nixpkgs-21_11.follows = "nixpkgs-stable";
+      # Only for checks.
+      inputs.nixpkgs-22_05.follows = "nixpkgs-unstable";
+      inputs.nixpkgs-21_11.follows = "nixpkgs-unstable";
     };
     meta-sifive = {
       url = "github:sifive/meta-sifive/2021.11.00";
-      flake = false;
-    };
-
-    registry-crates-io = {
-      url = "github:rust-lang/crates.io-index";
       flake = false;
     };
 
@@ -68,11 +68,25 @@
 
       prefer-remote-fetch = final: prev: prev.prefer-remote-fetch final prev;
 
+      fcitx5-qt-fix = final: prev: {
+        libsForQt5 = prev.libsForQt5.overrideScope' (finalScope: prevScope: {
+          fcitx5-qt = prevScope.callPackage (inputs.nixpkgs-fcitx5-qt-fix + "/pkgs/tools/inputmethods/fcitx5/fcitx5-qt.nix") {};
+        });
+      };
+
       fcitx5-wayland-fix = final: prev: {
         libsForQt5 = prev.libsForQt5.overrideScope' (finalScope: prevScope: {
           fcitx5-qt = prevScope.fcitx5-qt.overrideAttrs (old: {
             patches = old.patches or [] ++ [ ./patches/fcitx5-qt-disable-position-clamping.patch ];
           });
+        });
+
+        # Wayland requires compositor to pull the IME up.
+        # We should not race startup here.
+        fcitx5-with-addons = prev.fcitx5-with-addons.overrideAttrs (old: {
+          buildCommand = old.buildCommand + ''
+            rm -r $out/etc/xdg/autostart
+          '';
         });
       };
     };
@@ -106,6 +120,11 @@
         sops.gnupg.sshKeyPaths = [];
         sops.defaultSopsFile = ./nixos/${config.networking.hostName}/secret.yaml;
       };
+
+      fcitx5-qt-fix = { pkgs, ... }: {
+        disabledModules = [ "i18n/input-method/fcitx5.nix" ];
+        imports = [ (inputs.nixpkgs-fcitx5-qt-fix + "/nixos/modules/i18n/input-method/fcitx5.nix") ];
+      };
     };
 
     mkSystem = name: system: nixpkgs: { extraOverlays ? [], extraModules ? [] }: nixpkgs.lib.nixosSystem {
@@ -130,13 +149,13 @@
 
     nixosConfigurations = {
       invar = mkSystem "invar" "x86_64-linux" inputs.nixpkgs-unstable {
-        extraOverlays = with overlays; [ fcitx5-wayland-fix ];
-        extraModules = with nixosModules; [ home-manager sops ];
+        extraOverlays = with overlays; [ fcitx5-qt-fix fcitx5-wayland-fix ];
+        extraModules = with nixosModules; [ home-manager sops fcitx5-qt-fix ];
       };
 
       blacksteel = mkSystem "blacksteel" "x86_64-linux" inputs.nixpkgs-unstable {
-        extraOverlays = with overlays; [ ];
-        extraModules = with nixosModules; [ home-manager sops ];
+        extraOverlays = with overlays; [ fcitx5-qt-fix ];
+        extraModules = with nixosModules; [ home-manager sops fcitx5-qt-fix ];
       };
 
       silver = mkSystem "silver" "x86_64-linux" inputs.nixpkgs-stable {

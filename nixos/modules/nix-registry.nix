@@ -5,7 +5,6 @@ let
     "home-manager"
     "flake-utils"
     "rust-overlay"
-    "registry-crates-io"
   ];
 in
 {

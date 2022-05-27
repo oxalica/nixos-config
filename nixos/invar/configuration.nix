@@ -26,8 +26,6 @@
     experimental-features = nix-command flakes ca-derivations
   '';
 
-  systemd.user.services.fcitx5-daemon.enable = lib.mkForce false;
-
   networking.hostName = "invar";
 
   time.timeZone = "Asia/Shanghai";
