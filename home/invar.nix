@@ -10,6 +10,7 @@
     ./modules/firefox.nix
     ./modules/git.nix
     ./modules/gpg.nix
+    ./modules/helix
     ./modules/mail.nix
     ./modules/nvim
     ./modules/rime-fcitx.nix
