@@ -8,7 +8,7 @@
     ./system.nix
 
     ../modules/console-env.nix
-    ../modules/desktop-env
+    ../modules/sway-desktop.nix
     ../modules/nix-binary-cache-mirror.nix
     ../modules/nix-common.nix
     ../modules/nix-registry.nix

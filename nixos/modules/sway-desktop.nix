@@ -1,45 +1,35 @@
 { lib, config, pkgs, ... }:
-with lib;
 {
-  environment.systemPackages = with pkgs; [
-    ark
-    filelight
-    plasma-browser-integration
-  ];
+  programs = {
+    # Enable zsh related system configurations.
+    zsh.enable = true;
 
-  # Enable zsh related system configurations.
-  # This is required for sddm to source /etc/set-environment in login script.
-  programs.zsh.enable = true;
+    partition-manager.enable = true;
+    kdeconnect.enable = true;
 
-  programs.partition-manager.enable = true;
-  programs.kdeconnect.enable = true;
+    gnupg.agent.pinentryFlavor = "qt";
 
-  programs.gnupg.agent.pinentryFlavor = "qt";
+    dconf.enable = true;
 
-  programs.dconf.enable = true;
-
-  nixpkgs.config.firefox.enablePlasmaBrowserIntegration = true;
-
-  services.xserver = {
-    enable = true;
-    layout = "us";
-
-    displayManager.sddm.enable = true;
-    desktopManager.plasma5 = {
+    sway = {
       enable = true;
-      useQtScaling = true;
-      runUsingSystemd = true;
-
-      kdeglobals.KDE.SingleClick = false;
-      kwinrc = {
-        Desktops.Number = 3;
-        Desktops.Rows = 1;
-        Windows.RollOverDesktops = true;
-      };
+      extraPackages = with pkgs; [ swayidle swaylock-effects ];
     };
   };
 
-  security.pam.services.sddm.enableKwallet = true;
+  systemd.services.physlock.enable = true;
+
+  systemd.services.lock-before-suspend = {
+    description = "Lock all sessions before suspend";
+    partOf = [ "graphical-session.target" ];
+    wantedBy = [ "sleep.target" ];
+    before = [ "sleep.target" ];
+    serviceConfig.ExecStart = "/run/current-system/systemd/bin/loginctl lock-sessions";
+  };
+
+  services.logind.extraConfig = ''
+    HandlePowerKey=suspend
+  '';
 
   # Ref: https://catcat.cc/post/2021-03-07/
   fonts = {
@@ -104,9 +94,5 @@ with lib;
     enable = true;
     wifi.macAddress = "random";
     ethernet.macAddress = "random";
-  };
-
-  environment.etc = {
-    "xdg/kglobalshortcutsrc".source = ./xdg/kglobalshortcutsrc;
   };
 }

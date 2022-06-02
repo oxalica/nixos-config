@@ -21,6 +21,8 @@
     ./modules/tmux.nix
     ./modules/trash.nix
     ./modules/user-dirs.nix
+
+    ./modules/sway
   ];
 
   xdg.enable = true;

@@ -73,22 +73,6 @@
           fcitx5-qt = prevScope.callPackage (inputs.nixpkgs-fcitx5-qt-fix + "/pkgs/tools/inputmethods/fcitx5/fcitx5-qt.nix") {};
         });
       };
-
-      fcitx5-wayland-fix = final: prev: {
-        libsForQt5 = prev.libsForQt5.overrideScope' (finalScope: prevScope: {
-          fcitx5-qt = prevScope.fcitx5-qt.overrideAttrs (old: {
-            patches = old.patches or [] ++ [ ./patches/fcitx5-qt-disable-position-clamping.patch ];
-          });
-        });
-
-        # Wayland requires compositor to pull the IME up.
-        # We should not race startup here.
-        fcitx5-with-addons = prev.fcitx5-with-addons.overrideAttrs (old: {
-          buildCommand = old.buildCommand + ''
-            rm -r $out/etc/xdg/autostart
-          '';
-        });
-      };
     };
 
     nixosModules = {
@@ -149,7 +133,7 @@
 
     nixosConfigurations = {
       invar = mkSystem "invar" "x86_64-linux" inputs.nixpkgs-unstable {
-        extraOverlays = with overlays; [ fcitx5-qt-fix fcitx5-wayland-fix ];
+        extraOverlays = with overlays; [ fcitx5-qt-fix ];
         extraModules = with nixosModules; [ home-manager sops fcitx5-qt-fix ];
       };
 
