@@ -8,9 +8,9 @@ typeset +H _shell_level='%(2L. <%L>.)'
 
 PROMPT='
 $(_user_host)${_current_dir}$(_git_info)${_shell_level}${_return_status}
-%(!.%F{red}.%F{white})>%f '
+%(!.%F{red}.)>%f '
 
-PROMPT2='%(!.%F{red}.%F{white})|%f '
+PROMPT2='%(!.%F{red}.)|%f '
 
 _user_host() {
   local me
