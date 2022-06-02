@@ -27,6 +27,7 @@
 
   systemd.user.sessionVariables = {
     inherit (config.home.sessionVariables) CARGO_HOME GNUPGHOME PASSWORD_STORE_DIR;
+    GTK_USE_PORTAL = 1; # Use KDE's file picker.
   };
 
   home.file = let

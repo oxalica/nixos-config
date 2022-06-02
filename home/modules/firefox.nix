@@ -33,9 +33,14 @@
 
       settings = {
         # Random config
-        "ui.systemUsesDarkTheme" = true;
         "browser.aboutConfig.showWarning" = false;
         "browser.toolbars.bookmarks.visibility" = "always";
+        "browser.quitShortcut.disabled" = true; # Prevent C-Q to exit browser.
+
+        # Theme.
+        "devtools.theme" = "auto";
+        "extensions.activeThemeID" = "efault-theme@mozilla.org";
+        "browser.display.use_system_colors" = true;
 
         # Let our font-config choose final fonts.
         "font.language.group" = "zh-CN";
@@ -57,8 +62,6 @@
 
         # Site isolation.
         "fission.autostart" = true;
-
-        "browser.quitShortcut.disabled" = true; # Prevent C-Q to exit browser.
       };
 
       # Hide tab
