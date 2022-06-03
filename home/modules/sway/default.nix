@@ -54,7 +54,7 @@ in
           name = "(l) lock, (e) logout, (s) suspend, (q) shutdown, (r) reboot";
           keys = {
             l = "mode default, exec loginctl lock-session";
-            e = "mode default, exec 'swaymsg exit; systemctl stop sway-session.target; loginctl terminate-session $XDG_SESSION_ID'";
+            e = "mode default, exec \"swaymsg exit; loginctl terminate-session $XDG_SESSION_ID\"";
             s = "mode default, exec systemctl suspend";
             q = "mode default, exec systemctl poweroff";
             r = "mode default, exec systemctl reboot";
