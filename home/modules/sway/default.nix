@@ -14,6 +14,10 @@ let
 
 in
 {
+  imports = [
+    ./waybar.nix
+  ];
+
   home.pointerCursor = {
     package = pkgs.gnome.adwaita-icon-theme;
     name = "Adwaita";
@@ -146,14 +150,6 @@ in
       extraConfig = ''
         on-button-right=exec ${pkgs.mako}/bin/makoctl menu -n "$id" ${pkgs.rofi}/bin/rofi -dmenu -p 'action: '
       '';
-    };
-
-    waybar = {
-      enable = true;
-      settings = [ (import ./waybar.nix { inherit pkgs; }) ];
-      style = builtins.readFile ./waybar.css;
-      systemd.enable = true;
-      systemd.target = "sway-session.target";
     };
   };
 
