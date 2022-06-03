@@ -9,15 +9,10 @@
 
     gnupg.agent.pinentryFlavor = "qt";
 
-    dconf.enable = true;
-
-    sway = {
-      enable = true;
-      extraPackages = with pkgs; [ swayidle swaylock-effects ];
-    };
+    sway.enable = true;
   };
 
-  systemd.services.physlock.enable = true;
+  xdg.portal.wlr.enable = true;
 
   systemd.services.lock-before-suspend = {
     description = "Lock all sessions before suspend";

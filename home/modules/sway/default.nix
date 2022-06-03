@@ -1,7 +1,7 @@
 # Ref: https://gitlab.com/NickCao/flakes/-/blob/master/nixos/local/home.nix
 { lib, pkgs, config, super, ... }:
 let
-  font-size = 12;
+  fontSize = 12;
 
   wallpaper = pkgs.fetchurl {
     name = "wallpaper.jpg";
@@ -14,32 +14,28 @@ let
 
 in
 {
+  home.pointerCursor = {
+    package = pkgs.gnome.adwaita-icon-theme;
+    name = "Adwaita";
+    size = 24;
+  };
+
   gtk = {
     enable = true;
     theme = {
-      package = pkgs.materia-theme;
-      name = "Materia-dark";
+      package = pkgs.gnome-themes-extra;
+      name = "Adwaita-dark";
     };
-    iconTheme = {
-      package = pkgs.numix-icon-theme-circle;
-      name = "Numix-Circle";
-    };
+    iconTheme.name = "Adwaita";
     font = {
-      # package = null; # pkgs.roboto;
       name = "sans-serif";
-      size = font-size;
+      size = fontSize;
     };
     gtk2.configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
+    # gtk3.extraConfig.gtk-application-prefer-dark-theme = 1;
   };
 
-  dconf.settings = {
-    "org/gnome/desktop/interface"."gtk-theme" = "Materia-dark";
-  };
-
-  qt = {
-    enable = true;
-    platformTheme = "gtk";
-  };
+  qt.enable = true;
 
   wayland.windowManager.sway = {
     enable = true;
@@ -47,78 +43,97 @@ in
     systemdIntegration = true;
     wrapperFeatures.gtk = true;
 
-    config = rec {
-      terminal = "foot";
-      startup = [
-        { command = "systemctl"; }
-        { command = "foot"; }
-        { command = "firefox"; }
-        { command = "telegram-desktop"; }
-        { command = "thunderbird"; }
-      ];
-      assigns = {
-        "1" = [{ app_id = "foot"; }];
-        "2" = [{ app_id = "firefox"; }];
-        "3" = [{ app_id = "telegramdesktop"; }];
-        "4" = [{ class = "Thunderbird"; }];
-      };
-      window.commands = [
-        {
-          criteria = { app_id = "pavucontrol"; };
-          command = "floating enable, sticky enable, resize set width 550 px height 600px, move position cursor, move down 35";
-        }
-        {
-          criteria = { urgent = "latest"; };
-          command = "focus";
-        }
-      ];
+    config =
+      let
+        modifier = "Mod4";
+        logoutMode = {
+          name = "(l) lock, (e) logout, (s) suspend, (q) shutdown, (r) reboot";
+          keys = {
+            l = "mode default, exec loginctl lock-session";
+            e = "mode default, exec 'swaymsg exit; systemctl stop sway-session.target; loginctl terminate-session $XDG_SESSION_ID'";
+            s = "mode default, exec systemctl suspend";
+            q = "mode default, exec systemctl poweroff";
+            r = "mode default, exec systemctl reboot";
+            Escape = "mode default";
+          };
+        };
+      in
+      {
+        terminal = "alacritty -e ${pkgs.tmux}/bin/tmux new-session -t main";
+        startup = [
+          { command = "firefox"; }
+          { command = "telegram-desktop"; }
+          { command = "thunderbird"; }
+        ];
+        assigns = {
+          # "1" = [{ app_id = "alacritty"; }];
+          "2" = [{ app_id = "firefox"; }];
+          "3" = [{ app_id = "telegramdesktop"; }];
+          "4" = [{ app_id = "thunderbird"; }];
+        };
+        window.commands = [
+          {
+            criteria = { app_id = "pavucontrol"; };
+            command = "floating enable, sticky enable, resize set width 550 px height 600px, move position cursor, move down 35";
+          }
+          {
+            criteria = { urgent = "latest"; };
+            command = "focus";
+          }
+        ];
 
-      gaps = {
-        inner = 5;
-        smartGaps = true;
-        smartBorders = "on";
-      };
-      bars = [ ];
+        gaps = {
+          inner = 5;
+          smartGaps = true;
+          smartBorders = "on";
+        };
+        bars = [ ];
 
-      seat."*".hide_cursor = "when-typing enable";
-      input = {
-        "*".xkb_options = "ctrl:nocaps";
-        "1133:49298:Logitech_G102_LIGHTSYNC_Gaming_Mouse" = {
-          accel_profile = "flat";
-          pointer_accel = "0";
+        seat."*".hide_cursor = "when-typing enable";
+        input = {
+          "*".xkb_options = "ctrl:nocaps";
+          "1133:49298:Logitech_G102_LIGHTSYNC_Gaming_Mouse" = {
+            accel_profile = "flat";
+            pointer_accel = "0";
+          };
+        };
+        output = {
+          "*".background = "${wallpaper} fill";
+          DP-1.scale = "1.25";
+        };
+
+        inherit modifier;
+        keybindings =
+          lib.mkOptionDefault {
+            "${modifier}+s" = "split toggle";
+            "${modifier}+b" = null;
+            "${modifier}+v" = null;
+            "${modifier}+w" = null;
+            "${modifier}+d" = "exec ${pkgs.rofi}/bin/rofi -show run";
+            "${modifier}+Shift+l" = "exec loginctl lock-session";
+            "${modifier}+Shift+e" = "mode \"${logoutMode.name}\"";
+            "${modifier}+space" = null;
+            "Print" = "exec ${pkgs.grim}/bin/grim -g \"$(${pkgs.slurp}/bin/slurp)\" $HOME/Pictures/screenshot-$(date +\"%Y-%m-%d-%H-%M-%S\").png";
+
+            "XF86AudioPlay" = "exec ${pkgs.playerctl}/bin/playerctl play-pause";
+            "XF86AudioPause" = "exec ${pkgs.playerctl}/bin/playerctl play-pause";
+            "XF86AudioNext" = "exec ${pkgs.playerctl}/bin/playerctl next";
+            "XF86AudioPrev" = "exec ${pkgs.playerctl}/bin/playerctl previous";
+            "XF86AudioRaiseVolume" = "exec ${pkgs.pulseaudio}/bin/pactl set-sink-volume @DEFAULT_SINK@ +5%";
+            "XF86AudioLowerVolume" = "exec ${pkgs.pulseaudio}/bin/pactl set-sink-volume @DEFAULT_SINK@ -5%";
+            "XF86AudioMute" = "exec ${pkgs.pulseaudio}/bin/pactl set-sink-mute @DEFAULT_SINK@ toggle";
+          };
+
+        modes = {
+          ${logoutMode.name} = logoutMode.keys;
         };
       };
-      output = {
-        "*".background = "${wallpaper} fill";
-        DP-1.scale = "1.25";
-      };
-
-      modifier = "Mod4";
-      keybindings =
-        lib.mkOptionDefault {
-          "${modifier}+s" = "split toggle";
-          "${modifier}+b" = null;
-          "${modifier}+v" = null;
-          "${modifier}+w" = null;
-          "${modifier}+d" = "exec ${pkgs.rofi}/bin/rofi -show run";
-          "${modifier}+Shift+l" = "exec loginctl lock-session";
-          "${modifier}+space" = null;
-          "Print" = "exec ${pkgs.grim}/bin/grim -g \"$(${pkgs.slurp}/bin/slurp)\" $HOME/Pictures/screenshot-$(date +\"%Y-%m-%d-%H-%M-%S\").png";
-
-          "XF86AudioPlay" = "exec ${pkgs.playerctl}/bin/playerctl play-pause";
-          "XF86AudioPause" = "exec ${pkgs.playerctl}/bin/playerctl play-pause";
-          "XF86AudioNext" = "exec ${pkgs.playerctl}/bin/playerctl next";
-          "XF86AudioPrev" = "exec ${pkgs.playerctl}/bin/playerctl previous";
-          "XF86AudioRaiseVolume" = "exec ${pkgs.pulseaudio}/bin/pactl set-sink-volume @DEFAULT_SINK@ +5%";
-          "XF86AudioLowerVolume" = "exec ${pkgs.pulseaudio}/bin/pactl set-sink-volume @DEFAULT_SINK@ -5%";
-          "XF86AudioMute" = "exec ${pkgs.pulseaudio}/bin/pactl set-sink-mute @DEFAULT_SINK@ toggle";
-        };
-    };
   };
 
   home.packages = with pkgs; [
     waypipe
     pavucontrol
+    xdg-utils
   ];
 
   programs = {
@@ -126,6 +141,8 @@ in
 
     mako = {
       enable = true;
+      defaultTimeout = 15;
+      font = "sans-serif";
       extraConfig = ''
         on-button-right=exec ${pkgs.mako}/bin/makoctl menu -n "$id" ${pkgs.rofi}/bin/rofi -dmenu -p 'action: '
       '';
@@ -138,16 +155,6 @@ in
       systemd.enable = true;
       systemd.target = "sway-session.target";
     };
-
-    foot = {
-      enable = true;
-      settings = {
-        main = {
-          shell = "${pkgs.tmux}/bin/tmux new-session -t main";
-          font = "monospace:size=${toString font-size}";
-        };
-      };
-    };
   };
 
   services = {
@@ -156,7 +163,7 @@ in
       timeouts = [
         {
           timeout = 900; # 15min
-          command = "${pkgs.swaylock-effects}/bin/swaylock";
+          command = "${pkgs.swaylock-effects}/bin/swaylock --grace=5";
         }
         {
           timeout = 905;
@@ -186,7 +193,6 @@ in
   systemd.user = {
     targets.sway-session.Unit.Wants = [
       "xdg-desktop-autostart.target"
-      "waybar.service"
     ];
 
     services.mako = {
@@ -198,7 +204,6 @@ in
 
       Service = {
         ExecStart = "${pkgs.mako}/bin/mako";
-        RestartSec = 3;
         Restart = "always";
       };
 
