@@ -80,6 +80,17 @@
       done
     '';
 
+    termcolors = pkgs.runCommand "termcolors" {
+      src = pkgs.fetchurl {
+        url = "https://gist.githubusercontent.com/lilydjwg/fdeaf79e921c2f413f44b6f613f6ad53/raw/94d8b2be62657e96488038b0e547e3009ed87d40/colors.py";
+        hash = "sha256-l/RTPZp2v7Y4ffJRT5Fy5Z3TDB4dvWfE7wqMbquXdJA=";
+      };
+      nativeBuildInputs = [ pkgs.python3 ];
+    } ''
+      install -Dm555 $src $out/bin/termcolors
+      patchShebangs $out/bin
+    '';
+
   in with pkgs; [
     zoxide
     nix-zsh-completions
@@ -87,5 +98,6 @@
     fzf
 
     scripts
+    termcolors
   ];
 }
