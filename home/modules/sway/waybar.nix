@@ -4,7 +4,6 @@
 {
   home.packages = [
     pkgs.font-awesome
-    pkgs.networkmanagerapplet # Required for the icon.
   ];
 
   programs.waybar = {
@@ -29,7 +28,7 @@
 
       modules-right = [
         "pulseaudio"
-        # "network" # Replaced by nm-applet.
+        "network"
         "cpu"
         "memory"
         "battery"
@@ -84,7 +83,6 @@
         format-wifi = " {essid} {signalStrength}%";
         format-linked = " {ifname}";
         format-disconnected = " ";
-        on-click = "${pkgs.networkmanagerapplet}/bin/nm-connection-editor";
       };
 
       pulseaudio = {

@@ -138,7 +138,6 @@ in
     waypipe
     pavucontrol
     xdg-utils
-    networkmanagerapplet
   ];
 
   programs.mako = {
@@ -200,18 +199,6 @@ in
         Restart = "always";
       };
 
-      Install.WantedBy = [ "sway-session.target" ];
-    };
-
-    services.network-manager-applet = {
-      Unit = {
-        Description = "NetworkManager applet for tray indicator";
-        PartOf = [ "sway-session.target" ];
-      };
-      Service = {
-        ExecStart = "${pkgs.networkmanagerapplet}/bin/nm-applet --indicator";
-        Restart = "always";
-      };
       Install.WantedBy = [ "sway-session.target" ];
     };
   };

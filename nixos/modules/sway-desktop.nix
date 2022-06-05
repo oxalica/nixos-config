@@ -84,10 +84,4 @@
       fcitx5.addons = with pkgs; [ fcitx5-rime ];
     };
   };
-
-  networking.networkmanager = {
-    enable = true;
-    wifi.macAddress = "random";
-    ethernet.macAddress = "random";
-  };
 }

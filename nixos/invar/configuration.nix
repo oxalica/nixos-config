@@ -23,7 +23,23 @@
     experimental-features = nix-command flakes ca-derivations
   '';
 
-  networking.hostName = "invar";
+  networking = {
+    hostName = "invar";
+    useNetworkd = true;
+    useDHCP = false;
+    interfaces = {
+      enp10s0.useDHCP = true;
+      wlp9s0.useDHCP = true;
+    };
+    wireless = {
+      enable = true;
+      userControlled.enable = true;
+    };
+  };
+  systemd.network.wait-online = {
+    anyInterface = true;
+    timeout = 15;
+  };
 
   time.timeZone = "Asia/Shanghai";
 

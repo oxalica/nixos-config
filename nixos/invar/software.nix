@@ -7,12 +7,6 @@
     "osu-lazer"
   ];
 
-  # Persist
-  networking.networkmanager.extraConfig = ''
-    [keyfile]
-    path = /var/lib/NetworkManager/system-connections
-  '';
-
   programs.wireshark.enable = true;
   programs.wireshark.package = pkgs.wireshark; # Default on is CLI.
   users.groups."wireshark".members = [ "oxa" ];
