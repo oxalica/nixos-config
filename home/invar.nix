@@ -11,18 +11,18 @@
     ./modules/git.nix
     ./modules/gpg.nix
     ./modules/helix
+    ./modules/lf.nix
     ./modules/mail.nix
     ./modules/nvim
     ./modules/rime-fcitx.nix
     ./modules/rust.nix
     ./modules/shell
     ./modules/stretchly.nix
+    ./modules/sway
     ./modules/task.nix
     ./modules/tmux.nix
     ./modules/trash.nix
     ./modules/user-dirs.nix
-
-    ./modules/sway
   ];
 
   xdg.enable = true;

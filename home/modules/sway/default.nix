@@ -141,17 +141,13 @@ in
     networkmanagerapplet
   ];
 
-  programs = {
-    lf.enable = true;
-
-    mako = {
-      enable = true;
-      defaultTimeout = 15;
-      font = "sans-serif";
-      extraConfig = ''
-        on-button-right=exec ${pkgs.mako}/bin/makoctl menu -n "$id" ${pkgs.rofi}/bin/rofi -dmenu -p 'action: '
-      '';
-    };
+  programs.mako = {
+    enable = true;
+    defaultTimeout = 15;
+    font = "sans-serif";
+    extraConfig = ''
+      on-button-right=exec ${pkgs.mako}/bin/makoctl menu -n "$id" ${pkgs.rofi}/bin/rofi -dmenu -p 'action: '
+    '';
   };
 
   services = {
