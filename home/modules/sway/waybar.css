@@ -1,82 +1,91 @@
 * {
     border: none;
     border-radius: 0;
-    font-family: sans-serif;
-    font-size: 20px;
+    font-family: "sans-serif", "Font Awesome";
+    font-size: 14px;
     min-height: 0;
 }
 
 window#waybar {
-    background-color: rgba(43, 48, 59, 0.5);
-    border-bottom: 3px solid rgba(100, 114, 125, 0.5);
-    color: #ffffff;
-    transition-property: background-color;
-    transition-duration: .5s;
+    background-color: rgba(0, 0, 0, 0.4);
+    color: white;
 }
 
-window#waybar.hidden {
-    opacity: 0.2;
+#window {
+    font-weight: bold;
 }
 
 #workspaces button {
     padding: 0 5px;
-    background-color: transparent;
-    color: #ffffff;
-}
-
-#workspaces button:hover {
-    background: rgba(0, 0, 0, 0.2);
+    color: white;
 }
 
 #workspaces button.focused {
-    background-color: #64727D;
-}
-
-#workspaces button.urgent {
-    background-color: #eb4d4b;
+    color: #c9545d;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-top: 2px solid #c9545d;
 }
 
 #mode {
-    background-color: #64727D;
+    font-style: italic;
+    background: #64727D;
 }
 
-#tray,
-#pulseaudio,
-#network,
-#cpu,
-#memory,
+#clock, #battery, #cpu, #memory, #network, #pulseaudio, #tray, #mode {
+    padding: 0 3px;
+    margin: 0 3px;
+}
+
 #clock {
-    padding: 0 10px;
-    color: #ffffff;
+    font-weight: bold;
 }
 
-#window,
-#workspaces {
-    margin: 0 4px;
+#battery {
 }
 
-.modules-left > widget:first-child > #workspaces {
-    margin-left: 0;
+#battery icon {
+    color: red;
 }
 
-.modules-right > widget:last-child > #workspaces {
-    margin-right: 0;
-    border-right: none;
+#battery.charging {
 }
 
+@keyframes blink {
+    to {
+        background-color: #ffffff;
+        color: black;
+    }
+}
+
+#battery.warning:not(.charging) {
+    color: white;
+    animation-name: blink;
+    animation-duration: 0.5s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+#cpu {
+}
+
+#memory {
+}
+
+#network {
+}
+
+#network.disconnected {
+    background: #f53c3c;
+}
+
+#pulseaudio {
+}
+
+#pulseaudio.muted {
+}
+
+/* Workaround: Text would be lower than tray icons by 1px. Pad here to align them. */
 #tray {
-    background-color: #2980b9;
-}
-
-#tray > .passive {
-    -gtk-icon-effect: dim;
-}
-
-#tray > .needs-attention {
-    -gtk-icon-effect: highlight;
-    background-color: #eb4d4b;
-}
-
-#tray {
-    background-color: rgba(41, 128, 185, .6);
+    padding-top: 2px;
 }

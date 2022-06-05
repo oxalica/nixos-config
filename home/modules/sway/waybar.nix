@@ -1,6 +1,12 @@
+# Reference: https://github.com/Egosummiki/dotfiles/tree/f6577e7c7b9474e05d62c0e6e0d38fee860ea4ea/waybar
 # FIXME: Broken onChange script.
 { pkgs, ... }:
 {
+  home.packages = [
+    pkgs.font-awesome
+    pkgs.networkmanagerapplet # Required for the icon.
+  ];
+
   programs.waybar = {
     enable = true;
     style = ./waybar.css;
@@ -10,7 +16,7 @@
     settings.mainBar = {
       layer = "top";
       position = "top";
-      height = 25;
+      height = 22;
 
       modules-left = [
         "sway/workspaces"
@@ -22,55 +28,86 @@
       ];
 
       modules-right = [
-        "tray"
         "pulseaudio"
-        "network"
+        # "network" # Replaced by nm-applet.
         "cpu"
         "memory"
+        "battery"
+        "tray"
         "clock"
       ];
 
       "sway/workspaces" = {
         all-outputs = true;
-        # format = "{name}";
+        format = "{icon}";
+        format-icons = {
+          "1" = "";
+          "2" = "";
+          "3" = "";
+          "4" = "";
+          "5" = "5";
+          "6" = "6";
+          "7" = "7";
+          "8" = "8";
+          "9" = "9";
+        };
       };
 
       clock = {
         interval = 1;
-        format = "{:%Y-%m-%d %a %H:%M:%S}";
         tooltip = true;
-        tooltip-format = "<big>{:%Y-%m-%d %a}</big>\n<tt><small>{calendar}</small></tt>";
+        tooltip-format = "<big>{:%Y-%m-%d %a}</big>\n<tt>{calendar}</tt>";
       };
 
       cpu = {
         interval = 1;
-        format = "{load:2.1}";
+        format = " {usage}%";
       };
 
       memory = {
         interval = 1;
-        format = "{used:0.1f}/{total:0.1f}+{swapUsed:0.1f}G";
+        format = " {used:0.1f}/{total:0.1f}+{swapUsed:0.1f}G";
+      };
+
+      battery = {
+        bat = "BAT0";
+        format = "{icon} {capacity}%";
+        states = {
+          warning = 30;
+          critical = 15;
+        };
+        format-icons = ["" "" "" "" ""];
       };
 
       network = {
-        interval = 1;
-        format-ethernet = "WIRED";
-        format-wifi = "WIFI";
-        format-linked = "LINKED";
-        format-disconnected = "NONET";
+        format-ethernet = " ";
+        format-wifi = " {essid} {signalStrength}%";
+        format-linked = " {ifname}";
+        format-disconnected = " ";
         on-click = "${pkgs.networkmanagerapplet}/bin/nm-connection-editor";
       };
 
       pulseaudio = {
-        format = "{volume}%{format_source}";
-        format-muted = "MUTE{format_source}";
-        format-source = " {volume}%";
+        format = "{icon} {volume}% {format_source}";
+        format-bluetooth = "{icon}  {volume}%";
+        format-muted = " {format_source}";
+        format-source = "  {volume}%";
         format-source-muted = "";
-        on-click = "${pkgs.pavucontrol}/bin/pavucontrol";
+        format-icons = {
+            headphones = "";
+            handsfree = "";
+            headset = "";
+            phone = "";
+            portable = "";
+            car = "";
+            default = ["" ""];
+        };
+        scroll-step = 2.0;
+        on-click = "pkill -f -x ${pkgs.pavucontrol}/bin/pavucontrol || ${pkgs.pavucontrol}/bin/pavucontrol";
       };
 
       tray = {
-        spacing = 10;
+        spacing = 6;
       };
     };
   };
