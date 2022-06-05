@@ -2,8 +2,6 @@
 {
   home.packages = with pkgs; [
     hydroxide
-    birdtray
-    # birdtray runs `~/.nix-profile/bin/thunderbird`
     (thunderbird.overrideAttrs (old: {
       # bash
       buildCommand = old.buildCommand + ''
@@ -13,14 +11,13 @@
     }))
   ];
 
-  xdg.configFile."autostart/birdtray.desktop".source =
-    "${pkgs.birdtray}/share/applications/com.ulduzsoft.Birdtray.desktop";
-
   systemd.user.services."hydroxide" = {
-    Unit.Description = "Bridge to ProtonMail";
-    Install.WantedBy = [ "default.target" ];
-    Service.ExecStart = "${pkgs.hydroxide}/bin/hydroxide serve";
-    Service.Restart = "on-failure";
-    Service.RestartSec = 10;
+    Unit.Description = "ProtonMail Bridge";
+    Service = {
+      ExecStart = "${pkgs.hydroxide}/bin/hydroxide serve";
+      Restart = "on-failure";
+      RestartSec = 10;
+    };
+    Install.WantedBy = [ "graphical-session.target" ];
   };
 }

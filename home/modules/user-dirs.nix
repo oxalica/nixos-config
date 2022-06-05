@@ -1,14 +1,14 @@
 { ... }:
 {
-  xdg.userDirs = let nouse = "$HOME/.local/share/user-dirs"; in {
+  xdg.userDirs = {
     enable = true;
-    desktop = nouse;
+    desktop = "$HOME";
     download = "$HOME/Downloads";
     pictures = "$HOME/Pictures";
-    documents = nouse;
-    music = nouse;
-    publicShare = nouse;
-    templates = nouse;
-    videos = nouse;
+    documents = "$HOME";
+    music = "$HOME";
+    publicShare = "$HOME";
+    templates = "$HOME";
+    videos = "$HOME";
   };
 }
