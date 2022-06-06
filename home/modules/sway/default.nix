@@ -142,7 +142,7 @@ in
 
   programs.mako = {
     enable = true;
-    defaultTimeout = 15;
+    defaultTimeout = 15000; # ms
     font = "sans-serif";
     extraConfig = ''
       on-button-right=exec ${pkgs.mako}/bin/makoctl menu -n "$id" ${pkgs.rofi}/bin/rofi -dmenu -p 'action: '
@@ -150,6 +150,11 @@ in
   };
 
   services = {
+    udiskie = {
+      enable = true;
+      automount = false;
+    };
+
     swayidle = {
       enable = true;
       timeouts = [
