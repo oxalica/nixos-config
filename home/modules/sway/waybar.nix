@@ -15,7 +15,7 @@
     settings.mainBar = {
       layer = "top";
       position = "top";
-      height = 22;
+      height = 24;
 
       modules-left = [
         "sway/workspaces"
@@ -54,8 +54,9 @@
 
       clock = {
         interval = 1;
+        format = "{:%Y-%m-%d %H:%M:%S}";
         tooltip = true;
-        tooltip-format = "<big>{:%Y-%m-%d %a}</big>\n<tt>{calendar}</tt>";
+        tooltip-format = "<big>{:%Y-%m-%d %a}\n{timezone}</big>\n<tt>{calendar}</tt>";
       };
 
       cpu = {

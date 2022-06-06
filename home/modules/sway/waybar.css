@@ -7,12 +7,8 @@
 }
 
 window#waybar {
-    background-color: rgba(0, 0, 0, 0.4);
+    background-color: rgba(0, 0, 0, 0.5);
     color: white;
-}
-
-#window {
-    font-weight: bold;
 }
 
 #workspaces button {
@@ -37,7 +33,7 @@ window#waybar {
 }
 
 #clock {
-    font-weight: bold;
+    /* font-weight: bold; */
 }
 
 #battery {
