@@ -8,6 +8,8 @@
 
     # FIXME: Wait for https://github.com/NixOS/nixpkgs/pull/174218
     nixpkgs-fcitx5-qt-fix.url = "github:NixOS/nixpkgs/pull/174218/head";
+    # FIXME: Wait for https://github.com/swaywm/swaylock/issues/204
+    nixpkgs-sway-lock-fix.url = "github:oxalica/nixpkgs/bump/sway-wlroots";
 
     flake-utils.url = "github:numtide/flake-utils";
     home-manager = {
@@ -73,6 +75,8 @@
           fcitx5-qt = prevScope.callPackage (inputs.nixpkgs-fcitx5-qt-fix + "/pkgs/tools/inputmethods/fcitx5/fcitx5-qt.nix") {};
         });
       };
+
+      sway-lock-fix = prToOverlay inputs.nixpkgs-sway-lock-fix [ "sway-unwrapped" ];
     };
 
     nixosModules = {
@@ -133,7 +137,7 @@
 
     nixosConfigurations = {
       invar = mkSystem "invar" "x86_64-linux" inputs.nixpkgs-unstable {
-        extraOverlays = with overlays; [ fcitx5-qt-fix ];
+        extraOverlays = with overlays; [ fcitx5-qt-fix sway-lock-fix ];
         extraModules = with nixosModules; [ home-manager sops fcitx5-qt-fix ];
       };
 

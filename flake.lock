@@ -84,6 +84,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-sway-lock-fix": {
+      "locked": {
+        "lastModified": 1654578771,
+        "narHash": "sha256-XZIuh7QgvHVo4o6Z6BkGlyhj2vDKeTaLApXjmedulAw=",
+        "owner": "oxalica",
+        "repo": "nixpkgs",
+        "rev": "aef9c950ebcb305101dc2573bdcf00cf2c6187ff",
+        "type": "github"
+      },
+      "original": {
+        "owner": "oxalica",
+        "ref": "bump/sway-wlroots",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs-unmatched": {
       "locked": {
         "lastModified": 1640713360,
@@ -139,6 +155,7 @@
         "meta-sifive": "meta-sifive",
         "nixpkgs-fcitx5-qt-fix": "nixpkgs-fcitx5-qt-fix",
         "nixpkgs-stable": "nixpkgs-stable",
+        "nixpkgs-sway-lock-fix": "nixpkgs-sway-lock-fix",
         "nixpkgs-unmatched": "nixpkgs-unmatched",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "rime-emoji": "rime-emoji",
