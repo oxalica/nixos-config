@@ -56,7 +56,7 @@
         interval = 1;
         format = "{:%Y-%m-%d %H:%M:%S}";
         tooltip = true;
-        tooltip-format = "<big>{:%Y-%m-%d %a}\n{timezone}</big>\n<tt>{calendar}</tt>";
+        tooltip-format = "<big>{:%Y-%m-%d %a}</big>\n<tt>{calendar}</tt>";
       };
 
       cpu = {
