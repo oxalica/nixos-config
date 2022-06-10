@@ -25,6 +25,7 @@
 
   networking = {
     hostName = "invar";
+    search = [ "lan." ];
     useNetworkd = true;
     useDHCP = false;
     interfaces = {
