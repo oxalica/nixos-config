@@ -62,9 +62,6 @@ if [[ "$name" != "$(hostname)" && "$op" != "build" ]]; then
   export NIX_SSHOPTS="-t"
 fi
 
-# https://github.com/nix-community/home-manager/issues/1262
-args+=(--option allow-import-from-derivation true)
-
 args+=("$@")
 
 set -x

@@ -15,6 +15,8 @@
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.utils.follows = "flake-utils";
+      inputs.flake-compat.follows = "nixpkgs-unstable"; # Unused. As a placeholer.
     };
     rust-overlay = {
       url = "github:oxalica/rust-overlay";
