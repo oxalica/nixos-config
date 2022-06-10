@@ -14,18 +14,6 @@
 
   xdg.portal.wlr.enable = true;
 
-  systemd.services.lock-before-suspend = {
-    description = "Lock all sessions before suspend";
-    partOf = [ "graphical-session.target" ];
-    wantedBy = [ "sleep.target" ];
-    before = [ "sleep.target" ];
-    serviceConfig.ExecStart = "/run/current-system/systemd/bin/loginctl lock-sessions";
-  };
-
-  services.logind.extraConfig = ''
-    HandlePowerKey=suspend
-  '';
-
   # Ref: https://catcat.cc/post/2021-03-07/
   fonts = {
     fontDir.enable = true;

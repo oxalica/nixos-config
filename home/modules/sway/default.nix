@@ -138,15 +138,20 @@ in
     waypipe
     pavucontrol
     xdg-utils
+    feh
   ];
 
-  programs.mako = {
-    enable = true;
-    defaultTimeout = 15000; # ms
-    font = "sans-serif";
-    extraConfig = ''
-      on-button-right=exec ${pkgs.mako}/bin/makoctl menu -n "$id" ${pkgs.rofi}/bin/rofi -dmenu -p 'action: '
-    '';
+  programs = {
+    mako = {
+      enable = true;
+      defaultTimeout = 15000; # ms
+      font = "sans-serif";
+      extraConfig = ''
+        on-button-right=exec ${pkgs.mako}/bin/makoctl menu -n "$id" ${pkgs.rofi}/bin/rofi -dmenu -p 'action: '
+      '';
+    };
+
+    feh.enable = true;
   };
 
   services = {
@@ -173,6 +178,15 @@ in
           event = "lock";
           command = "${pkgs.swaylock-effects}/bin/swaylock";
         }
+        # Not implemented yet: https://github.com/swaywm/swaylock/pull/237
+        # { event = "unlock"; command = ""; }
+        {
+          event = "before-sleep";
+          command = "loginctl lock-session";
+        }
+      ];
+      extraArgs = [
+        "idlehint" "905"
       ];
     };
   };

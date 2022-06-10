@@ -29,7 +29,7 @@
 
   programs.zsh.loginExtra = ''
     if [[ -z $DISPLAY && "$(tty)" = /dev/tty1 ]] && type sway >/dev/null; then
-      exec sway
+      exec systemd-cat --identifier=sway sway
     fi
   '';
 
