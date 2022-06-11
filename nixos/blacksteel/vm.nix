@@ -1,15 +1,10 @@
 { pkgs, ... }:
-
 {
-  # virtualisation.docker.enable = true;
-  # users.groups."docker".members = [ "oxa" ];
-
   virtualisation.libvirtd = {
     enable = true;
     qemu.package = pkgs.qemu_kvm;
   };
   boot.kernel.sysctl."net.ipv4.ip_forward" = 1;
-  users.groups."libvirtd".members = [ "oxa" ];
   virtualisation.kvmgt = {
     enable = true;
     # Random generated UUIDs.
