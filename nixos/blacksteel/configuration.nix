@@ -9,7 +9,8 @@
     ./vm.nix
 
     ../modules/console-env.nix
-    ../modules/desktop-env
+    ../modules/kde-desktop
+    ../modules/l10n.nix
     ../modules/nix-binary-cache-mirror.nix
     ../modules/nix-common.nix
     ../modules/nix-registry.nix
