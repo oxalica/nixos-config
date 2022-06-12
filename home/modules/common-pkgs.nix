@@ -29,7 +29,7 @@ in {
 
     # Dev
     cachix patchelf nixpkgs-review nixpkgs-fmt nixfmt # Nix utils
-    gcc ghc idris2 idris myPython # Compiler & interpreters
+    gcc ghc idris2 myPython # Compiler & interpreters
     gdb gnumake cmake lld binutils # Tools
     sqlite-interactive # sqlite
   ];

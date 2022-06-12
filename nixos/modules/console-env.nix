@@ -1,18 +1,8 @@
 { lib, pkgs, ... }:
 {
-  # Reduce closure size.
+  # Reduce the closure size.
   i18n.supportedLocales = lib.mkDefault [ "en_US.UTF-8/UTF-8" ];
   i18n.defaultLocale = lib.mkDefault "en_US.UTF-8";
-
-  programs.less.enable = true;
-  # Override the default value in nixos/modules/programs/environment.nix
-  environment.variables.PAGER = "less";
-  # Don't use `programs.less.envVariables.LESS`, which will be override by `LESS` set by `man`.
-  environment.variables.LESS = lib.concatStringsSep " " [
-    "--RAW-CONTROL-CHARS" # Only allow colors.
-    "--mouse"
-    "--wheel-lines=5"
-  ];
 
   # Default:
   # - nano # Already have vim.
@@ -21,10 +11,26 @@
   environment.defaultPackages = [ ];
 
   environment.systemPackages = with pkgs; [
+    cntr # Nix
     procs ncdu swapview smartmontools # Stat
-    strace pv exa fd ripgrep lsof jq loop bc file rsync dnsutils # Utilities
+    curl git rawmv strace pv exa fd ripgrep lsof jq loop bc file rsync dnsutils # Utilities
     gnupg age pwgen sops ssh-to-age # Crypto
     libarchive zstd # Compression
+  ];
+
+  programs.less = {
+    enable = true;
+    lineEditingKeys = {
+      "^W" = "word-delete";
+      "^P" = "back-complete";
+      "^N" = "forw-complete";
+    };
+ };
+  # Don't use `programs.less.envVariables.LESS`, which will be override by `LESS` set by `man`.
+  environment.variables.LESS = lib.concatStringsSep " " [
+    "--RAW-CONTROL-CHARS" # Only allow colors.
+    "--mouse"
+    "--wheel-lines=5"
   ];
 
   programs.tmux.enable = true;
@@ -33,7 +39,9 @@
   programs.iotop.enable = true;
   programs.iftop.enable = true;
 
-  # Don't stuck for searching missing command.
+  programs.mtr.enable = true;
+
+  # Don't stuck for searching missing commands.
   programs.command-not-found.enable = false;
 
   programs.vim.defaultEditor = true;

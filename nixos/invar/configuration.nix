@@ -205,8 +205,6 @@
     mode = "0444";
   };
 
-  programs.mtr.enable = true;
-
   programs.adb.enable = true;
   users.groups."adbusers".members = [ config.users.users.oxa.name ];
 
@@ -220,11 +218,8 @@
 
   environment.systemPackages = with pkgs; [
     cntr # Debug nix build.
-    curl
-    git
     virt-manager
     solaar # Logitech devices control.
-    rawmv # Subvolume operations.
     compsize
   ];
 

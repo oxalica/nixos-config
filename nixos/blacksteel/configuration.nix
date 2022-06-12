@@ -174,11 +174,7 @@
 
   programs.adb.enable = true;
 
-  programs.mtr.enable = true;
-
   environment.systemPackages = with pkgs; [
-    cntr
-    curl
     ltunify
     virt-manager
     btrfs_map_physical
