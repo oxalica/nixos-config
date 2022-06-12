@@ -11,6 +11,7 @@
     ./modules/git.nix
     ./modules/gpg.nix
     ./modules/mail.nix
+    ./modules/mime-apps.nix
     ./modules/nvim
     ./modules/rime-fcitx.nix
     ./modules/rust.nix
