@@ -6,7 +6,6 @@
 
     ../modules/console-env.nix
     ../modules/kde-desktop
-    ../modules/l10n.nix
     ../modules/nix-binary-cache-mirror.nix
     ../modules/nix-common.nix
     ../modules/nix-registry.nix
@@ -105,6 +104,7 @@
   # Users.
 
   sops.secrets.passwd.neededForUsers = true;
+  programs.zsh.enable = true;
   users = {
     users."oxa" = {
       isNormalUser = true;

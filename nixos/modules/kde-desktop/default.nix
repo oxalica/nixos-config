@@ -1,22 +1,19 @@
-{ lib, config, pkgs, ... }:
-with lib;
+{ config, pkgs, ... }:
 {
+  imports = [ ../l10n.nix ];
+
   environment.systemPackages = with pkgs; [
     ark
     filelight
     plasma-browser-integration
   ];
 
-  # Enable zsh related system configurations.
-  # This is required for sddm to source /etc/set-environment in login script.
-  programs.zsh.enable = true;
-
-  programs.partition-manager.enable = true;
-  programs.kdeconnect.enable = true;
-
-  programs.gnupg.agent.pinentryFlavor = "qt";
-
-  programs.dconf.enable = true;
+  programs = {
+    partition-manager.enable = true;
+    kdeconnect.enable = true;
+    gnupg.agent.pinentryFlavor = "qt";
+    dconf.enable = true;
+  };
 
   nixpkgs.config.firefox.enablePlasmaBrowserIntegration = true;
 
