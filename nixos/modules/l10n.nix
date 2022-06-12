@@ -11,6 +11,7 @@
 
   # Ref: https://catcat.cc/post/2021-03-07/
   fonts = {
+    enableDefaultFonts = false;
     fontDir.enable = true;
 
     fonts = with pkgs; [
