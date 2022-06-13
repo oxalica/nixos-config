@@ -54,7 +54,7 @@ in
           name = "(l) lock, (e) logout, (s) suspend, (q) shutdown, (r) reboot";
           keys = {
             l = "mode default, exec loginctl lock-session";
-            e = "mode default, exec \"swaymsg exit; loginctl terminate-session $XDG_SESSION_ID\"";
+            e = "mode default, exec 'systemctl --user stop graphical-session.target; swaymsg exit; loginctl terminate-session $XDG_SESSION_ID'";
             s = "mode default, exec systemctl suspend";
             q = "mode default, exec systemctl poweroff";
             r = "mode default, exec systemctl reboot";
@@ -212,12 +212,10 @@ in
         Documentation = [ "man:mako(1)" ];
         PartOf = [ "sway-session.target" ];
       };
-
       Service = {
         ExecStart = "${pkgs.mako}/bin/mako";
         Restart = "always";
       };
-
       Install.WantedBy = [ "sway-session.target" ];
     };
   };
