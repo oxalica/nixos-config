@@ -1,5 +1,13 @@
 {
   imports = [ ./l10n.nix ];
-  programs.sway.enable = true;
+
+  security.polkit.enable = true;
+  security.pam.services.swaylock = {};
+
+  hardware.opengl.enable = true;
+
+  programs.dconf.enable = true;
+  programs.xwayland.enable = true;
+
   xdg.portal.wlr.enable = true;
 }
