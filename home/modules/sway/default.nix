@@ -150,8 +150,6 @@ in
         on-button-right=exec ${pkgs.mako}/bin/makoctl menu -n "$id" ${pkgs.rofi}/bin/rofi -dmenu -p 'action: '
       '';
     };
-
-    feh.enable = true;
   };
 
   services = {

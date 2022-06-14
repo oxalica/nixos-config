@@ -10,9 +10,6 @@
     }
   ];
 
-  # FIXME: Find a better place to have this.
-  programs.feh.enable = true;
-
   home.packages = with pkgs; [
     handlr
     (lib.hiPrio (pkgs.writeShellScriptBin "xdg-open" ''

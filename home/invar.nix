@@ -13,6 +13,7 @@
     ./modules/helix
     ./modules/lf.nix
     ./modules/mail.nix
+    ./modules/mime-apps.nix
     ./modules/nvim
     ./modules/rime-fcitx.nix
     ./modules/rust.nix
@@ -21,7 +22,6 @@
     ./modules/sway
     ./modules/task.nix
     ./modules/tmux.nix
-    ./modules/trash.nix
     ./modules/user-dirs.nix
   ];
 

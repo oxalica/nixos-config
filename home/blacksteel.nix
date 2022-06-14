@@ -18,7 +18,6 @@
     ./modules/shell
     ./modules/task.nix
     ./modules/tmux.nix
-    ./modules/trash.nix
     ./modules/user-dirs.nix
   ];
 
