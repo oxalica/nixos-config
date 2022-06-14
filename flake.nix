@@ -6,8 +6,6 @@
     nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-21.11";
     nixpkgs-unmatched.url = "github:oxalica/nixpkgs/test/unmatched";
 
-    # FIXME: Wait for https://github.com/NixOS/nixpkgs/pull/174218
-    nixpkgs-fcitx5-qt-fix.url = "github:NixOS/nixpkgs/pull/174218/head";
     # FIXME: Wait for https://github.com/swaywm/swaylock/issues/204
     nixpkgs-sway-lock-fix.url = "github:oxalica/nixpkgs/bump/sway-wlroots";
 
@@ -72,12 +70,6 @@
 
       prefer-remote-fetch = final: prev: prev.prefer-remote-fetch final prev;
 
-      fcitx5-qt-fix = final: prev: {
-        libsForQt5 = prev.libsForQt5.overrideScope' (finalScope: prevScope: {
-          fcitx5-qt = prevScope.callPackage (inputs.nixpkgs-fcitx5-qt-fix + "/pkgs/tools/inputmethods/fcitx5/fcitx5-qt.nix") {};
-        });
-      };
-
       sway-lock-fix = prToOverlay inputs.nixpkgs-sway-lock-fix [ "sway-unwrapped" ];
     };
 
@@ -110,11 +102,6 @@
         sops.gnupg.sshKeyPaths = [];
         sops.defaultSopsFile = ./nixos/${config.networking.hostName}/secret.yaml;
       };
-
-      fcitx5-qt-fix = { pkgs, ... }: {
-        disabledModules = [ "i18n/input-method/fcitx5.nix" ];
-        imports = [ (inputs.nixpkgs-fcitx5-qt-fix + "/nixos/modules/i18n/input-method/fcitx5.nix") ];
-      };
     };
 
     mkSystem = name: system: nixpkgs: { extraOverlays ? [], extraModules ? [] }: nixpkgs.lib.nixosSystem {
@@ -139,13 +126,13 @@
 
     nixosConfigurations = {
       invar = mkSystem "invar" "x86_64-linux" inputs.nixpkgs-unstable {
-        extraOverlays = with overlays; [ fcitx5-qt-fix sway-lock-fix ];
-        extraModules = with nixosModules; [ home-manager sops fcitx5-qt-fix ];
+        extraOverlays = with overlays; [ sway-lock-fix ];
+        extraModules = with nixosModules; [ home-manager sops ];
       };
 
       blacksteel = mkSystem "blacksteel" "x86_64-linux" inputs.nixpkgs-unstable {
-        extraOverlays = with overlays; [ fcitx5-qt-fix ];
-        extraModules = with nixosModules; [ home-manager sops fcitx5-qt-fix ];
+        extraOverlays = with overlays; [ ];
+        extraModules = with nixosModules; [ home-manager sops ];
       };
 
       silver = mkSystem "silver" "x86_64-linux" inputs.nixpkgs-stable {

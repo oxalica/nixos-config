@@ -137,8 +137,8 @@ in
   home.packages = with pkgs; [
     waypipe
     pavucontrol
-    xdg-utils
-    feh
+    grim
+    slurp
   ];
 
   programs = {
@@ -149,6 +149,16 @@ in
       extraConfig = ''
         on-button-right=exec ${pkgs.mako}/bin/makoctl menu -n "$id" ${pkgs.rofi}/bin/rofi -dmenu -p 'action: '
       '';
+    };
+
+    swaylock.settings = {
+      daemonize = true;
+      image = "${wallpaper-blur}";
+      scaling = "fill";
+      indicator-idle-visible = true;
+      clock = true;
+      datestr = "%Y-%m-%d %a";
+      show-failed-attempts = true;
     };
   };
 
@@ -188,16 +198,6 @@ in
       ];
     };
   };
-
-  xdg.configFile."swaylock/config".text = ''
-    daemonize
-    image=${wallpaper-blur}
-    scaling=fill
-    indicator-idle-visible
-    clock
-    datestr=%Y-%m-%d %a
-    show-failed-attempts
-  '';
 
   systemd.user = {
     targets.sway-session.Unit.Wants = [
