@@ -2,10 +2,6 @@
 # FIXME: Broken onChange script.
 { pkgs, ... }:
 {
-  home.packages = [
-    pkgs.font-awesome
-  ];
-
   programs.waybar = {
     enable = true;
     style = ./waybar.css;
