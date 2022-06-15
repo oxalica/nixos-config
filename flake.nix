@@ -11,7 +11,7 @@
 
     flake-utils.url = "github:numtide/flake-utils";
     home-manager = {
-      url = "github:nix-community/home-manager";
+      url = "github:oxalica/home-manager/fix/sway-dbus-env";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
       inputs.utils.follows = "flake-utils";
       inputs.flake-compat.follows = "nixpkgs-unstable"; # Unused. As a placeholer.
@@ -71,6 +71,15 @@
       prefer-remote-fetch = final: prev: prev.prefer-remote-fetch final prev;
 
       sway-lock-fix = prToOverlay inputs.nixpkgs-sway-lock-fix [ "sway-unwrapped" ];
+      swayidle-fix = final: prev: {
+        swayidle = prev.swayidle.overrideAttrs (old: {
+          postPatch = ''
+            substituteInPlace main.c \
+              --replace '%lu' '%zu' \
+              --replace '"sh"' '"${final.runtimeShell}"'
+          '';
+        });
+      };
     };
 
     nixosModules = {
@@ -126,7 +135,7 @@
 
     nixosConfigurations = {
       invar = mkSystem "invar" "x86_64-linux" inputs.nixpkgs-unstable {
-        extraOverlays = with overlays; [ sway-lock-fix ];
+        extraOverlays = with overlays; [ sway-lock-fix swayidle-fix ];
         extraModules = with nixosModules; [ home-manager sops ];
       };
 

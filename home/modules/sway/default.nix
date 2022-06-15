@@ -207,22 +207,7 @@ in
     ];
   };
 
-  systemd.user = {
-    targets.sway-session.Unit.Wants = [
-      "xdg-desktop-autostart.target"
-    ];
-
-    services.mako = {
-      Unit = {
-        Description = "mako";
-        Documentation = [ "man:mako(1)" ];
-        PartOf = [ "sway-session.target" ];
-      };
-      Service = {
-        ExecStart = "${pkgs.mako}/bin/mako";
-        Restart = "always";
-      };
-      Install.WantedBy = [ "sway-session.target" ];
-    };
-  };
+  systemd.user.targets.sway-session.Unit.Wants = [
+    "xdg-desktop-autostart.target"
+  ];
 }
