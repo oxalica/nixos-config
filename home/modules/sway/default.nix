@@ -1,8 +1,6 @@
 # Ref: https://gitlab.com/NickCao/flakes/-/blob/master/nixos/local/home.nix
 { lib, pkgs, config, super, ... }:
 let
-  fontSize = 12;
-
   wallpaper = pkgs.fetchurl {
     name = "wallpaper.jpg";
     url = "https://pbs.twimg.com/media/E9irhxhVUAUaBCr?format=jpg";
@@ -12,10 +10,20 @@ let
     ${pkgs.imagemagick}/bin/convert -blur 14x5 ${wallpaper} $out
   '';
 
+  rofi = "${config.programs.rofi.finalPackage}/bin/rofi";
+
 in
 {
   imports = [
     ./waybar.nix
+  ];
+
+  home.packages = with pkgs; [
+    waypipe
+    pavucontrol
+    grim
+    slurp
+    swaylock-effects
   ];
 
   home.pointerCursor = {
@@ -33,7 +41,7 @@ in
     iconTheme.name = "Adwaita";
     font = {
       name = "sans-serif";
-      size = fontSize;
+      size = 12;
     };
     gtk2.configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
     # gtk3.extraConfig.gtk-application-prefer-dark-theme = 1;
@@ -63,7 +71,7 @@ in
         };
       in
       {
-        terminal = "alacritty -e ${pkgs.tmux}/bin/tmux new-session -t main";
+        terminal = "${pkgs.alacritty}/bin/alacritty -e ${pkgs.tmux}/bin/tmux new-session -t main";
         startup = [
           { command = "firefox"; }
           { command = "telegram-desktop"; }
@@ -113,8 +121,9 @@ in
             "${modifier}+b" = null;
             "${modifier}+v" = null;
             "${modifier}+w" = null;
-            "${modifier}+d" = "exec ${pkgs.rofi}/bin/rofi -show run";
-            "${modifier}+Shift+l" = "exec loginctl lock-session";
+            "${modifier}+d" = "exec ${rofi} -show drun";
+            "${modifier}+Shift+d" = "exec ${rofi} -show run";
+            "${modifier}+l" = "exec loginctl lock-session";
             "${modifier}+Shift+e" = "mode \"${logoutMode.name}\"";
             "${modifier}+space" = null;
             "Print" = "exec ${pkgs.grim}/bin/grim -g \"$(${pkgs.slurp}/bin/slurp)\" $HOME/Pictures/screenshot-$(date +\"%Y-%m-%d-%H-%M-%S\").png";
@@ -134,69 +143,68 @@ in
       };
   };
 
-  home.packages = with pkgs; [
-    waypipe
-    pavucontrol
-    grim
-    slurp
-  ];
+  programs.mako = {
+    enable = true;
+    defaultTimeout = 15000; # ms
+    font = "sans-serif";
+    extraConfig = ''
+      on-button-right=exec ${pkgs.mako}/bin/makoctl menu -n "$id" ${rofi} -dmenu -p 'action: '
+    '';
+  };
 
-  programs = {
-    mako = {
-      enable = true;
-      defaultTimeout = 15000; # ms
-      font = "sans-serif";
-      extraConfig = ''
-        on-button-right=exec ${pkgs.mako}/bin/makoctl menu -n "$id" ${pkgs.rofi}/bin/rofi -dmenu -p 'action: '
-      '';
-    };
+  programs.swaylock.settings = {
+    daemonize = true;
+    image = "${wallpaper-blur}";
+    scaling = "fill";
+    indicator-idle-visible = true;
+    clock = true;
+    datestr = "%Y-%m-%d %a";
+    show-failed-attempts = true;
+  };
 
-    swaylock.settings = {
-      daemonize = true;
-      image = "${wallpaper-blur}";
-      scaling = "fill";
-      indicator-idle-visible = true;
-      clock = true;
-      datestr = "%Y-%m-%d %a";
-      show-failed-attempts = true;
+  programs.rofi = {
+    enable = true;
+    package = pkgs.rofi-wayland;
+    theme = "Arc-Dark";
+    terminal = "${pkgs.alacritty}/bin/alacritty -e";
+    extraConfig = {
+      modi = "drun,run,ssh";
     };
   };
 
-  services = {
-    udiskie = {
-      enable = true;
-      automount = false;
-    };
+  services.udiskie = {
+    enable = true;
+    automount = false;
+  };
 
-    swayidle = {
-      enable = true;
-      timeouts = [
-        {
-          timeout = 900; # 15min
-          command = "${pkgs.swaylock-effects}/bin/swaylock --grace=5";
-        }
-        {
-          timeout = 905;
-          command = ''swaymsg "output * dpms off"'';
-          resumeCommand = ''swaymsg "output * dpms on"'';
-        }
-      ];
-      events = [
-        {
-          event = "lock";
-          command = "${pkgs.swaylock-effects}/bin/swaylock";
-        }
-        # Not implemented yet: https://github.com/swaywm/swaylock/pull/237
-        # { event = "unlock"; command = ""; }
-        {
-          event = "before-sleep";
-          command = "loginctl lock-session";
-        }
-      ];
-      extraArgs = [
-        "idlehint" "905"
-      ];
-    };
+  services.swayidle = {
+    enable = true;
+    timeouts = [
+      {
+        timeout = 900; # 15min
+        command = "${pkgs.swaylock-effects}/bin/swaylock --grace=5";
+      }
+      {
+        timeout = 905;
+        command = ''swaymsg "output * dpms off"'';
+        resumeCommand = ''swaymsg "output * dpms on"'';
+      }
+    ];
+    events = [
+      {
+        event = "lock";
+        command = "${pkgs.swaylock-effects}/bin/swaylock";
+      }
+      # Not implemented yet: https://github.com/swaywm/swaylock/pull/237
+      # { event = "unlock"; command = ""; }
+      {
+        event = "before-sleep";
+        command = "loginctl lock-session";
+      }
+    ];
+    extraArgs = [
+      "idlehint" "905"
+    ];
   };
 
   systemd.user = {
