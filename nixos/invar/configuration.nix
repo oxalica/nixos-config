@@ -22,6 +22,9 @@
 
   boot = {
     initrd = {
+      # Test.
+      systemd.enable = true;
+
       availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usbhid" ];
       kernelModules = [ "dm-snapshot" ];
       luks.devices."unluks" = {
