@@ -79,11 +79,11 @@
     },
     "nixpkgs-sway-lock-fix": {
       "locked": {
-        "lastModified": 1655229724,
-        "narHash": "sha256-wEsnZ5GOvmtqaabi7nuHhT9mhQPNFTJC9FNVYGYlU8Y=",
+        "lastModified": 1655925355,
+        "narHash": "sha256-bZkCg2JKPuA1nrjO/xMFrTORJEODS8x/LLfllilxGEg=",
         "owner": "oxalica",
         "repo": "nixpkgs",
-        "rev": "d74a28769193c111acee5df31fbdc7304b9eaed7",
+        "rev": "29d46beeb88d430960244e67b03f8dfb11b8c169",
         "type": "github"
       },
       "original": {

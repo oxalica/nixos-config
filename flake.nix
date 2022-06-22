@@ -70,15 +70,10 @@
 
       prefer-remote-fetch = final: prev: prev.prefer-remote-fetch final prev;
 
-      sway-lock-fix = prToOverlay inputs.nixpkgs-sway-lock-fix [ "sway-unwrapped" ];
-      swayidle-fix = final: prev: {
-        swayidle = prev.swayidle.overrideAttrs (old: {
-          postPatch = ''
-            substituteInPlace main.c \
-              --replace '%lu' '%zu' \
-              --replace '"sh"' '"${final.runtimeShell}"'
-          '';
-        });
+      sway-lock-fix = final: prev: {
+        sway-unwrapped = final.callPackage (inputs.nixpkgs-sway-lock-fix + "/pkgs/applications/window-managers/sway/default.nix") {
+          wlroots = final.callPackage (inputs.nixpkgs-sway-lock-fix + "/pkgs/development/libraries/wlroots/0.16.nix") { };
+        };
       };
     };
 
@@ -111,6 +106,13 @@
         sops.gnupg.sshKeyPaths = [];
         sops.defaultSopsFile = ./nixos/${config.networking.hostName}/secret.yaml;
       };
+
+      # FIXME: Wait for https://github.com/NixOS/nixpkgs/pull/178529
+      initrd-systemd-fix = { config, ... }: {
+        boot.initrd.systemd.storePaths =
+          lib.optional (lib.hasPrefix builtins.storeDir config.console.font) "${config.console.font}" ++
+          lib.optional (lib.hasPrefix builtins.storeDir config.console.keyMap) "${config.console.keyMap}";
+      };
     };
 
     mkSystem = name: system: nixpkgs: { extraOverlays ? [], extraModules ? [] }: nixpkgs.lib.nixosSystem {
@@ -135,8 +137,8 @@
 
     nixosConfigurations = {
       invar = mkSystem "invar" "x86_64-linux" inputs.nixpkgs-unstable {
-        extraOverlays = with overlays; [ sway-lock-fix swayidle-fix ];
-        extraModules = with nixosModules; [ home-manager sops ];
+        extraOverlays = with overlays; [ sway-lock-fix ];
+        extraModules = with nixosModules; [ home-manager sops initrd-systemd-fix ];
       };
 
       blacksteel = mkSystem "blacksteel" "x86_64-linux" inputs.nixpkgs-unstable {
