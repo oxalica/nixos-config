@@ -157,19 +157,19 @@
         "type": "gitlab"
       }
     },
-    "rime-emoji": {
+    "rime-latex": {
       "flake": false,
       "locked": {
-        "lastModified": 1647348945,
-        "narHash": "sha256-3B4DYcgCrStEHY3etl8/QqnZgtRu9W1riOa94Vj2az8=",
-        "owner": "rime",
-        "repo": "rime-emoji",
-        "rev": "ca91e504da44405b4d4c6ef35725af397bf08f0f",
+        "lastModified": 1642790610,
+        "narHash": "sha256-Y7CBVhqL/Gx7ZB0xKdhOgvGogDAyRq0ibioq71Xu4/M=",
+        "owner": "shenlebantongying",
+        "repo": "rime_latex",
+        "rev": "3fbf0e02a264f56fc32ac0628f62033723f8a0e7",
         "type": "github"
       },
       "original": {
-        "owner": "rime",
-        "repo": "rime-emoji",
+        "owner": "shenlebantongying",
+        "repo": "rime_latex",
         "type": "github"
       }
     },
@@ -182,7 +182,7 @@
         "nixpkgs-sway-lock-fix": "nixpkgs-sway-lock-fix",
         "nixpkgs-unmatched": "nixpkgs-unmatched",
         "nixpkgs-unstable": "nixpkgs-unstable",
-        "rime-emoji": "rime-emoji",
+        "rime-latex": "rime-latex",
         "rust-overlay": "rust-overlay",
         "secrets": "secrets",
         "sops-nix": "sops-nix",

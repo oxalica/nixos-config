@@ -28,16 +28,15 @@
       inputs.nixpkgs-22_05.follows = "nixpkgs-unstable";
       inputs.nixpkgs-21_11.follows = "nixpkgs-unstable";
     };
+
     meta-sifive = {
       url = "github:sifive/meta-sifive/2021.11.00";
       flake = false;
     };
-
-    rime-emoji = {
-      url = "github:rime/rime-emoji";
+    rime-latex = {
+      url = "github:shenlebantongying/rime_latex";
       flake = false;
     };
-
     tree-sitter-nix = {
       url = "github:oxalica/tree-sitter-nix";
       # url = "/home/oxa/repo/fork/tree-sitter-nix";
