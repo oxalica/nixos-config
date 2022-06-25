@@ -8,6 +8,7 @@
     ./modules/common-pkgs.nix
     ./modules/direnv.nix
     ./modules/firefox.nix
+    ./modules/foot.nix
     ./modules/git.nix
     ./modules/gpg.nix
     ./modules/helix
