@@ -22,7 +22,7 @@ in {
     kolourpaint vlc libreoffice  # Files
     electrum electron-cash monero-gui # Cryptocurrency
     steam polymc # Games
-    tdesktop element-desktop # Messaging
+    tdesktop nheko # Messaging
     simplescreenrecorder obs-studio # Recording
 
     # Dev

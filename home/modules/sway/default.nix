@@ -77,12 +77,16 @@ in
         startup = [
           { command = "firefox"; }
           { command = "telegram-desktop"; }
+          { command = "nheko"; }
           { command = "thunderbird"; }
         ];
         assigns = {
-          "2" = [{ app_id = "firefox"; }];
-          "3" = [{ app_id = "telegramdesktop"; }];
-          "4" = [{ app_id = "thunderbird"; }];
+          "2" = [ { app_id = "firefox"; } ];
+          "3" = [
+            { app_id = "telegramdesktop"; }
+            { app_id = "nheko"; }
+          ];
+          "4" = [ { app_id = "thunderbird"; } ];
         };
         window.commands = [
           {
