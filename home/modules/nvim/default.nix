@@ -446,12 +446,6 @@ let
     (withConf nightfox-nvim /* vim */ ''
       lua <<EOF
         require("nightfox").setup {
-          -- FIXME: Remove since https://github.com/EdenEast/nightfox.nvim/pull/158
-          palettes = {
-            nightfox = {
-              comment = "#768390", -- From GitHub, to increse contract.
-            },
-          },
           groups = {
             all = {
               -- vim-better-whitespace

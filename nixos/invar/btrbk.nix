@@ -26,8 +26,7 @@ in
 
   # Manual backup.
   services.btrbk.instances.backup-wd2t = {
-    # FIXME: Cannot disable the coresponding timer.
-    onCalendar = "2112-01-01";
+    onCalendar = null;
     settings = globalSettings // {
       volume."/" = {
         snapshot_dir = ".btrbk/backup-wd2t";
