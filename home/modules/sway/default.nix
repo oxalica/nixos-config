@@ -159,6 +159,20 @@ in
       on-button-right=exec ${pkgs.mako}/bin/makoctl menu -n "$id" ${rofi} -dmenu -p 'action: '
     '';
   };
+  systemd.user.services.mako = {
+    Unit = {
+      Description = "Notification daemon for Wayland";
+      Documentatio = "man:mako(1)";
+      After = "graphical-session-pre.target";
+      PartOf = "sway-session.target"; # Should be terminated when the session ends.
+    };
+    Service = {
+      BusName = "org.freedesktop.Notifications";
+      ExecStart = "${pkgs.mako}/bin/mako";
+      Restart = "always";
+    };
+    Install.WantedBy = [ "sway-session.target" ];
+  };
 
   programs.swaylock.settings = {
     daemonize = true;
