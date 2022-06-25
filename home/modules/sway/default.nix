@@ -93,6 +93,9 @@ in
             command = "focus";
           }
         ];
+        floating.criteria = [
+          { app_id = "udiskie"; }
+        ];
 
         gaps = {
           inner = 5;
@@ -123,7 +126,7 @@ in
             "${modifier}+w" = null;
             "${modifier}+d" = "exec ${rofi} -show drun";
             "${modifier}+Shift+d" = "exec ${rofi} -show run";
-            "${modifier}+l" = "exec loginctl lock-session";
+            "${modifier}+Shift+l" = "exec loginctl lock-session";
             "${modifier}+Shift+e" = "mode \"${logoutMode.name}\"";
             "${modifier}+space" = null;
             "Print" = "exec ${pkgs.grim}/bin/grim -g \"$(${pkgs.slurp}/bin/slurp)\" $HOME/Pictures/screenshot-$(date +\"%Y-%m-%d-%H-%M-%S\").png";
@@ -174,7 +177,7 @@ in
 
   services.udiskie = {
     enable = true;
-    automount = false;
+    automount = true;
   };
 
   services.swayidle = {
@@ -201,9 +204,6 @@ in
         event = "before-sleep";
         command = "loginctl lock-session";
       }
-    ];
-    extraArgs = [
-      "idlehint" "905"
     ];
   };
 

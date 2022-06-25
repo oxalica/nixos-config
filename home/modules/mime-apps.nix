@@ -27,6 +27,7 @@
       "application/pdf" = "firefox.desktop";
       "application/xhtml+xml" = "firefox.desktop";
       "image/*" = "feh.desktop";
+      "text/*" = "nvim.desktop";
       "text/html" = "firefox.desktop";
       "text/plain" = "nvim.desktop";
       "text/xml" = "firefox.desktop";
