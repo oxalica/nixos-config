@@ -12,6 +12,8 @@ let
 
   rofi = "${config.programs.rofi.finalPackage}/bin/rofi";
 
+  terminal = "${pkgs.alacritty}/bin/alacritty";
+
 in
 {
   imports = [
@@ -71,14 +73,13 @@ in
         };
       in
       {
-        terminal = "${pkgs.alacritty}/bin/alacritty -e ${pkgs.tmux}/bin/tmux new-session -t main";
+        terminal = "${terminal} ${pkgs.tmux}/bin/tmux new-session -t main";
         startup = [
           { command = "firefox"; }
           { command = "telegram-desktop"; }
           { command = "thunderbird"; }
         ];
         assigns = {
-          # "1" = [{ app_id = "alacritty"; }];
           "2" = [{ app_id = "firefox"; }];
           "3" = [{ app_id = "telegramdesktop"; }];
           "4" = [{ app_id = "thunderbird"; }];
@@ -169,7 +170,7 @@ in
     enable = true;
     package = pkgs.rofi-wayland;
     theme = "Arc-Dark";
-    terminal = "${pkgs.alacritty}/bin/alacritty -e";
+    inherit terminal;
     extraConfig = {
       modi = "drun,run,ssh";
     };
