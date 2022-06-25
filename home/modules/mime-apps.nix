@@ -5,7 +5,8 @@
       assertion =
         config.programs.firefox.enable &&
         config.programs.feh.enable &&
-        config.programs.neovim.enable;
+        config.programs.neovim.enable &&
+        config.programs.alacritty.enable;
       message = "firefox, feh, and neovim are used in MIME apps";
     }
   ];
@@ -34,6 +35,7 @@
       "x-scheme-handler/ftp" = "firefox.desktop";
       "x-scheme-handler/http" = "firefox.desktop";
       "x-scheme-handler/https" = "firefox.desktop";
+      "x-scheme-handler/terminal" = "alacritty.desktop";
     };
   };
 }
