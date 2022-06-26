@@ -7,7 +7,6 @@
     ../modules/nix-binary-cache-mirror.nix
     ../modules/nix-common.nix
     ../modules/nix-registry.nix
-    ../modules/steam-compat.nix
     ../modules/sway-desktop.nix
   ] ++ lib.optional (inputs ? secrets) inputs.secrets.nixosModules.invar;
 
@@ -210,6 +209,12 @@
 
   programs.adb.enable = true;
   users.groups."adbusers".members = [ config.users.users.oxa.name ];
+
+  programs.steam = {
+    enable = true;
+    remotePlay.openFirewall = true;
+    dedicatedServer.openFirewall = true;
+  };
 
   environment.etc = {
     "machine-id".source = "/var/machine-id";

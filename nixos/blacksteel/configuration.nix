@@ -9,7 +9,6 @@
     ../modules/nix-binary-cache-mirror.nix
     ../modules/nix-common.nix
     ../modules/nix-registry.nix
-    ../modules/steam-compat.nix
   ] ++ lib.optional (inputs ? secrets) (inputs.secrets.nixosModules.blacksteel);
 
   nixpkgs.config.allowUnfreePredicate =
@@ -173,6 +172,12 @@
   };
 
   programs.adb.enable = true;
+
+  programs.steam = {
+    enable = true;
+    remotePlay.openFirewall = true;
+    dedicatedServer.openFirewall = true;
+  };
 
   environment.systemPackages = with pkgs; [
     ltunify
