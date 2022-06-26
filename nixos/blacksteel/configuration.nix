@@ -8,7 +8,6 @@
     ../modules/kde-desktop
     ../modules/nix-binary-cache-mirror.nix
     ../modules/nix-common.nix
-    ../modules/nix-registry.nix
   ] ++ lib.optional (inputs ? secrets) (inputs.secrets.nixosModules.blacksteel);
 
   nixpkgs.config.allowUnfreePredicate =

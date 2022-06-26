@@ -6,7 +6,6 @@
     ../modules/console-env.nix
     ../modules/nix-binary-cache-mirror.nix
     ../modules/nix-common.nix
-    ../modules/nix-registry.nix
     ../modules/sway-desktop.nix
   ] ++ lib.optional (inputs ? secrets) inputs.secrets.nixosModules.invar;
 
@@ -191,9 +190,7 @@
     onBoot = "ignore";
   };
 
-  nix.extraOptions = ''
-    experimental-features = nix-command flakes ca-derivations
-  '';
+  nix.settings.experimental-features = [ "ca-derivations" ];
 
   # Global ssh settings. Also for remote builders.
   programs.ssh = {

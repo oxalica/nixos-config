@@ -6,29 +6,21 @@
 
     gc = {
       automatic = true;
-      dates = "Wed";
+      dates = "Sat 03:00";
       options = "--delete-older-than 8d";
     };
 
     settings = {
-      trusted-users = [ "root" "@wheel" ];
+      allow-import-from-derivation = false;
       auto-optimise-store = true;
+      experimental-features = [ "nix-command" "flakes" ];
+      flake-registry = "/etc/nix/registry.json"; # Don't fetch from GitHub.
+      trusted-users = [ "root" "@wheel" ];
+
+      connect-timeout = 10;
+      download-attempts = 3;
+      stalled-download-timeout = 10;
     };
-
-    extraOptions = ''
-      experimental-features = nix-command flakes
-      flake-registry = /etc/nix/registry.json
-
-      download-attempts = 5
-      connect-timeout = 15
-      stalled-download-timeout = 10
-
-      keep-outputs = true # Keep build-dependencies.
-
-      builders-use-substitutes = true
-
-      allow-import-from-derivation = false
-    '';
 
     registry = {
       nixpkgs = {
