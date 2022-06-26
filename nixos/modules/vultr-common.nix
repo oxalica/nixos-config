@@ -4,8 +4,6 @@
     (modulesPath + "/profiles/qemu-guest.nix")
 
     ./vultr-image.nix
-
-    ../modules/user-oxa.nix
   ];
 
   boot.loader.grub.enable = true;
@@ -33,14 +31,25 @@
     "2606:4700:4700::1111" "2606:4700:4700::1001"
   ];
 
-  users.users."oxa".openssh.authorizedKeys.keys = [
-    my.ssh.identities.oxa-invar
-    my.ssh.identities.oxa-blacksteel
-    my.ssh.identities.invar
-    my.ssh.identities.blacksteel
-  ];
+  users = {
+    mutableUsers = false;
+    users."oxa" = {
+      isNormalUser = true;
+      uid = 1000;
+      group = config.users.groups.oxa.name;
+      extraGroups = [ "wheel" ];
 
-  services.getty.autologinUser = "oxa";
+      openssh.authorizedKeys.keys = [
+        my.ssh.identities.oxa-invar
+        my.ssh.identities.oxa-blacksteel
+        my.ssh.identities.invar
+        my.ssh.identities.blacksteel
+      ];
+    };
+    groups."oxa".gid = 1000;
+  };
+
+  services.getty.autologinUser = config.users.users.oxa.name;
 
   security.sudo.wheelNeedsPassword = false;
 
@@ -49,6 +58,6 @@
   services.openssh = {
     enable = true;
     passwordAuthentication = false;
-    challengeResponseAuthentication = false;
+    kbdInteractiveAuthentication = false;
   };
 }

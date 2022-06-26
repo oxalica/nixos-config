@@ -3,7 +3,7 @@
 
   inputs = {
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-21.11";
+    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-22.05";
     nixpkgs-unmatched.url = "github:oxalica/nixpkgs/test/unmatched";
 
     # FIXME: Wait for https://github.com/swaywm/swaylock/issues/204

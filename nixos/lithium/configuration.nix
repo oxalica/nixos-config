@@ -1,24 +1,12 @@
 { config, pkgs, inputs, my, ... }:
 {
   imports = [
-    ../modules/vultr-common.nix
     ../modules/console-env.nix
-    # ../modules/nix-common.nix # FIXME: Bad for stable channel.
+    ../modules/nix-common.nix
+    ../modules/vultr-common.nix
 
     inputs.secrets.nixosModules.lithium
   ];
-
-  # See above.
-  nix = {
-    # Ensure that flake support is enabled.
-    package = pkgs.nixFlakes;
-    gc = {
-      automatic = true;
-      dates = "Wed";
-      options = "--delete-older-than 8d";
-    };
-    trustedUsers = [ "root" "@wheel" ];
-  };
 
   swapDevices = [
     {

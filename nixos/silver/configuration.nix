@@ -7,22 +7,21 @@
 
     ../modules/console-env.nix
     ../modules/nix-binary-cache-mirror.nix
-    # ../modules/nix-common.nix # FIXME: Bad for stable channel.
-    ../modules/user-oxa.nix
+    ../modules/nix-common.nix
   ] ++ lib.optional (inputs ? secrets) (inputs.secrets.nixosModules.silver);
 
-  # See above.
-  nix = {
-    # Ensure that flake support is enabled.
-    package = pkgs.nixFlakes;
-    gc = {
-      automatic = true;
-      dates = "Wed";
-      options = "--delete-older-than 8d";
+  sops.secrets.passwd.neededForUsers = true;
+  users = {
+    mutableUsers = false;
+    users."oxa" = {
+      isNormalUser = true;
+      passwordFile = config.sops.secrets.passwd.path;
+      uid = 1000;
+      group = config.users.groups.oxa.name;
+      extraGroups = [ "wheel" ];
     };
-    trustedUsers = [ "root" "@wheel" ];
+    groups."oxa".gid = 1000;
   };
-
 
   time.timeZone = "Asia/Shanghai";
 
