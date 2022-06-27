@@ -5,7 +5,6 @@
 
   imports = [
     ./modules/alacritty.nix
-    ./modules/common-pkgs.nix
     ./modules/direnv.nix
     ./modules/firefox.nix
     ./modules/git.nix
@@ -13,6 +12,7 @@
     ./modules/mail.nix
     ./modules/mime-apps.nix
     ./modules/nvim
+    ./modules/programs.nix
     ./modules/rime-fcitx.nix
     ./modules/rust.nix
     ./modules/shell

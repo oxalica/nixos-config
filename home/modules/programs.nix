@@ -19,16 +19,15 @@ in {
     sops # Sops
 
     # GUI
-    kolourpaint vlc libreoffice  # Files
+    kolourpaint libreoffice mpv evince # Files
     electrum electron-cash monero-gui # Cryptocurrency
-    steam polymc # Games
+    polymc /* steam <- enabled system-wide */ # Games
     tdesktop nheko # Messaging
     simplescreenrecorder obs-studio # Recording
 
     # Dev
-    cachix patchelf nixpkgs-review nixpkgs-fmt nixfmt # Nix utils
-    gcc ghc idris2 myPython # Compiler & interpreters
-    gdb gnumake cmake lld binutils # Tools
+    cachix patchelf lld nixpkgs-review # Nix utils
+    gcc ghc myPython # Compiler & interpreters
     sqlite-interactive # sqlite
   ];
 

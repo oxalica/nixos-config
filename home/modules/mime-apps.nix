@@ -20,17 +20,12 @@
 
   xdg.mimeApps = {
     enable = true;
-    associations.added = {
-      "application/pdf" = "firefox.desktop";
-    };
-    associations.removed = { };
     defaultApplications = {
-      "application/pdf" = "firefox.desktop";
+      "application/pdf" = "org.gnome.Evince.desktop";
       "application/xhtml+xml" = "firefox.desktop";
       "image/*" = "feh.desktop";
       "text/*" = "nvim.desktop";
       "text/html" = "firefox.desktop";
-      "text/plain" = "nvim.desktop";
       "text/xml" = "firefox.desktop";
       "x-scheme-handler/ftp" = "firefox.desktop";
       "x-scheme-handler/http" = "firefox.desktop";
