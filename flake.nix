@@ -65,7 +65,7 @@
 
     overlays = {
       mypkgs = final: prev: import ./pkgs { inherit (final) callPackage; };
-      rust-overlay = inputs.rust-overlay.overlay;
+      rust-overlay = inputs.rust-overlay.overlays.default;
 
       prefer-remote-fetch = final: prev: prev.prefer-remote-fetch final prev;
 
