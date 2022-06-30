@@ -14,6 +14,8 @@ let
 
   terminal = "${pkgs.alacritty}/bin/alacritty";
 
+  sway = config.wayland.windowManager.sway.package;
+
 in
 {
   imports = [
@@ -210,8 +212,8 @@ in
       }
       {
         timeout = 905;
-        command = ''swaymsg "output * dpms off"'';
-        resumeCommand = ''swaymsg "output * dpms on"'';
+        command = ''${sway}/bin/swaymsg "output * dpms off"'';
+        resumeCommand = ''${sway}/bin/swaymsg "output * dpms on"'';
       }
     ];
     events = [
@@ -223,7 +225,7 @@ in
       # { event = "unlock"; command = ""; }
       {
         event = "before-sleep";
-        command = "loginctl lock-session";
+        command = "/run/current-system/systemd/bin/loginctl lock-session";
       }
     ];
   };
