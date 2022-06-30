@@ -26,6 +26,7 @@ in
     grim
     slurp
     swaylock-effects
+    sway-contrib.grimshot
   ];
 
   home.pointerCursor = {
@@ -134,8 +135,9 @@ in
             "${modifier}+Shift+l" = "exec loginctl lock-session";
             "${modifier}+Shift+e" = "mode \"${logoutMode.name}\"";
             "${modifier}+space" = null;
-            "Print" = "exec ${pkgs.grim}/bin/grim -g \"$(${pkgs.slurp}/bin/slurp)\" $HOME/Pictures/screenshot-$(date +\"%Y-%m-%d-%H-%M-%S\").png";
-
+            "Print" = ''
+              exec 'grimshot save area - | tee "$XDG_PICTURES_DIR/screenshot-$(date +%Y-%m-%d-%H-%M-%S).png" | wl-copy --type image/png'
+            '';
             "XF86AudioPlay" = "exec ${pkgs.playerctl}/bin/playerctl play-pause";
             "XF86AudioPause" = "exec ${pkgs.playerctl}/bin/playerctl play-pause";
             "XF86AudioNext" = "exec ${pkgs.playerctl}/bin/playerctl next";
