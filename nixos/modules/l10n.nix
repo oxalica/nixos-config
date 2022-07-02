@@ -21,6 +21,7 @@
       noto-fonts-emoji
       twemoji-color-font
       font-awesome
+      hanazono
       # Use bin to save build time (~11min).
       (iosevka-bin.override { variant = "sgr-iosevka-fixed"; })
     ];
