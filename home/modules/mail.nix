@@ -17,6 +17,7 @@
       ExecStart = "${pkgs.hydroxide}/bin/hydroxide serve";
       Restart = "on-failure";
       RestartSec = 10;
+      Slice = "background.slice";
     };
     Install.WantedBy = [ "graphical-session.target" ];
   };

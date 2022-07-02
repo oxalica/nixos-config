@@ -2,6 +2,7 @@
 # FIXME: Broken onChange script.
 { pkgs, ... }:
 {
+  systemd.user.services.waybar.Service.Slice = "session.slice";
   programs.waybar = {
     enable = true;
     style = ./waybar.css;

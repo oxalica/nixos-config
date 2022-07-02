@@ -171,6 +171,7 @@ in
       PartOf = "sway-session.target"; # Should be terminated when the session ends.
     };
     Service = {
+      Slice = "session.slice";
       BusName = "org.freedesktop.Notifications";
       ExecStart = "${pkgs.mako}/bin/mako";
       Restart = "always";
@@ -229,6 +230,7 @@ in
       }
     ];
   };
+  systemd.user.services.swayidle.Service.Slice = "session.slice";
 
   systemd.user.targets.sway-session.Unit.Wants = [
     "xdg-desktop-autostart.target"
