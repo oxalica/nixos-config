@@ -201,7 +201,7 @@ in
 
   services.udiskie = {
     enable = true;
-    automount = true;
+    automount = false;
   };
 
   services.swayidle = {
