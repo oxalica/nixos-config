@@ -24,10 +24,9 @@
       systemd.enable = true;
 
       availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usbhid" ];
-      kernelModules = [ "dm-snapshot" ];
-      luks.devices."unluks" = {
-        device = "/dev/disk/by-uuid/21764e86-fde3-4e51-9652-da9adbdeeb34";
-        preLVM = true;
+      kernelModules = [ ];
+      luks.devices."invar-luks" = {
+        device = "/dev/disk/by-uuid/aa50ce23-65c4-4b9a-8484-641a06a9d08c";
         allowDiscards = true;
       };
     };
@@ -57,15 +56,15 @@
 
   fileSystems = {
     "/" = {
-      device = "/dev/disk/by-uuid/7219f4b1-a9d1-42a4-bfc9-386fa919d44b";
+      device = "/dev/mapper/invar-luks";
       fsType = "btrfs";
       # zstd:1  W: ~510MiB/s
       # zstd:3  W: ~330MiB/s
-      options = [ "compress-force=zstd:1" "noatime" "subvol=/@" ];
+      options = [ "compress=zstd:1" "noatime" "subvol=/@" ];
     };
 
     "/boot" = {
-      device = "/dev/disk/by-uuid/DDBD-2F2B";
+      device = "/dev/disk/by-uuid/0CEB-39A8";
       fsType = "vfat";
     };
   };
