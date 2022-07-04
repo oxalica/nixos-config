@@ -50,7 +50,7 @@
       bind-key -T copy-mode-vi DoubleClick1Pane send-keys -X select-word \; send-keys -X copy-selection-no-clear
       bind-key -T copy-mode-vi TripleClick1Pane send-keys -X select-line \; send-keys -X copy-selection-no-clear
       # Clear selection on single-click.
-      bind-key -T copy-mode-vi MouseDown1Pane send-keys -X clear-selection
+      bind-key -T copy-mode-vi MouseDown1Pane select-pane \; send-keys -X clear-selection
       # Quick enter and leave.
       bind-key -n DoubleClick3Pane copy-mode -M \; send-keys -X select-word \; send-keys -X copy-selection-no-clear
       bind-key -n TripleClick3Pane copy-mode -M \; send-keys -X select-line \; send-keys -X copy-selection-no-clear
