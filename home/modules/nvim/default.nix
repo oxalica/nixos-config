@@ -241,19 +241,6 @@ let
       EOF
     '')
 
-    (withConf lsp_extensions-nvim /* vim */ ''
-      lua <<EOF
-        function update_inlay_hints()
-          require("lsp_extensions").inlay_hints {
-            enabled = { "TypeHint", "ChainingHint" },
-            prefix = "»",
-            highlight = "NonText",
-          }
-        end
-        vim.cmd('autocmd InsertLeave,BufEnter,BufWinEnter,TabEnter,BufWritePost *.rs :lua update_inlay_hints()')
-      EOF
-    '')
-
     (withConf nvim-lspconfig /* vim */ ''
       lua <<EOF
         local lsp = require('lspconfig')
@@ -292,7 +279,7 @@ let
           autostart = false,
           on_attach = on_attach,
           capabilities = capabilities,
-          cmd = { 'rust-analyzer' },
+          cmd = { '${pkgs.rust-analyzer}/bin/rust-analyzer' },
           settings = {
             ['rust-analyzer'] = {
               checkOnSave = { command = 'clippy' },
@@ -315,6 +302,12 @@ let
           on_attach = on_attach,
           capabilities = capabilities,
           cmd = { '${pkgs.pyright}/bin/pyright-langserver', '--stdio' },
+        }
+
+        lsp.rnix.setup {
+          autostart = true,
+          capabilities = capabilities,
+          cmd = { '${pkgs.rnix-lsp}/bin/rnix-lsp' },
         }
       EOF
     '')
@@ -543,9 +536,6 @@ in
     withRuby = false;
     inherit plugins extraConfig;
   };
-
-  # Used by LSP.
-  home.packages = [ pkgs.rust-analyzer ];
 
   pam.sessionVariables.EDITOR = "nvim";
   home.sessionVariables.EDITOR = "nvim";
