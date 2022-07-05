@@ -86,6 +86,8 @@
     video.hidpi.enable = true;
     cpu.amd.updateMicrocode = true;
     bluetooth.enable = true;
+    logitech.wireless.enable = true;
+    logitech.wireless.enableGraphical = true; # Solaar.
   };
   console = {
     font = "${pkgs.terminus_font}/share/consolefonts/ter-v28n.psf.gz";
@@ -175,8 +177,6 @@
     freeSwapThreshold = 10;
     enableNotifications = true;
   };
-
-  services.udev.packages = with pkgs; [ logitech-udev-rules ];
 
   services.transmission = {
     enable = true;
