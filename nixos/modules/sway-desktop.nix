@@ -1,3 +1,4 @@
+{ pkgs, ... }:
 {
   imports = [ ./l10n.nix ];
 
@@ -10,4 +11,5 @@
   programs.xwayland.enable = true;
 
   xdg.portal.wlr.enable = true;
+  xdg.portal.extraPortals = with pkgs; [ xdg-desktop-portal-gtk ];
 }
