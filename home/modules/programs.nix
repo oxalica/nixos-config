@@ -2,8 +2,9 @@
 
 let
   myPython = pkgs.python3.withPackages (ps: with ps; [
-    pylint
+    aiohttp
     numpy
+    pylint
     pyyaml
     requests
     toml
