@@ -16,30 +16,15 @@ let
     [build]
     target-dir = "${targetDir}"
 
-    ${lib.optionalString enableLld ''
-      [target."${rustHostTarget}"]
-      linker = "${lld-linker}"
-    ''}
+    [target."${pkgs.rust.toRustTarget pkgs.stdenv.hostPlatform}"]
+    linker = "${gcc-lld}"
   '';
 
-  enableLld = true;
-  rustHostTarget = pkgs.rust.toRustTarget pkgs.stdenv.hostPlatform;
-  lld-wrapper = pkgs.wrapBintoolsWith {
-    # `--no-rosegment` is required for flamegraph
-    # https://github.com/flamegraph-rs/flamegraph#cargo-flamegraph
-    bintools = pkgs.writeShellScriptBin "ld.lld" ''
-      set -e
-      exec -a ld.lld "$(rustc --print sysroot)/lib/rustlib/${rustHostTarget}/bin/rust-lld" --no-rosegment "$@"
-    '';
-  };
-  lld-linker = pkgs.writeShellScript "lld-linker" ''
-    lld="$(rustc --print sysroot)/lib/rustlib/${rustHostTarget}/bin/rust-lld" || true
-    if [[ -e "$lld" && -z "$RUST_NO_LLD" ]]; then
-      export PATH="${lld-wrapper}/bin''${PATH:+:}$PATH"
-      exec ${pkgs.gcc}/bin/gcc -fuse-ld=lld "$@"
-    else
-      exec ${pkgs.gcc}/bin/gcc "$@"
-    fi
+  # `--no-rosegment` is required for flamegraph
+  # https://github.com/flamegraph-rs/flamegraph#cargo-flamegraph
+  gcc-lld = pkgs.writeShellScript "gcc-lld" ''
+    export PATH="${pkgs.llvmPackages_latest.bintools}/bin''${PATH:+:}$PATH"
+    exec ${pkgs.gcc}/bin/gcc -fuse-ld=lld -Wl,--no-rosegment "$@"
   '';
 
 in {

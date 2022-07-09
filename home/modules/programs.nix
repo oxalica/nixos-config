@@ -27,7 +27,7 @@ in {
     simplescreenrecorder obs-studio # Recording
 
     # Dev
-    cachix patchelf lld nixpkgs-review # Nix utils
+    cachix patchelf nixpkgs-review # Nix utils
     gcc ghc myPython # Compiler & interpreters
     sqlite-interactive # sqlite
   ];
