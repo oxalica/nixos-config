@@ -20,7 +20,7 @@
 
   boot = {
     initrd = {
-      availableKernelModules = [ "xhci_pci" "nvme" "usbhid" "rtsx_pci_sdmmc" ];
+      availableKernelModules = [ "xhci_pci" "nvme" "rtsx_pci_sdmmc" ];
       kernelModules = [ ];
       luks = {
         gpgSupport = true;
@@ -63,7 +63,7 @@
     "/" = {
       device = "/dev/disk/by-uuid/fbfe849d-2d2f-415f-88d3-65ded870e46b";
       fsType = "btrfs";
-      options = [ "noatime" "compress-force=zstd:1" "subvol=@" ];
+      options = [ "noatime" "compress=zstd:1" "subvol=@" ];
     };
 
     "/boot" = {
