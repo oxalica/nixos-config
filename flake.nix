@@ -11,7 +11,7 @@
 
     flake-utils.url = "github:numtide/flake-utils";
     home-manager = {
-      url = "github:oxalica/home-manager/fix/sway-dbus-env";
+      url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
       inputs.utils.follows = "flake-utils";
       inputs.flake-compat.follows = "nixpkgs-unstable"; # Unused. As a placeholer.
@@ -26,7 +26,6 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
       # Only for checks.
       inputs.nixpkgs-22_05.follows = "nixpkgs-unstable";
-      inputs.nixpkgs-21_11.follows = "nixpkgs-unstable";
     };
 
     meta-sifive = {
