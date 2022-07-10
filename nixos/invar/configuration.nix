@@ -6,6 +6,7 @@
     ../modules/console-env.nix
     ../modules/nix-binary-cache-mirror.nix
     ../modules/nix-common.nix
+    ../modules/nix-registry.nix
     ../modules/sway-desktop.nix
   ] ++ lib.optional (inputs ? secrets) inputs.secrets.nixosModules.invar;
 
