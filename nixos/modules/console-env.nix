@@ -11,27 +11,35 @@
   environment.defaultPackages = [ ];
 
   environment.systemPackages = with pkgs; [
-    cntr # Nix
+    cntr # Nix debug.
     procs ncdu swapview smartmontools # Stat
     curl git rawmv strace pv exa fd ripgrep lsof jq loop bc file rsync dnsutils # Utilities
+    e2fsprogs # For {ls,ch}attr and filefrag.
     gnupg age pwgen sops ssh-to-age # Crypto
     libarchive zstd # Compression
   ];
 
   programs.less = {
     enable = true;
-    lineEditingKeys = {
-      "^W" = "word-delete";
-      "^P" = "back-complete";
-      "^N" = "forw-complete";
-    };
- };
-  # Don't use `programs.less.envVariables.LESS`, which will be override by `LESS` set by `man`.
-  environment.variables.LESS = lib.concatStringsSep " " [
-    "--RAW-CONTROL-CHARS" # Only allow colors.
-    "--mouse"
-    "--wheel-lines=5"
-  ];
+    lessopen = null;
+  };
+  environment.variables = let
+    common = [
+      "--RAW-CONTROL-CHARS" # Only allow colors.
+      "--mouse"
+      "--wheel-lines=5"
+      "--LONG-PROMPT"
+    ];
+  in {
+    PAGER = "less";
+    # Don't use `programs.less.envVariables.LESS`, which will be override by `LESS` set by `man`.
+    LESS = lib.concatStringsSep " " common;
+    SYSTEMD_LESS = lib.concatStringsSep " " (common ++ [
+      "--quit-if-one-screen"
+      "--chop-long-lines"
+      "--no-init" # Keep content after quit.
+    ]);
+  };
 
   programs.tmux.enable = true;
 
