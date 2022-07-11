@@ -487,6 +487,8 @@ let
 
     " Highlight on yank.
     autocmd TextYankPost * silent! lua vim.highlight.on_yank {higroup="IncSearch", timeout=200}
+    " Copy to clipboard on yank.
+    autocmd TextYankPost * if v:event["operator"] == "y" && v:event["regname"] == "" | let @+ = @0 | endif
 
     " Status line.
     " Reference: https://github.com/lilydjwg/dotvim/blob/07c4467153f2f44264fdb0e23c085b56cad519db/vimrc#L548
@@ -510,9 +512,7 @@ let
 
     " Command-like.
     noremap  <m-z> <cmd>set wrap!<bar>set wrap?<cr>
-    noremap! <m-z> <cmd>set wrap!<bar>set wrap?<cr>
     noremap  <m-cr> <cmd>set hlsearch!<bar>set hlsearch?<cr>
-    noremap! <m-cr> <cmd>set hlsearch!<bar>set hlsearch?<cr>
 
     " Panes
     noremap <c-w>v <cmd>vsplit<cr>
@@ -537,6 +537,5 @@ in
     inherit plugins extraConfig;
   };
 
-  pam.sessionVariables.EDITOR = "nvim";
   home.sessionVariables.EDITOR = "nvim";
 }
