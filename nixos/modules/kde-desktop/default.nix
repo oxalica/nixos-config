@@ -6,6 +6,8 @@
     ark
     filelight
     plasma-browser-integration
+    kwin-tiling
+    kwin-dynamic-workspaces
   ];
 
   programs = {
