@@ -3,6 +3,7 @@
   home.sessionVariables = {
     # Rust and python outputs.
     PATH = "$PATH\${PATH:+:}$HOME/.cargo/bin:$HOME/.local/bin";
+    MANPAGER = "nvim +Man!";
   };
 
   # The default `command-not-found` relies on nix-channel. Use `nix-index` instead.
