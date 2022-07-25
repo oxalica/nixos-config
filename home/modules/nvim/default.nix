@@ -20,61 +20,33 @@ let
       let g:fcitx5_remote = '${lib.getBin pkgs.fcitx5}/bin/fcitx5-remote'
     '')
 
-    # telescope {{{
-    telescope-fzf-native-nvim
-    (withConf telescope-nvim /* vim */ ''
-      lua <<EOF
-        require("telescope").setup {
-          defaults = {
-            mappings = {
-              i = {
-                ["<m-p>"] = require("telescope.actions.layout").toggle_preview,
-                ["<esc>"] = require("telescope.actions").close,
-                ["<up>"] = require("telescope.actions").cycle_history_prev,
-                ["<down>"] = require("telescope.actions").cycle_history_next,
-              },
-            },
-            sorting_strategy = "ascending",
-            layout_strategy = "horizontal",
-            layout_config = { prompt_position = "top" },
-            preview = {
-              filesize_limit = 1, -- 1MiB
-              msg_bg_fillchar = ".",
-              hide_on_startup = false,
-            },
-          },
-          extensions = {
-            fzf = { fuzzy = false }, -- Substring matching by default.
-          },
-          pickers = {
-            find_files = {
-              -- Search hidden files.
-              find_command = { "fd", "--hidden", "--type=file", "--exclude=.git" },
-            },
-          },
-        }
-        require('telescope').load_extension('fzf')
-
-        vim.api.nvim_create_user_command("Rg", function(args)
-          require('telescope.builtin').grep_string {
-            use_regex = not args.bang,
-            search = args.args,
-          }
-        end, { nargs = 1, bang = true })
-      EOF
-
-      nnoremap <leader>ff <cmd>Telescope find_files<cr>
-      nnoremap <leader>f. <cmd>Telescope find_files cwd=%:h<cr>
-      nnoremap <leader>fp <cmd>Telescope find_files cwd=%:h:h<cr>
-
-      nnoremap <leader>fr <cmd>Telescope live_grep<cr>
-      nnoremap <leader>fw <cmd>Telescope grep_string<cr>
-      nnoremap <leader>fb <cmd>Telescope buffers<cr>
-      nnoremap <leader>fh <cmd>Telescope help_tags<cr>
-      nnoremap <leader>ft <cmd>Telescope treesitter<cr>
-      nnoremap <leader>fd <cmd>Telescope diagnostics<cr>
-      nnoremap <leader>fa <cmd>Telescope lsp_workspace_symbols<cr>
-      nnoremap <leader>fs <cmd>Telescope lsp_document_symbols<cr>
+    # fzf.vim {{{
+    (withConf fzf-vim /* vim */ ''
+      let $FZF_DEFAULT_COMMAND = '${lib.getBin pkgs.fd}/bin/fd --type=f --hidden --exclude=.git'
+      let $FZF_DEFAULT_OPTS = '${lib.concatStringsSep " " [
+        "--layout=reverse" # Top-first.
+        "--color=16" # 16-color theme.
+        "--info=inline"
+        "--bind=ctrl-p:up,ctrl-n:down,up:previous-history,down:next-history,alt-p:toggle-preview"
+        "--exact" # Substring matching by default, `'`-quote for subsequence matching.
+      ]}'
+      let g:fzf_history_dir = stdpath('cache') . '/fzf_history'
+      let g:fzf_action = {
+          \ 'ctrl-t': 'tab split',
+          \ 'ctrl-s': 'split',
+          \ 'ctrl-v': 'vsplit',
+          \ }
+      nnoremap <silent> <leader>ff <cmd>call fzf#vim#files("", fzf#vim#with_preview(), 0)<cr>
+      nnoremap <silent> <leader>f. <cmd>call fzf#vim#files(expand('%:h'), fzf#vim#with_preview(), 0)<cr>
+      nnoremap <silent> <leader>fp <cmd>call fzf#vim#files(expand('%:h:h'), fzf#vim#with_preview(), 0)<cr>
+      nnoremap <silent> <leader>fw <cmd>call fzf#vim#grep("rg --column --line-number --no-heading --color=always -F -- ".shellescape(<q-args>), 1, fzf#vim#with_preview(), 0)<cr>
+      nnoremap <silent> <leader>fb <cmd>Buffers<cr>
+      nnoremap <silent> <leader>fh <cmd>Helptags<cr>
+      nnoremap          <leader>fr :Rg<space>
+    '')
+    (withConf fzf-lsp-nvim /* vim */ ''
+      nnoremap <silent> <leader>fd <cmd>DiagnosticsAll<cr>
+      nnoremap <silent> <leader>fs <cmd>DocumentSymbols<cr>
     '')
     # }}}
 

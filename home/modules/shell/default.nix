@@ -3,15 +3,6 @@
   home.sessionVariables = {
     # Rust and python outputs.
     PATH = "$PATH\${PATH:+:}$HOME/.cargo/bin:$HOME/.local/bin";
-
-    FZF_DEFAULT_COMMAND = "${lib.getBin pkgs.fd}/bin/fd";
-    FZF_DEFAULT_OPTS = lib.concatStringsSep " " [
-      "--layout=reverse"
-      "--info=inline"
-      "--preview-window=down"
-      "--bind=ctrl-p:up,ctrl-n:down,up:previous-history,down:next-history"
-      "--exact" # Substring matching by default, `'`-quote for subsequence matching.
-    ];
   };
 
   # The default `command-not-found` relies on nix-channel. Use `nix-index` instead.
@@ -95,7 +86,7 @@
     zoxide
     nix-zsh-completions
     (lib.hiPrio nixFlakes) # Prefer nix's builtin completion.
-    fzf
+    fzf bat # WARN: They are used by fzf.vim!
 
     scripts
     termcolors
