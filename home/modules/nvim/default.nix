@@ -36,10 +36,15 @@ let
           \ 'ctrl-s': 'split',
           \ 'ctrl-v': 'vsplit',
           \ }
+      function FZFRg(pat, args, fullscreen)
+        let args = "--column --line-number --no-heading --color=always " . a:args
+        call fzf#vim#grep("rg " . args . " -- " . shellescape(a:pat), 1, fzf#vim#with_preview(), a:fullscreen)
+      endfunction
+      command -nargs=1 -bang RgF call FZFRg(<q-args>, "--fixed-strings", <bang>0)
       nnoremap <silent> <leader>ff <cmd>call fzf#vim#files("", fzf#vim#with_preview(), 0)<cr>
       nnoremap <silent> <leader>f. <cmd>call fzf#vim#files(expand('%:h'), fzf#vim#with_preview(), 0)<cr>
       nnoremap <silent> <leader>fp <cmd>call fzf#vim#files(expand('%:h:h'), fzf#vim#with_preview(), 0)<cr>
-      nnoremap <silent> <leader>fw <cmd>call fzf#vim#grep("rg --column --line-number --no-heading --color=always -F -- ".shellescape(<q-args>), 1, fzf#vim#with_preview(), 0)<cr>
+      nnoremap <silent> <leader>fw <cmd>call FZFRg(expand('<cword>'), '--fixed-strings --word-regexp', 0)<cr>
       nnoremap <silent> <leader>fb <cmd>Buffers<cr>
       nnoremap <silent> <leader>fh <cmd>Helptags<cr>
       nnoremap          <leader>fr :Rg<space>
