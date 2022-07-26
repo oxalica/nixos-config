@@ -122,11 +122,6 @@ let
       let g:better_whitespace_operator = 1
     '')
 
-    (withConf vim-crates ''
-      highlight link Crates WarningMsg
-      autocmd BufNewFile,BufRead Cargo.toml call crates#toggle()
-    '')
-
     # Immediate refresh & manual define highlighting in nightfox.
     (withConf vim-cursorword ''
       let g:cursorword_delay = 0
@@ -163,20 +158,31 @@ let
 
     # nvim-cmp {{{
     # https://github.com/neovim/nvim-lspconfig/wiki/Autocompletion
-    luasnip
+    (withConf luasnip ''
+      smap <silent> <tab>   <Plug>luasnip-jump-next
+      smap <silent> <m-tab> <Plug>luasnip-jump-next
+      smap <silent> <s-tab> <Plug>luasnip-jump-prev
+      imap <silent> <m-tab> <Plug>luasnip-jump-next
+      imap <silent> <s-tab> <Plug>luasnip-jump-prev
+    '')
     cmp_luasnip
     cmp-nvim-lsp
     cmp-path
     cmp-buffer
+    (withConf crates-nvim /* vim */ ''
+      autocmd BufRead Cargo.toml lua require('crates').setup()
+    '')
     (withConf nvim-cmp /* vim */ ''
       lua <<EOF
         vim.o.completeopt = 'menuone,noselect'
+
         local cmp = require('cmp')
+        local luasnip = require('luasnip')
         cmp.setup {
           -- REQUIRED - you must specify a snippet engine
           snippet = {
             expand = function(args)
-              require('luasnip').lsp_expand(args.body)
+              luasnip.lsp_expand(args.body)
             end,
           },
           mapping = {
@@ -186,11 +192,18 @@ let
             ['<C-f>'] = cmp.mapping.scroll_docs(4),
             ['<C-space>'] = cmp.mapping.complete(),
             ['<C-e>'] = cmp.mapping.close(),
-            ['<tab>'] = cmp.mapping.confirm { select = true },
+            ['<tab>'] = cmp.mapping(function(fallback)
+              if cmp.visible() then
+                cmp.confirm { select = true }
+              else
+                fallback()
+              end
+            end),
           },
           sources = cmp.config.sources({
             { name = 'nvim_lsp' },
             { name = 'luasnip' },
+            { name = 'crates' },
           }, {
             { name = 'path' },
             { name = 'buffer' },
@@ -208,11 +221,12 @@ let
         local lsp_status = require('lsp-status')
         lsp_status.config {
           status_symbol = '[LSP]',
-          indicator_errors = 'E',
-          indicator_warnings = 'W',
-          indicator_info = 'I',
-          indicator_hint = 'H',
-          indicator_ok = 'OK',
+          indicator_errors = '⮾ ',
+          indicator_warnings = '⚠ ',
+          indicator_info = '🛈 ',
+          indicator_hint = ' ',
+          indicator_separator = "",
+          component_separator = ' ',
         }
         lsp_status.register_progress()
       EOF
@@ -416,6 +430,14 @@ let
     (withConf nightfox-nvim /* vim */ ''
       lua <<EOF
         require("nightfox").setup {
+          modules = {
+            cmp = true,
+            diagnostic = true,
+            gitsigns = true,
+            hop = true,
+            native_lsp = true,
+            treesitter = true,
+          },
           groups = {
             all = {
               -- vim-better-whitespace
@@ -424,6 +446,8 @@ let
               -- vim-cursorword
               CursorWord0 = { style = "underline" },
               CursorWord1 = { style = "underline" },
+
+              DiagnosticUnderlineHint = { link = "None" },
             },
           },
         }
