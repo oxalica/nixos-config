@@ -168,6 +168,7 @@
       };
 
       iso = mkSystem "iso" "x86_64-linux" inputs.nixpkgs-stable { };
+      iso-graphical = mkSystem "iso-graphical" "x86_64-linux" inputs.nixpkgs-unstable { };
     };
   };
 }
