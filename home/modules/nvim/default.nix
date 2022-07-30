@@ -49,7 +49,7 @@ let
       nnoremap <silent> <leader>fh <cmd>Helptags<cr>
       nnoremap          <leader>fr :Rg<space>
     '')
-    (withConf fzf-lsp-nvim /* vim */ ''
+    (withConf fzf-lsp-nvim ''
       nnoremap <silent> <leader>fd <cmd>DiagnosticsAll<cr>
       nnoremap <silent> <leader>fs <cmd>DocumentSymbols<cr>
     '')
@@ -215,6 +215,7 @@ let
 
     # LSP {{{
     lsp_signature-nvim
+    my.pkgs.lsp-inlayhints-nvim
 
     (withConf lsp-status-nvim /* vim */ ''
       lua <<EOF
@@ -252,6 +253,13 @@ let
         }
 
         local lsp_status = require('lsp-status')
+        local lsp_inlayhints = require('lsp-inlayhints')
+        lsp_inlayhints.setup {
+          inlay_hints = {
+            parameter_hints = { show = false },
+            highlight = 'Comment',
+          },
+        }
 
         -- https://github.com/neovim/nvim-lspconfig/wiki/Autocompletion
         local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -260,6 +268,7 @@ let
 
         local function on_attach(client, bufnr)
           lsp_status.on_attach(client, bufnr)
+          lsp_inlayhints.on_attach(bufnr, client)
           require("lsp_signature").on_attach()
           for i, lr in pairs(lsp_mappings) do
             vim.api.nvim_buf_set_keymap(bufnr, 'n', lr[1], '<cmd>lua ' .. lr[2] .. '<cr>', { noremap = true, silent = true })
@@ -267,7 +276,7 @@ let
         end
 
         lsp.rust_analyzer.setup {
-          autostart = false,
+          autostart = true,
           on_attach = on_attach,
           capabilities = capabilities,
           cmd = { '${pkgs.rust-analyzer}/bin/rust-analyzer' },

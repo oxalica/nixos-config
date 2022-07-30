@@ -4,6 +4,8 @@
 
   double-entry-generator = callPackage ./double-entry-generator.nix { };
 
+  lsp-inlayhints-nvim = callPackage ./lsp-inlayhints-nvim.nix { };
+
   rawmv = callPackage ./rawmv.nix { };
 
   rime_latex = callPackage ./rime_latex.nix { };
