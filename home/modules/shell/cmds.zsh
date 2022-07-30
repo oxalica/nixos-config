@@ -8,7 +8,7 @@ alias n="nix"
 alias nb="nix build"
 alias nf="nix flake"
 alias nr="nix repl"
-alias nrp="nix repl '<nixpkgs>'"
+alias nrp="nix repl -f '<nixpkgs>'"
 
 alias v="nvim"
 alias g="git"

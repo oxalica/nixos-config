@@ -190,7 +190,7 @@
     onBoot = "ignore";
   };
 
-  nix.settings.experimental-features = [ "ca-derivations" ];
+  nix.settings.experimental-features = [ "ca-derivations" "repl-flake" ];
 
   # Global ssh settings. Also for remote builders.
   programs.ssh = {
