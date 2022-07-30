@@ -1,4 +1,4 @@
-{ lib, pkgs, ... }:
+{ lib, pkgs, my, ... }:
 {
   i18n = {
     supportedLocales = [ "all" ]; # Override console-env.
@@ -9,6 +9,8 @@
       fcitx5.enableRimeData = true;
     };
   };
+
+  environment.systemPackages = [ my.pkgs.rime_latex ];
 
   # Ref: https://catcat.cc/post/2021-03-07/
   fonts = {

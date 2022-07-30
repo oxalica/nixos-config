@@ -71,22 +71,6 @@
         "type": "github"
       }
     },
-    "nixpkgs-sway-lock-fix": {
-      "locked": {
-        "lastModified": 1655925355,
-        "narHash": "sha256-bZkCg2JKPuA1nrjO/xMFrTORJEODS8x/LLfllilxGEg=",
-        "owner": "oxalica",
-        "repo": "nixpkgs",
-        "rev": "29d46beeb88d430960244e67b03f8dfb11b8c169",
-        "type": "github"
-      },
-      "original": {
-        "owner": "oxalica",
-        "ref": "bump/sway-wlroots",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "nixpkgs-unmatched": {
       "locked": {
         "lastModified": 1640713360,
@@ -159,38 +143,18 @@
         "type": "github"
       }
     },
-    "rime-latex": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1642790610,
-        "narHash": "sha256-Y7CBVhqL/Gx7ZB0xKdhOgvGogDAyRq0ibioq71Xu4/M=",
-        "owner": "shenlebantongying",
-        "repo": "rime_latex",
-        "rev": "3fbf0e02a264f56fc32ac0628f62033723f8a0e7",
-        "type": "github"
-      },
-      "original": {
-        "owner": "shenlebantongying",
-        "repo": "rime_latex",
-        "type": "github"
-      }
-    },
     "root": {
       "inputs": {
         "flake-utils": "flake-utils",
         "home-manager": "home-manager",
         "meta-sifive": "meta-sifive",
         "nixpkgs-stable": "nixpkgs-stable",
-        "nixpkgs-sway-lock-fix": "nixpkgs-sway-lock-fix",
         "nixpkgs-unmatched": "nixpkgs-unmatched",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "nocargo": "nocargo",
-        "rime-latex": "rime-latex",
         "rust-overlay": "rust-overlay",
         "secrets": "secrets",
-        "sops-nix": "sops-nix",
-        "tree-sitter-bash": "tree-sitter-bash",
-        "tree-sitter-nix": "tree-sitter-nix"
+        "sops-nix": "sops-nix"
       }
     },
     "rust-overlay": {
@@ -251,38 +215,6 @@
       "original": {
         "owner": "Mic92",
         "repo": "sops-nix",
-        "type": "github"
-      }
-    },
-    "tree-sitter-bash": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1639587184,
-        "narHash": "sha256-+XJ6ivsp0q08KWhwEQnAYpU88/gggf6or6oxga5k0ZE=",
-        "owner": "tree-sitter",
-        "repo": "tree-sitter-bash",
-        "rev": "275effdfc0edce774acf7d481f9ea195c6c403cd",
-        "type": "github"
-      },
-      "original": {
-        "owner": "tree-sitter",
-        "repo": "tree-sitter-bash",
-        "type": "github"
-      }
-    },
-    "tree-sitter-nix": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1639068943,
-        "narHash": "sha256-x2Kq7t0p5AOKIHtEUHMIC6emZNoF9GE2FdKbjEfUp0E=",
-        "owner": "oxalica",
-        "repo": "tree-sitter-nix",
-        "rev": "add8eb3050a0974c1854df419c192fa4f359bcb0",
-        "type": "github"
-      },
-      "original": {
-        "owner": "oxalica",
-        "repo": "tree-sitter-nix",
         "type": "github"
       }
     }

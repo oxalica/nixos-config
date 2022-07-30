@@ -7,7 +7,7 @@ let
   '';
 in {
   # https://github.com/NixOS/nixpkgs/pull/167032
-  systemd.user.sessionVariables.NIX_RIME_DATA_DIR = "${pkgs.rime-data}/share/rime-data";
+  systemd.user.sessionVariables.NIX_RIME_DATA_DIR = "/run/current-system/sw/share/rime-data";
 
   home.activation.setupRimeCacheDirectory = lib.hm.dag.entryAfter [ "writeBoundary" "onFilesChange" ] ''
     $DRY_RUN_CMD mkdir -p "${buildDir}"
@@ -42,8 +42,5 @@ in {
         "switches/@2/reset" = 1;
       };
     };
-
-    "fcitx5/rime/latex.schema.yaml".source = inputs.rime-latex + "/latex.schema.yaml";
-    "fcitx5/rime/latex.dict.yaml".source = inputs.rime-latex + "/latex.dict.yaml";
   };
 }

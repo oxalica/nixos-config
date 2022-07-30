@@ -1,4 +1,4 @@
-{ lib, pkgs, ... }:
+{ lib, pkgs, my, ... }:
 
 let
   myPython = pkgs.python3.withPackages (ps: with ps; [
@@ -15,7 +15,7 @@ in {
     # Console
     runzip scc # Random stuff
     xsel wl-clipboard # CLI-Desktop
-    beancount double-entry-generator # Accounting
+    beancount my.pkgs.double-entry-generator # Accounting
     tealdeer man-pages # Manual
     sops # Sops
 

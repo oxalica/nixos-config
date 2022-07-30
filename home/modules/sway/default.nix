@@ -1,5 +1,5 @@
 # Ref: https://gitlab.com/NickCao/flakes/-/blob/master/nixos/local/home.nix
-{ lib, pkgs, config, super, ... }:
+{ lib, pkgs, config, my, ... }:
 let
   wallpaper = pkgs.fetchurl {
     name = "wallpaper.jpg";
@@ -59,6 +59,11 @@ in
     xwayland = true;
     systemdIntegration = true;
     wrapperFeatures.gtk = true;
+
+    # FIXME: Wait for https://github.com/swaywm/swaylock/issues/204
+    package = my.pkgs.sway-unstable.override {
+      withGtkWrapper = true;
+    };
 
     config =
       let

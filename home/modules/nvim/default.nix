@@ -1,4 +1,4 @@
-{ lib, pkgs, inputs, ... }:
+{ lib, pkgs, my, ... }:
 let
   withConf = plugin: config: { inherit plugin config; };
 
@@ -306,12 +306,10 @@ let
 
     # Tree sitter. {{{
     (let
+      inherit (my.pkgs) tree-sitter-bash-unstable tree-sitter-nix-oxalica;
       plugins = ps: with ps; [
         tree-sitter-agda
-        (tree-sitter-bash.overrideAttrs (old: {
-          version = "fixed";
-          src = inputs.tree-sitter-bash;
-        }))
+        tree-sitter-bash-unstable
         tree-sitter-beancount
         tree-sitter-c
         tree-sitter-clojure
@@ -333,10 +331,7 @@ let
         tree-sitter-lua
         tree-sitter-make
         # tree-sitter-markdown # Highly broken
-        (tree-sitter-nix.overrideAttrs (old: {
-          version = "fixed";
-          src = inputs.tree-sitter-nix;
-        }))
+        tree-sitter-nix-oxalica
         tree-sitter-perl
         tree-sitter-python
         tree-sitter-query
@@ -353,7 +348,7 @@ let
       nvim-treesitter = (pkgs.vimPlugins.nvim-treesitter.withPlugins plugins).overrideAttrs (old: {
         postInstall = old.postInstall or "" + ''
           for x in highlights locals injections indents; do
-            cp -f ${inputs.tree-sitter-nix}/queries/nvim-$x.scm $out/queries/nix/$x.scm
+            cp -f ${tree-sitter-nix-oxalica.src}/queries/nvim-$x.scm $out/queries/nix/$x.scm
           done
         '';
       });

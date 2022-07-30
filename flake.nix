@@ -6,9 +6,6 @@
     nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-22.05";
     nixpkgs-unmatched.url = "github:oxalica/nixpkgs/test/unmatched";
 
-    # FIXME: Wait for https://github.com/swaywm/swaylock/issues/204
-    nixpkgs-sway-lock-fix.url = "github:oxalica/nixpkgs/bump/sway-wlroots";
-
     flake-utils.url = "github:numtide/flake-utils";
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -36,26 +33,12 @@
       url = "github:sifive/meta-sifive/2021.11.00";
       flake = false;
     };
-    rime-latex = {
-      url = "github:shenlebantongying/rime_latex";
-      flake = false;
-    };
-    tree-sitter-nix = {
-      url = "github:oxalica/tree-sitter-nix";
-      # url = "/home/oxa/repo/fork/tree-sitter-nix";
-      flake = false;
-    };
-    tree-sitter-bash = {
-      # With support for zsh.
-      url = "github:tree-sitter/tree-sitter-bash";
-      flake = false;
-    };
 
     # Optional.
     secrets.url = "/home/oxa/storage/repo/nixos-config-secrets";
   };
 
-  outputs = { nixpkgs-unstable, nixpkgs-stable, flake-utils, ... }@inputs: let
+  outputs = { self, nixpkgs-unstable, nixpkgs-stable, flake-utils, ... }@inputs: let
 
     inherit (nixpkgs-unstable) lib;
 
@@ -66,22 +49,9 @@
         setAttrByPath pathList (getAttrFromPath pathList pr.legacyPackages.${final.system})
       ) pathStrs);
 
-    overlays = {
-      mypkgs = final: prev: import ./pkgs { inherit (final) callPackage; };
-      rust-overlay = inputs.rust-overlay.overlays.default;
-
-      prefer-remote-fetch = final: prev: prev.prefer-remote-fetch final prev;
-
-      sway-lock-fix = final: prev: {
-        sway-unwrapped = final.callPackage (inputs.nixpkgs-sway-lock-fix + "/pkgs/applications/window-managers/sway/default.nix") {
-          wlroots = final.callPackage (inputs.nixpkgs-sway-lock-fix + "/pkgs/development/libraries/wlroots/0.16.nix") { };
-        };
-      };
-    };
-
     nixosModules = {
       # Ref: https://github.com/dramforever/config/blob/63be844019b7ca675ea587da3b3ff0248158d9fc/flake.nix#L24-L28
-      system-label = let inherit (inputs) self; in {
+      system-label = {
         system.configurationRevision = self.rev or null;
         system.nixos.label =
           if self.sourceInfo ? lastModifiedDate && self.sourceInfo ? shortRev
@@ -117,34 +87,30 @@
       };
     };
 
-    mkSystem = name: system: nixpkgs: { extraOverlays ? [], extraModules ? [] }: nixpkgs.lib.nixosSystem {
+    mkSystem = name: system: nixpkgs: { extraModules ? [] }: nixpkgs.lib.nixosSystem {
       inherit system;
-      specialArgs.inputs = inputs // { inherit nixpkgs; };
-      specialArgs.my = import ./my;
+      specialArgs = {
+        inputs = inputs // { inherit nixpkgs; };
+        my = import ./my // {
+          pkgs = self.packages.${system};
+        };
+      };
       modules = with nixosModules; [
         system-label
-        {
-          networking.hostName = name;
-          nixpkgs.overlays = with overlays; [
-            mypkgs
-            rust-overlay
-          ] ++ extraOverlays;
-        }
+        { networking.hostName = name; }
         ./nixos/${name}/configuration.nix
       ] ++ extraModules;
     };
 
   in {
-    inherit overlays nixosModules;
+    inherit nixosModules;
 
     nixosConfigurations = {
       invar = mkSystem "invar" "x86_64-linux" inputs.nixpkgs-unstable {
-        extraOverlays = with overlays; [ sway-lock-fix ];
         extraModules = with nixosModules; [ home-manager sops initrd-systemd-fix ];
       };
 
       blacksteel = mkSystem "blacksteel" "x86_64-linux" inputs.nixpkgs-unstable {
-        extraOverlays = with overlays; [ ];
         extraModules = with nixosModules; [ home-manager sops ];
       };
 
@@ -170,5 +136,10 @@
       iso = mkSystem "iso" "x86_64-linux" inputs.nixpkgs-stable { };
       iso-graphical = mkSystem "iso-graphical" "x86_64-linux" inputs.nixpkgs-unstable { };
     };
-  };
+
+  } // flake-utils.lib.eachDefaultSystem (system: {
+    packages = import ./pkgs {
+      inherit (nixpkgs-unstable.legacyPackages.${system}) callPackage;
+    };
+  });
 }
