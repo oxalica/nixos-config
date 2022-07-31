@@ -119,7 +119,6 @@ let
     # Disables key mappings.
     (withConf vim-better-whitespace ''
       let g:show_spaces_that_precede_tabs = 1
-      let g:better_whitespace_operator = 1
     '')
 
     # Immediate refresh & manual define highlighting in nightfox.
@@ -276,7 +275,7 @@ let
         end
 
         lsp.rust_analyzer.setup {
-          autostart = true,
+          autostart = false, -- FIXME: It would try to start LSP in crates.io pkgs and produces warnings.
           on_attach = on_attach,
           capabilities = capabilities,
           cmd = { '${pkgs.rust-analyzer}/bin/rust-analyzer' },
