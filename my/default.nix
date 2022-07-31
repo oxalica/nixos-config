@@ -8,11 +8,13 @@
     identities = {
       oxa-invar = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJYl9bIMoMrs8gWUmIAF42mGnKVxqY6c+g2gmE6u2E/B oxa@invar";
       oxa-blacksteel = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICU0P/fbBnnPCVni+efxfl//NQ1jeOe4lUDH6okvLzr1 oxa@blacksteel";
+      shu-iwkr = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOtqhzrEH5VnSSxcLn7MJKbCw7QFhQmX8hkSmsEMq8/I shu@iwkr";
     } // builtins.mapAttrs (name: value: value.publicKey) knownHosts;
 
     knownHosts = {
       invar.publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPp0GGkE81OeO1JUQ+T/DfsjzQSNRz1lzpNTU+UgpAv1";
       blacksteel.publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICVBNvOEn0ncdylnKQIFKd75muElg5TBaMFWrbamAlx+";
+      iwkr.publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEmt0cK3uNWAtpK2k3BA+liaIKWFPa8mDtRh15GAjF3J";
 
       silver = {
         extraHostNames = [ "|1|djhJoriV/JqzO+LqNj6+kJ0SLFk=|SHA3YNffReFWcG8oW5AvH4EePek=" ];

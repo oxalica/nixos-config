@@ -116,20 +116,31 @@
   # Users.
 
   sops.secrets.passwd.neededForUsers = true;
-  programs.zsh.enable = true;
-  users = {
-    mutableUsers = false;
-    users."oxa" = {
-      isNormalUser = true;
-      shell = pkgs.zsh;
-      passwordFile = config.sops.secrets.passwd.path;
-      uid = 1000;
-      group = config.users.groups.oxa.name;
-      extraGroups = [ "wheel" "libvirtd" ];
-    };
-    groups."oxa".gid = 1000;
+  programs.zsh.enable = true; # As shell.
+  users.mutableUsers = false;
+
+  users.users."oxa" = {
+    isNormalUser = true;
+    shell = pkgs.zsh;
+    passwordFile = config.sops.secrets.passwd.path;
+    uid = 1000;
+    group = config.users.groups.oxa.name;
+    extraGroups = [ "wheel" "libvirtd" ];
   };
+  users.groups."oxa".gid = 1000;
   home-manager.users."oxa" = import ../../home/invar.nix;
+
+  # For remote build.
+  users.users."builder" = {
+    isSystemUser = true;
+    shell = pkgs.bash;
+    group = config.users.groups.builder.name;
+    openssh.authorizedKeys.keys =
+      map (line: "restrict,command=\"${config.nix.package}/bin/nix-daemon --stdio\" ${line}")
+        (with my.ssh.identities; [ iwkr shu-iwkr ]);
+  };
+  users.groups."builder" = { };
+  nix.settings.trusted-users = [ config.users.users.builder.name ];
 
   # Services.
 
