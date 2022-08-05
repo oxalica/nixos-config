@@ -1,4 +1,4 @@
-{ pkgs, my, ... }:
+{ config, pkgs, my, ... }:
 {
   programs.gpg = {
     enable = true;
@@ -18,7 +18,10 @@
     enable = true;
     enableScDaemon = true;
 
-    pinentryFlavor = "qt";
+    pinentryFlavor =
+      if config.wayland.windowManager.sway.enable
+        then "gtk2"
+        else "qt";
     defaultCacheTtl = 600; # Default
     maxCacheTtl = 1800; # Default
   };

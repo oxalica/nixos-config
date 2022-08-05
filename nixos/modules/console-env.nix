@@ -53,9 +53,4 @@
   programs.command-not-found.enable = false;
 
   programs.vim.defaultEditor = true;
-
-  programs.gnupg.agent = {
-    enable = true;
-    pinentryFlavor = lib.mkDefault "tty";
-  };
 }

@@ -13,7 +13,6 @@
   programs = {
     partition-manager.enable = true;
     kdeconnect.enable = true;
-    gnupg.agent.pinentryFlavor = "qt";
     dconf.enable = true;
   };
 
