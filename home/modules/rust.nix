@@ -1,8 +1,6 @@
 { config, lib, pkgs, inputs, ... }:
 
 let
-  defaultMaxDays = 15;
-
   # Global target
   targetDir = "${home}/.cache/cargo/target";
 
@@ -28,8 +26,9 @@ let
   '';
 
 in {
-  home.packages = with pkgs; [
-    (inputs.rust-overlay.packages.${pkgs.system}.rust.override {
+  home.packages = with pkgs; with inputs.rust-overlay.packages.${pkgs.system}; [
+    (lib.hiPrio rust-nightly.availableComponents.rustfmt)
+    (rust.override {
       extensions = [
         "rust-src"
       ];
