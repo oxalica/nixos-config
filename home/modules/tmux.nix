@@ -17,6 +17,14 @@
       set -g word-separators " ,\"'[](){}<>=:@"
 
       set -sa terminal-overrides "alacritty:Tc"
+      # Hyperlinks.
+      set -sa terminal-overrides '*:Hls=\E]8;id=%p1%s;%p2%s\E\\:Hlr=\E]8;;\E\\'
+      # SGR 53 (Overline).
+      set -sa terminal-overrides '*:Smol=\E[53m'
+      # Styled underlines.
+      set -sa terminal-overrides '*:Smulx=\E[4::%p1%dm'
+      # Underline colors.
+      set -sa terminal-overrides '*:Setulc=\E[58::2::%p1%{65536}%/%d::%p1%{256}%/%{255}%&%d::%p1%{255}%&%d%;m'
 
       # Colors
       set -g status-style fg=green
