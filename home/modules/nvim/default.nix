@@ -27,15 +27,23 @@ let
         "--layout=reverse" # Top-first.
         "--color=16" # 16-color theme.
         "--info=inline"
-        "--bind=ctrl-p:up,ctrl-n:down,up:previous-history,down:next-history,alt-p:toggle-preview"
+        "--bind=ctrl-p:up,ctrl-n:down,up:previous-history,down:next-history,alt-p:toggle-preview,alt-a:select-all"
         "--exact" # Substring matching by default, `'`-quote for subsequence matching.
       ]}'
       let g:fzf_history_dir = stdpath('cache') . '/fzf_history'
+
+      function! s:build_quickfix_list(lines)
+        call setqflist(map(copy(a:lines), '{ "filename": v:val }'))
+        copen
+        cc
+      endfunction
       let g:fzf_action = {
+          \ 'ctrl-q': function('s:build_quickfix_list'),
           \ 'ctrl-t': 'tab split',
           \ 'ctrl-s': 'split',
           \ 'ctrl-v': 'vsplit',
           \ }
+
       function FZFRg(pat, args, fullscreen)
         let args = "--column --line-number --no-heading --color=always " . a:args
         call fzf#vim#grep("rg " . args . " -- " . shellescape(a:pat), 1, fzf#vim#with_preview(), a:fullscreen)
