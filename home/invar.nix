@@ -18,7 +18,6 @@
     ./modules/rime-fcitx.nix
     ./modules/rust.nix
     ./modules/shell
-    ./modules/stretchly.nix
     ./modules/sway
     ./modules/task.nix
     ./modules/tmux.nix
