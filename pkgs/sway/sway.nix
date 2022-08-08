@@ -13,13 +13,13 @@
 (sway-unwrapped.override {
   inherit isNixOS enableXWayland systemdSupport dbusSupport trayEnabled;
 }).overrideAttrs (old: {
-  version = "unstable-2022-07-30";
+  version = "unstable-2022-08-05";
 
   src = fetchFromGitHub {
     owner = "swaywm";
     repo = "sway";
-    rev = "9e879242fd1f1230d34337984cca565d84b932bb";
-    hash = "sha256-CxfEz8Iaot8ShlNqf9aBdVnxnmlN3aUauYqGQsqpkXI=";
+    rev = "89d73beedbad2d484adc85fe114680e85d391958";
+    hash = "sha256-G4QWZrdU3L23zok62vQ4OCGcUpLdM1kC5vuTcDh+mC8=";
   };
 
   buildInputs = [
