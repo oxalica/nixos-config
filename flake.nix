@@ -28,6 +28,16 @@
       # Only for checks.
       inputs.nixpkgs-22_05.follows = "nixpkgs-unstable";
     };
+    nil = {
+      url = "github:oxalica/nil";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.flake-utils.follows = "flake-utils";
+      inputs.rust-overlay.follows = "rust-overlay";
+    };
+    nvim-lspconfig = {
+      url = "github:neovim/nvim-lspconfig/pull/2053/head";
+      flake = false;
+    };
 
     meta-sifive = {
       url = "github:sifive/meta-sifive/2021.11.00";

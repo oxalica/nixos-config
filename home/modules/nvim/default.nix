@@ -1,4 +1,4 @@
-{ lib, pkgs, my, ... }:
+{ lib, pkgs, inputs, my, ... }:
 let
   withConf = plugin: config: { inherit plugin config; };
 
@@ -240,7 +240,9 @@ let
       EOF
     '')
 
-    (withConf nvim-lspconfig /* vim */ ''
+    (withConf (nvim-lspconfig.overrideAttrs (old: {
+      src = inputs.nvim-lspconfig;
+    })) /* vim */ ''
       lua <<EOF
         local lsp = require('lspconfig')
         local lsp_mappings = {
@@ -311,10 +313,11 @@ let
           cmd = { '${pkgs.pyright}/bin/pyright-langserver', '--stdio' },
         }
 
-        lsp.rnix.setup {
+        lsp.nil_ls.setup {
           autostart = true,
+          on_attach = on_attach,
           capabilities = capabilities,
-          cmd = { '${pkgs.rnix-lsp}/bin/rnix-lsp' },
+          -- Use the default command from PATH to allow overriding.
         }
       EOF
     '')
@@ -550,4 +553,8 @@ in
   };
 
   home.sessionVariables.EDITOR = "nvim";
+
+  home.packages = [
+    inputs.nil.packages.${pkgs.system}.nil
+  ];
 }

@@ -2,7 +2,7 @@
 {
   home.sessionVariables = {
     # Rust and python outputs.
-    PATH = "$PATH\${PATH:+:}$HOME/.cargo/bin:$HOME/.local/bin";
+    PATH = "$HOME/.local/bin\${PATH:+:}$PATH";
     MANPAGER = "nvim +Man!";
   };
 

@@ -55,6 +55,32 @@
         "type": "github"
       }
     },
+    "nil": {
+      "inputs": {
+        "flake-utils": [
+          "flake-utils"
+        ],
+        "nixpkgs": [
+          "nixpkgs-unstable"
+        ],
+        "rust-overlay": [
+          "rust-overlay"
+        ]
+      },
+      "locked": {
+        "lastModified": 1659864359,
+        "narHash": "sha256-wJAvUFlZAAZTwNGZl1BM/PW1eTfWSVutqQpfyarq6OE=",
+        "owner": "oxalica",
+        "repo": "nil",
+        "rev": "17f917dd3fe697923a61c9b3d438f76046aede6f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "oxalica",
+        "repo": "nil",
+        "type": "github"
+      }
+    },
     "nixpkgs-stable": {
       "locked": {
         "lastModified": 1659052185,
@@ -127,6 +153,23 @@
         "type": "github"
       }
     },
+    "nvim-lspconfig": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1659702527,
+        "narHash": "sha256-C44zfwJiIuKwm1/b5dVjZE5K8SguwomuwROKj9hzLQg=",
+        "owner": "neovim",
+        "repo": "nvim-lspconfig",
+        "rev": "f9f540420f4babfc40a33228583b09af32b393da",
+        "type": "github"
+      },
+      "original": {
+        "owner": "neovim",
+        "ref": "pull/2053/head",
+        "repo": "nvim-lspconfig",
+        "type": "github"
+      }
+    },
     "registry-crates-io": {
       "flake": false,
       "locked": {
@@ -148,10 +191,12 @@
         "flake-utils": "flake-utils",
         "home-manager": "home-manager",
         "meta-sifive": "meta-sifive",
+        "nil": "nil",
         "nixpkgs-stable": "nixpkgs-stable",
         "nixpkgs-unmatched": "nixpkgs-unmatched",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "nocargo": "nocargo",
+        "nvim-lspconfig": "nvim-lspconfig",
         "rust-overlay": "rust-overlay",
         "secrets": "secrets",
         "sops-nix": "sops-nix"
