@@ -245,21 +245,6 @@ let
     })) /* vim */ ''
       lua <<EOF
         local lsp = require('lspconfig')
-        local lsp_mappings = {
-          { 'gD', 'vim.lsp.buf.declaration()' },
-          { 'gd', 'vim.lsp.buf.definition()' },
-          { 'gi', 'vim.lsp.buf.implementation()' },
-          { 'gy', 'vim.lsp.buf.type_definition()' },
-          { 'gr', 'vim.lsp.buf.references()' },
-          { '[d', 'vim.diagnostic.goto_prev()' },
-          { ']d', 'vim.diagnostic.goto_next()' },
-          { '<space><space>', 'vim.lsp.buf.hover()' },
-          { '<space>s', 'vim.lsp.buf.signature_help()' },
-          { '<space>r', 'vim.lsp.buf.rename()' },
-          { '<space>a', 'vim.lsp.buf.code_action()' },
-          { '<space>d', 'vim.diagnostic.open_float()' },
-          { '<space>q', 'vim.diagnostic.setloclist()' },
-        }
 
         local lsp_status = require('lsp-status')
         local lsp_inlayhints = require('lsp-inlayhints')
@@ -279,10 +264,29 @@ let
           lsp_status.on_attach(client, bufnr)
           lsp_inlayhints.on_attach(bufnr, client)
           require("lsp_signature").on_attach()
-          for i, lr in pairs(lsp_mappings) do
-            vim.api.nvim_buf_set_keymap(bufnr, 'n', lr[1], '<cmd>lua ' .. lr[2] .. '<cr>', { noremap = true, silent = true })
+
+          local mappings = {
+            { 'gD', vim.lsp.buf.declaration },
+            { 'gd', vim.lsp.buf.definition },
+            { 'gi', vim.lsp.buf.implementation },
+            { 'gy', vim.lsp.buf.type_definition },
+            { 'gr', vim.lsp.buf.references },
+            { '[d', vim.diagnostic.goto_prev },
+            { ']d', vim.diagnostic.goto_next },
+            { '  ', vim.lsp.buf.hover },
+            { ' s', vim.lsp.buf.signature_help },
+            { ' r', vim.lsp.buf.rename },
+            { ' a', vim.lsp.buf.code_action },
+            { ' d', vim.diagnostic.open_float },
+            { ' q', vim.diagnostic.setloclist },
+          }
+          for i, m in pairs(mappings) do
+            vim.keymap.set('n', m[1], function() m[2]() end, { buffer = bufnr })
           end
         end
+
+        -- This is set globally and only affect the current buffer.
+        vim.api.nvim_create_user_command('Format', function() vim.lsp.buf.formatting_sync() end, {})
 
         lsp.rust_analyzer.setup {
           autostart = false, -- FIXME: It would try to start LSP in crates.io pkgs and produces warnings.
