@@ -98,11 +98,7 @@
     hostName = "invar";
     search = [ "lan." ];
     useNetworkd = true;
-    useDHCP = false;
-    interfaces = {
-      enp10s0.useDHCP = true;
-      wlp9s0.useDHCP = true;
-    };
+    useDHCP = true; # PCIE device changes would cause name changes.
     wireless = {
       enable = true;
       userControlled.enable = true;
