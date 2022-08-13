@@ -13,7 +13,7 @@
       inputs.utils.follows = "flake-utils";
     };
     rust-overlay = {
-      url = "github:oxalica/rust-overlay";
+      url = "github:oxalica/rust-overlay/stable";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
       inputs.flake-utils.follows = "flake-utils";
     };
@@ -52,13 +52,6 @@
 
     inherit (nixpkgs-unstable) lib;
 
-    prToOverlay = pr: pathStrs: final: prev:
-      with lib;
-      foldl' recursiveUpdate prev (map (pathStr:
-        let pathList = splitString "." pathStr; in
-        setAttrByPath pathList (getAttrFromPath pathList pr.legacyPackages.${final.system})
-      ) pathStrs);
-
     nixosModules = {
       # Ref: https://github.com/dramforever/config/blob/63be844019b7ca675ea587da3b3ff0248158d9fc/flake.nix#L24-L28
       system-label = {
@@ -88,13 +81,6 @@
         sops.gnupg.sshKeyPaths = [];
         sops.defaultSopsFile = ./nixos/${config.networking.hostName}/secret.yaml;
       };
-
-      # FIXME: Wait for https://github.com/NixOS/nixpkgs/pull/178529
-      initrd-systemd-fix = { config, ... }: {
-        boot.initrd.systemd.storePaths =
-          lib.optional (lib.hasPrefix builtins.storeDir config.console.font) "${config.console.font}" ++
-          lib.optional (lib.hasPrefix builtins.storeDir config.console.keyMap) "${config.console.keyMap}";
-      };
     };
 
     mkSystem = name: system: nixpkgs: { extraModules ? [] }: nixpkgs.lib.nixosSystem {
@@ -117,7 +103,7 @@
 
     nixosConfigurations = {
       invar = mkSystem "invar" "x86_64-linux" inputs.nixpkgs-unstable {
-        extraModules = with nixosModules; [ home-manager sops initrd-systemd-fix ];
+        extraModules = with nixosModules; [ home-manager sops ];
       };
 
       blacksteel = mkSystem "blacksteel" "x86_64-linux" inputs.nixpkgs-unstable {
@@ -138,7 +124,7 @@
 
       unmatched = mkSystem "unmatched" "riscv64-linux" inputs.nixpkgs-unmatched { };
       unmatched-cross = mkSystem "unmatched" "x86_64-linux" inputs.nixpkgs-unmatched {
-        extraModules = with nixosModules; [
+        extraModules = [
           { nixpkgs.crossSystem.config = "riscv64-unknown-linux-gnu"; }
         ];
       };
