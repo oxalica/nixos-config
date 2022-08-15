@@ -35,9 +35,7 @@
     };
 
     kernelModules = [ "kvm-intel" ];
-    extraModulePackages = with config.boot.kernelPackages; [
-      acpi_call # For TLP
-    ];
+    extraModulePackages = [ ];
 
     # For hibernate-resume.
     # /var/swap/swap-resume: 131891830784 / 4096 = 32200154
@@ -129,13 +127,6 @@
       passwordAuthentication = false;
       kbdInteractiveAuthentication = false;
       permitRootLogin = "no";
-    };
-    tlp = {
-      enable = true;
-      settings = {
-        START_CHARGE_THRESH_BAT0 = 95;
-        STOP_CHARGE_THRESH_BAT0 = 85;
-      };
     };
     fstrim.enable = true;
     timesyncd.enable = true;
