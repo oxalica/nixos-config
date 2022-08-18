@@ -20,23 +20,19 @@
   # Boot.
 
   boot = {
+    kernelPackages = pkgs.linuxPackages_latest;
+
     initrd = {
       # Test.
       systemd.enable = true;
 
       availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usbhid" ];
-      kernelModules = [ ];
+      kernelModules = [ "amd_pstate" ];
       luks.devices."invar-luks" = {
         device = "/dev/disk/by-uuid/aa50ce23-65c4-4b9a-8484-641a06a9d08c";
         allowDiscards = true;
       };
     };
-
-    kernelModules = [
-      "kvm-amd"
-      "nct6775" # Fan control
-    ];
-    extraModulePackages = [ ];
 
     kernel.sysctl = {
       "net.ipv4.ip_forward" = 1;
@@ -81,7 +77,7 @@
   # Hardware.
 
   time.timeZone = "Asia/Shanghai";
-  powerManagement.cpuFreqGovernor = "ondemand";
+  powerManagement.cpuFreqGovernor = "schedutil";
   hardware = {
     enableRedistributableFirmware = true;
     video.hidpi.enable = true;
