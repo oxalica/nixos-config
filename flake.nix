@@ -118,6 +118,7 @@
 
       blacksteel = mkSystem "blacksteel" "x86_64-linux" inputs.nixpkgs-unstable {
         extraModules = with nixosModules; [ home-manager sops ];
+        overlays = [ fix-librime ];
       };
 
       silver = mkSystem "silver" "x86_64-linux" inputs.nixpkgs-stable {
