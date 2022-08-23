@@ -299,7 +299,6 @@ let
           autostart = false, -- FIXME: It would try to start LSP in crates.io pkgs and produces warnings.
           on_attach = on_attach,
           capabilities = capabilities,
-          cmd = { '${pkgs.rust-analyzer}/bin/rust-analyzer' },
           settings = {
             ['rust-analyzer'] = {
               checkOnSave = { command = 'clippy' },
@@ -321,14 +320,12 @@ let
           autostart = true,
           on_attach = on_attach,
           capabilities = capabilities,
-          cmd = { '${pkgs.pyright}/bin/pyright-langserver', '--stdio' },
         }
 
         lsp.nil_ls.setup {
           autostart = true,
           on_attach = on_attach,
           capabilities = capabilities,
-          -- Use the default command from PATH to allow overriding.
         }
       EOF
     '')
@@ -565,7 +562,10 @@ in
 
   home.sessionVariables.EDITOR = "nvim";
 
-  home.packages = [
+  # Use default LSP `cmd` from PATH to allow overriding.
+  home.packages = with pkgs; [
+    pyright
+    rust-analyzer
     inputs.nil.packages.${pkgs.system}.nil
   ];
 }
