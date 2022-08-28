@@ -52,14 +52,6 @@
 
     inherit (nixpkgs-unstable) lib;
 
-    # FIXME: https://github.com/NixOS/nixpkgs/pull/186939
-    fix-librime = final: prev: {
-      capnproto = prev.capnproto.overrideAttrs (old: {
-        buildInputs = [];
-        propagatedBuildInputs = with final; [ openssl zlib ];
-      });
-    };
-
     nixosModules = {
       # Ref: https://github.com/dramforever/config/blob/63be844019b7ca675ea587da3b3ff0248158d9fc/flake.nix#L24-L28
       system-label = {
@@ -113,12 +105,10 @@
     nixosConfigurations = {
       invar = mkSystem "invar" "x86_64-linux" inputs.nixpkgs-unstable {
         extraModules = with nixosModules; [ home-manager sops ];
-        overlays = [ fix-librime ];
       };
 
       blacksteel = mkSystem "blacksteel" "x86_64-linux" inputs.nixpkgs-unstable {
         extraModules = with nixosModules; [ home-manager sops ];
-        overlays = [ fix-librime ];
       };
 
       silver = mkSystem "silver" "x86_64-linux" inputs.nixpkgs-stable {
