@@ -42,6 +42,7 @@ in
   home.pointerCursor = {
     package = pkgs.breeze-qt5;
     name = "breeze_cursors";
+    size = 24; # Make cursor in each window the same size.
     gtk.enable = true;
     x11.enable = true;
   };
@@ -58,7 +59,7 @@ in
     };
     font = {
       name = "Sans Serif Regular";
-      size = 12;
+      size = 12; # This will be affected by text-scaling-factor. Dont scale here.
     };
     gtk2.configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
   };
@@ -144,7 +145,7 @@ in
         };
         output = {
           "*".background = "${wallpaper} fill";
-          DP-1.scale = "1.25";
+          # No scale! See ../wayland-dpi.nix
         };
 
         inherit modifier;

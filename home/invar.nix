@@ -4,6 +4,8 @@
   programs.home-manager.enable = true;
 
   imports = [
+    ./modules/wayland-dpi.nix
+
     ./modules/alacritty.nix
     ./modules/direnv.nix
     ./modules/firefox.nix
@@ -23,6 +25,8 @@
     ./modules/tmux.nix
     ./modules/user-dirs.nix
   ];
+
+  wayland.dpi = 120;
 
   xdg.enable = true;
 
