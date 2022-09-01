@@ -22,37 +22,54 @@ in
     ./waybar.nix
   ];
 
-  home.packages = with pkgs; [
+  home.packages = (with pkgs; [
     waypipe
     pavucontrol
     grim
     slurp
     swaylock-effects
     sway-contrib.grimshot
-  ];
+  ]) ++ (with pkgs.libsForQt5; [
+    # From plasma5.
+    dolphin
+    dolphin-plugins
+    ffmpegthumbs
+    kdegraphics-thumbnailers
+    kio
+    kio-extras
+  ]);
 
   home.pointerCursor = {
-    package = pkgs.gnome.adwaita-icon-theme;
-    name = "Adwaita";
-    size = 24;
+    package = pkgs.breeze-qt5;
+    name = "breeze_cursors";
+    gtk.enable = true;
+    x11.enable = true;
   };
 
   gtk = {
     enable = true;
     theme = {
-      package = pkgs.gnome-themes-extra;
-      name = "Adwaita-dark";
+      package = pkgs.breeze-gtk;
+      name = "Breeze-Dark";
     };
-    iconTheme.name = "Adwaita";
+    iconTheme = {
+      package = pkgs.breeze-icons;
+      name = "breeze-dark";
+    };
     font = {
-      name = "sans-serif";
+      name = "Sans Serif Regular";
       size = 12;
     };
     gtk2.configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
-    # gtk3.extraConfig.gtk-application-prefer-dark-theme = 1;
   };
 
-  qt.enable = true;
+  qt = {
+    enable = true;
+    platformTheme = "gnome";
+    style.package = pkgs.breeze-qt5;
+    style.name = "Breeze-dark"; # It should be `Breeze` but qtgnomeplatform needs a "-dark" postfix.
+  };
+  xdg.configFile."kdeglobals".source = "${pkgs.breeze-qt5}/share/color-schemes/BreezeDark.colors";
 
   wayland.windowManager.sway = {
     enable = true;
