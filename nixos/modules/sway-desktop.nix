@@ -2,16 +2,10 @@
 {
   imports = [ ./l10n.nix ];
 
-  security.polkit.enable = true;
-  security.pam.services.swaylock = {};
-
-  hardware.opengl.enable = true;
+  programs.sway.enable = true;
 
   services.udisks2.enable = true; # For `udiskie`.
 
-  programs.dconf.enable = true;
-  programs.xwayland.enable = true;
-
-  xdg.portal.wlr.enable = true;
-  xdg.portal.extraPortals = with pkgs; [ xdg-desktop-portal-gtk ];
+  xdg.portal.enable = true;
+  xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ]; # `wlr` is included by `programs.sway`.
 }
