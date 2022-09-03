@@ -37,6 +37,7 @@ in
     kdegraphics-thumbnailers
     kio
     kio-extras
+    ark
   ]);
 
   home.pointerCursor = {
@@ -126,6 +127,7 @@ in
         ];
         floating.criteria = [
           { app_id = "udiskie"; }
+          { app_id = "org.kde.ark"; }
         ];
 
         gaps = {

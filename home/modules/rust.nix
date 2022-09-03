@@ -41,6 +41,7 @@ in {
     cargo-bloat
     cargo-flamegraph
     cargo-insta
+    cargo-license
   ];
 
   # Setup cargo directories.
