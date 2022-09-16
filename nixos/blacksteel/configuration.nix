@@ -6,6 +6,7 @@
 
     ../modules/console-env.nix
     ../modules/kde-desktop
+    ../modules/miiiw-keyboard-fix.nix
     ../modules/nix-binary-cache-mirror.nix
     ../modules/nix-common.nix
     ../modules/nix-registry.nix
