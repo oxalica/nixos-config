@@ -13,7 +13,7 @@
       inputs.utils.follows = "flake-utils";
     };
     rust-overlay = {
-      url = "github:oxalica/rust-overlay/stable";
+      url = "github:oxalica/rust-overlay";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
       inputs.flake-utils.follows = "flake-utils";
     };
@@ -52,6 +52,15 @@
 
     inherit (nixpkgs-unstable) lib;
 
+    overlays = [
+      # FIXME: https://github.com/NixOS/nixpkgs/pull/191184
+      (final: prev: {
+        transmission = prev.transmission.override {
+          openssl = final.openssl_1_1;
+        };
+      })
+    ];
+
     nixosModules = {
       # Ref: https://github.com/dramforever/config/blob/63be844019b7ca675ea587da3b3ff0248158d9fc/flake.nix#L24-L28
       system-label = {
@@ -83,7 +92,7 @@
       };
     };
 
-    mkSystem = name: system: nixpkgs: { extraModules ? [], overlays ? [] }: nixpkgs.lib.nixosSystem {
+    mkSystem = name: system: nixpkgs: { extraModules ? [] }: nixpkgs.lib.nixosSystem {
       inherit system;
       specialArgs = {
         inputs = inputs // { inherit nixpkgs; };
