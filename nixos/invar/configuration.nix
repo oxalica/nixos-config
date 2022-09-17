@@ -21,14 +21,18 @@
   # Boot.
 
   boot = {
+    # Kernel >= 5.18 is required for `schedutil`.
     kernelPackages = pkgs.linuxPackages_latest;
+    kernelModules = [ "kvm-amd" ];
 
     initrd = {
       # Test.
       systemd.enable = true;
 
-      availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usbhid" ];
-      kernelModules = [ "amd_pstate" ];
+      availableKernelModules = [ "xhci_pci" "ahci" "usbhid" ];
+      # Load graphics driver as early as possible to fix modsetting issues.
+      kernelModules = [ "amd_pstate" "amdgpu" "nvme" ];
+
       luks.devices."invar-luks" = {
         device = "/dev/disk/by-uuid/aa50ce23-65c4-4b9a-8484-641a06a9d08c";
         allowDiscards = true;
@@ -54,7 +58,7 @@
 
   fileSystems = {
     "/" = {
-      device = "/dev/mapper/invar-luks";
+      device = "/dev/disk/by-uuid/7219f4b1-a9d1-42a4-bfc9-386fa919d44b";
       fsType = "btrfs";
       # zstd:1  W: ~510MiB/s
       # zstd:3  W: ~330MiB/s
