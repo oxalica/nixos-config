@@ -333,10 +333,10 @@ let
 
     # Tree sitter. {{{
     (let
-      inherit (my.pkgs) tree-sitter-bash-unstable tree-sitter-nix-oxalica;
-      plugins = ps: with ps; [
+      inherit (my.pkgs) tree-sitter-bash tree-sitter-nix;
+      plugins = ps: with ps; with my.pkgs; [
         tree-sitter-agda
-        tree-sitter-bash-unstable
+        tree-sitter-bash
         tree-sitter-beancount
         tree-sitter-c
         tree-sitter-clojure
@@ -358,7 +358,7 @@ let
         tree-sitter-lua
         tree-sitter-make
         # tree-sitter-markdown # Highly broken
-        tree-sitter-nix-oxalica
+        tree-sitter-nix
         tree-sitter-perl
         tree-sitter-python
         tree-sitter-query
@@ -375,7 +375,7 @@ let
       nvim-treesitter = (pkgs.vimPlugins.nvim-treesitter.withPlugins plugins).overrideAttrs (old: {
         postInstall = old.postInstall or "" + ''
           for x in highlights locals injections indents; do
-            cp -f ${tree-sitter-nix-oxalica.src}/queries/nvim-$x.scm $out/queries/nix/$x.scm
+            cp -f ${tree-sitter-nix}/queries/nvim-$x.scm $out/queries/nix/$x.scm
           done
         '';
       });

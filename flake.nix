@@ -143,9 +143,18 @@
       iso-graphical = mkSystem "iso-graphical" "x86_64-linux" inputs.nixpkgs-unstable { };
     };
 
-  } // flake-utils.lib.eachDefaultSystem (system: {
+  } // flake-utils.lib.eachDefaultSystem (system: rec {
     packages = import ./pkgs {
-      inherit (nixpkgs-unstable.legacyPackages.${system}) callPackage;
+      inherit lib;
+      pkgs = nixpkgs-unstable.legacyPackages.${system};
     };
+
+    checks = packages;
+
+    devShells.default =
+      with nixpkgs-unstable.legacyPackages.${system};
+      mkShell {
+        packages = [ nvfetcher ];
+      };
   });
 }

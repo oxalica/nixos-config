@@ -1,18 +1,19 @@
-{ callPackage }:
-{
-  btrfs_map_physical = callPackage ./btrfs_map_physical.nix { };
+{ lib, pkgs }:
+let
+  inherit (builtins) readDir;
+  inherit (lib) mapAttrs' filterAttrs;
 
-  double-entry-generator = callPackage ./double-entry-generator.nix { };
+  sources = pkgs.callPackage ./_sources/generated.nix { };
+  entries = removeAttrs (readDir ./.) [ "_sources" "default.nix" "nvfetcher.toml" ];
 
-  lsp-inlayhints-nvim = callPackage ./lsp-inlayhints-nvim.nix { };
-
-  rawmv = callPackage ./rawmv.nix { };
-
-  rime_latex = callPackage ./rime_latex.nix { };
-
-  sway-unstable = callPackage ./sway { };
-
-  tree-sitter-bash-unstable = callPackage ./tree-sitter-bash-unstable.nix { };
-
-  tree-sitter-nix-oxalica = callPackage ./tree-sitter-nix-oxalica.nix { };
-}
+  self = mapAttrs' (file: _: rec {
+    name = lib.removeSuffix ".nix" file;
+    value = pkgs.newScope (self // {
+      source = sources.${name} or null;
+    }) ./${file} { };
+  }) entries;
+in
+# Remove unsupported or broken packages.
+filterAttrs
+  (name: drv: drv ? meta.platforms -> lib.meta.availableOn pkgs.hostPlatform drv)
+  self

@@ -79,8 +79,7 @@ in
     systemdIntegration = true;
     wrapperFeatures.gtk = true;
 
-    # FIXME: Wait for https://github.com/swaywm/swaylock/issues/204
-    package = my.pkgs.sway-unstable.override {
+    package = my.pkgs.sway.override {
       withGtkWrapper = true;
     };
 

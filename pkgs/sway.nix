@@ -1,4 +1,5 @@
-{ callPackage, sway
+# Workaround: https://github.com/swaywm/swaylock/issues/204
+{ pkgs, sway-unwrapped
 , withBaseWrapper ? true
 , extraSessionCommands ? ""
 , withGtkWrapper ? false
@@ -7,9 +8,7 @@
 , enableXWayland ? true
 , dbusSupport ? true
 }:
-sway.override {
+pkgs.sway.override {
   inherit withBaseWrapper extraSessionCommands withGtkWrapper extraOptions isNixOS enableXWayland dbusSupport;
-  sway-unwrapped = callPackage ./sway.nix {
-    wlroots-unstable = callPackage ./wlroots.nix { };
-  };
+  inherit sway-unwrapped;
 }
