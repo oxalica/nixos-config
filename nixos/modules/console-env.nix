@@ -11,12 +11,12 @@
   environment.defaultPackages = [ ];
 
   environment.systemPackages = with pkgs; [
-    cntr # Nix debug.
-    procs ncdu swapview smartmontools # Stat
-    curl git strace pv exa fd ripgrep lsof jq loop bc file rsync dnsutils my.pkgs.rawmv # Utilities
-    e2fsprogs # For {ls,ch}attr and filefrag.
-    gnupg age pwgen sops ssh-to-age # Crypto
-    libarchive zstd # Compression
+    cntr nix-top # Nix helpers.
+    procs ncdu swapview smartmontools pciutils usbutils # System info.
+    curl git strace pv exa fd ripgrep lsof jq loop bc file rsync dnsutils my.pkgs.rawmv # Utilities.
+    e2fsprogs # File system: {ls,ch}attr and filefrag.
+    gnupg age pwgen sops ssh-to-age # Crypto.
+    libarchive zstd # Compression.
   ];
 
   programs.less = {
