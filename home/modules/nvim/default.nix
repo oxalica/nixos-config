@@ -267,7 +267,7 @@ let
 
         local function on_attach(client, bufnr)
           lsp_status.on_attach(client, bufnr)
-          lsp_inlayhints.on_attach(bufnr, client)
+          lsp_inlayhints.on_attach(client, bufnr)
           require("lsp_signature").on_attach()
 
           local mappings = {
