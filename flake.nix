@@ -34,10 +34,6 @@
       inputs.flake-utils.follows = "flake-utils";
       inputs.rust-overlay.follows = "rust-overlay";
     };
-    nvim-lspconfig = {
-      url = "github:neovim/nvim-lspconfig/pull/2053/head";
-      flake = false;
-    };
 
     meta-sifive = {
       url = "github:sifive/meta-sifive/2021.11.00";
@@ -52,14 +48,7 @@
 
     inherit (nixpkgs-unstable) lib;
 
-    overlays = [
-      # FIXME: https://github.com/NixOS/nixpkgs/pull/191184
-      (final: prev: {
-        transmission = prev.transmission.override {
-          openssl = final.openssl_1_1;
-        };
-      })
-    ];
+    overlays = [ ];
 
     nixosModules = {
       # Ref: https://github.com/dramforever/config/blob/63be844019b7ca675ea587da3b3ff0248158d9fc/flake.nix#L24-L28

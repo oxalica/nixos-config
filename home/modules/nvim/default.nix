@@ -247,9 +247,7 @@ let
       EOF
     '')
 
-    (withConf (nvim-lspconfig.overrideAttrs (old: {
-      src = inputs.nvim-lspconfig;
-    })) /* vim */ ''
+    (withConf nvim-lspconfig /* vim */ ''
       lua <<EOF
         local lsp = require('lspconfig')
 
