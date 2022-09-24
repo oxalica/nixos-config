@@ -21,17 +21,6 @@
     });
     vendorHash = "sha256-yA4ax81rWHTfXj0+8ds4OweUickHtR8QZsgJyulW2j4=";
   };
-  lsp-inlayhints-nvim = {
-    pname = "lsp-inlayhints-nvim";
-    version = "9bcd6fe25417b7808fe039ab63d4224f2071d24a";
-    src = fetchFromGitHub ({
-      owner = "lvimuser";
-      repo = "lsp-inlayhints.nvim";
-      rev = "9bcd6fe25417b7808fe039ab63d4224f2071d24a";
-      fetchSubmodules = false;
-      sha256 = "sha256-DyZHs9dYuxOcfjmum5wiAucapSbj/MbqrqBqvGlNirY=";
-    });
-  };
   rawmv = {
     pname = "rawmv";
     version = "v0.2.0";

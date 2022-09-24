@@ -229,7 +229,7 @@ let
 
     # LSP {{{
     lsp_signature-nvim
-    my.pkgs.lsp-inlayhints-nvim
+    lsp-inlayhints-nvim
 
     (withConf lsp-status-nvim /* vim */ ''
       lua <<EOF

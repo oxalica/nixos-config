@@ -34,25 +34,6 @@
         },
         "version": "v1.5.2"
     },
-    "lsp-inlayhints-nvim": {
-        "cargoLocks": null,
-        "extract": null,
-        "name": "lsp-inlayhints-nvim",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "lvimuser",
-            "repo": "lsp-inlayhints.nvim",
-            "rev": "9bcd6fe25417b7808fe039ab63d4224f2071d24a",
-            "sha256": "sha256-DyZHs9dYuxOcfjmum5wiAucapSbj/MbqrqBqvGlNirY=",
-            "type": "github"
-        },
-        "version": "9bcd6fe25417b7808fe039ab63d4224f2071d24a"
-    },
     "rawmv": {
         "cargoLocks": null,
         "extract": null,
