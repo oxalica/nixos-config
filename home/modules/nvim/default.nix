@@ -11,18 +11,18 @@ let
 
     (withConf hop-nvim /* vim */ ''
       lua require('hop').setup()
-      nnoremap gw <cmd>HopWord<cr>
-      nnoremap gf <cmd>HopChar1<cr>
-      nnoremap g/ <cmd>HopPattern<cr>
+      nmap gw <Cmd>HopWord<CR>
+      nmap gf <Cmd>HopChar1<CR>
+      nmap g/ <Cmd>HopPattern<CR>
     '')
 
-    (withConf fcitx-vim ''
+    (withConf fcitx-vim /* vim */ ''
       let g:fcitx5_remote = '${lib.getBin pkgs.fcitx5}/bin/fcitx5-remote'
     '')
 
     # fzf.vim {{{
     (withConf fzf-vim /* vim */ ''
-      let $FZF_DEFAULT_COMMAND = '${lib.getBin pkgs.fd}/bin/fd --type=f --hidden --exclude=.git'
+      let $FZF_DEFAULT_COMMAND = '${lib.getBin pkgs.fd}/bin/fd --type=f --hidden --no-ignore-vcs --exclude=.git'
       let $FZF_DEFAULT_OPTS = '${lib.concatStringsSep " " [
         "--layout=reverse" # Top-first.
         "--color=16" # 16-color theme.
@@ -44,69 +44,26 @@ let
           \ 'ctrl-v': 'vsplit',
           \ }
 
-      function FZFRg(pat, args, fullscreen)
+      function! FZFRg(pat, args, fullscreen)
         let args = "--column --line-number --no-heading --color=always " . a:args
         call fzf#vim#grep("rg " . args . " -- " . shellescape(a:pat), 1, fzf#vim#with_preview(), a:fullscreen)
       endfunction
       command -nargs=1 -bang RgF call FZFRg(<q-args>, "--fixed-strings", <bang>0)
-      nnoremap <silent> <leader>ff <cmd>call fzf#vim#files("", fzf#vim#with_preview(), 0)<cr>
-      nnoremap <silent> <leader>f. <cmd>call fzf#vim#files(expand('%:h'), fzf#vim#with_preview(), 0)<cr>
-      nnoremap <silent> <leader>fp <cmd>call fzf#vim#files(expand('%:h:h'), fzf#vim#with_preview(), 0)<cr>
-      nnoremap <silent> <leader>fw <cmd>call FZFRg(expand('<cword>'), '--fixed-strings --word-regexp', 0)<cr>
-      nnoremap <silent> <leader>fb <cmd>Buffers<cr>
-      nnoremap <silent> <leader>fh <cmd>Helptags<cr>
-      nnoremap          <leader>fr :Rg<space>
+      nmap <Leader>ff <Cmd>call fzf#vim#files("", fzf#vim#with_preview(), 0)<CR>
+      nmap <Leader>f. <Cmd>call fzf#vim#files(expand('%:h'), fzf#vim#with_preview(), 0)<CR>
+      nmap <Leader>fp <Cmd>call fzf#vim#files(expand('%:h:h'), fzf#vim#with_preview(), 0)<CR>
+      nmap <Leader>fw <Cmd>call FZFRg(expand('<cword>'), '--fixed-strings --word-regexp', 0)<CR>
+      nmap <Leader>fb <Cmd>Buffers<CR>
+      nmap <Leader>fh <Cmd>Helptags<CR>
+      nmap <Leader>fr :Rg<Space>
     '')
-    (withConf fzf-lsp-nvim ''
-      nnoremap <silent> <leader>fd <cmd>DiagnosticsAll<cr>
-      nnoremap <silent> <leader>fs <cmd>DocumentSymbols<cr>
+    (withConf fzf-lsp-nvim /* vim */ ''
+      nmap <Leader>fd <Cmd>DiagnosticsAll<CR>
+      nmap <Leader>fs <Cmd>DocumentSymbols<CR>
     '')
     # }}}
 
-    (withConf gitsigns-nvim /* vim */ ''
-      lua <<EOF
-        require('gitsigns').setup {
-          on_attach = function(bufnr)
-            local gs = package.loaded.gitsigns
-
-            local function map(mode, l, r, opts)
-              opts = opts or {}
-              opts.buffer = bufnr
-              vim.keymap.set(mode, l, r, opts)
-            end
-
-            -- Navigation
-            map('n', ']c', function()
-              if vim.wo.diff then return ']c' end
-              vim.schedule(function() gs.next_hunk() end)
-              return '<Ignore>'
-            end, {expr=true})
-
-            map('n', '[c', function()
-              if vim.wo.diff then return '[c' end
-              vim.schedule(function() gs.prev_hunk() end)
-              return '<Ignore>'
-            end, {expr=true})
-
-            -- Actions
-            map({'n', 'v'}, '<leader>hs', '<cmd>Gitsigns stage_hunk<CR>')
-            map({'n', 'v'}, '<leader>hr', '<cmd>Gitsigns reset_hunk<CR>')
-            -- map('n', '<leader>hS', gs.stage_buffer)
-            map('n', '<leader>hu', gs.undo_stage_hunk)
-            -- map('n', '<leader>hR', gs.reset_buffer)
-            map('n', '<leader>hp', gs.preview_hunk)
-            -- map('n', '<leader>hb', function() gs.blame_line{full=true} end)
-            map('n', '<leader>tb', gs.toggle_current_line_blame)
-            map('n', '<leader>hd', gs.diffthis)
-            map('n', '<leader>hD', function() gs.diffthis('~') end)
-            -- map('n', '<leader>td', gs.toggle_deleted)
-
-            -- Text object
-            map({'o', 'x'}, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
-          end
-        }
-      EOF
-    '')
+    gitgutter
 
     markdown-preview-nvim
 
@@ -118,25 +75,16 @@ let
       let g:NERDTrimTrailingWhitespace = 1
     '')
 
+    sleuth
 
-    # Don't search for neighbor files. Just detect the file itself.
-    (withConf sleuth ''
-      let g:sleuth_neighbor_limit = 0
-    '')
-
-    # Disables key mappings.
     (withConf vim-better-whitespace ''
       let g:show_spaces_that_precede_tabs = 1
     '')
 
-    # Immediate refresh & manual define highlighting in nightfox.
-    (withConf vim-cursorword ''
-      let g:cursorword_delay = 0
-      let g:cursorword_highlight = 0
-    '')
+    vim-illuminate
 
-    (withConf vim-fugitive ''
-      command -nargs=* GG tab Git <args>
+    (withConf vim-fugitive /* vim */ ''
+      nmap <F2> <Cmd>tab Git<CR>
       command -nargs=* GL tab Git log --max-count=500 <args>
     '')
 
@@ -163,26 +111,26 @@ let
       let g:smoothie_speed_linear_factor = 20
     '')
 
+    (withConf crates-nvim /* vim */ ''
+      autocmd BufRead Cargo.toml lua require('crates').setup()
+    '')
+
     # nvim-cmp {{{
     # https://github.com/neovim/nvim-lspconfig/wiki/Autocompletion
-    (withConf luasnip ''
-      smap <silent> <tab>   <Plug>luasnip-jump-next
-      smap <silent> <m-tab> <Plug>luasnip-jump-next
-      smap <silent> <s-tab> <Plug>luasnip-jump-prev
-      imap <silent> <m-tab> <Plug>luasnip-jump-next
-      imap <silent> <s-tab> <Plug>luasnip-jump-prev
+    (withConf luasnip /* vim */ ''
+      smap <Tab>   <Plug>luasnip-jump-next
+      smap <M-Tab> <Plug>luasnip-jump-next
+      smap <S-Tab> <Plug>luasnip-jump-prev
+      imap <M-Tab> <Plug>luasnip-jump-next
+      imap <S-Tab> <Plug>luasnip-jump-prev
     '')
     cmp_luasnip
     cmp-nvim-lsp
     cmp-path
     cmp-buffer
-    (withConf crates-nvim /* vim */ ''
-      autocmd BufRead Cargo.toml lua require('crates').setup()
-    '')
     (withConf nvim-cmp /* vim */ ''
+      set completeopt=menu,menuone,noselect
       lua <<EOF
-        vim.o.completeopt = 'menuone,noselect'
-
         local cmp = require('cmp')
         local luasnip = require('luasnip')
         cmp.setup {
@@ -392,19 +340,6 @@ let
             playground = {
               enable = true,
             },
-            refactor = {
-              highlight_definition = { enable = true },
-              navigation = {
-                enable = true,
-                keymaps = {
-                  goto_definition = "gnd",
-                  list_definitions = "gnD",
-                  list_definitions_toc = "gO",
-                  goto_next_usage = "<a-*>",
-                  goto_previous_usage = "<a-#>",
-                },
-              },
-            },
             textobjects = {
               select = {
                 enable = true,
@@ -432,10 +367,10 @@ let
             incremental_selection = {
               enable = true,
               keymaps = {
-                init_selection = "\\[",
-                node_incremental = "\\[",
-                node_decremental = "\\]",
-                scope_incremental = "\\{",
+                init_selection = "<C-s>",
+                node_incremental = "<C-s>",
+                -- C-S-s doesn't work for alacritty.
+                node_decremental = "<C-x>",
               },
             },
           }
@@ -444,8 +379,14 @@ let
     })
     # }}}
 
-    nvim-treesitter-context
-    nvim-treesitter-refactor
+    (withConf nvim-treesitter-context /* vim */ ''
+      lua <<EOF
+        require('treesitter-context').setup {
+          max_lines = 3,
+          trim_scope = 'inner',
+        }
+      EOF
+    '')
     nvim-treesitter-textobjects
     playground
 
@@ -456,8 +397,8 @@ let
           modules = {
             cmp = true,
             diagnostic = true,
-            gitsigns = true,
             hop = true,
+            illuminate = true,
             native_lsp = true,
             treesitter = true,
           },
@@ -466,16 +407,17 @@ let
               -- vim-better-whitespace
               ExtraWhitespace = { bg = "palette.red.dim" },
 
-              -- vim-cursorword
-              CursorWord0 = { style = "underline" },
-              CursorWord1 = { style = "underline" },
-
               DiagnosticUnderlineHint = { link = "None" },
+
+              -- Somehow not set by default.
+              IlluminatedWordText = { link = "LspReferenceText" },
+              IlluminatedWordRead = { link = "LspReferenceRead" },
+              IlluminatedWordWrite = { link = "LspReferenceWrite" },
             },
           },
         }
 
-        if vim.env.COLORTERM ~= nil then
+        if vim.env.TMUX ~= nil or vim.env.COLORTERM ~= nil then
           vim.cmd('colorscheme nightfox')
         end
       EOF
@@ -498,21 +440,37 @@ let
 
     " Input.
     set shiftwidth=4
-    set softtabstop=4
+    set softtabstop=-1 " Follows shiftwidth
+    set shiftround
     set expandtab
     set ttimeoutlen=1
+    set updatetime=1000
 
     " Render.
     set number
     set cursorline
+    set hlsearch
     set signcolumn=yes " Always show.
     set list
     set listchars=tab:-->,extends:>,precedes:<
 
     " Highlight on yank.
     autocmd TextYankPost * silent! lua vim.highlight.on_yank {higroup="IncSearch", timeout=200}
-    " Copy to clipboard on yank.
-    autocmd TextYankPost * if v:event["operator"] == "y" && v:event["regname"] == "" | let @+ = @0 | endif
+
+    " TMUX takes precedence. Also enable OSC 52 clipboard via `-w`.
+    if !empty($TMUX)
+      let g:clipboard = {
+        \   'name': 'tmux',
+        \   'copy': {
+        \     '+': ['tmux', 'load-buffer', '-w', '-'],
+        \     '*': ['tmux', 'load-buffer', '-w', '-'],
+        \   },
+        \   'paste': {
+        \     '+': ['tmux', 'save-buffer', '-'],
+        \     '*': ['tmux', 'save-buffer', '-'],
+        \   },
+        \ }
+    endif
 
     " Status line.
     " Reference: https://github.com/lilydjwg/dotvim/blob/07c4467153f2f44264fdb0e23c085b56cad519db/vimrc#L548
@@ -531,23 +489,28 @@ let
       \ ' 0x%-4.B %-16.(%lL,%cC%V,%oB%) %P'
 
     " Mapping.
-
     let g:mapleader='\'
 
-    " Command-like.
-    noremap  <m-z> <cmd>set wrap!<bar>set wrap?<cr>
-    noremap  <m-cr> <cmd>set hlsearch!<bar>set hlsearch?<cr>
+    " Clipboard
+    vmap <C-c> "+y
 
-    " Panes
-    noremap <c-w>v <cmd>vsplit<cr>
-    noremap <c-w>s <cmd>split<cr>
-    noremap <c-w>+ <c-w>+<c-w>+<c-w>+<c-w>+<c-w>+
-    noremap <c-w>- <c-w>-<c-w>-<c-w>-<c-w>-<c-w>-
-    noremap <c-w><lt> <c-w><lt><c-w><lt><c-w><lt><c-w><lt><c-w><lt>
-    noremap <c-w>> <c-w>><c-w>><c-w>><c-w>><c-w>>
+    " Move lines.
+    nmap <C-j> :move+<CR>
+    nmap <C-k> :move-2<CR>
+    vmap <C-j> :move'>+<CR>gv
+    vmap <C-k> :move'<-2<CR>gv
+
+    " Mouse.
+    nmap <S-ScrollWheelDown> <ScrollWhellRight>
+    nmap <S-ScrollWheelUp>   <ScrollWhellLeft>
+    imap <S-ScrollWheelDown> <ScrollWhellRight>
+    imap <S-ScrollWheelUp>   <ScrollWhellLeft>
+
+    " Options
+    nmap <M-z> <Cmd>set wrap!\|set wrap?<CR>
+    nmap <M-CR> <Cmd>nohlsearch<CR>
 
     " Commands.
-
     command -nargs=0 Sudow w !sudo tee % >/dev/null
     command -nargs=* W w <args>
   '';
