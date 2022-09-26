@@ -85,8 +85,7 @@
 
   in with pkgs; [
     zoxide
-    nix-zsh-completions
-    (lib.hiPrio nixFlakes) # Prefer nix's builtin completion.
+    (lib.lowPrio nix-zsh-completions) # Prefer nix's builtin completion.
     fzf bat # WARN: They are used by fzf.vim!
 
     scripts

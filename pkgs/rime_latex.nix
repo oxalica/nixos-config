@@ -1,5 +1,5 @@
-{ lib, source, runCommandNoCC, fetchFromGitHub }:
-runCommandNoCC "rime_latex" {
+{ lib, source, runCommand, fetchFromGitHub }:
+runCommand "rime_latex" {
   inherit (source) version src;
   meta.license = with lib.licenses; [ gpl3Only ];
 } ''

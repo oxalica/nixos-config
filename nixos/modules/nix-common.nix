@@ -1,9 +1,6 @@
 { pkgs, inputs, ... }:
 {
   nix = {
-    # Ensure that flake support is enabled.
-    package = pkgs.nixFlakes;
-
     gc = {
       automatic = true;
       dates = "Sat 03:00";

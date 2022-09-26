@@ -28,7 +28,7 @@
     serviceConfig.Type = "oneshot";
     serviceConfig.RemainAfterExit = true;
 
-    path = with pkgs; [ utillinux lvm2 ];
+    path = with pkgs; [ util-linux lvm2 ];
     script = ''
       sec_win=$(blockdev --getsz ${devWin})
       sec_gpt=$(blockdev --getsz ${devGpt})

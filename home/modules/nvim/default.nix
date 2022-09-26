@@ -530,6 +530,6 @@ in
   home.packages = with pkgs; [
     pyright
     rust-analyzer
-    inputs.nil.packages.${pkgs.system}.nil
+    nil
   ];
 }
