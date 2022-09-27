@@ -8,6 +8,8 @@
     inputs.secrets.nixosModules.lithium
   ];
 
+  documentation.enable = false;
+
   swapDevices = [
     {
       device = "/var/swapfile";

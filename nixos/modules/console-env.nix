@@ -4,6 +4,8 @@
   i18n.supportedLocales = lib.mkDefault [ "en_US.UTF-8/UTF-8" ];
   i18n.defaultLocale = lib.mkDefault "en_US.UTF-8";
 
+  fonts.fontconfig.enable = lib.mkDefault false;
+
   # Default:
   # - nano # Already have vim.
   # - perl # No.
