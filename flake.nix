@@ -2,31 +2,30 @@
   description = "oxalica's NixOS configuration";
 
   inputs = {
-    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-22.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-unmatched.url = "github:oxalica/nixpkgs/test/unmatched";
 
     flake-utils.url = "github:numtide/flake-utils";
     home-manager = {
       url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.nixpkgs.follows = "nixpkgs";
       inputs.utils.follows = "flake-utils";
     };
     rust-overlay = {
       url = "github:oxalica/rust-overlay";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
     };
     nocargo = {
       url = "github:oxalica/nocargo";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
     };
     sops-nix = {
       url = "github:Mic92/sops-nix";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.nixpkgs.follows = "nixpkgs";
       # Only for checks.
-      inputs.nixpkgs-22_05.follows = "nixpkgs-unstable";
+      inputs.nixpkgs-22_05.follows = "nixpkgs";
     };
 
     meta-sifive = {
@@ -38,9 +37,9 @@
     secrets.url = "/home/oxa/storage/repo/nixos-config-secrets";
   };
 
-  outputs = { self, nixpkgs-unstable, nixpkgs-stable, flake-utils, ... }@inputs: let
+  outputs = { self, nixpkgs, flake-utils, ... }@inputs: let
 
-    inherit (nixpkgs-unstable) lib;
+    inherit (nixpkgs) lib;
 
     overlays = [ ];
 
@@ -95,23 +94,23 @@
     inherit nixosModules;
 
     nixosConfigurations = {
-      invar = mkSystem "invar" "x86_64-linux" inputs.nixpkgs-unstable {
+      invar = mkSystem "invar" "x86_64-linux" inputs.nixpkgs {
         extraModules = with nixosModules; [ home-manager sops ];
       };
 
-      blacksteel = mkSystem "blacksteel" "x86_64-linux" inputs.nixpkgs-unstable {
+      blacksteel = mkSystem "blacksteel" "x86_64-linux" inputs.nixpkgs {
         extraModules = with nixosModules; [ home-manager sops ];
       };
 
-      silver = mkSystem "silver" "x86_64-linux" inputs.nixpkgs-stable {
+      silver = mkSystem "silver" "x86_64-linux" inputs.nixpkgs {
         extraModules = with nixosModules; [ sops ];
       };
 
-      lithium = mkSystem "lithium" "x86_64-linux" inputs.nixpkgs-stable {
+      lithium = mkSystem "lithium" "x86_64-linux" inputs.nixpkgs {
         extraModules = with nixosModules; [ sops ];
       };
 
-      copper = mkSystem "copper" "x86_64-linux" inputs.nixpkgs-stable {
+      copper = mkSystem "copper" "x86_64-linux" inputs.nixpkgs {
         extraModules = with nixosModules; [ sops ];
       };
 
@@ -123,19 +122,19 @@
       };
 
       iso = mkSystem "iso" "x86_64-linux" inputs.nixpkgs-stable { };
-      iso-graphical = mkSystem "iso-graphical" "x86_64-linux" inputs.nixpkgs-unstable { };
+      iso-graphical = mkSystem "iso-graphical" "x86_64-linux" { };
     };
 
   } // flake-utils.lib.eachDefaultSystem (system: rec {
     packages = import ./pkgs {
       inherit lib;
-      pkgs = nixpkgs-unstable.legacyPackages.${system};
+      pkgs = nixpkgs.legacyPackages.${system};
     };
 
     checks = packages;
 
     devShells.default =
-      with nixpkgs-unstable.legacyPackages.${system};
+      with nixpkgs.legacyPackages.${system};
       mkShell {
         packages = [ nvfetcher ];
       };

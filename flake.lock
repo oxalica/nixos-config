@@ -18,7 +18,7 @@
     "home-manager": {
       "inputs": {
         "nixpkgs": [
-          "nixpkgs-unstable"
+          "nixpkgs"
         ],
         "utils": [
           "flake-utils"
@@ -55,18 +55,18 @@
         "type": "github"
       }
     },
-    "nixpkgs-stable": {
+    "nixpkgs": {
       "locked": {
-        "lastModified": 1664107978,
-        "narHash": "sha256-31I9XnIjXkUa62BM1Zr/ylKMf9eVO5PtoX2mGpmB7/U=",
+        "lastModified": 1664370076,
+        "narHash": "sha256-NDnIo0nxJozLwEw0VPM+RApMA90uTfbvaNNtC5eB7Os=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "72783a2d0dbbf030bff1537873dd5b85b3fb332f",
+        "rev": "854fdc68881791812eddd33b2fed94b954979a8e",
         "type": "github"
       },
       "original": {
         "owner": "NixOS",
-        "ref": "nixos-22.05",
+        "ref": "nixos-unstable",
         "repo": "nixpkgs",
         "type": "github"
       }
@@ -87,29 +87,13 @@
         "type": "github"
       }
     },
-    "nixpkgs-unstable": {
-      "locked": {
-        "lastModified": 1664106353,
-        "narHash": "sha256-HMJP80+DSxFySpWyuxz5+iNozS3+dVt0b4n6YMIU5/8=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "79d3ca08920364759c63fd3eb562e99c0c17044a",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "ref": "nixos-unstable",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "nocargo": {
       "inputs": {
         "flake-utils": [
           "flake-utils"
         ],
         "nixpkgs": [
-          "nixpkgs-unstable"
+          "nixpkgs"
         ],
         "registry-crates-io": "registry-crates-io"
       },
@@ -148,9 +132,8 @@
         "flake-utils": "flake-utils",
         "home-manager": "home-manager",
         "meta-sifive": "meta-sifive",
-        "nixpkgs-stable": "nixpkgs-stable",
+        "nixpkgs": "nixpkgs",
         "nixpkgs-unmatched": "nixpkgs-unmatched",
-        "nixpkgs-unstable": "nixpkgs-unstable",
         "nocargo": "nocargo",
         "rust-overlay": "rust-overlay",
         "secrets": "secrets",
@@ -163,7 +146,7 @@
           "flake-utils"
         ],
         "nixpkgs": [
-          "nixpkgs-unstable"
+          "nixpkgs"
         ]
       },
       "locked": {
@@ -182,11 +165,11 @@
     },
     "secrets": {
       "locked": {
-        "lastModified": 1656211964,
-        "narHash": "sha256-ktpZtPKtQuMBvvK7qaP5wfaKL7K2jWg7eF1oQ0DL7Ak=",
+        "lastModified": 1664486084,
+        "narHash": "sha256-TcNvIoGfQv3R2L9aAUVpmXt+vVQonLCURf5veJIIZqw=",
         "ref": "refs/heads/master",
-        "rev": "a9fd98ece9cc6e936cb182f4e62846eaef89bda2",
-        "revCount": 18,
+        "rev": "182355f80c50578d249062bf5b59f693f64c83db",
+        "revCount": 20,
         "type": "git",
         "url": "file:///home/oxa/storage/repo/nixos-config-secrets"
       },
@@ -198,10 +181,10 @@
     "sops-nix": {
       "inputs": {
         "nixpkgs": [
-          "nixpkgs-unstable"
+          "nixpkgs"
         ],
         "nixpkgs-22_05": [
-          "nixpkgs-unstable"
+          "nixpkgs"
         ]
       },
       "locked": {

@@ -53,7 +53,7 @@
 
   security.sudo.wheelNeedsPassword = false;
 
-  nix.autoOptimiseStore = lib.mkForce false;
+  nix.settings.auto-optimise-store = lib.mkForce false;
 
   services.openssh = {
     enable = true;
