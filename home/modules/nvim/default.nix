@@ -109,8 +109,9 @@ let
       let g:smoothie_speed_linear_factor = 20
     '')
 
+    # Should be setup early, or it cannot trigger autocmd inside autocmd.
     (withConf crates-nvim /* vim */ ''
-      autocmd BufRead Cargo.toml lua require('crates').setup()
+      lua require('crates').setup()
     '')
 
     # nvim-cmp {{{
