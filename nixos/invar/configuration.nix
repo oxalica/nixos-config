@@ -141,6 +141,20 @@
 
   # Services.
 
+  nix.settings.experimental-features = [ "ca-derivations" "repl-flake" ];
+  systemd.services.nix-daemon.serviceConfig = {
+    CPUQuota = "1500%";
+    CPUWeight = 50;
+
+    MemoryMax = "13G";
+    MemoryHigh = "12G";
+    MemorySwapMax = "16G";
+    IOWeight = 50;
+
+    ManagedOOMMemoryPressure = "kill";
+    ManagedOOMMemoryPressureLimit = "50%";
+  };
+
   security.rtkit.enable = true; # Better installed with pipewire.
   services.pipewire = {
     enable = true;
@@ -201,8 +215,6 @@
     enable = true;
     onBoot = "ignore";
   };
-
-  nix.settings.experimental-features = [ "ca-derivations" "repl-flake" ];
 
   # Global ssh settings. Also for remote builders.
   programs.ssh = {
