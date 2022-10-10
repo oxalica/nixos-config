@@ -18,35 +18,25 @@
   ];
 
   environment.systemPackages = with pkgs; [
-    wireguard-tools
     git
   ];
 
-  sops.secrets."wgcf-profile.conf".restartUnits = [ "wg-quick-wg0.service" ];
-  systemd.services.wg-quick-wg0 = let
-    name = "wg0";
-    configPath = config.sops.secrets."wgcf-profile.conf".path;
-  in {
-    description = "wg-quick WireGuard Tunnel - ${name}";
-    requires = [ "network-online.target" ];
-    after = [ "network.target" "network-online.target" ];
-    wantedBy = [ "multi-user.target" ];
-    environment.DEVICE = name;
-    path = [ pkgs.kmod pkgs.wireguard-tools ];
-
-    serviceConfig = {
-      Type = "oneshot";
-      RemainAfterExit = true;
+  sops.secrets."cloudflare/privateKey".restartUnits = [ "wireguard-cloudflare.service" ];
+  networking.wireguard.interfaces = {
+    cloudflare = {
+      privateKeyFile = config.sops.secrets."cloudflare/privateKey".path;
+      ips = [
+        "172.16.0.2/32"
+        "fd01:5ca1:ab1e:86e9:be58:3c01:90c4:5a7d/128"
+      ];
+      peers = [
+        {
+          allowedIPs = [ "0.0.0.0/0" ];
+          endpoint = "engage.cloudflareclient.com:2408";
+          publicKey = "bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo=";
+        }
+      ];
     };
-
-    script = ''
-      modprobe wireguard
-      wg-quick up ${configPath}
-    '';
-
-    preStop = ''
-      wg-quick down ${configPath}
-    '';
   };
 
   users.groups."reverse-ssh" = {};
