@@ -73,8 +73,6 @@ let
       let g:NERDTrimTrailingWhitespace = 1
     '')
 
-    sleuth
-
     (withConf vim-better-whitespace ''
       let g:show_spaces_that_precede_tabs = 1
     '')
