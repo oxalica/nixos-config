@@ -42,6 +42,10 @@
       core.pager = "less";
       pager.branch = "less --quit-if-one-screen";
       pager.stash = "less --quit-if-one-screen";
+
+      # Always show branches and tags for `git log` in `vim-fugitive`.
+      # See: https://github.com/tpope/vim-fugitive/issues/1965
+      log.decorate = true;
     };
   };
 }
