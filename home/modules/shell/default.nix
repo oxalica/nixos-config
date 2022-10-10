@@ -4,6 +4,15 @@
     # Rust and python outputs.
     PATH = "$HOME/.local/bin\${PATH:+:}$PATH";
     MANPAGER = "nvim +Man!";
+
+    FZF_DEFAULT_COMMAND = "${lib.getBin pkgs.fd}/bin/fd --type=f --hidden --no-ignore-vcs --exclude=.git";
+    FZF_DEFAULT_OPTS = lib.concatStringsSep " " [
+      "--layout=reverse" # Top-first.
+      "--color=16" # 16-color theme.
+      "--info=inline"
+      "--bind=ctrl-p:up,ctrl-n:down,up:previous-history,down:next-history,alt-p:toggle-preview,alt-a:select-all"
+      "--exact" # Substring matching by default, `'`-quote for subsequence matching.
+    ];
   };
 
   # The default `command-not-found` relies on nix-channel. Use `nix-index` instead.
