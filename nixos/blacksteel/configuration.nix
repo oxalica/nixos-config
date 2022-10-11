@@ -87,6 +87,7 @@
     gpgSmartcards.enable = true;
     pulseaudio.enable = true;
     enableRedistributableFirmware = true; # Required for WIFI.
+    opengl.extraPackages = with pkgs; [ intel-media-driver ]; # vaapi
   };
   console = {
     font = "${pkgs.terminus_font}/share/consolefonts/ter-v28n.psf.gz";
