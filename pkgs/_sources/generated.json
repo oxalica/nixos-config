@@ -87,11 +87,11 @@
             "name": null,
             "owner": "swaywm",
             "repo": "sway",
-            "rev": "cffb006feba52c318e66f73c3463032fa76782dc",
-            "sha256": "sha256-J7HSPnIgxIhVszpE8geptlDsmiZM3KY1nd66xUH+YJk=",
+            "rev": "99fd096d69ce94d29c52414d274deb9e9e25de6b",
+            "sha256": "sha256-5EAMUMLV9nOzGS1kjy2rau8ZYIk/WmTl0eIoBVCq0PQ=",
             "type": "github"
         },
-        "version": "cffb006feba52c318e66f73c3463032fa76782dc"
+        "version": "99fd096d69ce94d29c52414d274deb9e9e25de6b"
     },
     "tree-sitter-bash": {
         "cargoLocks": null,
@@ -142,11 +142,11 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "1266f7424f711a3e67477b4aa5192b3c4285c7f4",
-            "sha256": "sha256-biwaJioxu30Wx7Ek2QUaBBlQSYyl5H4NntHs2uXkWpE=",
+            "rev": "5ba6cf517b6dd95e6d04b97ddd7dbc4b59ea4825",
+            "sha256": "sha256-sK96lGnbUltPdCEAIItQpUHYdyU95C1bj6g+ihTHrCI=",
             "type": "git",
             "url": "https://gitlab.freedesktop.org/wlroots/wlroots"
         },
-        "version": "1266f7424f711a3e67477b4aa5192b3c4285c7f4"
+        "version": "5ba6cf517b6dd95e6d04b97ddd7dbc4b59ea4825"
     }
 }

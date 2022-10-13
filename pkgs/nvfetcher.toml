@@ -31,7 +31,5 @@ src.git = "https://github.com/oxalica/tree-sitter-nix"
 fetch.github = "oxalica/tree-sitter-nix"
 
 [wlroots]
-# FIXME: https://github.com/NixOS/nixpkgs/pull/191247
-src.manual = "1266f7424f711a3e67477b4aa5192b3c4285c7f4"
-# src.git = "https://gitlab.freedesktop.org/wlroots/wlroots"
+src.git = "https://gitlab.freedesktop.org/wlroots/wlroots"
 fetch.git = "https://gitlab.freedesktop.org/wlroots/wlroots"
