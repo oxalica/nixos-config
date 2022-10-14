@@ -136,7 +136,9 @@ in
         };
         bars = [ ];
 
-        seat."*".hide_cursor = "when-typing enable";
+        # Don't break games. https://github.com/swaywm/sway/issues/6297
+        seat."*".hide_cursor = "when-typing disable";
+
         input = {
           "*".xkb_options = "ctrl:nocaps";
           "1133:49298:Logitech_G102_LIGHTSYNC_Gaming_Mouse" = {
