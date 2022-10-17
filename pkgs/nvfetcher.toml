@@ -33,3 +33,7 @@ fetch.github = "oxalica/tree-sitter-nix"
 [wlroots]
 src.git = "https://gitlab.freedesktop.org/wlroots/wlroots"
 fetch.git = "https://gitlab.freedesktop.org/wlroots/wlroots"
+
+[sway-systemd]
+src.github = "alebastr/sway-systemd"
+fetch.github = "alebastr/sway-systemd"

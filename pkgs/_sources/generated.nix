@@ -44,6 +44,17 @@
       sha256 = "sha256-8k6CCFlXaNKejs6+jusMD4W94IsMZGclL7vFcUy/h+Y=";
     });
   };
+  sway-systemd = {
+    pname = "sway-systemd";
+    version = "v0.2.2";
+    src = fetchFromGitHub ({
+      owner = "alebastr";
+      repo = "sway-systemd";
+      rev = "v0.2.2";
+      fetchSubmodules = false;
+      sha256 = "sha256-S10x6A1RaD1msIw9pWXpBHFKKyWfsaEGbAZo2SU3CtI=";
+    });
+  };
   sway-unwrapped = {
     pname = "sway-unwrapped";
     version = "99fd096d69ce94d29c52414d274deb9e9e25de6b";

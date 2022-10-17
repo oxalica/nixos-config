@@ -74,6 +74,25 @@
         },
         "version": "d484bf6f8d4e4ccdb06c691fa4feeefd1fe58d1c"
     },
+    "sway-systemd": {
+        "cargoLocks": null,
+        "extract": null,
+        "name": "sway-systemd",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "alebastr",
+            "repo": "sway-systemd",
+            "rev": "v0.2.2",
+            "sha256": "sha256-S10x6A1RaD1msIw9pWXpBHFKKyWfsaEGbAZo2SU3CtI=",
+            "type": "github"
+        },
+        "version": "v0.2.2"
+    },
     "sway-unwrapped": {
         "cargoLocks": null,
         "extract": null,
