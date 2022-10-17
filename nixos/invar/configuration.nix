@@ -149,9 +149,6 @@
     MemoryHigh = "12G";
     MemorySwapMax = "16G";
     IOWeight = 50;
-
-    ManagedOOMMemoryPressure = "kill";
-    ManagedOOMMemoryPressureLimit = "50%";
   };
 
   security.rtkit.enable = true; # Better installed with pipewire.
