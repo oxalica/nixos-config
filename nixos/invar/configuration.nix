@@ -243,9 +243,10 @@
 
   environment.systemPackages = with pkgs; [
     cntr # Debug nix build.
-    virt-manager
-    solaar # Logitech devices control.
     compsize
+    radeontop
+    solaar # Logitech devices control.
+    virt-manager
   ];
 
   system.stateVersion = "21.11";

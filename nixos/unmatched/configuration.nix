@@ -133,7 +133,6 @@
     lsof
     btrfs-progs
     tmux
-    # radeontop
   ];
 
   hardware.firmware = with pkgs; [ firmwareLinuxNonfree ];

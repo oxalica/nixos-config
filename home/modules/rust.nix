@@ -1,4 +1,4 @@
-{ config, lib, pkgs, inputs, ... }:
+{ config, lib, pkgs, inputs, my, ... }:
 
 let
   # Global target
@@ -42,6 +42,7 @@ in {
     cargo-flamegraph
     cargo-insta
     cargo-license
+    my.pkgs.cargo-show-asm
   ];
 
   # Setup cargo directories.
