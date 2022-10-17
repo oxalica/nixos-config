@@ -276,6 +276,8 @@ lua <<EOF
 
   local lsp_status = require('lsp-status')
   local lsp_inlayhints = require('lsp-inlayhints')
+  local lsp_signature = require('lsp_signature')
+
   lsp_inlayhints.setup {
     inlay_hints = {
       parameter_hints = { show = false },
@@ -284,38 +286,43 @@ lua <<EOF
   }
 
   -- https://github.com/neovim/nvim-lspconfig/wiki/Autocompletion
-  local capabilities = vim.lsp.protocol.make_client_capabilities()
-  capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
-  vim.list_extend(capabilities, lsp_status.capabilities)
+  local capabilities = vim.tbl_extend(
+    'keep',
+    require('cmp_nvim_lsp').default_capabilities(),
+    lsp_status.capabilities
+  );
 
-  local function on_attach(client, bufnr)
-    lsp_status.on_attach(client, bufnr)
-    lsp_inlayhints.on_attach(client, bufnr)
-    require("lsp_signature").on_attach()
+  vim.api.nvim_create_autocmd('LspAttach', {
+    callback = function(args)
+      local bufnr = args.buf
+      local client = vim.lsp.get_client_by_id(args.data.client_id)
+      lsp_status.on_attach(client, bufnr)
+      lsp_inlayhints.on_attach(client, bufnr)
+      lsp_signature.on_attach(client)
 
-    local mappings = {
-      { 'gD', vim.lsp.buf.declaration },
-      { 'gd', vim.lsp.buf.definition },
-      { 'gi', vim.lsp.buf.implementation },
-      { 'gy', vim.lsp.buf.type_definition },
-      { 'gr', vim.lsp.buf.references },
-      { '[d', vim.diagnostic.goto_prev },
-      { ']d', vim.diagnostic.goto_next },
-      { '  ', vim.lsp.buf.hover },
-      { ' s', vim.lsp.buf.signature_help },
-      { ' r', vim.lsp.buf.rename },
-      { ' a', vim.lsp.buf.code_action },
-      { ' d', vim.diagnostic.open_float },
-      { ' q', vim.diagnostic.setloclist },
-    }
-    for i, m in pairs(mappings) do
-      vim.keymap.set('n', m[1], function() m[2]() end, { buffer = bufnr })
-    end
-  end
+      local mappings = {
+        { 'gD', vim.lsp.buf.declaration },
+        { 'gd', vim.lsp.buf.definition },
+        { 'gi', vim.lsp.buf.implementation },
+        { 'gy', vim.lsp.buf.type_definition },
+        { 'gr', vim.lsp.buf.references },
+        { '[d', vim.diagnostic.goto_prev },
+        { ']d', vim.diagnostic.goto_next },
+        { '  ', vim.lsp.buf.hover },
+        { ' s', vim.lsp.buf.signature_help },
+        { ' r', vim.lsp.buf.rename },
+        { ' a', vim.lsp.buf.code_action },
+        { ' d', vim.diagnostic.open_float },
+        { ' q', vim.diagnostic.setloclist },
+      }
+      for i, m in pairs(mappings) do
+        vim.keymap.set('n', m[1], function() m[2]() end, { buffer = bufnr })
+      end
+    end,
+  })
 
   lsp.rust_analyzer.setup {
     autostart = false, -- FIXME: It would try to start LSP in crates.io pkgs and produces warnings.
-    on_attach = on_attach,
     capabilities = capabilities,
     settings = {
       ['rust-analyzer'] = {
@@ -336,13 +343,11 @@ lua <<EOF
 
   lsp.pyright.setup {
     autostart = true,
-    on_attach = on_attach,
     capabilities = capabilities,
   }
 
   lsp.nil_ls.setup {
     autostart = true,
-    on_attach = on_attach,
     capabilities = capabilities,
   }
 EOF
@@ -442,3 +447,4 @@ lua <<EOF
   end
 EOF
 "}}}
+" vim:shiftwidth=2:softtabstop=2:expandtab

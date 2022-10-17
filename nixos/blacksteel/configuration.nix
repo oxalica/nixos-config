@@ -11,9 +11,11 @@
     ../modules/nix-registry.nix
   ] ++ lib.optional (inputs ? secrets) (inputs.secrets.nixosModules.blacksteel);
 
-  nixpkgs.config.allowUnfreePredicate =
-    drv: lib.elem (lib.getName drv) [
-      "steam" "steam-original"
+  nixpkgs.config.allowUnfreePredicate = drv:
+    lib.elem (lib.getName drv) [
+      "steam"
+      "steam-original"
+      "steam-run"
     ];
 
   # Boot.

@@ -12,9 +12,11 @@
 
   sops.age.sshKeyPaths = lib.mkForce [ "/var/ssh/ssh_host_ed25519_key" ];
 
-  nixpkgs.config.allowUnfreePredicate =
-    drv: lib.elem (lib.getName drv) [
-      "steam" "steam-original"
+  nixpkgs.config.allowUnfreePredicate = drv:
+    lib.elem (lib.getName drv) [
+      "steam"
+      "steam-original"
+      "steam-run"
     ];
 
   # Boot.
