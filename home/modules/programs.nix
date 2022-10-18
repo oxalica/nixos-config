@@ -22,7 +22,7 @@ in {
     # GUI
     kolourpaint libreoffice mpv evince # Files
     electrum electron-cash monero-gui # Cryptocurrency
-    polymc /* steam <- enabled system-wide */ # Games
+    /* steam <- enabled system-wide */ # Games
     tdesktop nheko # Messaging
     simplescreenrecorder obs-studio # Recording
 
