@@ -112,6 +112,25 @@
         },
         "version": "5e514e6474754ea6a4b4d1bfc5738457a0fb41cf"
     },
+    "swaylock-effects": {
+        "cargoLocks": null,
+        "extract": null,
+        "name": "swaylock-effects",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "jirutka",
+            "repo": "swaylock-effects",
+            "rev": "v1.6.10",
+            "sha256": "sha256-VkyH9XN/pR1UY/liG5ygDHp+ymdqCPeWHyU7/teJGbU=",
+            "type": "github"
+        },
+        "version": "v1.6.10"
+    },
     "tree-sitter-bash": {
         "cargoLocks": null,
         "extract": null,

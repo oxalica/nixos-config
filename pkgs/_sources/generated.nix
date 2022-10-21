@@ -66,6 +66,17 @@
       sha256 = "sha256-rKAVKUE/stzUaWFbhhbftukm1rHVQ+ErfA73hdNBGf0=";
     });
   };
+  swaylock-effects = {
+    pname = "swaylock-effects";
+    version = "v1.6.10";
+    src = fetchFromGitHub ({
+      owner = "jirutka";
+      repo = "swaylock-effects";
+      rev = "v1.6.10";
+      fetchSubmodules = false;
+      sha256 = "sha256-VkyH9XN/pR1UY/liG5ygDHp+ymdqCPeWHyU7/teJGbU=";
+    });
+  };
   tree-sitter-bash = {
     pname = "tree-sitter-bash";
     version = "275effdfc0edce774acf7d481f9ea195c6c403cd";

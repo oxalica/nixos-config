@@ -27,6 +27,11 @@ fetch.github = "alebastr/sway-systemd"
 src.git = "https://github.com/swaywm/sway"
 fetch.github = "swaywm/sway"
 
+# FIXME: https://github.com/NixOS/nixpkgs/pull/180816
+[swaylock-effects]
+src.github_tag = "jirutka/swaylock-effects"
+fetch.github = "jirutka/swaylock-effects"
+
 [tree-sitter-bash]
 src.git = "https://github.com/tree-sitter/tree-sitter-bash"
 fetch.github = "tree-sitter/tree-sitter-bash"

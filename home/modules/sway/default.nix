@@ -16,6 +16,8 @@ let
 
   sway = config.wayland.windowManager.sway.package;
 
+  swaylock = my.pkgs.swaylock-effects;
+
 in
 {
   imports = [
@@ -27,7 +29,7 @@ in
     pavucontrol
     grim
     slurp
-    swaylock-effects
+    swaylock
     sway-contrib.grimshot
   ]) ++ (with pkgs.libsForQt5; [
     # From plasma5.
@@ -236,7 +238,7 @@ in
     timeouts = [
       {
         timeout = 900; # 15min
-        command = "${pkgs.swaylock-effects}/bin/swaylock --grace=5";
+        command = "${swaylock}/bin/swaylock --grace=5";
       }
       {
         timeout = 905;
@@ -247,7 +249,7 @@ in
     events = [
       {
         event = "lock";
-        command = "${pkgs.swaylock-effects}/bin/swaylock";
+        command = "${swaylock}/bin/swaylock";
       }
       # Not implemented yet: https://github.com/swaywm/swaylock/pull/237
       # { event = "unlock"; command = ""; }
