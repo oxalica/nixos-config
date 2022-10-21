@@ -1,4 +1,3 @@
-# Workaround: https://github.com/swaywm/swaylock/issues/204
 { pkgs, sway-unwrapped
 , withBaseWrapper ? true
 , extraSessionCommands ? ""

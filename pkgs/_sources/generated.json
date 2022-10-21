@@ -28,11 +28,11 @@
             "name": null,
             "owner": "deb-sig",
             "repo": "double-entry-generator",
-            "rev": "v1.5.2",
-            "sha256": "sha256-RMtXy37DfzFgJSQXntGCRAKe4V3P/6eHoPuwyNmwvN4=",
+            "rev": "v1.5.3",
+            "sha256": "sha256-JVIQ91WArX2HnIFkPZf/Ilz/ZF12z5pR94LAiEjJJs0=",
             "type": "github"
         },
-        "version": "v1.5.2"
+        "version": "v1.5.3"
     },
     "rawmv": {
         "cargoLocks": null,
@@ -106,11 +106,11 @@
             "name": null,
             "owner": "swaywm",
             "repo": "sway",
-            "rev": "99fd096d69ce94d29c52414d274deb9e9e25de6b",
-            "sha256": "sha256-5EAMUMLV9nOzGS1kjy2rau8ZYIk/WmTl0eIoBVCq0PQ=",
+            "rev": "5e514e6474754ea6a4b4d1bfc5738457a0fb41cf",
+            "sha256": "sha256-rKAVKUE/stzUaWFbhhbftukm1rHVQ+ErfA73hdNBGf0=",
             "type": "github"
         },
-        "version": "99fd096d69ce94d29c52414d274deb9e9e25de6b"
+        "version": "5e514e6474754ea6a4b4d1bfc5738457a0fb41cf"
     },
     "tree-sitter-bash": {
         "cargoLocks": null,
@@ -150,6 +150,24 @@
         },
         "version": "add8eb3050a0974c1854df419c192fa4f359bcb0"
     },
+    "wayland-protocols": {
+        "cargoLocks": null,
+        "extract": null,
+        "name": "wayland-protocols",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "rev": "1.27",
+            "sha256": "sha256-eS7nurCjYetDNQORYIVITE93JW4KUqJv/GBEoe/HUkw=",
+            "type": "git",
+            "url": "https://gitlab.freedesktop.org/wayland/wayland-protocols"
+        },
+        "version": "1.27"
+    },
     "wlroots": {
         "cargoLocks": null,
         "extract": null,
@@ -161,11 +179,11 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "5ba6cf517b6dd95e6d04b97ddd7dbc4b59ea4825",
-            "sha256": "sha256-sK96lGnbUltPdCEAIItQpUHYdyU95C1bj6g+ihTHrCI=",
+            "rev": "6d90518c974e1dd959ed00c255de5b54595c4e90",
+            "sha256": "sha256-U0Fj1D+A//feOC6QZMQLy3TKxa6z3tdlDdcV0Thjbyw=",
             "type": "git",
             "url": "https://gitlab.freedesktop.org/wlroots/wlroots"
         },
-        "version": "5ba6cf517b6dd95e6d04b97ddd7dbc4b59ea4825"
+        "version": "6d90518c974e1dd959ed00c255de5b54595c4e90"
     }
 }
