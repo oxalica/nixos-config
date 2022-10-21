@@ -42,7 +42,7 @@ in {
     cargo-flamegraph
     cargo-insta
     cargo-license
-    my.pkgs.cargo-show-asm
+    cargo-show-asm
   ];
 
   # Setup cargo directories.
