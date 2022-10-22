@@ -16,7 +16,9 @@ let
 
   sway = config.wayland.windowManager.sway.package;
 
-  swaylock = my.pkgs.swaylock-effects;
+  # FIXME: https://github.com/jirutka/swaylock-effects/issues/3
+  # swaylock = my.pkgs.swaylock-effects;
+  swaylock = pkgs.swaylock;
 
 in
 {
@@ -212,9 +214,9 @@ in
     daemonize = true;
     image = "${wallpaper-blur}";
     scaling = "fill";
-    indicator-idle-visible = true;
-    clock = true;
-    datestr = "%Y-%m-%d %a";
+    # indicator-idle-visible = true;
+    # clock = true;
+    # datestr = "%Y-%m-%d %a";
     show-failed-attempts = true;
   };
 
@@ -238,7 +240,8 @@ in
     timeouts = [
       {
         timeout = 900; # 15min
-        command = "${swaylock}/bin/swaylock --grace=5";
+        command = "${swaylock}/bin/swaylock";
+        # command = "${swaylock}/bin/swaylock --grace=5";
       }
       {
         timeout = 905;
