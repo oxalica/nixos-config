@@ -165,7 +165,8 @@
     mode = "0444";
   };
 
-  programs.adb.enable = true;
+  # FIXME: https://github.com/NixOS/nixpkgs/pull/196146
+  programs.adb.enable = false;
 
   programs.steam = {
     enable = true;

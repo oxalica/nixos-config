@@ -226,7 +226,8 @@
     mode = "0444";
   };
 
-  programs.adb.enable = true;
+  # FIXME: https://github.com/NixOS/nixpkgs/pull/196146
+  programs.adb.enable = false;
   users.groups."adbusers".members = [ config.users.users.oxa.name ];
 
   programs.steam = {

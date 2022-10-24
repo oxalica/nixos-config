@@ -105,7 +105,8 @@ in
       {
         terminal = "${terminal} -e ${pkgs.tmux}/bin/tmux new-session -t main";
         startup = [
-          { command = "${my.pkgs.sway-systemd}/libexec/sway-systemd/assign-cgroups.py -l info"; }
+          # FIXME: https://github.com/NixOS/nixpkgs/issues/197408
+          # { command = "${my.pkgs.sway-systemd}/libexec/sway-systemd/assign-cgroups.py -l info"; }
           { command = "firefox"; }
           { command = "telegram-desktop"; }
           { command = "nheko"; }
