@@ -95,13 +95,6 @@ command! -nargs=* W w <args>
 
 " plugin: vim-nix
 
-" plugin: hop-nvim {{{
-lua require('hop').setup()
-nmap gw <Cmd>HopWord<CR>
-nmap gf <Cmd>HopChar1<CR>
-nmap g/ <Cmd>HopPattern<CR>
-"}}}
-
 " plugin: fcitx-vim
 
 " plugin: fzf-vim {{{
@@ -139,6 +132,9 @@ nmap <Leader>fs <Cmd>DocumentSymbols<CR>
 "}}}
 
 " plugin: gitgutter
+
+" plugin: leap-nvim
+lua require('leap').add_default_mappings()
 
 " plugin: markdown-preview-nvim
 
