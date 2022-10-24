@@ -27,7 +27,6 @@
     kernelModules = [ "kvm-amd" ];
 
     initrd = {
-      # Test.
       systemd.enable = true;
 
       availableKernelModules = [ "xhci_pci" "ahci" "usbhid" ];

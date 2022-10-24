@@ -22,17 +22,13 @@
 
   boot = {
     initrd = {
+      systemd.enable = true;
       availableKernelModules = [ "xhci_pci" "nvme" "rtsx_pci_sdmmc" ];
       kernelModules = [ ];
-      luks = {
-        gpgSupport = true;
-        devices."luksroot" = {
-          device = "/dev/disk/by-uuid/8e445c05-75cc-45c7-bebd-46a73cf50a74";
-          allowDiscards = true;
-          gpgCard.gracePeriod = 15;
-          gpgCard.encryptedPass = ./luks-encrypted-pass.gpg.asc;
-          gpgCard.publicKey = my.gpg.publicKeyFile;
-        };
+      luks.devices."luksroot" = {
+        device = "/dev/disk/by-uuid/8e445c05-75cc-45c7-bebd-46a73cf50a74";
+        allowDiscards = true;
+        crypttabExtraOpts = [ "fido2-device=auto" ];
       };
     };
 
@@ -85,7 +81,6 @@
     video.hidpi.enable = true;
     bluetooth.enable = true;
     logitech.wireless.enable = true;
-    gpgSmartcards.enable = true;
     pulseaudio.enable = true;
     enableRedistributableFirmware = true; # Required for WIFI.
     opengl.extraPackages = with pkgs; [ intel-media-driver ]; # vaapi
