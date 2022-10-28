@@ -72,5 +72,7 @@ in
     pyright
     rust-analyzer
     nil
+    nodePackages.typescript
+    nodePackages.typescript-language-server
   ];
 }

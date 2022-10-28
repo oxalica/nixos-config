@@ -346,6 +346,12 @@ lua <<EOF
     autostart = true,
     capabilities = capabilities,
   }
+
+  lsp.tsserver.setup {
+    autostart = true,
+    capabilities = capabilities,
+    cmd = { 'typescript-language-server', '--stdio', '--tsserver-path=tsserver' },
+  }
 EOF
 "}}}
 
