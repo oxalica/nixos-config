@@ -21,6 +21,7 @@ set updatetime=1000
 
 " Render.
 set number
+set relativenumber
 set cursorline
 set hlsearch
 set signcolumn=yes " Always show.
@@ -80,6 +81,7 @@ imap <S-ScrollWheelDown> <ScrollWhellRight>
 imap <S-ScrollWheelUp>   <ScrollWhellLeft>
 
 " Options
+nmap <M-n> <Cmd>set relativenumber!\|set relativenumber?<CR>
 nmap <M-z> <Cmd>set wrap!\|set wrap?<CR>
 nmap <M-CR> <Cmd>nohlsearch<CR>
 
