@@ -30,8 +30,7 @@
       systemd.enable = true;
 
       availableKernelModules = [ "xhci_pci" "ahci" "usbhid" ];
-      # Load graphics driver as early as possible to fix modsetting issues.
-      kernelModules = [ "amd_pstate" "amdgpu" "nvme" ];
+      kernelModules = [ "amd_pstate" "nvme" ];
 
       luks.devices."invar-luks" = {
         device = "/dev/disk/by-uuid/aa50ce23-65c4-4b9a-8484-641a06a9d08c";
