@@ -6,6 +6,7 @@
 
     ../modules/console-env.nix
     ../modules/kde-desktop
+    ../modules/kexec-unload-kernel-modules.nix
     ../modules/miiiw-keyboard-fix.nix
     ../modules/nix-common.nix
     ../modules/nix-registry.nix
@@ -34,6 +35,8 @@
 
     kernelModules = [ "kvm-intel" ];
     extraModulePackages = [ ];
+
+    kexecUnloadKernelModules = [ "kvmgt" "i915" ];
 
     # For hibernate-resume.
     # /var/swap/swap-resume: 131891830784 / 4096 = 32200154

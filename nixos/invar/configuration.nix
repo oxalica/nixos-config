@@ -4,6 +4,7 @@
     ./btrbk.nix
 
     ../modules/console-env.nix
+    ../modules/kexec-unload-kernel-modules.nix
     ../modules/miiiw-keyboard-fix.nix
     ../modules/nix-common.nix
     ../modules/nix-registry.nix
@@ -25,6 +26,8 @@
     # Kernel >= 5.18 is required for `schedutil`.
     kernelPackages = pkgs.linuxPackages_latest;
     kernelModules = [ "kvm-amd" ];
+
+    kexecUnloadKernelModules = [ "amdgpu" "gpu_sched" "drm_buddy" "drm_ttm_helper" "ttm" "drm_display_helper" "drm_kms_helper" "drm" ];
 
     initrd = {
       systemd.enable = true;
