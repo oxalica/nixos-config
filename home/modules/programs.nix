@@ -20,7 +20,8 @@ in {
     sops # Sops
 
     # GUI
-    kolourpaint libreoffice mpv evince # Files
+    # FIXME: https://github.com/NixOS/nixpkgs/pull/199422
+    kolourpaint /*libreoffice*/ mpv evince # Files
     electrum electron-cash monero-gui # Cryptocurrency
     prismlauncher /* steam <- enabled system-wide */ # Games
     tdesktop nheko # Messaging

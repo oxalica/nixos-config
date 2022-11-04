@@ -11,13 +11,13 @@
   };
   double-entry-generator = {
     pname = "double-entry-generator";
-    version = "v1.5.3";
+    version = "v1.6.0";
     src = fetchFromGitHub ({
       owner = "deb-sig";
       repo = "double-entry-generator";
-      rev = "v1.5.3";
+      rev = "v1.6.0";
       fetchSubmodules = false;
-      sha256 = "sha256-JVIQ91WArX2HnIFkPZf/Ilz/ZF12z5pR94LAiEjJJs0=";
+      sha256 = "sha256-qiQOkWTVkTTD2wjosMzAlBKZjijdJL56++NghEvTAWY=";
     });
     vendorHash = "sha256-yA4ax81rWHTfXj0+8ds4OweUickHtR8QZsgJyulW2j4=";
   };
@@ -57,13 +57,13 @@
   };
   sway-unwrapped = {
     pname = "sway-unwrapped";
-    version = "5e514e6474754ea6a4b4d1bfc5738457a0fb41cf";
+    version = "3e19836f0e4d5c1cd68ea205a377b8cd491e6757";
     src = fetchFromGitHub ({
       owner = "swaywm";
       repo = "sway";
-      rev = "5e514e6474754ea6a4b4d1bfc5738457a0fb41cf";
+      rev = "3e19836f0e4d5c1cd68ea205a377b8cd491e6757";
       fetchSubmodules = false;
-      sha256 = "sha256-rKAVKUE/stzUaWFbhhbftukm1rHVQ+ErfA73hdNBGf0=";
+      sha256 = "sha256-G3pQh6iaeUnUmKIODhlFM+bFAWnCkU3uJq6260VFqtQ=";
     });
   };
   swaylock-effects = {
@@ -79,13 +79,13 @@
   };
   tree-sitter-bash = {
     pname = "tree-sitter-bash";
-    version = "275effdfc0edce774acf7d481f9ea195c6c403cd";
+    version = "77cf8a7cab8904baf1a721762e012644ac1d4c7b";
     src = fetchFromGitHub ({
       owner = "tree-sitter";
       repo = "tree-sitter-bash";
-      rev = "275effdfc0edce774acf7d481f9ea195c6c403cd";
+      rev = "77cf8a7cab8904baf1a721762e012644ac1d4c7b";
       fetchSubmodules = false;
-      sha256 = "sha256-+XJ6ivsp0q08KWhwEQnAYpU88/gggf6or6oxga5k0ZE=";
+      sha256 = "sha256-UPMJ7iL8Y0NkAHtPDrkTjG1qFwr8rXuGqvsG+LTWqEY=";
     });
   };
   tree-sitter-nix = {
@@ -99,28 +99,16 @@
       sha256 = "sha256-x2Kq7t0p5AOKIHtEUHMIC6emZNoF9GE2FdKbjEfUp0E=";
     });
   };
-  wayland-protocols = {
-    pname = "wayland-protocols";
-    version = "1.27";
-    src = fetchgit {
-      url = "https://gitlab.freedesktop.org/wayland/wayland-protocols";
-      rev = "1.27";
-      fetchSubmodules = false;
-      deepClone = false;
-      leaveDotGit = false;
-      sha256 = "sha256-eS7nurCjYetDNQORYIVITE93JW4KUqJv/GBEoe/HUkw=";
-    };
-  };
   wlroots = {
     pname = "wlroots";
-    version = "6d90518c974e1dd959ed00c255de5b54595c4e90";
+    version = "7a42392da2957e9c1ef0395d7a52da25c170fbbf";
     src = fetchgit {
       url = "https://gitlab.freedesktop.org/wlroots/wlroots";
-      rev = "6d90518c974e1dd959ed00c255de5b54595c4e90";
+      rev = "7a42392da2957e9c1ef0395d7a52da25c170fbbf";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-U0Fj1D+A//feOC6QZMQLy3TKxa6z3tdlDdcV0Thjbyw=";
+      sha256 = "sha256-C+VsoP5qfQJl+hmWEGCfFqMjSGweH3fZDELEE598ZaQ=";
     };
   };
 }

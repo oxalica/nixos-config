@@ -40,11 +40,6 @@ fetch.github = "tree-sitter/tree-sitter-bash"
 src.git = "https://github.com/oxalica/tree-sitter-nix"
 fetch.github = "oxalica/tree-sitter-nix"
 
-# FIXME: https://github.com/NixOS/nixpkgs/pull/195868
-[wayland-protocols]
-src.manual = "1.27"
-fetch.git = "https://gitlab.freedesktop.org/wayland/wayland-protocols"
-
 # Required by master `sway`.
 [wlroots]
 src.git = "https://gitlab.freedesktop.org/wlroots/wlroots"
