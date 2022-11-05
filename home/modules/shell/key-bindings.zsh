@@ -1,29 +1,29 @@
-# Modified from: https://github.com/ohmyzsh/ohmyzsh/blob/706b2f3765d41bee2853b17724888d1a3f6f00d9/lib/key-bindings.zsh
-
-# http://zsh.sourceforge.net/Doc/Release/Zsh-Line-Editor.html
-# http://zsh.sourceforge.net/Doc/Release/Zsh-Line-Editor.html#Zle-Builtins
-# http://zsh.sourceforge.net/Doc/Release/Zsh-Line-Editor.html#Standard-Widgets
+# References:
+# - https://github.com/ohmyzsh/ohmyzsh/blob/706b2f3765d41bee2853b17724888d1a3f6f00d9/lib/key-bindings.zsh
+# - `/etc/zinputrc` from NixOS.
+# - http://zsh.sourceforge.net/Doc/Release/Zsh-Line-Editor.html#Zle-Builtins
+# - http://zsh.sourceforge.net/Doc/Release/Zsh-Line-Editor.html#Standard-Widgets
 
 zmodload zsh/zle
 zmodload zsh/terminfo
 
-# Escape sequence timeout: 10ms
+# Escape sequence timeout in 1/100s.
 KEYTIMEOUT=1
 
-# Make sure that the terminal is in application mode when zle is active, since
-# only then values from $terminfo are valid
-zle-line-init() {
-  [[ -z ${terminfo[smkx]} ]] || echoti smkx
-  RPS1=
-  zle reset-prompt
-}
-zle-line-finish() {
-  [[ -z ${terminfo[rmkx]} ]] || echoti rmkx
-}
+# Make sure the terminal is in application mode, when zle is
+# active. Only then are the values from $terminfo valid.
+# From `/etc/zinputrc`.
+if (( ${+terminfo[smkx]} && ${+terminfo[rmkx]} )); then
+    zle-line-init() echoti smkx
+    zle-line-finish() echoti rmkx
+    zle -N zle-line-init
+    zle -N zle-line-finish
+fi
+
 # Mode indicator.
 zle-keymap-select() {
   RPS1=${KEYMAP/(main|viins)/}
-  zle reset-prompt
+  zle redisplay
 }
 zle -N zle-line-init
 zle -N zle-line-finish
@@ -32,44 +32,47 @@ zle -N zle-keymap-select
 # Use viins key bindings
 bindkey -v
 
-bindkey() { [[ -z $1 ]] || builtin bindkey $1 $2 }
+bind() {
+    [[ -z $1 ]] || bindkey $1 $2
+}
 
 # [Delete] - Delete forward
-bindkey ${terminfo[kdch1]} delete-char
+bind "${terminfo[kdch1]}" delete-char
 # [Home]
-bindkey ${terminfo[khome]} beginning-of-line
+bind "${terminfo[khome]}" beginning-of-line
 # [End]
-bindkey ${terminfo[kend]} end-of-line
+bind "${terminfo[kend]}" end-of-line
 # [PageUp]
-bindkey ${terminfo[kpp]} up-line-or-history
+bind "${terminfo[kpp]}" up-line-or-history
 # [PageDown]
-bindkey ${terminfo[knp]} down-line-or-history
+bind "${terminfo[knp]}" down-line-or-history
 # [Ctrl-RightArrow]
-bindkey '^[[1;5C' forward-word
+bind '^[[1;5C' forward-word
 # [Ctrl-LeftArrow]
-bindkey '^[[1;5D' backward-word
+bind '^[[1;5D' backward-word
 
+# [Left]
+bind "${terminfo[kcub1]}" backward-char
+# [Right]
+bind "${terminfo[kcuf1]}" forward-char
 # [Up]
-bindkey ${terminfo[kcuu1]} up-line
+bind "${terminfo[kcuu1]}" up-line
 # [Down]
-bindkey ${terminfo[kcud1]} down-line
+bind "${terminfo[kcud1]}" down-line
 
 # [Shift-Tab]
-bindkey ${terminfo[kcbt]} reverse-menu-complete
+bind "${terminfo[kcbt]}" reverse-menu-complete
 
 autoload -U up-line-or-beginning-search
-zle -N up-line-or-beginning-search
 autoload -U down-line-or-beginning-search
+zle -N up-line-or-beginning-search
 zle -N down-line-or-beginning-search
 # [Ctrl-p]
-bindkey '^p' up-line-or-beginning-search
+bind '^p' up-line-or-beginning-search
 # [Ctrl-n]
-bindkey '^n' down-line-or-beginning-search
+bind '^n' down-line-or-beginning-search
 
-# [Ctrl-r] - Search backward incrementally for a specified string. The string may begin with ^ to anchor the search to the beginning of the line.
-bindkey '^r' history-incremental-search-backward
+# [Space]
+bind ' ' magic-space
 
-# [Alt-m]
-bindkey "^[m" copy-prev-shell-word
-
-unfunction bindkey
+unfunction bind

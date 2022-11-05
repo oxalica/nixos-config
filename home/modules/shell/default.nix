@@ -25,10 +25,17 @@
 
   programs.zsh = {
     enable = true;
-
     dotDir = ".config/zsh";
 
+    # Disable /etc/{zshrc,zprofile} that contains the "sane-default" setup.
+    # See `/etc/zshrc` for more info.
+    envExtra = ''
+      setopt no_global_rcs
+    '';
+
+    enableAutosuggestions = true;
     enableCompletion = false; # We do it ourselves.
+    enableVteIntegration = true;
 
     history = {
       ignoreDups = true;
@@ -37,8 +44,8 @@
       extended = true;
       share = true;
       path = "${config.xdg.stateHome}/zsh/history";
-      save = 10000;
-      size = 50000;
+      save = 1000000;
+      size = 1000000;
       ignorePatterns = [
         "rm *" "\\rm *"
         "sudo *rm*"
@@ -46,31 +53,33 @@
       ];
     };
 
+    # Ref: https://blog.quarticcat.com/zh/posts/how-do-i-make-my-zsh-smooth-as-fuck/
     # bash
     initExtra = ''
-      # Random settings.
-      setopt interactivecomments
-      setopt hist_verify
       setopt auto_pushd
-      export LS_COLORS="rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:"
+      setopt extended_glob
+      setopt hist_verify
+      setopt interactive_comments
+      setopt multios
+      export LS_COLORS='rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:'
+      TIMEFMT=$'%J  %uU user %uS system %uE/%*E elapsed %PCPU (%Xavgtext+%Davgdata %Mmaxresident)k\n%Iinputs+%Ooutputs (%Fmajor+%Rminor)pagefaults %Wswaps'
 
-      # Init.
       source ${pkgs.git}/share/git/contrib/completion/git-prompt.sh
       source ${./prompt.zsh}
       source ${./cmds.zsh}
       source ${./key-bindings.zsh}
       source ${./completion.zsh}
 
-      # Plugins.
       source ${pkgs.zsh-autosuggestions}/share/zsh-autosuggestions/zsh-autosuggestions.zsh
       source ${pkgs.zsh-fast-syntax-highlighting}/share/zsh/site-functions/fast-syntax-highlighting.plugin.zsh
       FAST_HIGHLIGHT[use_async]=1 # Improve paste delay for nix store paths.
-      eval "$(zoxide init zsh)"
+      ZSH_AUTOSUGGEST_MANUAL_REBIND=1
     '';
   };
 
+  programs.zoxide.enable = true;
+
   home.packages = with pkgs; [
-    zoxide
     nix nix-zsh-completions # Prefer nix's builtin completion.
     fzf bat # WARN: They are used by fzf.vim!
     my.pkgs.colors
