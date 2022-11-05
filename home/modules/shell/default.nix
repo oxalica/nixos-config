@@ -1,4 +1,4 @@
-{ lib, pkgs, config, ... }:
+{ lib, pkgs, config, my, ... }:
 {
   home.sessionVariables = {
     # Rust and python outputs.
@@ -69,34 +69,10 @@
     '';
   };
 
-  home.packages = let
-    scripts = pkgs.runCommand "scripts" {
-      inherit (pkgs) bash coreutils jq;
-    } ''
-      install -Dm755 -t $out/bin ${./scripts}/*.sh
-      chmod -R +w $out
-      for file in $out/bin/*.sh; do
-        substituteAllInPlace "$file"
-      done
-    '';
-
-    termcolors = pkgs.runCommand "termcolors" {
-      src = pkgs.fetchurl {
-        url = "https://gist.githubusercontent.com/lilydjwg/fdeaf79e921c2f413f44b6f613f6ad53/raw/94d8b2be62657e96488038b0e547e3009ed87d40/colors.py";
-        hash = "sha256-l/RTPZp2v7Y4ffJRT5Fy5Z3TDB4dvWfE7wqMbquXdJA=";
-      };
-      nativeBuildInputs = [ pkgs.python3 ];
-    } ''
-      install -Dm555 $src $out/bin/termcolors
-      patchShebangs $out/bin
-    '';
-
-  in with pkgs; [
+  home.packages = with pkgs; [
     zoxide
-    (lib.lowPrio nix-zsh-completions) # Prefer nix's builtin completion.
+    nix nix-zsh-completions # Prefer nix's builtin completion.
     fzf bat # WARN: They are used by fzf.vim!
-
-    scripts
-    termcolors
+    my.pkgs.colors
   ];
 }

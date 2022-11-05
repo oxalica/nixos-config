@@ -4,6 +4,10 @@ src.webpage = "https://api.github.com/repos/osandov/osandov-linux/commits?per_pa
 src.regex = '"sha"\s*:\s*"(\w+)"'
 fetch.url = "https://raw.githubusercontent.com/osandov/osandov-linux/$ver/scripts/btrfs_map_physical.c"
 
+[colors]
+src.manual = "94d8b2be62657e96488038b0e547e3009ed87d40"
+fetch.url = "https://gist.githubusercontent.com/lilydjwg/fdeaf79e921c2f413f44b6f613f6ad53/raw/$ver/colors.py"
+
 [double-entry-generator]
 src.github = "deb-sig/double-entry-generator"
 fetch.github = "deb-sig/double-entry-generator"

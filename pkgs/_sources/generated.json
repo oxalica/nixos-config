@@ -13,6 +13,20 @@
         },
         "version": "49aec6b85d8457fa25b5d8f6c2afb3dd4592401a"
     },
+    "colors": {
+        "cargoLocks": null,
+        "extract": null,
+        "name": "colors",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-l/RTPZp2v7Y4ffJRT5Fy5Z3TDB4dvWfE7wqMbquXdJA=",
+            "type": "url",
+            "url": "https://gist.githubusercontent.com/lilydjwg/fdeaf79e921c2f413f44b6f613f6ad53/raw/94d8b2be62657e96488038b0e547e3009ed87d40/colors.py"
+        },
+        "version": "94d8b2be62657e96488038b0e547e3009ed87d40"
+    },
     "double-entry-generator": {
         "cargoLocks": null,
         "extract": null,
