@@ -13,7 +13,7 @@ let
 in {
   home.packages = with pkgs; map lib.lowPrio [
     # Console
-    runzip scc bubblewrap # Random stuff
+    runzip scc bubblewrap difftastic # Random stuff
     xsel wl-clipboard # CLI-Desktop
     beancount my.pkgs.double-entry-generator # Accounting
     tealdeer man-pages # Manual
