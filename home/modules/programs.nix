@@ -11,7 +11,7 @@ let
   ]);
 
 in {
-  home.packages = with pkgs; map lib.lowPrio [
+  home.packages = with pkgs; [
     # Console
     runzip scc bubblewrap difftastic # Random stuff
     xsel wl-clipboard # CLI-Desktop
@@ -23,7 +23,7 @@ in {
     # FIXME: https://github.com/NixOS/nixpkgs/pull/199422
     kolourpaint /*libreoffice*/ mpv evince # Files
     electrum electron-cash monero-gui # Cryptocurrency
-    prismlauncher /* steam <- enabled system-wide */ # Games
+    (prismlauncher.override { jdks = [ openjdk ]; }) /* steam <- enabled system-wide */ # Games
     tdesktop nheko # Messaging
     simplescreenrecorder obs-studio # Recording
 
