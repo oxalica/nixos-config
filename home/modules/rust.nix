@@ -38,6 +38,7 @@ in {
       ];
     })
 
+    cargo-audit
     cargo-bloat
     cargo-flamegraph
     cargo-insta
