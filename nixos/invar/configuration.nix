@@ -165,7 +165,7 @@
 
   services.fstrim = {
     enable = true;
-    interval = "Sat";
+    interval = "Wed,Sat 02:00";
   };
 
   services.logind.extraConfig = ''

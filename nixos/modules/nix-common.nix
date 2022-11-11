@@ -3,7 +3,7 @@
   nix = {
     gc = {
       automatic = true;
-      dates = "Sat 03:00";
+      dates = "Wed,Sat 01:00";
       options = "--delete-older-than 8d";
     };
 

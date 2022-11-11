@@ -126,7 +126,10 @@
       kbdInteractiveAuthentication = false;
       permitRootLogin = "no";
     };
-    fstrim.enable = true;
+    fstrim = {
+      enable = true;
+      interval = "Wed,Sat 02:00";
+    };
     timesyncd.enable = true;
     earlyoom = {
       enable = true;
