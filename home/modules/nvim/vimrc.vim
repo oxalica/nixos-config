@@ -235,13 +235,6 @@ lua <<EOF
       { name = 'path' },
       { name = 'buffer' },
     }),
-    sorting = {
-      comparators = {
-        cmp.config.compare.sort_text, -- From LSP.
-        cmp.config.compare.recently_used,
-        cmp.config.compare.offset, -- Start position of the completion.
-      },
-    },
   }
 EOF
 
