@@ -25,8 +25,6 @@ zle-keymap-select() {
   RPS1=${KEYMAP/(main|viins)/}
   zle redisplay
 }
-zle -N zle-line-init
-zle -N zle-line-finish
 zle -N zle-keymap-select
 
 # Use viins key bindings
