@@ -5,8 +5,8 @@
     ./vm.nix
 
     ../modules/console-env.nix
+    ../modules/device-fix.nix
     ../modules/kde-desktop
-    ../modules/miiiw-keyboard-fix.nix
     ../modules/nix-common.nix
     ../modules/nix-registry.nix
   ] ++ lib.optional (inputs ? secrets) (inputs.secrets.nixosModules.blacksteel);

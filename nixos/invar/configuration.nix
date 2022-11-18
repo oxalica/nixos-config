@@ -4,7 +4,7 @@
     ./btrbk.nix
 
     ../modules/console-env.nix
-    ../modules/miiiw-keyboard-fix.nix
+    ../modules/device-fix.nix
     ../modules/nix-common.nix
     ../modules/nix-registry.nix
     ../modules/sway-desktop.nix
