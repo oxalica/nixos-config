@@ -36,6 +36,10 @@ fetch.github = "swaywm/sway"
 src.github_tag = "jirutka/swaylock-effects"
 fetch.github = "jirutka/swaylock-effects"
 
+[tree-sitter-nix]
+src.git = "https://github.com/oxalica/tree-sitter-nix"
+fetch.github = "oxalica/tree-sitter-nix"
+
 # Required by master `sway`.
 [wlroots]
 src.git = "https://gitlab.freedesktop.org/wlroots/wlroots"

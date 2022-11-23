@@ -1,7 +1,18 @@
 { lib, pkgs, inputs, my, ... }:
 let
+  treesitterPlugins = ps:
+    (lib.filter (p: lib.isDerivation p && p.pname != "nix-grammar")
+      (lib.attrValues ps)) ++
+    [ my.pkgs.tree-sitter-nix ];
+
   vimPlugins = pkgs.vimPlugins // {
-    nvim-treesitter = pkgs.vimPlugins.nvim-treesitter.withAllGrammars;
+    nvim-treesitter = (pkgs.vimPlugins.nvim-treesitter.withPlugins treesitterPlugins).overrideAttrs (old: {
+      postInstall = old.postInstall or "" + ''
+        for x in highlights locals injections indents; do
+          cp -f ${my.pkgs.tree-sitter-nix}/queries/nvim-$x.scm $out/queries/nix/$x.scm
+        done
+      '';
+    });
   };
 
   vimrc = builtins.readFile ./vimrc.vim;
