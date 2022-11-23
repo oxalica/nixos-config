@@ -176,10 +176,6 @@ let g:sandwich#recipes += [
   \ ]
 "}}}
 
-" plugin: vim-smoothie {{{
-let g:smoothie_speed_linear_factor = 20
-"}}}
-
 " plugin: crates-nvim {{{
 " Should be setup early, or it cannot trigger autocmd inside autocmd.
 lua require('crates').setup()
