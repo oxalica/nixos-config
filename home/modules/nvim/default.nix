@@ -21,6 +21,57 @@ let
       (lib.filter (x: lib.isList x)
         (builtins.split ''" plugin: ([A-Za-z_-]+)'' vimrc));
 
+  cocSettings = {
+    "coc.preferences.currentFunctionSymbolAutoUpdate" = true;
+    "coc.preferences.extensionUpdateCheck" = "never";
+    "diagnostic.errorSign" = "⮾ ";
+    "diagnostic.hintSign" = "💡";
+    "diagnostic.infoSign" = "🛈 ";
+    "diagnostic.warningSign" = "⚠";
+    "links.tooltip" = true;
+    "suggest.noselect" = true;
+
+    "[rust]"."coc.preferences.formatOnSave" = true;
+    "[rust]"."semanticTokens.enable" = true;
+
+    languageserver = {
+      nix = {
+        # Use from PATH to allow overriding.
+        command = "nil";
+        filetypes = [ "nix" ];
+        rootPatterns = [ "flake.nix" ".git" ];
+        settings.nil = {
+          formatting.command = [ "${pkgs.nixpkgs-fmt}/bin/nixpkgs-fmt" ];
+        };
+      };
+
+      pyright = {
+        command = "${pkgs.pyright}/bin/pyright-langserver";
+        args = [ "--stdio" ];
+        filetypes = [ "python" ];
+        rootPatterns = [ "pyproject.toml" "setup.py" "setup.cfg" "requirements.txt" "Pipfile" "pyrightconfig.json" ];
+      };
+
+      rust-analyzer = {
+        command = "${pkgs.rust-analyzer}/bin/rust-analyzer";
+        filetypes = [ "rust" ];
+        rootPatterns = [ "rust-project.json" "Cargo.lock" ".git" ];
+        # https://github.com/rust-lang/rust-analyzer/blob/master/crates/rust-analyzer/src/config.rs
+        settings.rust-analyzer = {
+          checkOnSave.command = "clippy";
+          imports.granularity.group = "module";
+        };
+      };
+
+      tsserver = {
+        command = "${pkgs.nodePackages.typescript-language-server}/bin/typescript-language-server";
+        args = [ "--stdio" "--tsserver-path=${pkgs.nodePackages.typescript}/bin/tsserver" ];
+        filetypes = [ "typescript" "javascript" ];
+        rootPatterns = [ "package.json" "tsconfig.json" "jsconfig.json" ".git" ];
+      };
+    };
+  };
+
 in
 {
   programs.neovim = {
@@ -28,16 +79,14 @@ in
     withRuby = false;
     inherit plugins;
     extraConfig = vimrc;
+
+    coc = {
+      enable = true;
+      settings = cocSettings;
+    };
   };
 
   home.sessionVariables.EDITOR = "nvim";
 
-  # Use default LSP `cmd` from PATH to allow overriding.
-  home.packages = with pkgs; [
-    pyright
-    rust-analyzer
-    nil
-    nodePackages.typescript
-    nodePackages.typescript-language-server
-  ];
+  home.packages = with pkgs; [ nil ];
 }

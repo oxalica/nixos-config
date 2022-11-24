@@ -17,7 +17,7 @@ set softtabstop=-1 " Follows shiftwidth
 set shiftround
 set expandtab
 set ttimeoutlen=1
-set updatetime=1000
+set updatetime=500 " coc.nvim relies on relatively fast CursorHold.
 
 " Render.
 set number
@@ -49,7 +49,8 @@ endif
 " Status line.
 " Reference: https://github.com/lilydjwg/dotvim/blob/07c4467153f2f44264fdb0e23c085b56cad519db/vimrc#L548
 " <path/to/file [+][preview][RO][filetype][binary][encoding][BOM][dos][noeol]
-"   === char code, line, column, byte position, percentage
+"   === status
+"   === char code, line, column, byte position, percentage, total lines
 set laststatus=2 " Always shown.
 let &statusline=
   \ '%<%f %m%r%y' ..
@@ -58,9 +59,9 @@ let &statusline=
   \ '%{!&bin&&&bomb?"[BOM]":""}' ..
   \ '%{!&bin&&&ff!="unix"?"[".&ff."]":""}' ..
   \ '%{!&eol?"[noeol]":&bin?"[eol]":""}' ..
-  \ ' %LL  %-8.{luaeval("require[[lsp-status]].status()")}' ..
+  \ '  %-8.{coc#status().." "..get(b:,"coc_current_function","")}' ..
   \ '%=' ..
-  \ ' 0x%-4.B %-16.(%lL,%cC%V,%oB%) %P'
+  \ ' 0x%-4.B %-16.(%l,%c%V %oB%) %P %LL'
 
 " Mappings. {{{1
 let g:mapleader = '\'
@@ -128,11 +129,6 @@ nmap <Leader>fh <Cmd>Helptags<CR>
 nmap <Leader>fr :Rg<Space>
 "}}}
 
-" plugin: fzf-lsp-nvim {{{
-nmap <Leader>fd <Cmd>DiagnosticsAll<CR>
-nmap <Leader>fs <Cmd>DocumentSymbols<CR>
-"}}}
-
 " plugin: gitgutter
 
 " plugin: leap-nvim
@@ -179,171 +175,6 @@ let g:sandwich#recipes += [
 " plugin: crates-nvim {{{
 " Should be setup early, or it cannot trigger autocmd inside autocmd.
 lua require('crates').setup()
-"}}}
-
-" plugin: nvim-cmp {{{
-
-" Reference: https://github.com/neovim/nvim-lspconfig/wiki/Autocompletion
-
-" plugin: luasnip {{{
-smap <Tab>   <Plug>luasnip-jump-next
-smap <M-Tab> <Plug>luasnip-jump-next
-smap <S-Tab> <Plug>luasnip-jump-prev
-imap <M-Tab> <Plug>luasnip-jump-next
-imap <S-Tab> <Plug>luasnip-jump-prev
-"}}}
-" plugin: cmp_luasnip
-" plugin: cmp-nvim-lsp
-" plugin: cmp-path
-" plugin: cmp-buffer
-
-set completeopt=menu,menuone,noselect
-lua <<EOF
-  local cmp = require('cmp')
-  local luasnip = require('luasnip')
-  cmp.setup {
-    -- REQUIRED - you must specify a snippet engine
-    snippet = {
-      expand = function(args)
-        luasnip.lsp_expand(args.body)
-      end,
-    },
-    mapping = {
-      ['<C-p>'] = cmp.mapping.select_prev_item(),
-      ['<C-n>'] = cmp.mapping.select_next_item(),
-      ['<C-d>'] = cmp.mapping.scroll_docs(-4),
-      ['<C-f>'] = cmp.mapping.scroll_docs(4),
-      ['<C-space>'] = cmp.mapping.complete(),
-      ['<C-e>'] = cmp.mapping.close(),
-      ['<tab>'] = cmp.mapping(function(fallback)
-        if cmp.visible() then
-          cmp.confirm { select = true }
-        else
-          fallback()
-        end
-      end),
-    },
-    sources = cmp.config.sources({
-      { name = 'nvim_lsp' },
-      { name = 'luasnip' },
-      { name = 'crates' },
-    }, {
-      { name = 'path' },
-      { name = 'buffer' },
-    }),
-  }
-EOF
-
-"}}}
-
-" plugin: nvim-lspconfig {{{
-" plugin: lsp_signature-nvim
-" plugin: lsp-inlayhints-nvim
-" plugin: lsp-status-nvim {{{
-lua <<EOF
-  local lsp_status = require('lsp-status')
-  lsp_status.config {
-    status_symbol = '[LSP]',
-    indicator_errors = '⮾ ',
-    indicator_warnings = '⚠ ',
-    indicator_info = '🛈 ',
-    indicator_hint = ' ',
-    indicator_separator = "",
-    component_separator = ' ',
-  }
-  lsp_status.register_progress()
-EOF
-"}}}
-
-" This is set globally and only affect the current buffer.
-command! -nargs=0 Format lua vim.lsp.buf.formatting_sync()
-
-lua <<EOF
-  local lsp = require('lspconfig')
-
-  local lsp_status = require('lsp-status')
-  local lsp_inlayhints = require('lsp-inlayhints')
-  local lsp_signature = require('lsp_signature')
-
-  lsp_inlayhints.setup {
-    inlay_hints = {
-      parameter_hints = { show = false },
-      highlight = 'Comment',
-    },
-  }
-
-  -- https://github.com/neovim/nvim-lspconfig/wiki/Autocompletion
-  local capabilities = vim.tbl_extend(
-    'keep',
-    require('cmp_nvim_lsp').default_capabilities(),
-    lsp_status.capabilities
-  );
-
-  vim.api.nvim_create_autocmd('LspAttach', {
-    callback = function(args)
-      local bufnr = args.buf
-      local client = vim.lsp.get_client_by_id(args.data.client_id)
-      lsp_status.on_attach(client, bufnr)
-      lsp_inlayhints.on_attach(client, bufnr)
-      lsp_signature.on_attach(client)
-
-      local mappings = {
-        { 'gD', vim.lsp.buf.declaration },
-        { 'gd', vim.lsp.buf.definition },
-        { 'gi', vim.lsp.buf.implementation },
-        { 'gy', vim.lsp.buf.type_definition },
-        { 'gr', vim.lsp.buf.references },
-        { '[d', vim.diagnostic.goto_prev },
-        { ']d', vim.diagnostic.goto_next },
-        { '  ', vim.lsp.buf.hover },
-        { ' s', vim.lsp.buf.signature_help },
-        { ' r', vim.lsp.buf.rename },
-        { ' a', vim.lsp.buf.code_action },
-        { ' d', vim.diagnostic.open_float },
-        { ' q', vim.diagnostic.setloclist },
-      }
-      for i, m in pairs(mappings) do
-        vim.keymap.set('n', m[1], function() m[2]() end, { buffer = bufnr })
-      end
-    end,
-  })
-
-  lsp.rust_analyzer.setup {
-    autostart = false, -- FIXME: It would try to start LSP in crates.io pkgs and produces warnings.
-    capabilities = capabilities,
-    settings = {
-      ['rust-analyzer'] = {
-        checkOnSave = { command = 'clippy' },
-        assist = {
-          importEnforceGranularity = true,
-          importGranularity = 'module',
-        },
-        completion = {
-          autoself = { enable = false },
-          postfix = { enable = false },
-          addCallArgumentSnippets = false,
-          snippets = {},
-        },
-      },
-    },
-  }
-
-  lsp.pyright.setup {
-    autostart = true,
-    capabilities = capabilities,
-  }
-
-  lsp.nil_ls.setup {
-    autostart = true,
-    capabilities = capabilities,
-  }
-
-  lsp.tsserver.setup {
-    autostart = true,
-    capabilities = capabilities,
-    cmd = { 'typescript-language-server', '--stdio', '--tsserver-path=tsserver' },
-  }
-EOF
 "}}}
 
 " plugin: nvim-treesitter {{{
@@ -440,4 +271,77 @@ lua <<EOF
   end
 EOF
 "}}}
+
+" coc.nvim {{{1
+" The plugins will be automatically enabled via h-m options.
+" Mostly follows https://github.com/neoclide/coc.nvim#example-vim-configuration
+
+" Completion.
+inoremap <silent><expr> <Tab> coc#pum#visible() ? coc#_select_confirm() : "\<Tab>"
+inoremap <silent><expr> <C-Space> coc#refresh()
+
+" Motion.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+nmap <silent> [d <Plug>(coc-diagnostic-prev)
+nmap <silent> ]d <Plug>(coc-diagnostic-next)
+
+nmap <silent> <C-s> <Plug>(coc-range-select)
+xmap <silent> <C-s> <Plug>(coc-range-select)
+
+xmap if <Plug>(coc-funcobj-i)
+omap if <Plug>(coc-funcobj-i)
+xmap af <Plug>(coc-funcobj-a)
+omap af <Plug>(coc-funcobj-a)
+xmap ic <Plug>(coc-classobj-i)
+omap ic <Plug>(coc-classobj-i)
+xmap ac <Plug>(coc-classobj-a)
+omap ac <Plug>(coc-classobj-a)
+
+" Scrolling.
+nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
+inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
+vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+
+" Actions.
+nmap <silent> <Space>r <Plug>(coc-rename)
+nmap <silent> <Space>a <Plug>(coc-codeaction-cursor)
+xmap <silent> <Space>a <Plug>(coc-codeaction-selected)
+nmap <silent> <Space>q <Plug>(coc-fix-current)
+nmap <silent> <Space>l <Plug>(coc-codelens-action)
+
+nmap <silent> gl <Plug>(coc-openlink)
+
+nmap <Leader>F <Plug>(coc-format)
+xmap <Leader>F <Plug>(coc-format-selected)
+
+" Hover.
+nnoremap <silent> <Space><Space> <Cmd>call CocActionAsync('doHover')<CR>
+nnoremap <silent> <Space>d <Cmd>call CocActionAsync('definitionHover')<CR>
+
+" CoCList.
+nnoremap <silent><nowait> <Leader>fd  <Cmd>CocList diagnostics<CR>
+nnoremap <silent><nowait> <Leader>fc  <Cmd>CocList commands<CR>
+nnoremap <silent><nowait> <Leader>fo  <Cmd>CocList outline<CR>
+" Workspace symbols.
+nnoremap <silent><nowait> <Leader>fs  <Cmd>CocList -I symbols<CR>
+" Resume latest coc list.
+nnoremap <silent><nowait> <Leader>fp  <Cmd>CocListResume<CR>
+
+augroup coc_autocmd
+  autocmd!
+  " Highlight the symbol and its references when holding the cursor.
+  autocmd CursorHold * silent call CocActionAsync('highlight')
+  " Setup formatexpr specified filetype(s).
+  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+  " Update signature help on jump placeholder.
+  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+augroup end
+
 " vim:shiftwidth=2:softtabstop=2:expandtab
