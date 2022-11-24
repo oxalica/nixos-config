@@ -24,11 +24,12 @@ in {
     electrum electron-cash monero-gui # Cryptocurrency
     (prismlauncher.override { jdks = [ openjdk ]; }) /* steam <- enabled system-wide */ # Games
     tdesktop nheko # Messaging
-    simplescreenrecorder obs-studio # Recording
+    wf-recorder obs-studio # Recording
 
     # Dev
     cachix patchelf nixpkgs-review nix-update # Nix utils
     gcc ghc myPython # Compiler & interpreters
+    gdb # Debugger
     sqlite-interactive # sqlite
   ];
 
