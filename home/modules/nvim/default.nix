@@ -13,6 +13,16 @@ let
         done
       '';
     });
+
+    nightfox-nvim = pkgs.vimPlugins.nightfox-nvim.overrideAttrs (old: {
+      # FIXME: vimPlugins should update.
+      patches = old.patches or [] ++ [
+        (pkgs.fetchpatch {
+          url = "https://github.com/EdenEast/nightfox.nvim/commit/bb70a6489c6055f445a86a0290ead288732477df.patch";
+          hash = "sha256-G9WqANKhRo1AMRLTxqmXI+0wOcKkDePLuKu+i4elwOI=";
+        })
+      ];
+    });
   };
 
   vimrc = builtins.readFile ./vimrc.vim;
@@ -60,6 +70,7 @@ let
         settings.rust-analyzer = {
           checkOnSave.command = "clippy";
           imports.granularity.group = "module";
+          semanticHighlighting.strings.enable = false;
         };
       };
 
@@ -83,6 +94,12 @@ in
     coc = {
       enable = true;
       settings = cocSettings;
+      package = pkgs.vimPlugins.coc-nvim.overrideAttrs (old: {
+        patches = old.patches or [] ++ [
+          # FIXME: https://github.com/neoclide/coc.nvim/pull/4384
+          ./coc-nvim-update-tree-sitter-highlight-names.patch
+        ];
+      });
     };
   };
 

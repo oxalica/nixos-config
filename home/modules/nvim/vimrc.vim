@@ -148,8 +148,6 @@ let g:NERDTrimTrailingWhitespace = 1
 let g:show_spaces_that_precede_tabs = 1
 "}}}
 
-" plugin: vim-illuminate
-
 " plugin: vim-fugitive {{{
 " plugin: fugitive-gitlab-vim
 " plugin: vim-rhubarb
@@ -242,26 +240,24 @@ EOF
 
 " plugin: nightfox-nvim {{{
 lua <<EOF
+  -- Invalidate the cache.
+  -- FIXME: https://github.com/EdenEast/nightfox.nvim/issues/253
+  vim.fn.delete(vim.fn.stdpath("cache") .. "/nightfox/stat")
+
   require("nightfox").setup {
-    modules = {
-      cmp = true,
-      diagnostic = true,
-      hop = true,
-      illuminate = true,
-      native_lsp = true,
-      treesitter = true,
-    },
     groups = {
       all = {
         -- vim-better-whitespace
         ExtraWhitespace = { bg = "palette.red.dim" },
 
-        DiagnosticUnderlineHint = { link = "None" },
+        SpecialComment = { fg = "palette.fg1" },
+        SpecialString = { fg = "palette.green.bright" },
 
-        -- Somehow not set by default.
-        IlluminatedWordText = { link = "LspReferenceText" },
-        IlluminatedWordRead = { link = "LspReferenceRead" },
-        IlluminatedWordWrite = { link = "LspReferenceWrite" },
+        CocHighlightWrite = { bg = "palette.bg3", style = "underline" },
+
+        ["@string.special.nix"] = { link = "PreProc" },
+        ["@field.rust"] = { link = "@field" },
+        ["@field.yaml"] = { link = "@field" },
       },
     },
   }
@@ -343,5 +339,13 @@ augroup coc_autocmd
   " Update signature help on jump placeholder.
   autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 augroup end
+
+" Additional highlighting.
+highlight! link CocSemAsync Conditional
+highlight! link CocSemControlFlow Conditional
+highlight! link CocSemDocumentation SpecialComment
+highlight! link CocSemLifetime Label
+highlight! link CocSemEnum Constant
+highlight! link CocSemEnumMember Constant
 
 " vim:shiftwidth=2:softtabstop=2:expandtab
