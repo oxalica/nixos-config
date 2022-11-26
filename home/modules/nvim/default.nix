@@ -13,16 +13,6 @@ let
         done
       '';
     });
-
-    nightfox-nvim = pkgs.vimPlugins.nightfox-nvim.overrideAttrs (old: {
-      # FIXME: vimPlugins should update.
-      patches = old.patches or [] ++ [
-        (pkgs.fetchpatch {
-          url = "https://github.com/EdenEast/nightfox.nvim/commit/bb70a6489c6055f445a86a0290ead288732477df.patch";
-          hash = "sha256-G9WqANKhRo1AMRLTxqmXI+0wOcKkDePLuKu+i4elwOI=";
-        })
-      ];
-    });
   };
 
   vimrc = builtins.readFile ./vimrc.vim;

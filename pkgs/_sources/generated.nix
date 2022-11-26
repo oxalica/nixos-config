@@ -65,13 +65,13 @@
   };
   sway-unwrapped = {
     pname = "sway-unwrapped";
-    version = "3e19836f0e4d5c1cd68ea205a377b8cd491e6757";
+    version = "1.8-rc1";
     src = fetchFromGitHub ({
       owner = "swaywm";
       repo = "sway";
-      rev = "3e19836f0e4d5c1cd68ea205a377b8cd491e6757";
+      rev = "1.8-rc1";
       fetchSubmodules = false;
-      sha256 = "sha256-G3pQh6iaeUnUmKIODhlFM+bFAWnCkU3uJq6260VFqtQ=";
+      sha256 = "sha256-/qXlLl/mkI/WoVzGqAv50kvFaoZ5PUJ3NqucVGbOGXg=";
     });
   };
   swaylock-effects = {
@@ -85,17 +85,6 @@
       sha256 = "sha256-VkyH9XN/pR1UY/liG5ygDHp+ymdqCPeWHyU7/teJGbU=";
     });
   };
-  tree-sitter-bash = {
-    pname = "tree-sitter-bash";
-    version = "77cf8a7cab8904baf1a721762e012644ac1d4c7b";
-    src = fetchFromGitHub ({
-      owner = "tree-sitter";
-      repo = "tree-sitter-bash";
-      rev = "77cf8a7cab8904baf1a721762e012644ac1d4c7b";
-      fetchSubmodules = false;
-      sha256 = "sha256-UPMJ7iL8Y0NkAHtPDrkTjG1qFwr8rXuGqvsG+LTWqEY=";
-    });
-  };
   tree-sitter-nix = {
     pname = "tree-sitter-nix";
     version = "add8eb3050a0974c1854df419c192fa4f359bcb0";
@@ -106,17 +95,5 @@
       fetchSubmodules = false;
       sha256 = "sha256-x2Kq7t0p5AOKIHtEUHMIC6emZNoF9GE2FdKbjEfUp0E=";
     });
-  };
-  wlroots = {
-    pname = "wlroots";
-    version = "7a42392da2957e9c1ef0395d7a52da25c170fbbf";
-    src = fetchgit {
-      url = "https://gitlab.freedesktop.org/wlroots/wlroots";
-      rev = "7a42392da2957e9c1ef0395d7a52da25c170fbbf";
-      fetchSubmodules = false;
-      deepClone = false;
-      leaveDotGit = false;
-      sha256 = "sha256-C+VsoP5qfQJl+hmWEGCfFqMjSGweH3fZDELEE598ZaQ=";
-    };
   };
 }

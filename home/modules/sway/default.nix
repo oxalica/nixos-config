@@ -245,8 +245,8 @@ in
       }
       {
         timeout = 905;
-        command = ''${sway}/bin/swaymsg "output * dpms off"'';
-        resumeCommand = ''${sway}/bin/swaymsg "output * dpms on"'';
+        command = ''${sway}/bin/swaymsg "output * power off"'';
+        resumeCommand = ''${sway}/bin/swaymsg "output * power on"'';
       }
     ];
     events = [

@@ -120,11 +120,11 @@
             "name": null,
             "owner": "swaywm",
             "repo": "sway",
-            "rev": "3e19836f0e4d5c1cd68ea205a377b8cd491e6757",
-            "sha256": "sha256-G3pQh6iaeUnUmKIODhlFM+bFAWnCkU3uJq6260VFqtQ=",
+            "rev": "1.8-rc1",
+            "sha256": "sha256-/qXlLl/mkI/WoVzGqAv50kvFaoZ5PUJ3NqucVGbOGXg=",
             "type": "github"
         },
-        "version": "3e19836f0e4d5c1cd68ea205a377b8cd491e6757"
+        "version": "1.8-rc1"
     },
     "swaylock-effects": {
         "cargoLocks": null,
@@ -145,25 +145,6 @@
         },
         "version": "v1.6.10"
     },
-    "tree-sitter-bash": {
-        "cargoLocks": null,
-        "extract": null,
-        "name": "tree-sitter-bash",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "tree-sitter",
-            "repo": "tree-sitter-bash",
-            "rev": "77cf8a7cab8904baf1a721762e012644ac1d4c7b",
-            "sha256": "sha256-UPMJ7iL8Y0NkAHtPDrkTjG1qFwr8rXuGqvsG+LTWqEY=",
-            "type": "github"
-        },
-        "version": "77cf8a7cab8904baf1a721762e012644ac1d4c7b"
-    },
     "tree-sitter-nix": {
         "cargoLocks": null,
         "extract": null,
@@ -182,23 +163,5 @@
             "type": "github"
         },
         "version": "add8eb3050a0974c1854df419c192fa4f359bcb0"
-    },
-    "wlroots": {
-        "cargoLocks": null,
-        "extract": null,
-        "name": "wlroots",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "rev": "7a42392da2957e9c1ef0395d7a52da25c170fbbf",
-            "sha256": "sha256-C+VsoP5qfQJl+hmWEGCfFqMjSGweH3fZDELEE598ZaQ=",
-            "type": "git",
-            "url": "https://gitlab.freedesktop.org/wlroots/wlroots"
-        },
-        "version": "7a42392da2957e9c1ef0395d7a52da25c170fbbf"
     }
 }

@@ -1,4 +1,4 @@
-{ source, wlroots, pkgs, stdenv
+{ source, pkgs, stdenv
 , isNixOS ? false
 , enableXWayland ? true
 , systemdSupport ? stdenv.isLinux
@@ -14,6 +14,6 @@
     wayland libxkbcommon pcre2 json_c libevdev
     pango cairo libinput gdk-pixbuf
     wayland-protocols libdrm xcbutilwm
-    (wlroots.override { inherit enableXWayland; })
+    (pkgs.wlroots_0_16.override { inherit enableXWayland; })
   ] ++ lib.optional dbusSupport dbus;
 })

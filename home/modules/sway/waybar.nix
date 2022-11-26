@@ -56,20 +56,16 @@
         format = "{:%Y-%m-%d %H:%M:%S}";
         tooltip = true;
         tooltip-format = "<big>{:%Y-%m-%d %a}</big>\n<tt>{calendar}</tt>";
-        # FIXME: https://github.com/Alexays/Waybar/issues/1764
-        on-click = "";
       };
 
       cpu = {
         interval = 1;
         format = " {usage}%";
-        on-click = "";
       };
 
       memory = {
         interval = 1;
         format = " {used:0.1f}/{total:0.1f}+{swapUsed:0.1f}G";
-        on-click = "";
       };
 
       battery = {
@@ -87,7 +83,6 @@
         format-wifi = " {essid} {signalStrength}%";
         format-linked = " {ifname}";
         format-disconnected = " ";
-        on-click = "";
       };
 
       pulseaudio = {

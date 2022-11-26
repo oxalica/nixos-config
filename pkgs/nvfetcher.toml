@@ -28,7 +28,7 @@ fetch.github = "alebastr/sway-systemd"
 
 # Workaround: https://github.com/swaywm/swaylock/issues/204
 [sway-unwrapped]
-src.git = "https://github.com/swaywm/sway"
+src.manual = "1.8-rc1"
 fetch.github = "swaywm/sway"
 
 # FIXME: https://github.com/NixOS/nixpkgs/pull/180816
@@ -39,8 +39,3 @@ fetch.github = "jirutka/swaylock-effects"
 [tree-sitter-nix]
 src.git = "https://github.com/oxalica/tree-sitter-nix"
 fetch.github = "oxalica/tree-sitter-nix"
-
-# Required by master `sway`.
-[wlroots]
-src.git = "https://gitlab.freedesktop.org/wlroots/wlroots"
-fetch.git = "https://gitlab.freedesktop.org/wlroots/wlroots"
