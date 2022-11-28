@@ -35,6 +35,12 @@ let
     "[rust]"."semanticTokens.enable" = true;
 
     languageserver = {
+      lua = {
+        command = "${pkgs.sumneko-lua-language-server}/bin/lua-language-server";
+        filetypes = [ "lua" ];
+        rootPatterns = [ ".git" ];
+      };
+
       nix = {
         # Use from PATH to allow overriding.
         command = "nil";
@@ -45,14 +51,14 @@ let
         };
       };
 
-      pyright = {
+      python = {
         command = "${pkgs.pyright}/bin/pyright-langserver";
         args = [ "--stdio" ];
         filetypes = [ "python" ];
         rootPatterns = [ "pyproject.toml" "setup.py" "setup.cfg" "requirements.txt" "Pipfile" "pyrightconfig.json" ];
       };
 
-      rust-analyzer = {
+      rust = {
         command = "${pkgs.rust-analyzer}/bin/rust-analyzer";
         filetypes = [ "rust" ];
         rootPatterns = [ "rust-project.json" "Cargo.lock" ".git" ];
@@ -64,7 +70,7 @@ let
         };
       };
 
-      tsserver = {
+      typescript = {
         command = "${pkgs.nodePackages.typescript-language-server}/bin/typescript-language-server";
         args = [ "--stdio" "--tsserver-path=${pkgs.nodePackages.typescript}/bin/tsserver" ];
         filetypes = [ "typescript" "javascript" ];
