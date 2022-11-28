@@ -72,6 +72,20 @@
         sops.gnupg.sshKeyPaths = [];
         sops.defaultSopsFile = ./nixos/${config.networking.hostName}/secret.yaml;
       };
+
+      # FIXME: This requires IFD and impure.
+      fix-qtwayland-crash = { pkgs, ... }: {
+        system.replaceRuntimeDependencies = with pkgs; [
+          {
+            original = qt5.qtwayland;
+            replacement = callPackage ./pkgs/qt5wayland.nix { };
+          }
+          {
+            original = qt6.qtwayland;
+            replacement = callPackage ./pkgs/qt6wayland { };
+          }
+        ];
+      };
     };
 
     mkSystem = name: system: nixpkgs: { extraModules ? [] }: nixpkgs.lib.nixosSystem {
@@ -95,11 +109,11 @@
 
     nixosConfigurations = {
       invar = mkSystem "invar" "x86_64-linux" inputs.nixpkgs {
-        extraModules = with nixosModules; [ home-manager sops ];
+        extraModules = with nixosModules; [ home-manager sops fix-qtwayland-crash ];
       };
 
       blacksteel = mkSystem "blacksteel" "x86_64-linux" inputs.nixpkgs {
-        extraModules = with nixosModules; [ home-manager sops ];
+        extraModules = with nixosModules; [ home-manager sops fix-qtwayland-crash ];
       };
 
       silver = mkSystem "silver" "x86_64-linux" inputs.nixpkgs {
