@@ -4,6 +4,8 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-unmatched.url = "github:oxalica/nixpkgs/test/unmatched";
+    # FIXME: tdesktop 4.4.0 https://github.com/NixOS/nixpkgs/pull/204906
+    nixpkgs-tdesktop.url = "github:NixOS/nixpkgs/pull/204906/head";
 
     flake-utils.url = "github:numtide/flake-utils";
     home-manager = {
@@ -41,7 +43,11 @@
 
     inherit (nixpkgs) lib;
 
-    overlays = [ ];
+    overlays = [
+      (final: prev: {
+        tdesktop = inputs.nixpkgs-tdesktop.legacyPackages.${final.system}.tdesktop;
+      })
+    ];
 
     nixosModules = {
       # Ref: https://github.com/dramforever/config/blob/63be844019b7ca675ea587da3b3ff0248158d9fc/flake.nix#L24-L28

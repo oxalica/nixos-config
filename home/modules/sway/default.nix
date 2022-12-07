@@ -114,7 +114,7 @@ in
         assigns = {
           "2" = [ { app_id = "firefox"; } ];
           "3" = [
-            { app_id = "telegramdesktop"; }
+            { app_id = "org.telegram.desktop"; }
             { app_id = "nheko"; }
           ];
           "4" = [ { app_id = "thunderbird"; } ];
