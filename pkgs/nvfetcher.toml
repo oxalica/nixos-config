@@ -28,7 +28,7 @@ fetch.github = "alebastr/sway-systemd"
 
 # Workaround: https://github.com/swaywm/swaylock/issues/204
 [sway-unwrapped]
-src.manual = "1.8-rc1"
+src.manual = "1.8-rc2"
 fetch.github = "swaywm/sway"
 
 # FIXME: https://github.com/NixOS/nixpkgs/pull/180816

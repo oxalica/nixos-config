@@ -4,8 +4,6 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-unmatched.url = "github:oxalica/nixpkgs/test/unmatched";
-    # FIXME: tdesktop 4.4.0 https://github.com/NixOS/nixpkgs/pull/204906
-    nixpkgs-tdesktop.url = "github:NixOS/nixpkgs/pull/204906/head";
 
     flake-utils.url = "github:numtide/flake-utils";
     home-manager = {
@@ -26,8 +24,6 @@
     sops-nix = {
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
-      # Only for checks.
-      inputs.nixpkgs-22_05.follows = "nixpkgs";
     };
 
     meta-sifive = {
@@ -44,9 +40,6 @@
     inherit (nixpkgs) lib;
 
     overlays = [
-      (final: prev: {
-        tdesktop = inputs.nixpkgs-tdesktop.legacyPackages.${final.system}.tdesktop;
-      })
     ];
 
     nixosModules = {

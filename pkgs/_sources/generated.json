@@ -120,11 +120,11 @@
             "name": null,
             "owner": "swaywm",
             "repo": "sway",
-            "rev": "1.8-rc1",
-            "sha256": "sha256-/qXlLl/mkI/WoVzGqAv50kvFaoZ5PUJ3NqucVGbOGXg=",
+            "rev": "1.8-rc2",
+            "sha256": "sha256-a1ypTSWcyOk1s97ogrVFrKfhRKfkHzbAqN5smoO36Wg=",
             "type": "github"
         },
-        "version": "1.8-rc1"
+        "version": "1.8-rc2"
     },
     "swaylock-effects": {
         "cargoLocks": null,

@@ -65,13 +65,13 @@
   };
   sway-unwrapped = {
     pname = "sway-unwrapped";
-    version = "1.8-rc1";
+    version = "1.8-rc2";
     src = fetchFromGitHub ({
       owner = "swaywm";
       repo = "sway";
-      rev = "1.8-rc1";
+      rev = "1.8-rc2";
       fetchSubmodules = false;
-      sha256 = "sha256-/qXlLl/mkI/WoVzGqAv50kvFaoZ5PUJ3NqucVGbOGXg=";
+      sha256 = "sha256-a1ypTSWcyOk1s97ogrVFrKfhRKfkHzbAqN5smoO36Wg=";
     });
   };
   swaylock-effects = {
