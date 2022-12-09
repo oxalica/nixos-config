@@ -176,6 +176,7 @@ lua require('crates').setup()
 "}}}
 
 " plugin: nvim-treesitter {{{
+" plugin: playground
 lua <<EOF
   require("nvim-treesitter.configs").setup {
     highlight = {
@@ -187,55 +188,8 @@ lua <<EOF
     playground = {
       enable = true,
     },
-    textobjects = {
-      select = {
-        enable = true,
-        keymaps = {
-          ["af"] = "@function.outer",
-          ["if"] = "@function.inner",
-          ["ac"] = "@class.outer",
-          ["ic"] = "@class.inner",
-        },
-      },
-      move = {
-        enable = true,
-        goto_next_start = {
-          ["]f"] = "@function.outer",
-          ["]b"] = "@block.outer",
-          ["]]"] = "@class.outer",
-        },
-        goto_previous_start = {
-          ["[f"] = "@function.outer",
-          ["[b"] = "@block.outer",
-          ["[["] = "@class.outer",
-        },
-      },
-    },
-    incremental_selection = {
-      enable = true,
-      keymaps = {
-        init_selection = "<C-s>",
-        node_incremental = "<C-s>",
-        -- C-S-s doesn't work for alacritty.
-        node_decremental = "<C-x>",
-      },
-    },
   }
 EOF
-
-" plugin: nvim-treesitter-context {{{
-lua <<EOF
-  require('treesitter-context').setup {
-    max_lines = 3,
-    trim_scope = 'inner',
-  }
-EOF
-"}}}
-
-" plugin: nvim-treesitter-textobjects
-
-" plugin: playground
-
 "}}}
 
 " plugin: nightfox-nvim {{{
@@ -347,5 +301,12 @@ highlight! link CocSemDocumentation SpecialComment
 highlight! link CocSemLifetime Label
 highlight! link CocSemEnum Constant
 highlight! link CocSemEnumMember Constant
+
+highlight! link CocSemBuiltin @variable.builtin
+highlight! link CocSemBuiltinConstant @constant.builtin
+highlight! link CocSemBuiltinFunction @function.builtin
+highlight! link CocSemBuiltinNamespace @namespace.builtin
+highlight! link CocSemBuiltinType @type.builtin
+highlight! link CocSemConstant Constant
 
 " vim:shiftwidth=2:softtabstop=2:expandtab

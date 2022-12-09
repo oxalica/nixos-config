@@ -36,10 +36,10 @@ let
     "diagnostic.infoSign" = "🛈 ";
     "diagnostic.warningSign" = "⚠";
     "links.tooltip" = true;
+    "semanticTokens.enable" = true;
     "suggest.noselect" = true;
 
     "[rust]"."coc.preferences.formatOnSave" = true;
-    "[rust]"."semanticTokens.enable" = true;
 
     languageserver = {
       lua = {
