@@ -97,12 +97,6 @@ in
     coc = {
       enable = true;
       settings = cocSettings;
-      package = pkgs.vimPlugins.coc-nvim.overrideAttrs (old: {
-        patches = old.patches or [] ++ [
-          # FIXME: https://github.com/neoclide/coc.nvim/pull/4384
-          ./coc-nvim-update-tree-sitter-highlight-names.patch
-        ];
-      });
     };
   };
 
