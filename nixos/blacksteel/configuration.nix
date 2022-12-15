@@ -151,6 +151,15 @@
     };
   };
 
+  nix.settings = {
+    experimental-features = [
+      "auto-allocate-uids"
+      "cgroups"
+    ];
+    auto-allocate-uids = true;
+    use-cgroups = true;
+  };
+
   # Global ssh settings. Also for remote builders.
   programs.ssh = {
     knownHosts = my.ssh.knownHosts;
