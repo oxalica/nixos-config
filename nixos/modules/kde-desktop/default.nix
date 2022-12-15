@@ -2,12 +2,12 @@
 {
   imports = [ ../l10n.nix ];
 
-  environment.systemPackages = with pkgs; [
+  environment.systemPackages = with pkgs.plasma5Packages; [
     ark
     filelight
     plasma-browser-integration
     kwin-tiling
-    kwin-dynamic-workspaces
+    bismuth
   ];
 
   programs = {
