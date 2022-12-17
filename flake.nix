@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-22.11";
     nixpkgs-unmatched.url = "github:oxalica/nixpkgs/test/unmatched";
 
     flake-utils.url = "github:numtide/flake-utils";
@@ -24,6 +25,7 @@
     sops-nix = {
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs-stable.follows = "nixpkgs-stable";
     };
 
     meta-sifive = {
@@ -115,15 +117,15 @@
         extraModules = with nixosModules; [ home-manager sops ];
       };
 
-      silver = mkSystem "silver" "x86_64-linux" inputs.nixpkgs {
+      silver = mkSystem "silver" "x86_64-linux" inputs.nixpkgs-stable {
         extraModules = with nixosModules; [ sops ];
       };
 
-      lithium = mkSystem "lithium" "x86_64-linux" inputs.nixpkgs {
+      lithium = mkSystem "lithium" "x86_64-linux" inputs.nixpkgs-stable {
         extraModules = with nixosModules; [ sops ];
       };
 
-      copper = mkSystem "copper" "x86_64-linux" inputs.nixpkgs {
+      copper = mkSystem "copper" "x86_64-linux" inputs.nixpkgs-stable {
         extraModules = with nixosModules; [ sops ];
       };
 
