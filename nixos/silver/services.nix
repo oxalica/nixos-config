@@ -15,15 +15,6 @@
     '';
   };
 
-  virtualisation.libvirtd = {
-    enable = true;
-    onBoot = "ignore";
-  };
-  boot.kernel.sysctl."net.ipv4.ip_forward" = 1;
-  users.groups."libvirtd".members = [ "oxa" ];
-
-  environment.systemPackages = [ pkgs.qemu ];
-
   sops.secrets.reverse-ssh-host.restartUnits = [ "reverse-ssh.service" ];
   systemd.services."reverse-ssh" = {
     wants = [ "network-online.target" ];
