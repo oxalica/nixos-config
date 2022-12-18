@@ -1,15 +1,6 @@
 # Ref: https://gitlab.com/NickCao/flakes/-/blob/master/nixos/local/home.nix
 { lib, pkgs, config, my, ... }:
 let
-  wallpaper = pkgs.fetchurl {
-    name = "wallpaper.jpg";
-    url = "https://pbs.twimg.com/media/E9irhxhVUAUaBCr?format=jpg";
-    hash = "sha256-Rhjj1K0FXKGzKswoLj1H0Yi/QHswzPcGW6aLMiekURA=";
-  };
-  wallpaper-blur = pkgs.runCommand "wallpaper-blur.jpg" { } ''
-    ${pkgs.imagemagick}/bin/convert -blur 14x5 ${wallpaper} $out
-  '';
-
   rofi = "${config.programs.rofi.finalPackage}/bin/rofi";
 
   terminal = "${pkgs.alacritty}/bin/alacritty";
@@ -152,7 +143,7 @@ in
           };
         };
         output = {
-          "*".background = "${wallpaper} fill";
+          "*".background = "${my.pkgs.wallpaper} fill";
           # No scale! See ../wayland-dpi.nix
         };
 
@@ -212,7 +203,7 @@ in
 
   programs.swaylock.settings = {
     daemonize = true;
-    image = "${wallpaper-blur}";
+    image = "${my.pkgs.wallpaper-blur}";
     scaling = "fill";
     # indicator-idle-visible = true;
     # clock = true;
