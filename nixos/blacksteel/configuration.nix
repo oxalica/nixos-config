@@ -32,6 +32,19 @@
       };
     };
 
+    # Wait for https://github.com/NixOS/nixpkgs/pull/205269
+    kernelPackages = pkgs.linuxPackages_6_1;
+    kernelPatches = [
+      {
+        name = "mglru";
+        patch = null;
+        extraConfig = ''
+          LRU_GEN y
+          LRU_GEN_ENABLED y
+        '';
+      }
+    ];
+
     kernelModules = [ "kvm-intel" ];
     extraModulePackages = [ ];
 
