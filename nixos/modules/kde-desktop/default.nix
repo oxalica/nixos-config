@@ -6,8 +6,8 @@
     ark
     filelight
     plasma-browser-integration
-    kwin-tiling
     bismuth
+    kwin-dynamic-workspaces
   ];
 
   programs = {
@@ -29,11 +29,7 @@
       runUsingSystemd = true;
 
       kdeglobals.KDE.SingleClick = false;
-      kwinrc = {
-        Desktops.Number = 3;
-        Desktops.Rows = 1;
-        Windows.RollOverDesktops = true;
-      };
+      kwinrc.Windows.RollOverDesktops = true;
     };
   };
 
