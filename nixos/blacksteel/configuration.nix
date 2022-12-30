@@ -82,13 +82,11 @@
   # Hardware.
 
   powerManagement.cpuFreqGovernor = "powersave";
-  sound.enable = true;
   hardware = {
     cpu.intel.updateMicrocode = true;
     video.hidpi.enable = true;
     bluetooth.enable = true;
     logitech.wireless.enable = true;
-    pulseaudio.enable = true;
     enableRedistributableFirmware = true; # Required for WIFI.
     opengl.extraPackages = with pkgs; [ intel-media-driver ]; # vaapi
   };
@@ -102,6 +100,15 @@
   };
 
   time.timeZone = "Asia/Shanghai";
+
+  # KDE pulls in pipewire via xdg-desktop-portal anyways.
+  services.pipewire = {
+    enable = true;
+    pulse.enable = true;
+    alsa.enable = true;
+  };
+  security.rtkit.enable = true; # pipewire expects this.
+  sound.enable = false; # pipewire expects this.
 
   # Users.
 
