@@ -165,13 +165,26 @@
     };
   };
 
-  nix.settings = {
-    experimental-features = [
-      "auto-allocate-uids"
-      "cgroups"
+  nix = {
+    settings = {
+      experimental-features = [
+        "auto-allocate-uids"
+        "cgroups"
+      ];
+      auto-allocate-uids = true;
+      use-cgroups = true;
+    };
+
+    buildMachines = [
+      {
+        hostName = "aluminum.lan.hexade.ca";
+        protocol = "ssh-ng";
+        sshUser = "hooccooh";
+        sshKey = "/etc/ssh/ssh_host_ed25519_key";
+        system = "x86_64-linux";
+        supportedFeatures = [ "kvm" "big-parallel" "nixos-test" "benchmark" ];
+      }
     ];
-    auto-allocate-uids = true;
-    use-cgroups = true;
   };
 
   # Global ssh settings. Also for remote builders.

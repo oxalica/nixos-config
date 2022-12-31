@@ -30,8 +30,8 @@
         publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGafc2sPL47lOJECY1K2X7p2nzfxrLoCMvJ15W/wiJ80";
       };
 
-      hex0 = {
-        extraHostNames = [ "|1|8qZR6bR7/4FL6i7++APyedULh2s=|9OcPkxvketTeD5jQTqTxqcCbufg=" ];
+      aluminum = {
+        extraHostNames = [ "aluminum.lan.hexade.ca" ];
         publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBGiu2G4V9jdAF2JRNN1+3tqYfCldPrwepwYFs1usW9C";
       };
     };
