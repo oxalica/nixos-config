@@ -12,6 +12,9 @@ $(_user_host)${_current_dir}$(_git_info)${_shell_level}${_return_status}
 
 PROMPT2='%(!.%F{red}.)|%f '
 
+# Use an inverted space as NOEOL marker so it's easier to copy.
+PROMPT_EOL_MARK="%B%S %s%b"
+
 _user_host() {
   local me
   if [[ -n $SSH_CONNECTION ]]; then

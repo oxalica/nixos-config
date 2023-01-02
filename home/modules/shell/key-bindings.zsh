@@ -1,5 +1,6 @@
 # References:
 # - https://github.com/ohmyzsh/ohmyzsh/blob/706b2f3765d41bee2853b17724888d1a3f6f00d9/lib/key-bindings.zsh
+# - https://github.com/dramforever/config/blob/446e232cba4f3e05d83fb126516b1d9181fb7e67/home/zshrc
 # - `/etc/zinputrc` from NixOS.
 # - http://zsh.sourceforge.net/Doc/Release/Zsh-Line-Editor.html#Zle-Builtins
 # - http://zsh.sourceforge.net/Doc/Release/Zsh-Line-Editor.html#Standard-Widgets
@@ -41,22 +42,23 @@ bind "${terminfo[khome]}" beginning-of-line
 # [End]
 bind "${terminfo[kend]}" end-of-line
 # [PageUp]
-bind "${terminfo[kpp]}" up-line-or-history
+bind "${terminfo[kpp]}" beginning-of-buffer-or-history
 # [PageDown]
-bind "${terminfo[knp]}" down-line-or-history
+bind "${terminfo[knp]}" end-of-buffer-or-history
 # [Ctrl-RightArrow]
 bind '^[[1;5C' forward-word
 # [Ctrl-LeftArrow]
 bind '^[[1;5D' backward-word
+
 
 # [Left]
 bind "${terminfo[kcub1]}" backward-char
 # [Right]
 bind "${terminfo[kcuf1]}" forward-char
 # [Up]
-bind "${terminfo[kcuu1]}" up-line
+bind "${terminfo[kcuu1]}" up-line-or-history
 # [Down]
-bind "${terminfo[kcud1]}" down-line
+bind "${terminfo[kcud1]}" down-line-or-history
 
 # [Shift-Tab]
 bind "${terminfo[kcbt]}" reverse-menu-complete
