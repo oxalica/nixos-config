@@ -71,7 +71,7 @@
       source ${./completion.zsh}
 
       ZSH_AUTOSUGGEST_MANUAL_REBIND=1
-      ZSH_AUTOSUGGEST_HISTORY_IGNORE="*[\n]*"
+      ZSH_AUTOSUGGEST_HISTORY_IGNORE=$'*\n*'
       source ${pkgs.zsh-autosuggestions}/share/zsh-autosuggestions/zsh-autosuggestions.zsh
       source ${pkgs.zsh-fast-syntax-highlighting}/share/zsh/site-functions/fast-syntax-highlighting.plugin.zsh
       FAST_HIGHLIGHT[use_async]=1 # Improve paste delay for nix store paths.
