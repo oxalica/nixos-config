@@ -28,6 +28,7 @@ let
       (lib.filter (x: lib.isList x)
         (builtins.split ''" plugin: ([A-Za-z_-]+)'' vimrc));
 
+  # https://github.com/neoclide/coc.nvim/blob/28e0edd7818ad1b202680f4d1d814435488d0b8e/data/schema.json
   cocSettings = {
     "coc.preferences.currentFunctionSymbolAutoUpdate" = true;
     "coc.preferences.extensionUpdateCheck" = "never";
@@ -74,6 +75,18 @@ let
           checkOnSave.command = "clippy";
           imports.granularity.group = "module";
           semanticHighlighting.strings.enable = false;
+        };
+      };
+
+      sh = {
+        command = "${pkgs.nodePackages.bash-language-server}/bin/bash-language-server";
+        args = [ "start" ];
+        filetypes = [ "sh" "bash" ];
+        # https://github.com/bash-lsp/bash-language-server/blob/51447c84c5316f869d6f4409d64ab0be0753c5bb/server/src/config.ts
+        env = {
+          GLOB_PATTERN = "**/*@(.sh|.bash)";
+          HIGHLIGHT_PARSING_ERRORS = true;
+          SHELLCHECK_PATH = "${pkgs.shellcheck}/bin/shellcheck";
         };
       };
 
