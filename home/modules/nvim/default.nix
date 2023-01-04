@@ -66,7 +66,8 @@ let
       };
 
       rust = {
-        command = "${pkgs.rust-analyzer}/bin/rust-analyzer";
+        # Use from PATH to allow overriding.
+        command = "rust-analyzer";
         filetypes = [ "rust" ];
         rootPatterns = [ "rust-project.json" "Cargo.lock" ".git" ];
         # https://github.com/rust-lang/rust-analyzer/blob/master/crates/rust-analyzer/src/config.rs
@@ -102,5 +103,8 @@ in
 
   home.sessionVariables.EDITOR = "nvim";
 
-  home.packages = with pkgs; [ nil ];
+  home.packages = with pkgs; [
+    nil
+    rust-analyzer
+  ];
 }
