@@ -28,6 +28,8 @@
     extraConfig = {
       init.defaultBranch = "main";
 
+      push.autoSetupRemote = true;
+
       pull.ff = "only";
       advice.detachedHead = false;
 
