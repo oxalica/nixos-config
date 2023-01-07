@@ -19,6 +19,8 @@
     e2fsprogs # File system: {ls,ch}attr and filefrag.
     gnupg age pwgen sops ssh-to-age # Crypto.
     libarchive zstd # Compression.
+
+    my.pkgs.nixos-rebuild-shortcut
   ];
 
   programs.less = {

@@ -152,7 +152,7 @@
     devShells.default =
       with nixpkgs.legacyPackages.${system};
       mkShell {
-        packages = [ nvfetcher ];
+        packages = [ nvfetcher packages.nixos-rebuild-shortcut ];
       };
   });
 }
