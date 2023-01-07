@@ -309,4 +309,6 @@ highlight! link CocSemBuiltinNamespace @namespace.builtin
 highlight! link CocSemBuiltinType @type.builtin
 highlight! link CocSemConstant Constant
 
+execute "highlight CocSemWithAttribute gui=underline guifg="..synIDattr(hlID('@field'), 'fg')
+
 " vim:shiftwidth=2:softtabstop=2:expandtab
