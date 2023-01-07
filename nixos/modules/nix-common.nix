@@ -8,9 +8,15 @@
     };
 
     settings = {
+      experimental-features = [
+        "nix-command"
+        "flakes"
+        "repl-flake"
+        "ca-derivations"
+      ];
+
       allow-import-from-derivation = false;
       auto-optimise-store = true;
-      experimental-features = [ "nix-command" "flakes" ];
       flake-registry = "/etc/nix/registry.json"; # Don't fetch from GitHub.
       trusted-users = [ "root" "@wheel" ];
 

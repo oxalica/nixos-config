@@ -141,7 +141,6 @@
 
   # Services.
 
-  nix.settings.experimental-features = [ "ca-derivations" "repl-flake" ];
   systemd.services.nix-daemon.serviceConfig = {
     CPUQuota = "1500%";
     CPUWeight = 50;
