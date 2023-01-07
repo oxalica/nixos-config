@@ -15,9 +15,12 @@
         "ca-derivations"
       ];
 
+      # FIXME: https://github.com/NixOS/nix/commit/a642b1030188f7538ef6243cd7fd1404419a6933
+      flake-registry = builtins.toFile "empty-registry.json"
+        (builtins.toJSON { flakes = []; version = 2; });
+
       allow-import-from-derivation = false;
       auto-optimise-store = true;
-      flake-registry = "/etc/nix/registry.json"; # Don't fetch from GitHub.
       trusted-users = [ "root" "@wheel" ];
 
       connect-timeout = 10;
