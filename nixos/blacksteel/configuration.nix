@@ -122,7 +122,7 @@
       passwordFile = config.sops.secrets.passwd.path;
       uid = 1000;
       group = config.users.groups.oxa.name;
-      extraGroups = [ "wheel" "kvm" "adbusers" "libvirtd" ];
+      extraGroups = [ "wheel" "kvm" "adbusers" "libvirtd" "wireshark" ];
     };
     groups."oxa".gid = 1000;
   };
@@ -206,6 +206,11 @@
     enable = true;
     remotePlay.openFirewall = true;
     dedicatedServer.openFirewall = true;
+  };
+
+  programs.wireshark = {
+    enable = true;
+    package = pkgs.wireshark-qt;
   };
 
   environment.systemPackages = with pkgs; [
