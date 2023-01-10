@@ -1,4 +1,4 @@
-{ lib, stdenv, runCommand, runtimeShell, hostname, ... }:
+{ lib, stdenv, runCommand, runtimeShell, hostname, coreutils, ... }:
 runCommand "nixos-rebuild-shortcut" {
   preferLocalBuild = true;
   allowSubstitutes = false;
@@ -6,7 +6,9 @@ runCommand "nixos-rebuild-shortcut" {
   # bash
   text = ''
     #!${runtimeShell}
-    localname="$(${lib.getBin hostname}/bin/hostname)"
+    export PATH="${lib.makeBinPath [ hostname coreutils ]}''${PATH:+:}$PATH"
+
+    localname="$(hostname)"
     name="$localname"
     action=build
     if [[ "''${1-}" == @* ]]; then
@@ -16,6 +18,11 @@ runCommand "nixos-rebuild-shortcut" {
     if [[ -n "''${1-}" ]]; then
       action="$1"
       shift
+    fi
+
+    if [[ "$action" =~ (boot|switch|test) && "$(id -u)" != 0 ]]; then
+      echo "'$action' expects root permission" >&2
+      exit 1
     fi
 
     cmd=(nixos-rebuild "$action" --flake ".#$name")
