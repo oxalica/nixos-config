@@ -8,8 +8,7 @@
 
     flake-utils.url = "github:numtide/flake-utils";
     home-manager = {
-      # FIXME: Broken by IFD since https://github.com/nix-community/home-manager/pull/3570
-      url = "github:nix-community/home-manager/1786883425208d3bf726ab6a1889beddeb46cdbc";
+      url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.utils.follows = "flake-utils";
     };
@@ -151,7 +150,7 @@
 
     devShells.default =
       with nixpkgs.legacyPackages.${system};
-      mkShell {
+      mkShellNoCC {
         packages = [ nvfetcher packages.nixos-rebuild-shortcut ];
       };
   });

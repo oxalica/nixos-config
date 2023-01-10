@@ -1,6 +1,7 @@
 {
     "btrfs_map_physical": {
         "cargoLocks": null,
+        "date": null,
         "extract": null,
         "name": "btrfs_map_physical",
         "passthru": null,
@@ -15,6 +16,7 @@
     },
     "colors": {
         "cargoLocks": null,
+        "date": null,
         "extract": null,
         "name": "colors",
         "passthru": null,
@@ -29,10 +31,11 @@
     },
     "double-entry-generator": {
         "cargoLocks": null,
+        "date": null,
         "extract": null,
         "name": "double-entry-generator",
         "passthru": {
-            "vendorHash": "sha256-yA4ax81rWHTfXj0+8ds4OweUickHtR8QZsgJyulW2j4="
+            "vendorHash": "sha256-Xedva9oGteOnv3rP4Wo3sOHIPyuy2TYwkZV2BAuxY4M="
         },
         "pinned": false,
         "src": {
@@ -42,14 +45,15 @@
             "name": null,
             "owner": "deb-sig",
             "repo": "double-entry-generator",
-            "rev": "v1.6.0",
-            "sha256": "sha256-qiQOkWTVkTTD2wjosMzAlBKZjijdJL56++NghEvTAWY=",
+            "rev": "v1.7.0",
+            "sha256": "sha256-hzv+lnW7y0YEfAyZ4uhQybhG736ImVXT3RIBqL+Il20=",
             "type": "github"
         },
-        "version": "v1.6.0"
+        "version": "v1.7.0"
     },
     "rawmv": {
         "cargoLocks": null,
+        "date": null,
         "extract": null,
         "name": "rawmv",
         "passthru": {
@@ -71,6 +75,7 @@
     },
     "rime_latex": {
         "cargoLocks": null,
+        "date": "2022-08-19",
         "extract": null,
         "name": "rime_latex",
         "passthru": null,
@@ -90,6 +95,7 @@
     },
     "sway-systemd": {
         "cargoLocks": null,
+        "date": null,
         "extract": null,
         "name": "sway-systemd",
         "passthru": null,
@@ -109,6 +115,7 @@
     },
     "sway-unwrapped": {
         "cargoLocks": null,
+        "date": null,
         "extract": null,
         "name": "sway-unwrapped",
         "passthru": null,
@@ -128,6 +135,7 @@
     },
     "swaylock-effects": {
         "cargoLocks": null,
+        "date": null,
         "extract": null,
         "name": "swaylock-effects",
         "passthru": null,
@@ -147,6 +155,7 @@
     },
     "tree-sitter-nix": {
         "cargoLocks": null,
+        "date": "2021-12-10",
         "extract": null,
         "name": "tree-sitter-nix",
         "passthru": null,

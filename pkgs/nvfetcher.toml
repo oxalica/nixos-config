@@ -11,7 +11,7 @@ fetch.url = "https://gist.githubusercontent.com/lilydjwg/fdeaf79e921c2f413f44b6f
 [double-entry-generator]
 src.github = "deb-sig/double-entry-generator"
 fetch.github = "deb-sig/double-entry-generator"
-passthru = { vendorHash = "sha256-yA4ax81rWHTfXj0+8ds4OweUickHtR8QZsgJyulW2j4=" }
+passthru = { vendorHash = "sha256-Xedva9oGteOnv3rP4Wo3sOHIPyuy2TYwkZV2BAuxY4M=" }
 
 [rawmv]
 src.github_tag = "oxalica/rawmv"
