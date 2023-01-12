@@ -20,7 +20,7 @@ in {
     sops # Sops
 
     # GUI
-    kolourpaint libreoffice mpv evince # Files
+    kolourpaint libreoffice mpv okular # Files
     electrum electron-cash monero-gui # Cryptocurrency
     (prismlauncher.override { jdks = [ openjdk ]; }) /* steam <- enabled system-wide */ # Games
     tdesktop nheko # Messaging

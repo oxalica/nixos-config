@@ -17,6 +17,7 @@ alias rl="readlink"
 alias rp="realpath"
 alias t="bsdtar"
 alias hex="hexdump -C"
+alias o="xdg-open"
 
 # List tree.
 lt() {

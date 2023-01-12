@@ -13,7 +13,6 @@
     ./modules/gpg.nix
     ./modules/lf.nix
     ./modules/mail.nix
-    ./modules/mime-apps.nix
     ./modules/nvim
     ./modules/programs.nix
     ./modules/rime-fcitx.nix
