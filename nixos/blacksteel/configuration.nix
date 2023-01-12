@@ -132,7 +132,6 @@
   # Services.
 
   services = {
-    xserver.xkbOptions = "ctrl:swapcaps";
     xserver.displayManager.defaultSession = "plasmawayland";
     openssh = {
       enable = true;
