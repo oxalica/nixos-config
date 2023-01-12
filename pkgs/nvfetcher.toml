@@ -35,7 +35,3 @@ fetch.github = "swaywm/sway"
 [swaylock-effects]
 src.github_tag = "jirutka/swaylock-effects"
 fetch.github = "jirutka/swaylock-effects"
-
-[tree-sitter-nix]
-src.git = "https://github.com/oxalica/tree-sitter-nix"
-fetch.github = "oxalica/tree-sitter-nix"
