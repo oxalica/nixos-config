@@ -242,8 +242,6 @@
   };
 
   environment.systemPackages = with pkgs; [
-    cntr # Debug nix build.
-    compsize
     radeontop
     solaar # Logitech devices control.
     virt-manager
