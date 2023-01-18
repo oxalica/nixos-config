@@ -15,7 +15,7 @@ runCommand "nixos-rebuild-shortcut" {
       name="''${1:1}"
       shift
     fi
-    if [[ -n "''${1-}" ]]; then
+    if [[ "''${1-}" = [^-]* ]]; then
       action="$1"
       shift
     fi
