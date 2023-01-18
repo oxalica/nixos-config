@@ -215,7 +215,6 @@
   environment.systemPackages = with pkgs; [
     ltunify
     virt-manager
-    my.pkgs.btrfs_map_physical
   ];
 
   system.stateVersion = "22.11";

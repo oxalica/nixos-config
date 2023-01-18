@@ -1,19 +1,4 @@
 {
-    "btrfs_map_physical": {
-        "cargoLocks": null,
-        "date": null,
-        "extract": null,
-        "name": "btrfs_map_physical",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "name": null,
-            "sha256": "sha256-KyAIWrSaUJEfpFh7R3u/VYYaC8fQxoCTWb6jlayMufw=",
-            "type": "url",
-            "url": "https://raw.githubusercontent.com/osandov/osandov-linux/49aec6b85d8457fa25b5d8f6c2afb3dd4592401a/scripts/btrfs_map_physical.c"
-        },
-        "version": "49aec6b85d8457fa25b5d8f6c2afb3dd4592401a"
-    },
     "colors": {
         "cargoLocks": null,
         "date": null,
