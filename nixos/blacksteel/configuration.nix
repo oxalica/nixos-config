@@ -135,10 +135,11 @@
     xserver.displayManager.defaultSession = "plasmawayland";
     openssh = {
       enable = true;
-      forwardX11 = true;
-      passwordAuthentication = false;
-      kbdInteractiveAuthentication = false;
-      permitRootLogin = "no";
+      settings = {
+        KbdInteractiveAuthentication = false;
+        PasswordAuthentication = false;
+        PermitRootLogin = "no";
+      };
     };
     fstrim = {
       enable = true;
