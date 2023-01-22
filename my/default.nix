@@ -34,7 +34,7 @@
 
       aluminum = {
         extraHostNames = [ "aluminum.lan.hexade.ca" ];
-        publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBGiu2G4V9jdAF2JRNN1+3tqYfCldPrwepwYFs1usW9C";
+        publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOqzykYcCVpDJqkayG8tzoh3AurOsilAsBTX7heF0h3u";
       };
     };
   };

@@ -183,8 +183,8 @@
     buildMachines = [
       {
         hostName = "aluminum.lan.hexade.ca";
-        protocol = "ssh-ng";
-        sshUser = "hooccooh";
+        protocol = "ssh";
+        sshUser = "oxa";
         sshKey = "/etc/ssh/ssh_host_ed25519_key";
         system = "x86_64-linux";
         supportedFeatures = [ "kvm" "big-parallel" "nixos-test" "benchmark" ];
