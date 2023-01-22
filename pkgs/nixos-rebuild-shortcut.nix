@@ -20,7 +20,7 @@ runCommand "nixos-rebuild-shortcut" {
       shift
     fi
 
-    if [[ "$action" =~ (boot|switch|test) && "$(id -u)" != 0 ]]; then
+    if [[ "$action" =~ (boot|switch|test) && "$name" == "$localname" && "$(id -u)" != 0 ]]; then
       echo "'$action' expects root permission" >&2
       exit 1
     fi
