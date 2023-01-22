@@ -6,6 +6,8 @@
 
   ssh = rec {
     identities = {
+      oxa = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHn7rLiEt5UHKNsX/uNam7679guLh4chbYdE2eoC00+p openpgp:0x4E59DAB9";
+
       oxa-invar = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJYl9bIMoMrs8gWUmIAF42mGnKVxqY6c+g2gmE6u2E/B oxa@invar";
       oxa-blacksteel = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICU0P/fbBnnPCVni+efxfl//NQ1jeOe4lUDH6okvLzr1 oxa@blacksteel";
       shu-iwkr = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOtqhzrEH5VnSSxcLn7MJKbCw7QFhQmX8hkSmsEMq8/I shu@iwkr";

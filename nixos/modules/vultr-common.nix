@@ -39,12 +39,7 @@
       group = config.users.groups.oxa.name;
       extraGroups = [ "wheel" ];
 
-      openssh.authorizedKeys.keys = [
-        my.ssh.identities.oxa-invar
-        my.ssh.identities.oxa-blacksteel
-        my.ssh.identities.invar
-        my.ssh.identities.blacksteel
-      ];
+      openssh.authorizedKeys.keys = with my.ssh.identities; [ oxa ];
     };
     groups."oxa".gid = 1000;
   };

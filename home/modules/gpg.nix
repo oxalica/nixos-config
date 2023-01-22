@@ -17,6 +17,7 @@
   services.gpg-agent = {
     enable = true;
     enableScDaemon = true;
+    enableSshSupport = true;
 
     pinentryFlavor =
       if config.wayland.windowManager.sway.enable
