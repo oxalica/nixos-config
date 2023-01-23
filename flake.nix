@@ -99,7 +99,7 @@
       };
       modules = with nixosModules; [
         system-label
-        { networking.hostName = name; }
+        { networking.hostName = lib.mkDefault name; }
         { nixpkgs.overlays = overlays; }
         ./nixos/${name}/configuration.nix
       ] ++ extraModules;
@@ -136,8 +136,11 @@
         ];
       };
 
-      iso = mkSystem "iso" "x86_64-linux" inputs.nixpkgs { };
-      iso-graphical = mkSystem "iso-graphical" "x86_64-linux" inputs.nixpkgs { };
+      minimal-image = mkSystem "minimal-image" "x86_64-linux" inputs.nixpkgs-stable { };
+    };
+
+    images = {
+      minimal-iso = self.nixosConfigurations.minimal-image.config.system.build.isoImage;
     };
 
   } // flake-utils.lib.eachDefaultSystem (system: rec {
