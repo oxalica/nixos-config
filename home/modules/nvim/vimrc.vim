@@ -194,10 +194,6 @@ EOF
 
 " plugin: nightfox-nvim {{{
 lua <<EOF
-  -- Invalidate the cache.
-  -- FIXME: https://github.com/EdenEast/nightfox.nvim/issues/253
-  vim.fn.delete(vim.fn.stdpath("cache") .. "/nightfox/stat")
-
   require("nightfox").setup {
     groups = {
       all = {

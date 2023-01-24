@@ -74,8 +74,7 @@
   swapDevices = [
     {
       device = "/var/swapfile";
-      # FIXME: https://github.com/NixOS/nixpkgs/pull/194343
-      # size = 16 * 1024; # 16G
+      size = 16 * 1024; # 16G
     }
   ];
 
