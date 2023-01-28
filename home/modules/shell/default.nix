@@ -4,7 +4,7 @@
     # Rust and python outputs.
     PATH = "$HOME/.local/bin\${PATH:+:}$PATH";
 
-    FZF_DEFAULT_COMMAND = "${lib.getBin pkgs.fd}/bin/fd --type=f --hidden --no-ignore-vcs --exclude=.git";
+    FZF_DEFAULT_COMMAND = "${lib.getBin pkgs.fd}/bin/fd --type=f --hidden --exclude=.git";
     FZF_DEFAULT_OPTS = lib.concatStringsSep " " [
       "--layout=reverse" # Top-first.
       "--color=16" # 16-color theme.
