@@ -1,4 +1,4 @@
-{ lib, pkgs, inputs, my, ... }:
+{ lib, config, pkgs, inputs, my, ... }:
 let
   vimPlugins = pkgs.vimPlugins // {
     nvim-treesitter = pkgs.vimPlugins.nvim-treesitter.withAllGrammars;
@@ -8,7 +8,15 @@ let
   plugins =
     map (x: vimPlugins.${lib.elemAt x 0})
       (lib.filter (x: lib.isList x)
-        (builtins.split ''" plugin: ([A-Za-z_-]+)'' vimrc));
+        (builtins.split ''" plugin: ([A-Za-z_-]+)'' vimrc)) ++
+    cocPlugins;
+
+  cocPlugins = with vimPlugins; [
+    coc-pyright
+    coc-rust-analyzer
+    coc-sumneko-lua
+    coc-tsserver
+  ];
 
   cocSettings = {
     "coc.preferences.currentFunctionSymbolAutoUpdate" = true;
@@ -23,13 +31,23 @@ let
 
     "[rust]"."coc.preferences.formatOnSave" = true;
 
-    languageserver = {
-      lua = {
-        command = "${pkgs.sumneko-lua-language-server}/bin/lua-language-server";
-        filetypes = [ "lua" ];
-        rootPatterns = [ ".git" ];
-      };
+    "pyright.server" = "${lib.getBin pkgs.pyright}/bin/pyright-langserver";
 
+    "rust-analyzer.updates.checkOnStartup" = false;
+    "rust-analyzer.server.path" = "${lib.getBin pkgs.rust-analyzer}/bin/rust-analyzer";
+    "rust-analyzer.checkOnSave.command" = "clippy";
+    "rust-analyzer.imports.granularity.group" = "module";
+    "rust-analyzer.semanticHighlighting.strings.enable" = false;
+
+    "sumneko-lua.checkUpdate" = false;
+    # https://github.com/xiyaowong/coc-sumneko-lua/issues/22#issuecomment-1252284377
+    "sumneko-lua.serverDir" = "${pkgs.sumneko-lua-language-server}/share/lua-language-server";
+    "Lua.misc.parameters" = [
+      "--metapath=${config.xdg.cacheHome}/sumneko_lua/meta"
+      "--logpath=${config.xdg.cacheHome}/sumneko_lua/log"
+    ];
+
+    languageserver = {
       nix = {
         # Use from PATH to allow overriding.
         command = "nil";
@@ -38,33 +56,6 @@ let
         settings.nil = {
           formatting.command = [ "${pkgs.nixpkgs-fmt}/bin/nixpkgs-fmt" ];
         };
-      };
-
-      python = {
-        command = "${pkgs.pyright}/bin/pyright-langserver";
-        args = [ "--stdio" ];
-        filetypes = [ "python" ];
-        rootPatterns = [ "pyproject.toml" "setup.py" "setup.cfg" "requirements.txt" "Pipfile" "pyrightconfig.json" ];
-      };
-
-      rust = {
-        # Use from PATH to allow overriding.
-        command = "rust-analyzer";
-        filetypes = [ "rust" ];
-        rootPatterns = [ "rust-project.json" "Cargo.lock" ".git" ];
-        # https://github.com/rust-lang/rust-analyzer/blob/master/crates/rust-analyzer/src/config.rs
-        settings.rust-analyzer = {
-          checkOnSave.command = "clippy";
-          imports.granularity.group = "module";
-          semanticHighlighting.strings.enable = false;
-        };
-      };
-
-      typescript = {
-        command = "${pkgs.nodePackages.typescript-language-server}/bin/typescript-language-server";
-        args = [ "--stdio" "--tsserver-path=${pkgs.nodePackages.typescript}/bin/tsserver" ];
-        filetypes = [ "typescript" "javascript" ];
-        rootPatterns = [ "package.json" "tsconfig.json" "jsconfig.json" ".git" ];
       };
     };
   };
@@ -87,6 +78,5 @@ in
 
   home.packages = with pkgs; [
     nil
-    rust-analyzer
   ];
 }
