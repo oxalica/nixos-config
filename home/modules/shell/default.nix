@@ -7,11 +7,13 @@
     FZF_DEFAULT_COMMAND = "${lib.getBin pkgs.fd}/bin/fd --type=f --hidden --exclude=.git";
     FZF_DEFAULT_OPTS = lib.concatStringsSep " " [
       "--layout=reverse" # Top-first.
-      "--color=16" # 16-color theme.
+      "--color=light"
       "--info=inline"
       "--exact" # Substring matching by default, `'`-quote for subsequence matching.
       "--bind=alt-p:toggle-preview,alt-a:select-all"
     ];
+
+    BAT_THEME = "ansi";
   };
 
   # The default `command-not-found` relies on nix-channel. Use `nix-index` instead.
