@@ -183,7 +183,8 @@
     buildMachines = [
       {
         hostName = "aluminum.lan.hexade.ca";
-        protocol = "ssh";
+        maxJobs = 24;
+        protocol = "ssh-ng";
         sshUser = "oxa";
         sshKey = "/etc/ssh/ssh_host_ed25519_key";
         system = "x86_64-linux";
