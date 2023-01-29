@@ -108,6 +108,10 @@
   in {
     inherit nixosModules;
 
+    nixosSystems = lib.mapAttrs
+      (name: conf: conf.config.system.build.toplevel)
+      self.nixosConfigurations;
+
     nixosConfigurations = {
       invar = mkSystem "invar" "x86_64-linux" inputs.nixpkgs {
         extraModules = with nixosModules; [ home-manager sops fix-qtwayland-crash ];

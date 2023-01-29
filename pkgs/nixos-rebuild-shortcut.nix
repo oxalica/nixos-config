@@ -20,6 +20,12 @@ runCommand "nixos-rebuild-shortcut" {
       shift
     fi
 
+    # Simple local build.
+    if [[ "$action" == build && "$name" == "$localname" ]]; then
+      set -x
+      exec nom build .#nixosSystems."$name" "$@"
+    fi
+
     if [[ "$action" =~ (boot|switch|test) && "$name" == "$localname" && "$(id -u)" != 0 ]]; then
       echo "'$action' expects root permission" >&2
       exit 1
