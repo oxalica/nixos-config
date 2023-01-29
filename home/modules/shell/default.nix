@@ -27,6 +27,11 @@
     enable = true;
     dotDir = ".config/zsh";
 
+    dirHashes = {
+      target = "${config.xdg.cacheHome}/cargo/target";
+      nixpkgs = "${config.home.homeDirectory}/repo/fork/nixpkgs";
+    };
+
     # Disable /etc/{zshrc,zprofile} that contains the "sane-default" setup.
     # See `/etc/zshrc` for more info.
     envExtra = ''
