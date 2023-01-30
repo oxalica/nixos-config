@@ -5,7 +5,7 @@
     baseIndex = 1;
     clock24 = true;
     escapeTime = 1;
-    historyLimit = 10000;
+    historyLimit = 100000;
     keyMode = "vi";
     prefix = "C-a";
     terminal = "tmux-256color"; # Fix wierd behaviors for dim colors.
