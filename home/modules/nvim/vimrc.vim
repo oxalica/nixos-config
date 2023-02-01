@@ -175,23 +175,6 @@ let g:sandwich#recipes += [
 lua require('crates').setup()
 "}}}
 
-" plugin: nvim-treesitter {{{
-" plugin: playground
-lua <<EOF
-  require("nvim-treesitter.configs").setup {
-    highlight = {
-      enable = true,
-      disable = function(lang, bufnr)
-        return vim.api.nvim_buf_line_count(bufnr) > 10000
-      end,
-    },
-    playground = {
-      enable = true,
-    },
-  }
-EOF
-"}}}
-
 " plugin: nightfox-nvim {{{
 lua <<EOF
   require("nightfox").setup {

@@ -1,8 +1,6 @@
 { lib, config, pkgs, inputs, my, ... }:
 let
-  vimPlugins = pkgs.vimPlugins // {
-    nvim-treesitter = pkgs.vimPlugins.nvim-treesitter.withAllGrammars;
-  };
+  inherit (pkgs) vimPlugins;
 
   vimrc = builtins.readFile ./vimrc.vim;
   plugins =
