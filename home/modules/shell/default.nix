@@ -89,7 +89,7 @@
   programs.zoxide.enable = true;
 
   home.packages = with pkgs; [
-    nix nix-zsh-completions # Prefer nix's builtin completion.
+    nix-zsh-completions # Prefer nix's builtin completion.
     fzf bat # WARN: They are used by fzf.vim!
     my.pkgs.colors
   ];
