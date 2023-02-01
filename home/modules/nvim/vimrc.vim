@@ -99,6 +99,7 @@ command! -nargs=* W w <args>
 " plugin: vim-nix
 
 " plugin: fcitx-vim
+let g:fcitx5_remote = '@fcitx5-remote@'
 
 " plugin: fzf-vim {{{
 let g:fzf_history_dir = stdpath('cache') . '/fzf_history'

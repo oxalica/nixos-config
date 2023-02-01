@@ -3,6 +3,12 @@ let
   inherit (pkgs) vimPlugins;
 
   vimrc = builtins.readFile ./vimrc.vim;
+
+  vimrc' = builtins.replaceStrings
+    ["@fcitx5-remote@"]
+    ["${lib.getBin pkgs.fcitx5}/bin/fcitx5-remote"]
+    vimrc;
+
   plugins =
     map (x: vimPlugins.${lib.elemAt x 0})
       (lib.filter (x: lib.isList x)
@@ -64,7 +70,7 @@ in
     enable = true;
     withRuby = false;
     inherit plugins;
-    extraConfig = vimrc;
+    extraConfig = vimrc';
 
     coc = {
       enable = true;
