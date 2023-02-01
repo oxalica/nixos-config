@@ -171,7 +171,12 @@
   };
 
   nix = {
+    package = inputs.nix-dram.packages.${config.nixpkgs.system}.nix-dram;
+
     settings = {
+      default-flake = "nixpkgs";
+      environment = [ "https_proxy" "SSH_AUTH_SOCK" ];
+
       experimental-features = [
         "auto-allocate-uids"
         "cgroups"

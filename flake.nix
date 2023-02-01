@@ -27,6 +27,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.nixpkgs-stable.follows = "nixpkgs-stable";
     };
+    nix-dram = {
+      url = "github:dramforever/nix-dram";
+      inputs.flake-utils.follows = "flake-utils";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     meta-sifive = {
       url = "github:sifive/meta-sifive/2021.11.00";
