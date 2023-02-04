@@ -174,7 +174,7 @@
     package = inputs.nix-dram.packages.${config.nixpkgs.system}.nix-dram;
 
     settings = {
-      default-flake = "nixpkgs";
+      default-flake = "flake:nixpkgs";
       environment = [ "https_proxy" "SSH_AUTH_SOCK" ];
 
       experimental-features = [
