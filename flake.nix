@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs-plasma-5-27.url = "github:NixOS/nixpkgs/pull/211767/head";
     nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-22.11";
     nixpkgs-unmatched.url = "github:oxalica/nixpkgs/test/unmatched";
 
@@ -92,6 +93,20 @@
           }
         ];
       };
+
+      plsama-5-27 = { config, ... }: {
+        nixpkgs.overlays = [
+          (final: prev: {
+            inherit (inputs.nixpkgs-plasma-5-27.legacyPackages.${config.nixpkgs.system})
+              libsForQt5;
+          })
+        ];
+
+        disabledModules = [ "services/x11/desktop-managers/plasma5.nix" ];
+        imports = [
+          "${inputs.nixpkgs-plasma-5-27}/nixos/modules/services/x11/desktop-managers/plasma5.nix"
+        ];
+      };
     };
 
     mkSystem = name: system: nixpkgs: { extraModules ? [] }: nixpkgs.lib.nixosSystem {
@@ -123,7 +138,7 @@
       };
 
       blacksteel = mkSystem "blacksteel" "x86_64-linux" inputs.nixpkgs {
-        extraModules = with nixosModules; [ home-manager sops ];
+        extraModules = with nixosModules; [ home-manager sops plsama-5-27 ];
       };
 
       silver = mkSystem "silver" "x86_64-linux" inputs.nixpkgs-stable {

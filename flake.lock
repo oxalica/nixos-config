@@ -94,6 +94,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-plasma-5-27": {
+      "locked": {
+        "lastModified": 1675357938,
+        "narHash": "sha256-IsStSE2aWCc4pfSIdJ1B8avc14ztd1AMvRH/deErjH0=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "f2a2c2dbaabab418702fa2bc39f503a1f6efe59e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "pull/211767/head",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs-stable": {
       "locked": {
         "lastModified": 1675512093,
@@ -173,6 +189,7 @@
         "meta-sifive": "meta-sifive",
         "nix-dram": "nix-dram",
         "nixpkgs": "nixpkgs",
+        "nixpkgs-plasma-5-27": "nixpkgs-plasma-5-27",
         "nixpkgs-stable": "nixpkgs-stable",
         "nixpkgs-unmatched": "nixpkgs-unmatched",
         "nocargo": "nocargo",
