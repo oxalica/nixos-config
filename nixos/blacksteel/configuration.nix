@@ -175,7 +175,7 @@
 
     settings = {
       default-flake = "flake:nixpkgs";
-      environment = [ "https_proxy" "SSH_AUTH_SOCK" ];
+      environment = [ "SSH_AUTH_SOCK" ];
 
       experimental-features = [
         "auto-allocate-uids"
