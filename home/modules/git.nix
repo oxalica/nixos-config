@@ -3,12 +3,6 @@
   programs.git = {
     enable = true;
 
-    userName = "oxalica";
-    userEmail = "oxalicc@pm.me";
-
-    signing.signByDefault = false;
-    signing.key = my.gpg.fingerprint;
-
     ignores = [ "*~" "*.swp" ]; # vim swap file
 
     aliases = {
@@ -26,28 +20,40 @@
     };
 
     extraConfig = {
-      init.defaultBranch = "main";
+      # User & signing.
+      user.name = "oxalica";
+      user.email = "oxalicc@pm.me";
+      user.signingKey = my.gpg.fingerprint;
+      tag.gpgSign = true;
 
-      push.autoSetupRemote = true;
-
+      # Pull.
       pull.ff = "only";
-      advice.detachedHead = false;
 
+      # Diff & merge.
       diff.external = "${pkgs.difftastic}/bin/difft";
       diff.tool = "nvimdiff";
       difftool.prompt = false;
-
       merge.tool = "nvimdiff";
       merge.conflictstyle = "diff3";
       mergetool.prompt = false;
+      rerere.enabled = true;
 
+      # Pager.
       core.pager = "less";
       pager.branch = "less --quit-if-one-screen";
       pager.stash = "less --quit-if-one-screen";
 
+      # Display.
       # Always show branches and tags for `git log` in `vim-fugitive`.
       # See: https://github.com/tpope/vim-fugitive/issues/1965
       log.decorate = true;
+      # Show detailed diff by default for `git stash show`.
+      stash.showPatch = true;
+
+      # Misc.
+      init.defaultBranch = "main";
+      push.autoSetupRemote = true;
+      advice.detachedHead = false;
     };
   };
 }
