@@ -136,7 +136,6 @@
   # Services.
 
   services = {
-    xserver.displayManager.defaultSession = "plasmawayland";
     openssh = {
       enable = true;
       settings = {

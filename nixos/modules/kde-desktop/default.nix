@@ -7,7 +7,6 @@
     filelight
     plasma-browser-integration
     bismuth
-    kwin-dynamic-workspaces
   ];
 
   programs = {
@@ -22,17 +21,19 @@
     enable = true;
     layout = "us";
 
-    displayManager.sddm.enable = true;
+    displayManager = {
+      sddm.enable = true;
+      defaultSession = "plasmawayland";
+    };
+
     desktopManager.plasma5 = {
       enable = true;
-      useQtScaling = true;
       runUsingSystemd = true;
 
       # FIXME: remove after https://github.com/NixOS/nixpkgs/pull/215489
       phononBackend = "vlc";
 
       kdeglobals.KDE.SingleClick = false;
-      kwinrc.Windows.RollOverDesktops = true;
     };
   };
 
@@ -42,9 +43,5 @@
     enable = true;
     wifi.macAddress = "random";
     ethernet.macAddress = "random";
-  };
-
-  environment.etc = {
-    "xdg/kglobalshortcutsrc".source = ./xdg/kglobalshortcutsrc;
   };
 }
