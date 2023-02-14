@@ -30,9 +30,6 @@
       enable = true;
       runUsingSystemd = true;
 
-      # FIXME: remove after https://github.com/NixOS/nixpkgs/pull/215489
-      phononBackend = "vlc";
-
       kdeglobals.KDE.SingleClick = false;
     };
   };
