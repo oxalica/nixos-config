@@ -43,6 +43,7 @@ in {
     cargo-flamegraph
     cargo-insta
     cargo-license
+    cargo-outdated
     cargo-show-asm
   ];
 
