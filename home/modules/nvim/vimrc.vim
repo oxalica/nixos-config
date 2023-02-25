@@ -98,6 +98,9 @@ command! -nargs=* W w <args>
 
 " plugin: vim-nix
 
+" plugin: editorconfig-vim
+let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
+
 " plugin: fcitx-vim
 let g:fcitx5_remote = '@fcitx5-remote@'
 

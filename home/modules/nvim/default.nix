@@ -16,6 +16,8 @@ let
     cocPlugins;
 
   cocPlugins = with vimPlugins; [
+    coc-eslint
+    coc-json
     coc-pyright
     coc-rust-analyzer
     coc-sumneko-lua
