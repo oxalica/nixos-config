@@ -1,15 +1,15 @@
 { alacritty, fetchFromGitHub, rustPlatform }:
 alacritty.overrideAttrs (old: rec {
-  version = "fractional-scale";
+  version = "0.12.0-rc1";
 
   src = fetchFromGitHub {
     inherit (old.src) owner repo;
-    rev = "3354203e571e427b7152999d13af8a1cbd14e0d8";
-    hash = "sha256-KxslwPEjVvd6KWWwPAFra+aSCMdHaFX/GQyHyrYGrRs=";
+    rev = "refs/tags/v${version}";
+    hash = "sha256-ai8Gpcd+u4emewMtA63cKa700ZvZRIHoMwRSY7p/FIE=";
   };
 
   cargoDeps = rustPlatform.fetchCargoTarball {
     inherit src;
-    hash = "sha256-NBAI4Qix4vRE1CIRizEXl9iIjfZpIyNKqUfgQLnZUpg=";
+    hash = "sha256-DwGpliPYqkMh8ReLq13neiPDDRo+ZrLFteinSo4uDaA=";
   };
 })
