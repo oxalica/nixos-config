@@ -23,7 +23,7 @@ in {
     kolourpaint libreoffice mpv okular # Files
     electrum electron-cash monero-gui # Cryptocurrency
     (prismlauncher.override { jdks = [ openjdk ]; }) /* steam <- enabled system-wide */ # Games
-    tdesktop my.pkgs.nheko-fix # Messaging
+    tdesktop nheko # Messaging
     wf-recorder obs-studio # Recording
 
     # Dev
