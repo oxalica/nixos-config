@@ -94,3 +94,7 @@ patchinterp() {
     [[ $interp != /nix/store/* ]] || { echo "Already patched: $interp"; return 1; }
     linker="$(nix eval --raw nixpkgs#bintools.dynamicLinker)" && patchelf --set-interpreter $linker $1
 }
+
+closure() {
+    nix path-info -Shr $@ | eval $PAGER
+}
