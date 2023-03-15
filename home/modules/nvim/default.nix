@@ -1,4 +1,4 @@
-{ lib, config, pkgs, inputs, my, ... }:
+{ lib, config, pkgs, ... }:
 let
   inherit (pkgs) vimPlugins;
 
@@ -34,6 +34,10 @@ let
     "links.tooltip" = true;
     "semanticTokens.enable" = true;
     "suggest.noselect" = true;
+    "workspace.ignoredFolders" = [
+      "$CARGO_HOME/**"
+      "/nix/store/**"
+    ];
 
     "[rust]"."coc.preferences.formatOnSave" = true;
 
