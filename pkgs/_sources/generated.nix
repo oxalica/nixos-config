@@ -11,13 +11,13 @@
   };
   double-entry-generator = {
     pname = "double-entry-generator";
-    version = "v1.7.0";
+    version = "v2.0.0";
     src = fetchFromGitHub ({
       owner = "deb-sig";
       repo = "double-entry-generator";
-      rev = "v1.7.0";
+      rev = "v2.0.0";
       fetchSubmodules = false;
-      sha256 = "sha256-hzv+lnW7y0YEfAyZ4uhQybhG736ImVXT3RIBqL+Il20=";
+      sha256 = "sha256-ZwLweG2SElD6TB2r2+8+UTJiS6HKniJ/PD2Ly51GahM=";
     });
     vendorHash = "sha256-Xedva9oGteOnv3rP4Wo3sOHIPyuy2TYwkZV2BAuxY4M=";
   };
@@ -35,25 +35,25 @@
   };
   rime_latex = {
     pname = "rime_latex";
-    version = "d484bf6f8d4e4ccdb06c691fa4feeefd1fe58d1c";
+    version = "f9a451484885805617cde20d402ea843c1807511";
     src = fetchFromGitHub ({
       owner = "shenlebantongying";
       repo = "rime_latex";
-      rev = "d484bf6f8d4e4ccdb06c691fa4feeefd1fe58d1c";
+      rev = "f9a451484885805617cde20d402ea843c1807511";
       fetchSubmodules = false;
-      sha256 = "sha256-8k6CCFlXaNKejs6+jusMD4W94IsMZGclL7vFcUy/h+Y=";
+      sha256 = "sha256-k7iTXE7wBg80jtDOPdndysqSgQbIcIxvXHk8PXYg268=";
     });
-    date = "2022-08-19";
+    date = "2023-03-06";
   };
   sway-systemd = {
     pname = "sway-systemd";
-    version = "v0.2.2";
+    version = "v0.3.0";
     src = fetchFromGitHub ({
       owner = "alebastr";
       repo = "sway-systemd";
-      rev = "v0.2.2";
+      rev = "v0.3.0";
       fetchSubmodules = false;
-      sha256 = "sha256-S10x6A1RaD1msIw9pWXpBHFKKyWfsaEGbAZo2SU3CtI=";
+      sha256 = "sha256-Azy7XRHrKvhODxAogwtk2+W0WjGcoTy47+nT0x9aMPw=";
     });
   };
   sway-unwrapped = {
@@ -69,13 +69,13 @@
   };
   swaylock-effects = {
     pname = "swaylock-effects";
-    version = "v1.6.10";
+    version = "v1.6.11";
     src = fetchFromGitHub ({
       owner = "jirutka";
       repo = "swaylock-effects";
-      rev = "v1.6.10";
+      rev = "v1.6.11";
       fetchSubmodules = false;
-      sha256 = "sha256-VkyH9XN/pR1UY/liG5ygDHp+ymdqCPeWHyU7/teJGbU=";
+      sha256 = "sha256-MKmWVYssO9HAcP5uqwpy9kDa6/kfZyV2NI7ibozt7Ug=";
     });
   };
 }
