@@ -1,6 +1,6 @@
 { lib
 , rustPlatform
-, fetchCrate
+, fetchFromGitHub
 , nix-update-script
 }:
 
@@ -8,14 +8,16 @@ rustPlatform.buildRustPackage rec {
   pname = "cargo-machete";
   version = "0.5.0";
 
-  src = fetchCrate {
-    inherit pname version;
-    sha256 = "sha256-fd4jAqdkibAe4yLa/G5Ql3FrN7Yzc9ivnDV6SOscP+4=";
+  src = fetchFromGitHub {
+    owner = "bnjbvr";
+    repo = pname;
+    rev = "refs/tags/v${version}";
+    hash = "sha256-AOi4SnFkt82iQIP3bp/9JIaYiqjiEjKvJKUvrLQJTX8=";
   };
 
-  cargoSha256 = "sha256-Q/2py0zgCYgnxFpcJD5PfNfIfIEUjtjFPjxDe25f0BQ=";
+  cargoHash = "sha256-Q/2py0zgCYgnxFpcJD5PfNfIfIEUjtjFPjxDe25f0BQ=";
 
-  # FIXME: Figure out why the content of tarball diverges from repo.
+  # Tests require downloading new crates.
   doCheck = false;
 
   passthru.updateScript = nix-update-script { };
@@ -32,4 +34,3 @@ rustPlatform.buildRustPackage rec {
     maintainers = with maintainers; [ oxalica ];
   };
 }
-
