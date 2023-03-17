@@ -32,13 +32,6 @@
       };
     };
 
-    # For MGLRU in Linux 6.1
-    # https://github.com/NixOS/nixpkgs/pull/205269
-    #
-    # NB. Don't upgrate to 6.2 before the BTRFS bug gets fixed.
-    # https://lore.kernel.org/linux-btrfs/CABXGCsNzVxo4iq-tJSGm_kO1UggHXgq6CdcHDL=z5FL4njYXSQ@mail.gmail.com
-    kernelPackages = pkgs.linuxPackages_6_1;
-
     kernelModules = [ "kvm-intel" ];
     extraModulePackages = [ ];
 
