@@ -45,7 +45,7 @@ let
 
     "rust-analyzer.updates.checkOnStartup" = false;
     "rust-analyzer.server.path" = "${lib.getBin pkgs.rust-analyzer}/bin/rust-analyzer";
-    "rust-analyzer.checkOnSave.command" = "clippy";
+    "rust-analyzer.check.command" = "clippy";
     "rust-analyzer.imports.granularity.group" = "module";
     "rust-analyzer.semanticHighlighting.strings.enable" = false;
 
