@@ -81,7 +81,6 @@
   powerManagement.cpuFreqGovernor = "schedutil";
   hardware = {
     cpu.intel.updateMicrocode = true;
-    video.hidpi.enable = true;
     bluetooth.enable = true;
     logitech.wireless.enable = true;
     enableRedistributableFirmware = true; # Required for WIFI.
@@ -90,6 +89,7 @@
   console = {
     font = "${pkgs.terminus_font}/share/consolefonts/ter-v28n.psf.gz";
     useXkbConfig = true;
+    earlySetup = true;
   };
   networking = {
     hostName = "blacksteel";
