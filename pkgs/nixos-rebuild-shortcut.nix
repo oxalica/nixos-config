@@ -25,7 +25,7 @@ runCommand "nixos-rebuild-shortcut" {
       exit 1
     fi
 
-    cmd=(nixos-rebuild "$action" --flake ".#$name")
+    cmd=(nixos-rebuild "$action" --flake ".#$name" --keep-going)
     if [[ "$name" != "$localname" && "$action" != *build* ]]; then
       cmd+=(
         --use-remote-sudo
