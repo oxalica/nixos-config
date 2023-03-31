@@ -85,8 +85,6 @@
     logitech.wireless.enable = true;
     enableRedistributableFirmware = true; # Required for WIFI.
     opengl.extraPackages = with pkgs; [ intel-media-driver ]; # vaapi
-    # FIXME: https://github.com/NixOS/nixpkgs/pull/223530
-    opengl.mesaPackage = pkgs.mesa;
   };
   console = {
     font = "${pkgs.terminus_font}/share/consolefonts/ter-v28n.psf.gz";
