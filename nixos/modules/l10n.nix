@@ -2,7 +2,7 @@
 {
   i18n = {
     supportedLocales = [ "all" ]; # Override console-env.
-    defaultLocale = "en_US.UTF-8";
+    defaultLocale = "en_CA.UTF-8";
     inputMethod = {
       enabled = "fcitx5";
       fcitx5.addons = with pkgs; [ fcitx5-rime ];
@@ -32,13 +32,10 @@
     fontconfig = {
       enable = true;
 
-      defaultFonts = rec {
+      defaultFonts = {
         monospace = [ "Iosevka Fixed" "Noto Sans CJK SC" "Font Awesome 6 Free" "Twemoji" ];
-        # Prefer CJK-SC-style quotation marks.
-        # We cannot select different styles for it based on languages since our locale is en_US.UTF-8.
-        # See: https://catcat.cc/post/2021-03-07/#remark42__comment-37ccca1d-cbc6-4c48-a224-18007987cf16
-        sansSerif = [ "Noto Sans CJK SC" "Noto Sans" "Twemoji" ];
-        serif = [ "Noto Serif CJK SC" "Noto Serif" "Twemoji" ];
+        sansSerif = [ "Noto Sans" "Noto Sans CJK SC" "Twemoji" ];
+        serif = [ "Noto Serif" "Noto Serif CJK SC" "Twemoji" ];
         emoji = [ "Twemoji" ];
       };
 
@@ -51,21 +48,22 @@
             let
               replace = from: to: ''
                 <match target="pattern">
-                  <test name="lang">
+                  <test name="lang" compare="contains">
                     <string>${lang}</string>
                   </test>
                   <test name="family">
                     <string>${from}</string>
                   </test>
-                  <edit name="family" binding="strong">
+                  <edit name="family" binding="strong" mode="prepend_first">
                     <string>${to}</string>
                   </edit>
                 </match>
               '';
             in
-            replace "Noto Sans CJK SC" "Noto Sans CJK ${variant}" +
-            replace "Noto Serif CJK SC" "Noto Serif CJK ${variant}"
+            replace "sans-serif" "Noto Sans CJK ${variant}" +
+            replace "serif" "Noto Serif CJK ${variant}"
           ) [
+            { lang = "zh";    variant = "SC"; }
             { lang = "zh-TW"; variant = "TC"; }
             { lang = "zh-HK"; variant = "HK"; }
             { lang = "ja";    variant = "JP"; }
