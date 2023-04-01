@@ -107,6 +107,14 @@
   security.rtkit.enable = true; # pipewire expects this.
   sound.enable = false; # pipewire expects this.
 
+  # Swap capslock and leftctrl only for the builtin keyboard.
+  # Ref: https://wiki.archlinux.org/title/Map_scancodes_to_keycodes
+  services.udev.extraHwdb = ''
+    evdev:atkbd:dmi:bvnLENOVO:*:pvrThinkPadX1Carbon5th*
+      KEYBOARD_KEY_3a=leftctrl
+      KEYBOARD_KEY_1d=capslock
+  '';
+
   # Users.
 
   sops.secrets.passwd.neededForUsers = true;
