@@ -35,7 +35,7 @@ let
     "semanticTokens.enable" = true;
     "suggest.noselect" = true;
     "workspace.ignoredFolders" = [
-      "$CARGO_HOME/**"
+      "${config.xdg.cacheHome}/cargo/**"
       "/nix/store/**"
     ];
 
