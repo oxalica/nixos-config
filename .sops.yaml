@@ -1,5 +1,6 @@
 keys:
-  - &oxa age1p9ulxm09pwv2cx8m2wwg87s8m05r4yp4ph2rh7p9tavtjye8zd2sh3nnzr
+  - &oxa F90FFD6D585C2BA1F13DE8A97571654CF88E31C2
+
   - &invar age157zcs4687hmsd834xhvt66apf6v93ss3tt2l23x72lhtvpl69ggqeejgky
   - &blacksteel age1l9qly5vlx20uzrqvq8qygvcrtff64mgvqchet5uvs989upy5lugq4krj2c
   - &silver age14z6h0yqmuymga4kxtvc78tmpyjdt7vh72c6awml2dfxjzxch5cqqt374sn
@@ -9,31 +10,36 @@ creation_rules:
   - path_regex: secrets/ssh\.yaml$
     key_groups:
       - age:
-        - *oxa
-        - *invar
-        - *blacksteel
-        - *silver
+          - *invar
+          - *blacksteel
+          - *silver
+        pgp:
+          - *oxa
 
   - path_regex: /invar/secret\.yaml$
     key_groups:
       - age:
-        - *oxa
-        - *invar
+          - *invar
+        pgp:
+          - *oxa
 
   - path_regex: /blacksteel/secret\.yaml$
     key_groups:
       - age:
-        - *oxa
-        - *blacksteel
+          - *blacksteel
+        pgp:
+          - *oxa
 
   - path_regex: /silver/secret\.yaml$
     key_groups:
       - age:
-        - *oxa
-        - *silver
+          - *silver
+        pgp:
+          - *oxa
 
   - path_regex: /lithium/secret\.yaml$
     key_groups:
       - age:
-        - *oxa
-        - *lithium
+          - *lithium
+        pgp:
+          - *oxa
