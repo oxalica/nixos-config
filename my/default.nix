@@ -18,15 +18,10 @@
       blacksteel.publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICVBNvOEn0ncdylnKQIFKd75muElg5TBaMFWrbamAlx+";
       iwkr.publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEmt0cK3uNWAtpK2k3BA+liaIKWFPa8mDtRh15GAjF3J";
 
-      silver = {
-        extraHostNames = [ "|1|djhJoriV/JqzO+LqNj6+kJ0SLFk=|SHA3YNffReFWcG8oW5AvH4EePek=" ];
-        publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAVLDuh0BHrcbD5Nsla2C/ylOHkbN4UkcRYZP5dj9kCs";
-      };
       copper = {
         extraHostNames = [ "|1|dBmAkr6d+gTzhvfiA8p7l+H34co=|3U8aEJXTtWbmM/j/c+qAGKb44d8=" ];
         publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIO1TnA8NpurpJFgf4xZZvJrgFpkaE9y6qRgFiFe1mX21";
       };
-      # This is used by silver!
       lithium = {
         extraHostNames = [ "|1|03iz3vLed3+JuFU4jY9i+nna9Uc=|F1vUXreBxQBexS9B8ocVVVvv8Hc=" ];
         publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGafc2sPL47lOJECY1K2X7p2nzfxrLoCMvJ15W/wiJ80";

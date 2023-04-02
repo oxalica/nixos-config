@@ -39,15 +39,5 @@
     };
   };
 
-  users.groups."reverse-ssh" = {};
-  users.users."reverse-ssh" = {
-    isSystemUser = true;
-    shell = pkgs.shadow;
-    group = config.users.groups.reverse-ssh.name;
-    openssh.authorizedKeys.keys = [
-      my.ssh.identities.silver
-    ];
-  };
-
   system.stateVersion = "22.11";
 }

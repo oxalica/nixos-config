@@ -3,7 +3,6 @@ keys:
 
   - &invar age157zcs4687hmsd834xhvt66apf6v93ss3tt2l23x72lhtvpl69ggqeejgky
   - &blacksteel age1l9qly5vlx20uzrqvq8qygvcrtff64mgvqchet5uvs989upy5lugq4krj2c
-  - &silver age14z6h0yqmuymga4kxtvc78tmpyjdt7vh72c6awml2dfxjzxch5cqqt374sn
   - &lithium age17qk6m9lnqefs03rs9sv3jruvynjwhnash63k7g629vskk3jngvuqanhfq3
 
 creation_rules:
@@ -12,7 +11,6 @@ creation_rules:
       - age:
           - *invar
           - *blacksteel
-          - *silver
         pgp:
           - *oxa
 
@@ -27,13 +25,6 @@ creation_rules:
     key_groups:
       - age:
           - *blacksteel
-        pgp:
-          - *oxa
-
-  - path_regex: /silver/secret\.yaml$
-    key_groups:
-      - age:
-          - *silver
         pgp:
           - *oxa
 
