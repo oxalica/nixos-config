@@ -18,6 +18,7 @@ alias rp="realpath"
 alias t="bsdtar"
 alias hex="hexdump -C"
 alias o="xdg-open"
+alias reset="tput reset"
 
 # List tree.
 lt() {
