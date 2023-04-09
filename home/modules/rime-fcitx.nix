@@ -6,9 +6,6 @@ let
     rimeSettingChanged=1
   '';
 in {
-  # https://github.com/NixOS/nixpkgs/pull/167032
-  systemd.user.sessionVariables.NIX_RIME_DATA_DIR = "/run/current-system/sw/share/rime-data";
-
   home.activation.setupRimeCacheDirectory = lib.hm.dag.entryAfter [ "writeBoundary" "onFilesChange" ] ''
     $DRY_RUN_CMD mkdir -p "${buildDir}"
     if [[ -v rimeSettingChanged ]]; then

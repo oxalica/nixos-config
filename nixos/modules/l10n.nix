@@ -5,12 +5,13 @@
     defaultLocale = "en_CA.UTF-8";
     inputMethod = {
       enabled = "fcitx5";
-      fcitx5.addons = with pkgs; [ fcitx5-rime ];
-      fcitx5.enableRimeData = true;
+      fcitx5.addons = with pkgs; [
+        (fcitx5-rime.override {
+          rimeDataPkgs = [ rime-data my.pkgs.rime_latex ];
+        })
+      ];
     };
   };
-
-  environment.systemPackages = [ my.pkgs.rime_latex ];
 
   # Ref: https://catcat.cc/post/2021-03-07/
   fonts = {
