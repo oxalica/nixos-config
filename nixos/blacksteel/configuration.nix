@@ -193,7 +193,7 @@
         protocol = "ssh-ng";
         sshUser = "oxa";
         sshKey = "/etc/ssh/ssh_host_ed25519_key";
-        system = "x86_64-linux";
+        systems = [ "x86_64-linux" "i686-linux" ];
         supportedFeatures = [ "kvm" "big-parallel" "nixos-test" "benchmark" ];
       }
     ];
