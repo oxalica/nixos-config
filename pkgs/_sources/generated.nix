@@ -35,15 +35,15 @@
   };
   rime_latex = {
     pname = "rime_latex";
-    version = "f9a451484885805617cde20d402ea843c1807511";
+    version = "f4aa38a152418b1c8b8ffa9cc3f9bfa0772d4f85";
     src = fetchFromGitHub ({
       owner = "shenlebantongying";
       repo = "rime_latex";
-      rev = "f9a451484885805617cde20d402ea843c1807511";
+      rev = "f4aa38a152418b1c8b8ffa9cc3f9bfa0772d4f85";
       fetchSubmodules = false;
-      sha256 = "sha256-k7iTXE7wBg80jtDOPdndysqSgQbIcIxvXHk8PXYg268=";
+      sha256 = "sha256-hVLS9ZMfHnXuqeYHJOF55TEAoikpqcVTW5iYe+yFTtw=";
     });
-    date = "2023-03-06";
+    date = "2023-03-18";
   };
   sway-systemd = {
     pname = "sway-systemd";
