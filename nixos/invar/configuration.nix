@@ -26,9 +26,8 @@
     # TODO: Test and wait for https://github.com/NixOS/nixpkgs/pull/224489
     bootspec.enable = true;
 
-    # Kernel >= 5.18 is required for `schedutil`.
-    kernelPackages = pkgs.linuxPackages_latest;
     kernelModules = [ "kvm-amd" ];
+    kernelParams = [ "amd_pstate=passive" ];
 
     initrd = {
       systemd.enable = true;
