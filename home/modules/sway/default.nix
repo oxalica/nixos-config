@@ -177,7 +177,7 @@ in
       };
   };
 
-  programs.mako = {
+  services.mako = {
     enable = true;
     defaultTimeout = 15000; # ms
     font = "sans-serif";

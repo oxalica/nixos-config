@@ -119,7 +119,7 @@
 
     nixosConfigurations = {
       invar = mkSystem "invar" "x86_64-linux" inputs.nixpkgs {
-        extraModules = with nixosModules; [ home-manager sops fix-qtwayland-crash ];
+        extraModules = with nixosModules; [ home-manager sops ];
       };
 
       blacksteel = mkSystem "blacksteel" "x86_64-linux" inputs.nixpkgs {

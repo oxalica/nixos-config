@@ -84,7 +84,6 @@
   powerManagement.cpuFreqGovernor = "schedutil";
   hardware = {
     enableRedistributableFirmware = true;
-    video.hidpi.enable = true;
     cpu.amd.updateMicrocode = true;
     bluetooth.enable = true;
     logitech.wireless.enable = true;
@@ -93,6 +92,7 @@
   console = {
     font = "${pkgs.terminus_font}/share/consolefonts/ter-v28n.psf.gz";
     useXkbConfig = true;
+    earlySetup = true;
   };
   networking = {
     hostName = "invar";
@@ -172,9 +172,11 @@
 
   services.openssh = {
     enable = true;
-    passwordAuthentication = false;
-    kbdInteractiveAuthentication = false;
-    permitRootLogin = "no";
+    settings = {
+      PasswordAuthentication = false;
+      KbdInteractiveAuthentication = false;
+      PermitRootLogin = "no";
+    };
     hostKeys = [
       {
         type = "rsa";
