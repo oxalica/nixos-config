@@ -7,6 +7,7 @@
     ../modules/console-env.nix
     ../modules/device-fix.nix
     ../modules/kde-desktop
+    ../modules/nix-cgroups.nix
     ../modules/nix-common.nix
     ../modules/nix-registry.nix
   ] ++ lib.optional (inputs ? secrets) (inputs.secrets.nixosModules.blacksteel);
@@ -177,13 +178,6 @@
     settings = {
       default-flake = "flake:nixpkgs";
       environment = [ "SSH_AUTH_SOCK" ];
-
-      experimental-features = [
-        "auto-allocate-uids"
-        "cgroups"
-      ];
-      auto-allocate-uids = true;
-      use-cgroups = true;
     };
 
     buildMachines = [

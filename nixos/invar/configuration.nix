@@ -5,6 +5,7 @@
 
     ../modules/console-env.nix
     ../modules/device-fix.nix
+    ../modules/nix-cgroups.nix
     ../modules/nix-common.nix
     ../modules/nix-registry.nix
     ../modules/sway-desktop.nix
