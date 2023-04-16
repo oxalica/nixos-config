@@ -7,8 +7,6 @@ let
 
   sway = config.wayland.windowManager.sway.package;
 
-  swaylock = pkgs.swaylock-effects;
-
 in
 {
   imports = [
@@ -20,7 +18,6 @@ in
     pavucontrol
     grim
     slurp
-    swaylock
     sway-contrib.grimshot
   ]) ++ (with pkgs.libsForQt5; [
     # From plasma5.
@@ -195,14 +192,17 @@ in
     Install.WantedBy = [ "sway-session.target" ];
   };
 
-  programs.swaylock.settings = {
-    daemonize = true;
-    image = "${my.pkgs.wallpaper-blur}";
-    scaling = "fill";
-    indicator-idle-visible = true;
-    clock = true;
-    datestr = "%Y-%m-%d %a";
-    show-failed-attempts = true;
+  programs.swaylock = {
+    package = pkgs.swaylock-effects;
+    settings = {
+      daemonize = true;
+      image = "${my.pkgs.wallpaper-blur}";
+      scaling = "fill";
+      indicator-idle-visible = true;
+      clock = true;
+      datestr = "%Y-%m-%d %a";
+      show-failed-attempts = true;
+    };
   };
 
   programs.rofi = {
@@ -225,7 +225,7 @@ in
     timeouts = [
       {
         timeout = 900; # 15min
-        command = "${swaylock}/bin/swaylock --grace=5";
+        command = "${lib.getExe config.programs.swaylock.package} --grace=5";
       }
       {
         timeout = 905;
@@ -236,7 +236,7 @@ in
     events = [
       {
         event = "lock";
-        command = "${swaylock}/bin/swaylock";
+        command = lib.getExe config.programs.swaylock.package;
       }
       # Not implemented yet: https://github.com/swaywm/swaylock/pull/237
       # { event = "unlock"; command = ""; }
