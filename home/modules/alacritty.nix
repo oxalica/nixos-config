@@ -2,7 +2,6 @@
 {
   programs.alacritty = {
     enable = true;
-    package = my.pkgs.alacritty-fractional-scale;
 
     # https://github.com/alacritty/alacritty/blob/master/alacritty.yml
     settings = {

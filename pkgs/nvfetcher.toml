@@ -19,13 +19,3 @@ fetch.github = "shenlebantongying/rime_latex"
 [sway-systemd]
 src.github = "alebastr/sway-systemd"
 fetch.github = "alebastr/sway-systemd"
-
-# Workaround: https://github.com/swaywm/swaylock/issues/204
-[sway-unwrapped]
-src.manual = "1.8-rc2"
-fetch.github = "swaywm/sway"
-
-# FIXME: https://github.com/NixOS/nixpkgs/pull/180816
-[swaylock-effects]
-src.github_tag = "jirutka/swaylock-effects"
-fetch.github = "jirutka/swaylock-effects"

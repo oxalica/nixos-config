@@ -56,26 +56,4 @@
       sha256 = "sha256-Azy7XRHrKvhODxAogwtk2+W0WjGcoTy47+nT0x9aMPw=";
     });
   };
-  sway-unwrapped = {
-    pname = "sway-unwrapped";
-    version = "1.8-rc2";
-    src = fetchFromGitHub ({
-      owner = "swaywm";
-      repo = "sway";
-      rev = "1.8-rc2";
-      fetchSubmodules = false;
-      sha256 = "sha256-a1ypTSWcyOk1s97ogrVFrKfhRKfkHzbAqN5smoO36Wg=";
-    });
-  };
-  swaylock-effects = {
-    pname = "swaylock-effects";
-    version = "v1.6.11";
-    src = fetchFromGitHub ({
-      owner = "jirutka";
-      repo = "swaylock-effects";
-      rev = "v1.6.11";
-      fetchSubmodules = false;
-      sha256 = "sha256-MKmWVYssO9HAcP5uqwpy9kDa6/kfZyV2NI7ibozt7Ug=";
-    });
-  };
 }

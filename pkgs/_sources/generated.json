@@ -97,45 +97,5 @@
             "type": "github"
         },
         "version": "v0.3.0"
-    },
-    "sway-unwrapped": {
-        "cargoLocks": null,
-        "date": null,
-        "extract": null,
-        "name": "sway-unwrapped",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "swaywm",
-            "repo": "sway",
-            "rev": "1.8-rc2",
-            "sha256": "sha256-a1ypTSWcyOk1s97ogrVFrKfhRKfkHzbAqN5smoO36Wg=",
-            "type": "github"
-        },
-        "version": "1.8-rc2"
-    },
-    "swaylock-effects": {
-        "cargoLocks": null,
-        "date": null,
-        "extract": null,
-        "name": "swaylock-effects",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "jirutka",
-            "repo": "swaylock-effects",
-            "rev": "v1.6.11",
-            "sha256": "sha256-MKmWVYssO9HAcP5uqwpy9kDa6/kfZyV2NI7ibozt7Ug=",
-            "type": "github"
-        },
-        "version": "v1.6.11"
     }
 }

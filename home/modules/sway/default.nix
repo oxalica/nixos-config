@@ -74,10 +74,6 @@ in
     systemdIntegration = true;
     wrapperFeatures.gtk = true;
 
-    package = my.pkgs.sway.override {
-      withGtkWrapper = true;
-    };
-
     config =
       let
         modifier = "Mod4";

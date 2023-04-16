@@ -43,7 +43,7 @@ in {
     cargo-flamegraph
     cargo-insta
     cargo-license
-    my.pkgs.cargo-machete
+    cargo-machete
     cargo-outdated
     cargo-show-asm
   ];
