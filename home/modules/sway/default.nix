@@ -7,9 +7,7 @@ let
 
   sway = config.wayland.windowManager.sway.package;
 
-  # FIXME: https://github.com/jirutka/swaylock-effects/issues/3
-  # swaylock = my.pkgs.swaylock-effects;
-  swaylock = pkgs.swaylock;
+  swaylock = pkgs.swaylock-effects;
 
 in
 {
@@ -47,11 +45,11 @@ in
     enable = true;
     theme = {
       package = pkgs.breeze-gtk;
-      name = "Breeze-Dark";
+      name = "Breeze";
     };
     iconTheme = {
       package = pkgs.breeze-icons;
-      name = "breeze-dark";
+      name = "breeze";
     };
     font = {
       name = "Sans Serif Regular";
@@ -64,9 +62,9 @@ in
     enable = true;
     platformTheme = "gnome";
     style.package = pkgs.breeze-qt5;
-    style.name = "Breeze-dark"; # It should be `Breeze` but qtgnomeplatform needs a "-dark" postfix.
+    style.name = "breeze";
   };
-  xdg.configFile."kdeglobals".source = "${pkgs.breeze-qt5}/share/color-schemes/BreezeDark.colors";
+  xdg.configFile."kdeglobals".source = "${pkgs.breeze-qt5}/share/color-schemes/BreezeLight.colors";
 
   wayland.windowManager.sway = {
     enable = true;
@@ -201,9 +199,9 @@ in
     daemonize = true;
     image = "${my.pkgs.wallpaper-blur}";
     scaling = "fill";
-    # indicator-idle-visible = true;
-    # clock = true;
-    # datestr = "%Y-%m-%d %a";
+    indicator-idle-visible = true;
+    clock = true;
+    datestr = "%Y-%m-%d %a";
     show-failed-attempts = true;
   };
 
@@ -227,8 +225,7 @@ in
     timeouts = [
       {
         timeout = 900; # 15min
-        command = "${swaylock}/bin/swaylock";
-        # command = "${swaylock}/bin/swaylock --grace=5";
+        command = "${swaylock}/bin/swaylock --grace=5";
       }
       {
         timeout = 905;
