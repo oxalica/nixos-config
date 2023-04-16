@@ -209,6 +209,9 @@ EOF
 " The plugins will be automatically enabled via h-m options.
 " Mostly follows https://github.com/neoclide/coc.nvim#example-vim-configuration
 
+" Options
+nmap <M-d> <Cmd>call CocAction('diagnosticToggle')<CR>
+
 " Completion.
 inoremap <silent><expr> <Tab> coc#pum#visible() ? coc#_select_confirm() : "\<Tab>"
 inoremap <silent><expr> <C-Space> coc#refresh()
