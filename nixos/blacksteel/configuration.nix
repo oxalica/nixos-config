@@ -129,6 +129,8 @@
       uid = 1000;
       group = config.users.groups.oxa.name;
       extraGroups = [ "wheel" "kvm" "adbusers" "libvirtd" "wireshark" ];
+
+      openssh.authorizedKeys.keys = with my.ssh.identities; [ oxa ];
     };
     groups."oxa".gid = 1000;
   };

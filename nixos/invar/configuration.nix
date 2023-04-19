@@ -125,21 +125,11 @@
     uid = 1000;
     group = config.users.groups.oxa.name;
     extraGroups = [ "wheel" "libvirtd" ];
+
+    openssh.authorizedKeys.keys = with my.ssh.identities; [ oxa ];
   };
   users.groups."oxa".gid = 1000;
   home-manager.users."oxa" = import ../../home/invar.nix;
-
-  # For remote build.
-  users.users."builder" = {
-    isSystemUser = true;
-    shell = pkgs.bash;
-    group = config.users.groups.builder.name;
-    openssh.authorizedKeys.keys =
-      map (line: "restrict,command=\"${config.nix.package}/bin/nix-daemon --stdio\" ${line}")
-        (with my.ssh.identities; [ iwkr shu-iwkr ]);
-  };
-  users.groups."builder" = { };
-  nix.settings.trusted-users = [ config.users.users.builder.name ];
 
   # Services.
 
