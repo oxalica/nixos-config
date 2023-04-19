@@ -29,7 +29,7 @@
     nix-dram = {
       url = "github:dramforever/nix-dram";
       inputs.flake-utils.follows = "flake-utils";
-      inputs.nixpkgs.follows = "nixpkgs";
+      # No follows: patching fails for nix-2.15
     };
 
     meta-sifive = {
