@@ -197,10 +197,6 @@
   };
   users.groups."transmission".members = [ config.users.users.oxa.name ];
 
-  systemd.packages = [ my.pkgs.keystat ];
-  # Workaround: https://github.com/NixOS/nixpkgs/issues/81138
-  systemd.services.keystat.wantedBy = [ "multi-user.target" ];
-
   virtualisation.libvirtd = {
     enable = true;
     onBoot = "ignore";
