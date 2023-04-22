@@ -62,6 +62,7 @@ let &statusline=
   \ '  %-8.{coc#status().." "..get(b:,"coc_current_function","")}' ..
   \ '%=' ..
   \ ' 0x%-4.B %-16.(%l,%c%V %oB%) %P %LL'
+autocmd User CocStatusChange redrawstatus
 
 " Mappings. {{{1
 let g:mapleader = '\'
