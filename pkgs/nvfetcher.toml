@@ -15,7 +15,3 @@ passthru = { cargoHash = "sha256-sEpvRgvxcH7qnUZ5S3khXdJucmhZ8tl/tIVfpQxV56Y=" }
 [rime_latex]
 src.git = "https://github.com/shenlebantongying/rime_latex"
 fetch.github = "shenlebantongying/rime_latex"
-
-[sway-systemd]
-src.github = "alebastr/sway-systemd"
-fetch.github = "alebastr/sway-systemd"

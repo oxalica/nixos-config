@@ -45,15 +45,4 @@
     });
     date = "2023-03-18";
   };
-  sway-systemd = {
-    pname = "sway-systemd";
-    version = "v0.3.0";
-    src = fetchFromGitHub ({
-      owner = "alebastr";
-      repo = "sway-systemd";
-      rev = "v0.3.0";
-      fetchSubmodules = false;
-      sha256 = "sha256-Azy7XRHrKvhODxAogwtk2+W0WjGcoTy47+nT0x9aMPw=";
-    });
-  };
 }

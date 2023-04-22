@@ -7,6 +7,8 @@ let
 
   sway = config.wayland.windowManager.sway.package;
 
+  app = cmd: "${lib.getExe my.pkgs.systemd-run-app} ${cmd}";
+
 in
 {
   imports = [
@@ -85,13 +87,12 @@ in
         };
       in
       {
-        terminal = "${terminal} -e ${pkgs.tmux}/bin/tmux new-session -t main";
+        terminal = app "${terminal} -e ${pkgs.tmux}/bin/tmux new-session -t main";
         startup = [
-          { command = "${my.pkgs.sway-systemd}/libexec/sway-systemd/assign-cgroups.py -l info"; }
-          { command = "firefox"; }
-          { command = "telegram-desktop"; }
-          { command = "nheko"; }
-          { command = "thunderbird"; }
+          { command = app "firefox"; }
+          { command = app "telegram-desktop"; }
+          { command = app "nheko"; }
+          { command = app "thunderbird"; }
         ];
         assigns = {
           "2" = [ { app_id = "firefox"; } ];
@@ -209,9 +210,10 @@ in
     enable = true;
     package = pkgs.rofi-wayland;
     theme = "Arc-Dark";
-    inherit terminal;
+    terminal = app "${terminal}";
     extraConfig = {
       modi = "drun,run,ssh";
+      run-command = app "{cmd}";
     };
   };
 
