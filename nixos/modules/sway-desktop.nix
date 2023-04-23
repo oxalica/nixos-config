@@ -4,8 +4,21 @@
 
   programs.sway.enable = true;
 
-  services.udisks2.enable = true; # For `udiskie`.
+  # For `udiskie`.
+  services.udisks2.enable = true;
 
-  xdg.portal.enable = true;
-  xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ]; # `wlr` is included by `programs.sway`.
+  xdg.portal = {
+    enable = true;
+    xdgOpenUsePortal = true;
+    wlr.enable = true;
+    extraPortals = [ pkgs.xdg-desktop-portal-gtk ]; # GTK portal is required for GTK apps.
+  };
+
+  services.greetd = {
+    enable = true;
+    settings.default_session.command = "${pkgs.greetd.tuigreet}/bin/tuigreet --cmd ${pkgs.writeShellScript "sway" ''
+      export $(/run/current-system/systemd/lib/systemd/user-environment-generators/30-systemd-environment-d-generator)
+      exec sway
+    ''}";
+  };
 }
