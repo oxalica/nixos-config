@@ -1,4 +1,4 @@
-{ lib, pkgs, my, ... }:
+{ pkgs, my, ... }:
 
 let
   myPython = pkgs.python3.withPackages (ps: with ps; [
@@ -9,6 +9,13 @@ let
     requests
     toml
   ]);
+
+  obs = pkgs.wrapOBS {
+    plugins = with pkgs.obs-studio-plugins; [
+      obs-pipewire-audio-capture
+      obs-vaapi
+    ];
+  };
 
 in {
   home.packages = with pkgs; [
@@ -24,7 +31,7 @@ in {
     electrum electron-cash monero-gui # Cryptocurrency
     (prismlauncher.override { jdks = [ openjdk ]; }) /* steam <- enabled system-wide */ # Games
     tdesktop nheko # Messaging
-    wf-recorder obs-studio # Recording
+    wf-recorder obs # Recording
 
     # Dev
     cachix patchelf nixpkgs-review nix-update nix-output-monitor # Nix utils
