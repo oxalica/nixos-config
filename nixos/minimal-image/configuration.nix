@@ -1,3 +1,4 @@
+# NB. systemd-initrd doesn't work for ISO yet.
 { config, pkgs, modulesPath, ... }:
 {
   imports = [
@@ -32,6 +33,7 @@
 
   environment.systemPackages = with pkgs; [
     neofetch
+    sbctl # Secure boot.
   ];
 
   system.stateVersion = "22.11";
