@@ -126,11 +126,13 @@
         ];
       };
 
-      minimal-image = mkSystem "minimal-image" "x86_64-linux" inputs.nixpkgs-stable { };
+      minimal-image-stable = mkSystem "minimal-image" "x86_64-linux" inputs.nixpkgs-stable { };
+      minimal-image-unstable = mkSystem "minimal-image" "x86_64-linux" inputs.nixpkgs { };
     };
 
     images = {
-      minimal-iso = self.nixosConfigurations.minimal-image.config.system.build.isoImage;
+      minimal-iso-stable = self.nixosConfigurations.minimal-image-stable.config.system.build.isoImage;
+      minimal-iso-unstable = self.nixosConfigurations.minimal-image-unstable.config.system.build.isoImage;
     };
 
   } // flake-utils.lib.eachDefaultSystem (system: rec {
