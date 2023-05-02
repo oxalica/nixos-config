@@ -23,9 +23,6 @@
   # Boot.
 
   boot = {
-    # TODO: Test and wait for https://github.com/NixOS/nixpkgs/pull/224489
-    bootspec.enable = true;
-
     kernelModules = [ "kvm-amd" ];
     kernelParams = [ "amd_pstate=passive" ];
 

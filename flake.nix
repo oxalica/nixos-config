@@ -29,7 +29,7 @@
     nix-dram = {
       url = "github:dramforever/nix-dram";
       inputs.flake-utils.follows = "flake-utils";
-      # No follows: patching fails for nix-2.15
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     meta-sifive = {
@@ -45,8 +45,23 @@
 
     inherit (nixpkgs) lib;
 
-    overlays = [
-    ];
+    overlays = {
+      # FIXME: https://github.com/NixOS/nixpkgs/issues/229358
+      fix-prismlauncher-build = final: prev: {
+        prismlauncher = prev.prismlauncher.override {
+          tomlplusplus = prev.tomlplusplus.override {
+            meson = prev.meson.overrideAttrs (old: {
+              patches = old.patches or [] ++ [
+                (final.fetchpatch {
+                  url = "https://github.com/mesonbuild/meson/commit/7c78c2b5a0314078bdabb998ead56925dc8b0fc0.patch";
+                  hash = "sha256-vSnHhuOIXf/1X+bUkUmGND5b30ES0O8EDArwb4p2/w4=";
+                })
+              ];
+            });
+          };
+        };
+      };
+    };
 
     nixosModules = {
       # Ref: https://github.com/dramforever/config/blob/63be844019b7ca675ea587da3b3ff0248158d9fc/flake.nix#L24-L28
@@ -90,13 +105,13 @@
       modules = with nixosModules; [
         system-label
         { networking.hostName = lib.mkDefault name; }
-        { nixpkgs.overlays = overlays; }
+        { nixpkgs.overlays = builtins.attrValues overlays; }
         ./nixos/${name}/configuration.nix
       ] ++ extraModules;
     };
 
   in {
-    inherit nixosModules;
+    inherit overlays nixosModules;
 
     nixosSystems = lib.mapAttrs
       (name: conf: conf.config.system.build.toplevel)
