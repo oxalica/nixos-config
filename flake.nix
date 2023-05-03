@@ -6,6 +6,9 @@
     nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-22.11";
     nixpkgs-unmatched.url = "github:oxalica/nixpkgs/test/unmatched";
 
+    # Placeholder.
+    blank.follows = "nixpkgs";
+
     flake-utils.url = "github:numtide/flake-utils";
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -30,6 +33,13 @@
       url = "github:dramforever/nix-dram";
       inputs.flake-utils.follows = "flake-utils";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+    lanzaboote = {
+      url = "github:nix-community/lanzaboote";
+      inputs.flake-compat.follows = "blank";
+      inputs.flake-utils.follows = "flake-utils";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.rust-overlay.follows = "rust-overlay";
     };
 
     meta-sifive = {
