@@ -47,6 +47,7 @@
     };
 
     loader = {
+      systemd-boot.consoleMode = "max"; # Don't clip boot menu.
       efi.canTouchEfiVariables = false;
       timeout = 1;
     };
