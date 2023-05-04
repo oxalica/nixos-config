@@ -22,7 +22,7 @@ in
   config = mkIf (cfg != default) {
     dconf.enable = mkDefault true;
     dconf.settings."org/gnome/desktop/interface".text-scaling-factor = cfg * 1.0 / default;
-    home.sessionVariables.QT_WAYLAND_FORCE_DPI = cfg;
+    systemd.user.sessionVariables.QT_WAYLAND_FORCE_DPI = cfg;
     xresources.properties."Xft.dpi" = cfg;
   };
 }

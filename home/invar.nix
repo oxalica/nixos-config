@@ -30,8 +30,6 @@
 
   xdg.enable = true;
 
-  home.sessionVariables.GTK_USE_PORTAL = 1;
-
   home.file = let
     home = config.home.homeDirectory;
     link = path: config.lib.file.mkOutOfStoreSymlink "${home}/${path}";
