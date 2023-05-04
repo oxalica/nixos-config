@@ -13,7 +13,7 @@
   environment.defaultPackages = [ ];
 
   environment.systemPackages = with pkgs; [
-    cntr nix-top # Nix helpers.
+    cntr # Nix helpers.
     procs gdu swapview smartmontools pciutils usbutils # System info.
     curl git strace pv exa fd ripgrep lsof jq loop bc file rsync dnsutils my.pkgs.rawmv # Utilities.
     e2fsprogs compsize # Filesystems.
