@@ -76,3 +76,11 @@ bind '^n' down-line-or-beginning-search
 bind ' ' magic-space
 
 unfunction bind
+
+preexec_load_history() {
+    if [[ $1 == : ]]; then
+        fc -RI
+    fi
+}
+autoload -Uz add-zsh-hook
+add-zsh-hook -Uz preexec preexec_load_history
