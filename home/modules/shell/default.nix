@@ -85,6 +85,7 @@
       ZSH_AUTOSUGGEST_HISTORY_IGNORE=$'*\n*'
       source ${pkgs.zsh-autosuggestions}/share/zsh-autosuggestions/zsh-autosuggestions.zsh
       source ${pkgs.zsh-fast-syntax-highlighting}/share/zsh/site-functions/fast-syntax-highlighting.plugin.zsh
+      source ${my.pkgs.zsh-comma}/share/zsh/comma/comma.zsh
       FAST_HIGHLIGHT[use_async]=1 # Improve paste delay for nix store paths.
       source ${pkgs.fzf}/share/fzf/key-bindings.zsh
     '';
@@ -96,5 +97,6 @@
     nix-zsh-completions # Prefer nix's builtin completion.
     fzf bat # WARN: They are used by fzf.vim!
     my.pkgs.colors
+    my.pkgs.zsh-comma
   ];
 }
