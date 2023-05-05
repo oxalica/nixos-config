@@ -101,6 +101,7 @@ in
             { app_id = "nheko"; }
           ];
           "4" = [ { app_id = "thunderbird"; } ];
+          "5" = [ { class = "Steam"; } ];
         };
         window.commands = [
           {
