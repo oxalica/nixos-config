@@ -214,11 +214,7 @@
   programs.adb.enable = true;
   users.groups."adbusers".members = [ config.users.users.oxa.name ];
 
-  programs.steam = {
-    enable = true;
-    remotePlay.openFirewall = true;
-    dedicatedServer.openFirewall = true;
-  };
+  programs.steam.enable = true;
 
   environment.etc = {
     "machine-id".source = "/var/machine-id";
