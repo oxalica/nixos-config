@@ -10,6 +10,7 @@
     ../modules/nix-cgroups.nix
     ../modules/nix-common.nix
     ../modules/nix-registry.nix
+    ../modules/secure-boot.nix
   ] ++ lib.optional (inputs ? secrets) (inputs.secrets.nixosModules.blacksteel);
 
   nixpkgs.config.allowUnfreePredicate = drv:
@@ -46,10 +47,7 @@
     ];
 
     loader = {
-      systemd-boot = {
-        enable = true;
-        consoleMode = "max"; # Don't clip boot menu.
-      };
+      systemd-boot.consoleMode = "max"; # Don't clip boot menu.
       efi.canTouchEfiVariables = true;
       timeout = 1;
     };
