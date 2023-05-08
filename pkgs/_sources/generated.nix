@@ -45,4 +45,29 @@
     });
     date = "2023-03-18";
   };
+  sway-git-unwrapped = {
+    pname = "sway-git-unwrapped";
+    version = "3cd7c7178079bf61bb7967690e7767442b369782";
+    src = fetchFromGitHub ({
+      owner = "swaywm";
+      repo = "sway";
+      rev = "3cd7c7178079bf61bb7967690e7767442b369782";
+      fetchSubmodules = false;
+      sha256 = "sha256-7EZLZBD4ltzWSb59MybCe3LcFg1lwx83ovqaydVqul4=";
+    });
+    date = "2023-05-04";
+  };
+  wlroots-git = {
+    pname = "wlroots-git";
+    version = "18139f4d87a42d64a03af26aa750ff5e59ec6c89";
+    src = fetchgit {
+      url = "https://gitlab.freedesktop.org/wlroots/wlroots.git";
+      rev = "18139f4d87a42d64a03af26aa750ff5e59ec6c89";
+      fetchSubmodules = false;
+      deepClone = false;
+      leaveDotGit = false;
+      sha256 = "sha256-3yzP5HRd979BDCoA5ivY/TsXVWECZkD3pIZL5YewWds=";
+    };
+    date = "2023-05-08";
+  };
 }

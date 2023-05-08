@@ -15,3 +15,11 @@ passthru = { cargoHash = "sha256-sEpvRgvxcH7qnUZ5S3khXdJucmhZ8tl/tIVfpQxV56Y=" }
 [rime_latex]
 src.git = "https://github.com/shenlebantongying/rime_latex"
 fetch.github = "shenlebantongying/rime_latex"
+
+[sway-git-unwrapped]
+src.git = "https://github.com/swaywm/sway"
+fetch.github = "swaywm/sway"
+
+[wlroots-git]
+src.git = "https://gitlab.freedesktop.org/wlroots/wlroots.git"
+fetch.git = "https://gitlab.freedesktop.org/wlroots/wlroots.git"
