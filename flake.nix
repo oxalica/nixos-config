@@ -56,21 +56,6 @@
     inherit (nixpkgs) lib;
 
     overlays = {
-      # FIXME: https://github.com/NixOS/nixpkgs/issues/229358
-      fix-prismlauncher-build = final: prev: {
-        prismlauncher = prev.prismlauncher.override {
-          tomlplusplus = prev.tomlplusplus.override {
-            meson = prev.meson.overrideAttrs (old: {
-              patches = old.patches or [] ++ [
-                (final.fetchpatch {
-                  url = "https://github.com/mesonbuild/meson/commit/7c78c2b5a0314078bdabb998ead56925dc8b0fc0.patch";
-                  hash = "sha256-vSnHhuOIXf/1X+bUkUmGND5b30ES0O8EDArwb4p2/w4=";
-                })
-              ];
-            });
-          };
-        };
-      };
     };
 
     nixosModules = {
