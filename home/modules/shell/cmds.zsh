@@ -1,8 +1,9 @@
+local DEFAULT_EXA_ARGS=(--classify --time-style=iso)
 alias ls="exa"
-alias l="exa --classify"
-alias la="exa --classify -a"
-alias ll="exa -l --classify --binary"
-alias lla="exa -l --classify --binary -a"
+alias l="exa $DEFAULT_EXA_ARGS"
+alias la="exa $DEFAULT_EXA_ARGS -a"
+alias ll="exa $DEFAULT_EXA_ARGS -l --binary"
+alias lla="exa $DEFAULT_EXA_ARGS -l --binary -a"
 
 alias n="nix"
 alias nb="nix build"
@@ -22,7 +23,7 @@ alias reset="tput reset"
 
 # List tree.
 lt() {
-    exa -T --classify --color=always $@ | eval $PAGER
+    exa $DEFAULT_EXA_ARGS -T --color=always $@ | eval $PAGER
 }
 
 # Clipboard input/output.
