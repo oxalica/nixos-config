@@ -1,5 +1,5 @@
 # From: https://github.com/NickCao/nixos-riscv/blob/720c8ee6fc8eee85f741e309a4e0291dc3a90f59/flake.nix#L82
-{ config, pkgs, lib, modulesPath, inputs, my, ... }:
+{ pkgs, lib, inputs, my, ... }:
 {
   imports = [
     # (modulesPath + "/installer/sd-card/sd-image.nix")

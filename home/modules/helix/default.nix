@@ -1,6 +1,6 @@
 { lib, pkgs, ... }:
 let
-  inherit (builtins) toJSON typeOf;
+  inherit (builtins) toJSON;
   inherit (lib) mapAttrsToList concatStringsSep concatMapStringsSep isAttrs isList;
 
   toTOML = obj:

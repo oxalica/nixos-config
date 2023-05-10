@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ ... }:
 let
   globalSettings = {
     timestamp_format = "long-iso";

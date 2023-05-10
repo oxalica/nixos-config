@@ -1,4 +1,4 @@
-{ config, lib, pkgs, inputs, my, ... }:
+{ config, lib, pkgs, inputs, ... }:
 
 let
   # Global target

@@ -1,4 +1,4 @@
-{ lib, config, pkgs, inputs, ... }:
+{ lib, config, pkgs, ... }:
 let
   toYAML = builtins.toJSON;
   buildDir = "${config.xdg.cacheHome}/fcitx5-rime";

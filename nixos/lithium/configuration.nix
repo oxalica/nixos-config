@@ -1,4 +1,4 @@
-{ config, pkgs, inputs, my, ... }:
+{ config, pkgs, inputs, ... }:
 {
   imports = [
     ../modules/console-env.nix

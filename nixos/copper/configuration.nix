@@ -1,9 +1,9 @@
-{ lib, config, pkgs, inputs, ... }:
+{ lib, pkgs, inputs, ... }:
 {
   imports = [
-    ../modules/vultr-common.nix
     ../modules/console-env.nix
     ../modules/nix-common.nix
+    ../modules/vultr-common.nix
 
     inputs.secrets.nixosModules.copper
   ];

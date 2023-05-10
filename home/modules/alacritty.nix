@@ -1,4 +1,4 @@
-{ pkgs, config, my, ... }:
+{ pkgs, config, ... }:
 {
   programs.alacritty = {
     enable = true;
