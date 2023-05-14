@@ -30,11 +30,11 @@
             "name": null,
             "owner": "deb-sig",
             "repo": "double-entry-generator",
-            "rev": "v2.0.0",
-            "sha256": "sha256-ZwLweG2SElD6TB2r2+8+UTJiS6HKniJ/PD2Ly51GahM=",
+            "rev": "v2.1.1",
+            "sha256": "sha256-jE94JOxFwIxDkgedGgIAm1lhSwARPnn7tuii2uWIX5E=",
             "type": "github"
         },
-        "version": "v2.0.0"
+        "version": "v2.1.1"
     },
     "rawmv": {
         "cargoLocks": null,
@@ -80,7 +80,7 @@
     },
     "sway-git-unwrapped": {
         "cargoLocks": null,
-        "date": "2023-05-04",
+        "date": "2023-05-11",
         "extract": null,
         "name": "sway-git-unwrapped",
         "passthru": null,
@@ -92,15 +92,15 @@
             "name": null,
             "owner": "swaywm",
             "repo": "sway",
-            "rev": "3cd7c7178079bf61bb7967690e7767442b369782",
-            "sha256": "sha256-7EZLZBD4ltzWSb59MybCe3LcFg1lwx83ovqaydVqul4=",
+            "rev": "01b0c11394b88fea2ec8ac691e30504f1e0800f5",
+            "sha256": "sha256-M+81OjLWFWiG1HT+KElU81Akpxl4YAPEuTctq6Yzr/g=",
             "type": "github"
         },
-        "version": "3cd7c7178079bf61bb7967690e7767442b369782"
+        "version": "01b0c11394b88fea2ec8ac691e30504f1e0800f5"
     },
     "wlroots-git": {
         "cargoLocks": null,
-        "date": "2023-05-08",
+        "date": "2023-05-12",
         "extract": null,
         "name": "wlroots-git",
         "passthru": null,
@@ -110,11 +110,11 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "18139f4d87a42d64a03af26aa750ff5e59ec6c89",
-            "sha256": "sha256-3yzP5HRd979BDCoA5ivY/TsXVWECZkD3pIZL5YewWds=",
+            "rev": "10dd41669492f7582c26bd3989536a66278df75d",
+            "sha256": "sha256-lYmvTWMNcD/1cU7x2CHjLtCtivsO2xz4E87YcPZg24s=",
             "type": "git",
             "url": "https://gitlab.freedesktop.org/wlroots/wlroots.git"
         },
-        "version": "18139f4d87a42d64a03af26aa750ff5e59ec6c89"
+        "version": "10dd41669492f7582c26bd3989536a66278df75d"
     }
 }

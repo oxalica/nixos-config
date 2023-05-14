@@ -11,13 +11,13 @@
   };
   double-entry-generator = {
     pname = "double-entry-generator";
-    version = "v2.0.0";
+    version = "v2.1.1";
     src = fetchFromGitHub ({
       owner = "deb-sig";
       repo = "double-entry-generator";
-      rev = "v2.0.0";
+      rev = "v2.1.1";
       fetchSubmodules = false;
-      sha256 = "sha256-ZwLweG2SElD6TB2r2+8+UTJiS6HKniJ/PD2Ly51GahM=";
+      sha256 = "sha256-jE94JOxFwIxDkgedGgIAm1lhSwARPnn7tuii2uWIX5E=";
     });
     vendorHash = "sha256-Xedva9oGteOnv3rP4Wo3sOHIPyuy2TYwkZV2BAuxY4M=";
   };
@@ -47,27 +47,27 @@
   };
   sway-git-unwrapped = {
     pname = "sway-git-unwrapped";
-    version = "3cd7c7178079bf61bb7967690e7767442b369782";
+    version = "01b0c11394b88fea2ec8ac691e30504f1e0800f5";
     src = fetchFromGitHub ({
       owner = "swaywm";
       repo = "sway";
-      rev = "3cd7c7178079bf61bb7967690e7767442b369782";
+      rev = "01b0c11394b88fea2ec8ac691e30504f1e0800f5";
       fetchSubmodules = false;
-      sha256 = "sha256-7EZLZBD4ltzWSb59MybCe3LcFg1lwx83ovqaydVqul4=";
+      sha256 = "sha256-M+81OjLWFWiG1HT+KElU81Akpxl4YAPEuTctq6Yzr/g=";
     });
-    date = "2023-05-04";
+    date = "2023-05-11";
   };
   wlroots-git = {
     pname = "wlroots-git";
-    version = "18139f4d87a42d64a03af26aa750ff5e59ec6c89";
+    version = "10dd41669492f7582c26bd3989536a66278df75d";
     src = fetchgit {
       url = "https://gitlab.freedesktop.org/wlroots/wlroots.git";
-      rev = "18139f4d87a42d64a03af26aa750ff5e59ec6c89";
+      rev = "10dd41669492f7582c26bd3989536a66278df75d";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-3yzP5HRd979BDCoA5ivY/TsXVWECZkD3pIZL5YewWds=";
+      sha256 = "sha256-lYmvTWMNcD/1cU7x2CHjLtCtivsO2xz4E87YcPZg24s=";
     };
-    date = "2023-05-08";
+    date = "2023-05-12";
   };
 }
