@@ -221,6 +221,12 @@
 
   programs.steam.enable = true;
 
+  programs.wireshark = {
+    enable = true;
+    package = pkgs.wireshark-qt;
+  };
+  users.groups."wireshark".members = [ config.users.users.oxa.name ];
+
   environment.etc = {
     "machine-id".source = "/var/machine-id";
     "ssh/ssh_host_rsa_key".source = "/var/ssh/ssh_host_rsa_key";
