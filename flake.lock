@@ -94,6 +94,23 @@
         "type": "github"
       }
     },
+    "glfw-minecraft-wayland": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1654825497,
+        "narHash": "sha256-NR/6l1rX3m+pklwa+b4tPqxY83mCaprdOXD4Hrx60so=",
+        "owner": "Admicos",
+        "repo": "minecraft-wayland",
+        "rev": "bdc3c0d192097459eb4e72b26c8267f82266e951",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Admicos",
+        "ref": "one-nineteen",
+        "repo": "minecraft-wayland",
+        "type": "github"
+      }
+    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -327,6 +344,7 @@
           "nixpkgs"
         ],
         "flake-utils": "flake-utils",
+        "glfw-minecraft-wayland": "glfw-minecraft-wayland",
         "home-manager": "home-manager",
         "lanzaboote": "lanzaboote",
         "meta-sifive": "meta-sifive",

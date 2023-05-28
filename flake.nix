@@ -41,6 +41,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.rust-overlay.follows = "rust-overlay";
     };
+    glfw-minecraft-wayland = {
+      url = "github:Admicos/minecraft-wayland/one-nineteen";
+      flake = false;
+    };
 
     meta-sifive = {
       url = "github:sifive/meta-sifive/2021.11.00";
@@ -147,7 +151,7 @@
 
   } // flake-utils.lib.eachDefaultSystem (system: rec {
     packages = import ./pkgs {
-      inherit lib;
+      inherit lib inputs;
       pkgs = nixpkgs.legacyPackages.${system};
     };
 

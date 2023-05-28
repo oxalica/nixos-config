@@ -1,4 +1,4 @@
-{ lib, pkgs }:
+{ lib, pkgs, inputs }:
 let
   inherit (builtins) readDir;
   inherit (lib) mapAttrs' filterAttrs;
@@ -9,6 +9,7 @@ let
   self = mapAttrs' (file: _: rec {
     name = lib.removeSuffix ".nix" file;
     value = pkgs.newScope (self // {
+      inherit inputs;
       source = sources.${name} or null;
     }) ./${file} { };
   }) entries;
