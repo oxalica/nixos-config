@@ -24,8 +24,7 @@
         "repl-flake"
       ];
 
-      flake-registry = builtins.toFile "empty-registry.json"
-        (builtins.toJSON { flakes = []; version = 2; });
+      flake-registry = "";
     };
 
     nixPath = [ "nixpkgs=${config.nix.registry.nixpkgs.to.path}" ];
