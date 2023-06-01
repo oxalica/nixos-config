@@ -107,6 +107,7 @@ in
           "4" = [ { app_id = "thunderbird"; } ];
           "5" = [ { class = "Steam"; } ];
         };
+        window.titlebar = false;
         window.commands = [
           {
             criteria = { app_id = "pavucontrol"; };
@@ -117,6 +118,7 @@ in
             command = "focus";
           }
         ];
+        floating.titlebar = false;
         floating.criteria = [
           { app_id = "udiskie"; }
           { app_id = "org.kde.ark"; }
