@@ -36,5 +36,5 @@
     sbctl # Secure boot.
   ];
 
-  system.stateVersion = "22.11";
+  system.stateVersion = "23.05";
 }
