@@ -33,7 +33,7 @@ in
         snapshot_create = "ondemand"; # Always create.
         snapshot_preserve_min = "latest";
 
-        target = "send-receive /run/media/oxa/WD2T-external-store/backup-invar";
+        target = "send-receive /mnt/backup/backup-invar";
         target_preserve_min = "1d";
         target_preserve = "7d 4w *m";
 
@@ -43,4 +43,20 @@ in
       };
     };
   };
+  systemd.services."btrbk-backup-wd2t".unitConfig.RequiresMountsFor = "/mnt/backup";
+
+  # Mount units for the backup harddisk.
+  systemd.mounts = [
+    {
+      type = "btrfs";
+      what = "/dev/disk/by-uuid/25d5061d-ef96-456c-8dd1-1bf650f9152b";
+      where = "/mnt/backup";
+      requires = [ "systemd-cryptsetup@luksbackup.service" ];
+      after = [ "systemd-cryptsetup@luksbackup.service" ];
+    }
+  ];
+  # Dashes inside names seem to be escaped inconsistently.
+  environment.etc."crypttab".text = ''
+    luksbackup UUID=b300c99f-ca98-4efc-a696-f6e97359bd3c /var/keys/luks-backup-keyfile discard
+  '';
 }
