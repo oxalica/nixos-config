@@ -57,6 +57,6 @@ in
   ];
   # Dashes inside names seem to be escaped inconsistently.
   environment.etc."crypttab".text = ''
-    luksbackup UUID=b300c99f-ca98-4efc-a696-f6e97359bd3c /var/keys/luks-backup-keyfile discard
+    luksbackup UUID=b300c99f-ca98-4efc-a696-f6e97359bd3c /var/keys/luks-backup-keyfile discard,noauto
   '';
 }
