@@ -227,6 +227,8 @@
   };
   users.groups."wireshark".members = [ config.users.users.oxa.name ];
 
+  services.fwupd.enable = true;
+
   environment.etc = {
     "machine-id".source = "/var/machine-id";
     "ssh/ssh_host_rsa_key".source = "/var/ssh/ssh_host_rsa_key";
