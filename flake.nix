@@ -60,6 +60,11 @@
     inherit (nixpkgs) lib;
 
     overlays = {
+      # FIXME: https://github.com/NixOS/nixpkgs/pull/236655
+      # Wrap the launcher in sandbox to mitigate potential malwares.
+      prismlauncher-bwrap = final: prev: {
+        prismlauncher = self.packages.${final.stdenv.system}.prismlauncher-bwrap;
+      };
     };
 
     nixosModules = {
