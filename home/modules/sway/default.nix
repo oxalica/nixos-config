@@ -68,8 +68,8 @@ in
   wayland.windowManager.sway = {
     enable = true;
     xwayland = true;
-    systemdIntegration = true;
     wrapperFeatures.gtk = true;
+    systemd.enable = true;
 
     package = pkgs.sway.override {
       sway-unwrapped = my.pkgs.sway-git-unwrapped;
