@@ -18,8 +18,8 @@
 
       font.size = 12;
 
-      # Set initial command on shortcuts, not for all alacritty.
-      # `shell.program` is NOT set here.
+      shell.program = "${pkgs.tmux}/bin/tmux";
+      shell.args = [ "new-session" "-t" "main" ];
 
       mouse.hide_when_typing = true;
     };
