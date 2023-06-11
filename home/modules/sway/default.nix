@@ -143,7 +143,7 @@ in
         };
         output = {
           "*".background = "${my.pkgs.wallpaper} fill";
-          # No scale! See ../wayland-dpi.nix
+          # No scale!
         };
 
         inherit modifier;
