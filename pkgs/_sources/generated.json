@@ -36,28 +36,6 @@
         },
         "version": "v2.3.0"
     },
-    "rawmv": {
-        "cargoLocks": null,
-        "date": null,
-        "extract": null,
-        "name": "rawmv",
-        "passthru": {
-            "cargoHash": "sha256-sEpvRgvxcH7qnUZ5S3khXdJucmhZ8tl/tIVfpQxV56Y="
-        },
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "oxalica",
-            "repo": "rawmv",
-            "rev": "v0.2.0",
-            "sha256": "sha256-cH6NahMzifs5OOSE0nBY4kDr+xPtqcOuVghP/g5JTsc=",
-            "type": "github"
-        },
-        "version": "v0.2.0"
-    },
     "rime_latex": {
         "cargoLocks": null,
         "date": "2023-06-02",

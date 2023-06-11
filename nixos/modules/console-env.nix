@@ -1,4 +1,4 @@
-{ lib, pkgs, my, ... }:
+{ lib, pkgs, my, inputs, ... }:
 {
   # Reduce the closure size.
   i18n.supportedLocales = lib.mkDefault [ "en_US.UTF-8/UTF-8" ];
@@ -15,7 +15,8 @@
   environment.systemPackages = with pkgs; [
     cntr # Nix helpers.
     procs gdu swapview smartmontools pciutils usbutils # System info.
-    curl git strace pv exa fd ripgrep lsof jq loop bc file rsync dnsutils my.pkgs.rawmv # Utilities.
+    curl git strace pv exa fd ripgrep lsof jq loop bc file rsync dnsutils # Utilities.
+    inputs.rawmv.packages.${pkgs.system}.rawmv
     e2fsprogs compsize # Filesystems.
     gnupg age pwgen sops ssh-to-age # Crypto.
     libarchive zstd # Compression.

@@ -322,6 +322,26 @@
         "type": "github"
       }
     },
+    "rawmv": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1686453686,
+        "narHash": "sha256-/9ZboDyd07xu+8I/fHmofvU64Laj5FZEbE8UK3tfO/w=",
+        "owner": "oxalica",
+        "repo": "rawmv",
+        "rev": "76256d3ec614b46d3042efb871756799057e8e72",
+        "type": "github"
+      },
+      "original": {
+        "owner": "oxalica",
+        "repo": "rawmv",
+        "type": "github"
+      }
+    },
     "registry-crates-io": {
       "flake": false,
       "locked": {
@@ -353,6 +373,7 @@
         "nixpkgs-stable": "nixpkgs-stable_2",
         "nixpkgs-unmatched": "nixpkgs-unmatched",
         "nocargo": "nocargo",
+        "rawmv": "rawmv",
         "rust-overlay": "rust-overlay",
         "secrets": "secrets",
         "sops-nix": "sops-nix"

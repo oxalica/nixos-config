@@ -21,18 +21,6 @@
     };
     vendorHash = "sha256-Xedva9oGteOnv3rP4Wo3sOHIPyuy2TYwkZV2BAuxY4M=";
   };
-  rawmv = {
-    pname = "rawmv";
-    version = "v0.2.0";
-    src = fetchFromGitHub {
-      owner = "oxalica";
-      repo = "rawmv";
-      rev = "v0.2.0";
-      fetchSubmodules = false;
-      sha256 = "sha256-cH6NahMzifs5OOSE0nBY4kDr+xPtqcOuVghP/g5JTsc=";
-    };
-    cargoHash = "sha256-sEpvRgvxcH7qnUZ5S3khXdJucmhZ8tl/tIVfpQxV56Y=";
-  };
   rime_latex = {
     pname = "rime_latex";
     version = "fb32dc50c19b3913023199ceaae22168cd5a7db7";

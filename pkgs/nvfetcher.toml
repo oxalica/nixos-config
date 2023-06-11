@@ -7,11 +7,6 @@ src.github = "deb-sig/double-entry-generator"
 fetch.github = "deb-sig/double-entry-generator"
 passthru = { vendorHash = "sha256-Xedva9oGteOnv3rP4Wo3sOHIPyuy2TYwkZV2BAuxY4M=" }
 
-[rawmv]
-src.github_tag = "oxalica/rawmv"
-fetch.github = "oxalica/rawmv"
-passthru = { cargoHash = "sha256-sEpvRgvxcH7qnUZ5S3khXdJucmhZ8tl/tIVfpQxV56Y=" }
-
 [rime_latex]
 src.git = "https://github.com/shenlebantongying/rime_latex"
 fetch.github = "shenlebantongying/rime_latex"
