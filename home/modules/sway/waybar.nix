@@ -1,5 +1,5 @@
 # Reference: https://github.com/Egosummiki/dotfiles/tree/f6577e7c7b9474e05d62c0e6e0d38fee860ea4ea/waybar
-{ lib, pkgs, config, ... }:
+{ lib, pkgs, ... }:
 {
   systemd.user.services.waybar = {
     Service.Slice = "session.slice";
@@ -13,7 +13,7 @@
 
     style = pkgs.substituteAll {
       src = ./waybar.css;
-      fontSize = 14 * config.wayland.dpi / 96;
+      fontSize = 14;
     };
     systemd.enable = true;
     systemd.target = "sway-session.target";
@@ -21,7 +21,7 @@
     settings.mainBar = {
       layer = "top";
       position = "top";
-      height = 24 * config.wayland.dpi / 96;
+      height = 24;
 
       modules-left = [
         "sway/workspaces"
