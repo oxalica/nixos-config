@@ -7,11 +7,11 @@
 
     ../modules/console-env.nix
     ../modules/device-fix.nix
+    ../modules/kde-desktop
     ../modules/nix-cgroups.nix
     ../modules/nix-common.nix
     ../modules/nix-registry.nix
     ../modules/secure-boot.nix
-    ../modules/sway-desktop.nix
     ../modules/systemd-unit-protections.nix
   ] ++ lib.optional (inputs ? secrets) inputs.secrets.nixosModules.invar;
 
@@ -124,6 +124,8 @@
       environmentFile = config.sops.secrets.wifi-env.path;
       networks."Our Network".psk = "@HOME_PSK@";
     };
+    # We have systemd-networkd.
+    networkmanager.enable = lib.mkForce false;
   };
   sops.secrets.wifi-env.restartUnits = [ "wpa_supplicant.service" ];
   systemd.network = {

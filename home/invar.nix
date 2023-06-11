@@ -17,7 +17,6 @@
     ./modules/rime-fcitx.nix
     ./modules/rust.nix
     ./modules/shell
-    ./modules/sway
     ./modules/task.nix
     ./modules/tmux.nix
     ./modules/user-dirs.nix
