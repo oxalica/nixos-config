@@ -4,8 +4,6 @@
   programs.home-manager.enable = true;
 
   imports = [
-    ./modules/wayland-dpi.nix
-
     ./modules/alacritty.nix
     ./modules/direnv.nix
     ./modules/firefox.nix

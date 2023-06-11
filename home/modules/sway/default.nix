@@ -156,7 +156,7 @@ in
         };
         output = {
           "*".background = "${my.pkgs.wallpaper} fill";
-          # No scale! See ../wayland-dpi.nix
+          # No scale!
 
           "DP-1".position = "2560,0";
           "HEADLESS-1".position = "0,0"; # On the LHS of primary display.

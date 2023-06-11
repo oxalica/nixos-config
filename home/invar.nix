@@ -4,8 +4,6 @@
   programs.home-manager.enable = true;
 
   imports = [
-    ./modules/wayland-dpi.nix
-
     ./modules/alacritty.nix
     ./modules/direnv.nix
     ./modules/firefox.nix
@@ -25,7 +23,8 @@
     ./modules/user-dirs.nix
   ];
 
-  wayland.dpi = 120;
+  # For Xwayland apps, ie. electron and steam.
+  xresources.properties."Xft.dpi" = 120;
 
   xdg.enable = true;
 

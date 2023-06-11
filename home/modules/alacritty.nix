@@ -1,4 +1,4 @@
-{ pkgs, config, ... }:
+{ pkgs, ... }:
 {
   programs.alacritty = {
     enable = true;
@@ -16,7 +16,7 @@
       scrolling.history = 1000; # Should not matter since we have tmux.
       scrolling.multiplier = 5;
 
-      font.size = 12 * config.wayland.dpi / 96;
+      font.size = 12;
 
       # Set initial command on shortcuts, not for all alacritty.
       # `shell.program` is NOT set here.
