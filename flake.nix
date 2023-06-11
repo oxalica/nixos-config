@@ -154,6 +154,21 @@
       minimal-iso-unstable = self.nixosConfigurations.minimal-image-unstable.config.system.build.isoImage;
     };
 
+    templates = {
+      rust-bin = {
+        description = "A simple Rust project for binaries";
+        path = ./templates/rust-bin;
+      };
+      rust-lib = {
+        description = "A simple Rust project for libraries";
+        path = ./templates/rust-lib;
+      };
+      ci-rust = {
+        description = "A sample GitHub CI setup for Rust projects";
+        path = ./templates/ci-rust;
+      };
+    };
+
   } // flake-utils.lib.eachDefaultSystem (system: rec {
     packages = import ./pkgs {
       inherit lib inputs;

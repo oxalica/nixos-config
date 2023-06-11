@@ -1,0 +1,60 @@
+name: CI
+on:
+  pull_request:
+  push:
+  schedule:
+    - cron: '42 1 * * *' # *-*-* 01:42:00 UTC
+
+permissions:
+  contents: read
+
+env:
+  RUST_BACKTRACE: full
+  RUSTFLAGS: -Dwarnings
+
+jobs:
+  test:
+    timeout-minutes: 45
+    strategy:
+      fail-fast: false
+      matrix:
+        rust: [nightly, beta, stable]
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    name: Test ${{matrix.rust}} on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@master
+        with:
+          toolchain: ${{ matrix.rust }}
+      - name: Build
+        run: cargo build --all-targets
+      - name: Test
+        run: cargo test
+
+  clippy:
+    name: Clippy
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Install Clippy
+        uses: dtolnay/rust-toolchain@clippy
+      - name: Clippy
+        run: cargo clippy --all-targets
+
+  outdated:
+    name: Outdated
+    runs-on: ubuntu-latest
+    if: github.event_name == 'schedule'
+    timeout-minutes: 45
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Install cargo-outdated
+        uses: dtolnay/install@cargo-outdated
+      - name: Check outdated packages
+        run: rm -f Cargo.lock && cargo outdated --exit-code 1
