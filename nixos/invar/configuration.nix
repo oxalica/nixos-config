@@ -5,11 +5,11 @@
 
     ../modules/console-env.nix
     ../modules/device-fix.nix
+    ../modules/kde-desktop
     ../modules/nix-cgroups.nix
     ../modules/nix-common.nix
     ../modules/nix-registry.nix
     ../modules/secure-boot.nix
-    ../modules/sway-desktop.nix
   ] ++ lib.optional (inputs ? secrets) inputs.secrets.nixosModules.invar;
 
   sops.age.sshKeyPaths = lib.mkForce [ "/var/ssh/ssh_host_ed25519_key" ];
@@ -108,6 +108,8 @@
       enable = true;
       userControlled.enable = true;
     };
+    # We have systemd-networkd.
+    networkmanager.enable = lib.mkForce false;
   };
   systemd.network.wait-online = {
     anyInterface = true;
