@@ -39,7 +39,6 @@
       inputs.flake-compat.follows = "blank";
       inputs.flake-utils.follows = "flake-utils";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.rust-overlay.follows = "rust-overlay";
     };
     glfw-minecraft-wayland = {
       url = "github:Admicos/minecraft-wayland/one-nineteen";
