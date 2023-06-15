@@ -1,28 +1,33 @@
 { config, lib, pkgs, inputs, ... }:
 
 let
-  # Global target
-  targetDir = "${home}/.cache/cargo/target";
-
-  home = config.home.homeDirectory;
-
   # toml
   cargoConfig = ''
     [install]
-    root = "${home}/.local"
+    root = "${config.home.homeDirectory}/.local"
 
     [build]
-    target-dir = "${targetDir}"
+    target-dir = "${config.xdg.cacheHome}/cargo/target"
 
     [target."${pkgs.rust.toRustTarget pkgs.stdenv.hostPlatform}"]
     linker = "${gcc-lld}"
+  '';
+
+  # Seems it reject missing fields.
+  # https://github.com/rustsec/rustsec/blob/5058319167c0a86eae7bf25ebc820a8eefeb1c55/cargo-audit/audit.toml.example
+  cargoAudit = ''
+    [database]
+    path = "${config.xdg.cacheHome}/cargo/advisory-db"
+    url = "https://github.com/RustSec/advisory-db.git"
+    fetch = true
+    stale = false
   '';
 
   # `--no-rosegment` is required for flamegraph
   # https://github.com/flamegraph-rs/flamegraph#cargo-flamegraph
   gcc-lld = pkgs.writeShellScript "gcc-lld" ''
     export PATH="${pkgs.llvmPackages_latest.bintools}/bin''${PATH:+:}$PATH"
-    exec ${pkgs.gcc}/bin/gcc -fuse-ld=lld -Wl,--no-rosegment "$@"
+    exec ${lib.getExe pkgs.gcc} -fuse-ld=lld -Wl,--no-rosegment "$@"
   '';
 
 in {
@@ -51,16 +56,19 @@ in {
   # Setup cargo directories.
   # https://doc.rust-lang.org/cargo/commands/cargo.html?highlight=cargo_home#files
   home.sessionVariables."CARGO_HOME" = "${pkgs.runCommandLocal "cargo-home" {
-    inherit cargoConfig;
+    inherit cargoConfig cargoAudit;
   } ''
     mkdir -p $out
-    ln -st $out "${home}"/.cache/cargo/{registry,git}
-    ln -st $out "${home}"/.config/cargo/credentials.toml
+    ln -st $out "${config.xdg.cacheHome}"/cargo/{registry,git}
+    ln -st $out "${config.xdg.configHome}"/cargo/credentials.toml
     echo -n "$cargoConfig" >$out/config.toml
+    echo -n "$cargoAudit" >$out/audit.toml
   ''}";
 
   home.activation.setupCargoDirectories = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-    $DRY_RUN_CMD mkdir -p "${home}"/{.config/cargo,.cache/cargo/{registry,git}}
-    $DRY_RUN_CMD touch -a "${home}"/.config/cargo/credentials.toml
+    $DRY_RUN_CMD mkdir -p "${config.xdg.configHome}"/cargo "${config.xdg.cacheHome}"/cargo/{registry,git}
+    if [[ ! -e "${config.xdg.configHome}"/cargo/credentials.toml ]]; then
+      $DRY_RUN_CMD touch -a "${config.xdg.configHome}"/cargo/credentials.toml
+    fi
   '';
 }
