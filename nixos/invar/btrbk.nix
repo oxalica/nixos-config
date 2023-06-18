@@ -23,6 +23,14 @@ in
       };
     };
   };
+  systemd.services."btrbk-snapshot" = {
+    serviceConfig = {
+      ProtectSystem = "full";
+      ProtectHome = "read-only";
+      PrivateNetwork = true;
+      IPAddressDeny = "any";
+    };
+  };
 
   # Manual backup.
   services.btrbk.instances.backup-wd2t = {
@@ -43,7 +51,15 @@ in
       };
     };
   };
-  systemd.services."btrbk-backup-wd2t".unitConfig.RequiresMountsFor = "/mnt/backup";
+  systemd.services."btrbk-backup-wd2t" = {
+    unitConfig.RequiresMountsFor = "/mnt/backup";
+    serviceConfig = {
+      ProtectSystem = "full";
+      ProtectHome = "read-only";
+      PrivateNetwork = true;
+      IPAddressDeny = "any";
+    };
+  };
 
   # Mount units for the backup harddisk.
   systemd.mounts = [

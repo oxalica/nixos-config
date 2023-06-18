@@ -10,6 +10,7 @@
     ../modules/nix-registry.nix
     ../modules/secure-boot.nix
     ../modules/sway-desktop.nix
+    ../modules/systemd-unit-protections.nix
   ] ++ lib.optional (inputs ? secrets) inputs.secrets.nixosModules.invar;
 
   sops.age.sshKeyPaths = lib.mkForce [ "/var/ssh/ssh_host_ed25519_key" ];
