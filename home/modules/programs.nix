@@ -36,6 +36,7 @@ in {
     prismlauncher /* steam <- enabled system-wide */ # Games
     tdesktop nheko # Messaging
     wf-recorder obs # Recording
+    my.pkgs.systemd-run-app
 
     # Dev
     cachix patchelf nixpkgs-review nix-update nix-output-monitor # Nix utils
