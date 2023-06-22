@@ -16,6 +16,8 @@
 
   networking.hostName = "nixoxa";
 
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+
   nix = {
     settings = {
       experimental-features = [

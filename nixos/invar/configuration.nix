@@ -25,6 +25,8 @@
   # Boot.
 
   boot = {
+    kernelPackages = pkgs.linuxPackages_latest;
+
     kernelModules = [ "kvm-amd" ];
     kernelParams = [
       "amd_pstate=passive"
@@ -37,7 +39,7 @@
       systemd.enable = true;
 
       availableKernelModules = [ "xhci_pci" "ahci" "usbhid" ];
-      kernelModules = [ "amd_pstate" "nvme" ];
+      kernelModules = [ "nvme" ];
 
       luks.devices."invar-luks" = {
         device = "/dev/disk/by-uuid/aa50ce23-65c4-4b9a-8484-641a06a9d08c";
