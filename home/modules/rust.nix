@@ -46,6 +46,7 @@ in {
     cargo-audit
     cargo-bloat
     cargo-flamegraph
+    cargo-hack
     cargo-insta
     cargo-license
     cargo-machete
