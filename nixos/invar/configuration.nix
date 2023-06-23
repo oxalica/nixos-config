@@ -44,7 +44,8 @@
       luks.devices."invar-luks2" = {
         device = "/dev/disk/by-uuid/89a01448-a7d6-40c3-8ad0-2257bcd54f46";
         allowDiscards = true;
-        crypttabExtraOpts = [ "fido2-device=auto" ];
+        # https://blog.cloudflare.com/speeding-up-linux-disk-encryption/
+        crypttabExtraOpts = [ "fido2-device=auto" "no-read-workqueue" "no-write-workqueue" ];
       };
     };
 
