@@ -41,8 +41,8 @@
       availableKernelModules = [ "xhci_pci" "ahci" "usbhid" ];
       kernelModules = [ "nvme" ];
 
-      luks.devices."invar-luks" = {
-        device = "/dev/disk/by-uuid/aa50ce23-65c4-4b9a-8484-641a06a9d08c";
+      luks.devices."invar-luks2" = {
+        device = "/dev/disk/by-uuid/89a01448-a7d6-40c3-8ad0-2257bcd54f46";
         allowDiscards = true;
         crypttabExtraOpts = [ "fido2-device=auto" ];
       };
@@ -74,7 +74,7 @@
     };
 
     "/boot" = {
-      device = "/dev/disk/by-uuid/0CEB-39A8";
+      device = "/dev/disk/by-uuid/0A3C-5592";
       fsType = "vfat";
     };
   };
