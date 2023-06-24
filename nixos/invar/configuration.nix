@@ -245,6 +245,7 @@
     radeontop
     solaar # Logitech devices control.
     virt-manager
+    virtiofsd
   ];
 
   system.stateVersion = "23.05";
