@@ -5,6 +5,7 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-23.05";
     nixpkgs-unmatched.url = "github:oxalica/nixpkgs/test/unmatched";
+    nixpkgs-sddm-0-20-0.url = "github:NixOS/nixpkgs/pull/239389/head";
 
     # Placeholder.
     blank.follows = "nixpkgs";
@@ -67,6 +68,11 @@
       # Wrap the launcher in sandbox to mitigate potential malwares.
       prismlauncher-bwrap = final: prev: {
         prismlauncher = self.packages.${final.stdenv.system}.prismlauncher-bwrap;
+      };
+      sddm = final: prev: {
+        libsForQt5 = prev.libsForQt5.overrideScope' (final_: prev_: {
+          inherit (inputs.nixpkgs-sddm-0-20-0.legacyPackages.${final.stdenv.system}.libsForQt5) sddm;
+        });
       };
     };
 
