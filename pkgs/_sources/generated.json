@@ -58,7 +58,7 @@
     },
     "sway-git-unwrapped": {
         "cargoLocks": null,
-        "date": "2023-06-06",
+        "date": "2023-06-23",
         "extract": null,
         "name": "sway-git-unwrapped",
         "passthru": null,
@@ -70,15 +70,15 @@
             "name": null,
             "owner": "swaywm",
             "repo": "sway",
-            "rev": "913a7679cbde98df0722b326d8c3cfc0f0576f6d",
-            "sha256": "sha256-OXwSbQZkjmT8ku0pyJAL1P/WV7Wr7QcuvDnExK7MJm4=",
+            "rev": "7fbd9fbf2825f1c41468ac996aced9ba4b152992",
+            "sha256": "sha256-yIRurLYQIwzy8TL1l7rYtdXOsnaL4jxQb3wp8+uXw+g=",
             "type": "github"
         },
-        "version": "913a7679cbde98df0722b326d8c3cfc0f0576f6d"
+        "version": "7fbd9fbf2825f1c41468ac996aced9ba4b152992"
     },
     "wlroots-git": {
         "cargoLocks": null,
-        "date": "2023-06-07",
+        "date": "2023-06-23",
         "extract": null,
         "name": "wlroots-git",
         "passthru": null,
@@ -88,11 +88,11 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "30616bcf0cb3f2b15bb9f9ecd71b26f7bfe13481",
-            "sha256": "sha256-X/8LRJP9vQJQ0AQbd6wncaRVc4B/e1xn8Ux9UpUVdKs=",
+            "rev": "be050979684ae8779a56e4b0166cfb21d1935d35",
+            "sha256": "sha256-7BZzPXs+EmIzxdC3h5YaL2nCw5fJFLpD43s4dj1xaro=",
             "type": "git",
             "url": "https://gitlab.freedesktop.org/wlroots/wlroots.git"
         },
-        "version": "30616bcf0cb3f2b15bb9f9ecd71b26f7bfe13481"
+        "version": "be050979684ae8779a56e4b0166cfb21d1935d35"
     }
 }

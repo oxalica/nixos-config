@@ -35,27 +35,27 @@
   };
   sway-git-unwrapped = {
     pname = "sway-git-unwrapped";
-    version = "913a7679cbde98df0722b326d8c3cfc0f0576f6d";
+    version = "7fbd9fbf2825f1c41468ac996aced9ba4b152992";
     src = fetchFromGitHub {
       owner = "swaywm";
       repo = "sway";
-      rev = "913a7679cbde98df0722b326d8c3cfc0f0576f6d";
+      rev = "7fbd9fbf2825f1c41468ac996aced9ba4b152992";
       fetchSubmodules = false;
-      sha256 = "sha256-OXwSbQZkjmT8ku0pyJAL1P/WV7Wr7QcuvDnExK7MJm4=";
+      sha256 = "sha256-yIRurLYQIwzy8TL1l7rYtdXOsnaL4jxQb3wp8+uXw+g=";
     };
-    date = "2023-06-06";
+    date = "2023-06-23";
   };
   wlroots-git = {
     pname = "wlroots-git";
-    version = "30616bcf0cb3f2b15bb9f9ecd71b26f7bfe13481";
+    version = "be050979684ae8779a56e4b0166cfb21d1935d35";
     src = fetchgit {
       url = "https://gitlab.freedesktop.org/wlroots/wlroots.git";
-      rev = "30616bcf0cb3f2b15bb9f9ecd71b26f7bfe13481";
+      rev = "be050979684ae8779a56e4b0166cfb21d1935d35";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-X/8LRJP9vQJQ0AQbd6wncaRVc4B/e1xn8Ux9UpUVdKs=";
+      sha256 = "sha256-7BZzPXs+EmIzxdC3h5YaL2nCw5fJFLpD43s4dj1xaro=";
     };
-    date = "2023-06-07";
+    date = "2023-06-23";
   };
 }
