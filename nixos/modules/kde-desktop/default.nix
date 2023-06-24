@@ -22,8 +22,15 @@
     layout = "us";
 
     displayManager = {
-      sddm.enable = true;
       defaultSession = "plasmawayland";
+      sddm.enable = true;
+      # Ref: https://wiki.archlinux.org/title/SDDM#KDE_/_KWin
+      sddm.settings = {
+        General.GreeterEnvironment = "QT_WAYLAND_SHELL_INTEGRATION=layer-shell";
+        General.DisplayServer = "wayland";
+        General.InputMethod = "";
+        Wayland.CompositorCommand = "${pkgs.kwin}/bin/kwin_wayland --no-global-shortcuts --no-lockscreen --inputmethod maliit-keyboard --locale1";
+      };
     };
 
     desktopManager.plasma5 = {

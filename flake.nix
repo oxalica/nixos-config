@@ -71,7 +71,16 @@
       };
       sddm = final: prev: {
         libsForQt5 = prev.libsForQt5.overrideScope' (final_: prev_: {
-          inherit (inputs.nixpkgs-sddm-0-20-0.legacyPackages.${final.stdenv.system}.libsForQt5) sddm;
+          sddm = inputs.nixpkgs-sddm-0-20-0.legacyPackages.${final.stdenv.system}.libsForQt5.sddm.overrideAttrs (old: {
+            buildInputs = old.buildInputs ++ [
+              final_.kirigami2
+              final_.layer-shell-qt
+            ];
+            postPatch = old.postPatch or "" + ''
+              substituteInPlace src/greeter/waylandkeyboardbackend.cpp \
+                --replace "/usr/share/X11/xkb/rules/evdev.xml" "${final.xorg.xkeyboardconfig}/share/X11/xkb/rules/evdev.xml"
+            '';
+          });
         });
       };
     };
