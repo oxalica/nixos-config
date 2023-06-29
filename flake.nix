@@ -69,10 +69,18 @@
       prismlauncher-bwrap = final: prev: {
         prismlauncher = self.packages.${final.stdenv.system}.prismlauncher-bwrap;
       };
+
       sddm = final: prev: {
         libsForQt5 = prev.libsForQt5.overrideScope' (final_: prev_: {
           inherit (inputs.nixpkgs-sddm-0-20-0.legacyPackages.${final.stdenv.system}.libsForQt5) sddm;
         });
+      };
+
+      # FIXME: https://github.com/NixOS/nixpkgs/pull/240270
+      nheko = final: prev: {
+        spdlog = prev.spdlog.override {
+          fmt = final.fmt_9;
+        };
       };
     };
 
