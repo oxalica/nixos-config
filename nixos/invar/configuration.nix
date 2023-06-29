@@ -139,14 +139,14 @@
 
   # Services.
 
+  nix.settings.cores = 14;
   systemd.services.nix-daemon.serviceConfig = {
-    CPUQuota = "1500%";
-    CPUWeight = 50;
+    CPUWeight = 30;
+    IOWeight = 30;
 
-    MemoryMax = "13G";
-    MemoryHigh = "12G";
-    MemorySwapMax = "16G";
-    IOWeight = 50;
+    MemoryMax = "12G";
+    MemoryHigh = "10G";
+    MemorySwapMax = "4G";
   };
 
   security.rtkit.enable = true; # Better installed with pipewire.
