@@ -71,13 +71,6 @@
           inherit (inputs.nixpkgs-sddm-0-20-0.legacyPackages.${final.stdenv.system}.libsForQt5) sddm;
         });
       };
-
-      # FIXME: https://github.com/NixOS/nixpkgs/pull/240270
-      nheko = final: prev: {
-        spdlog = prev.spdlog.override {
-          fmt = final.fmt_9;
-        };
-      };
     };
 
     nixosModules = {
