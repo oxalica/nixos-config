@@ -33,6 +33,9 @@
       # Try fixing nvme unavailability issue after S3 resume.
       # See: https://wiki.archlinux.org/title/Solid_state_drive/NVMe#Controller_failure_due_to_broken_suspend_support
       "amd_iommu=fullflush"
+      # Auto reset on amdgpu failure.
+      # See: https://unix.stackexchange.com/questions/352226/how-to-restart-a-failed-amdgpu-kernel-module
+      "amdgpu.gpu_recovery=1"
     ];
 
     initrd = {
