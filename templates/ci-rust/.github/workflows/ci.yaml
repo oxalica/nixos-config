@@ -45,16 +45,3 @@ jobs:
         uses: dtolnay/rust-toolchain@clippy
       - name: Clippy
         run: cargo clippy --all-targets
-
-  outdated:
-    name: Outdated
-    runs-on: ubuntu-latest
-    if: github.event_name == 'schedule'
-    timeout-minutes: 45
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-      - name: Install cargo-outdated
-        uses: dtolnay/install@cargo-outdated
-      - name: Check outdated packages
-        run: rm -f Cargo.lock && cargo outdated --exit-code 1
