@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, my, ... }:
 {
   imports = [ ../l10n.nix ];
 
@@ -6,7 +6,7 @@
     ark
     filelight
     plasma-browser-integration
-    bismuth
+    my.pkgs.bismuth-fix-5-27
   ];
 
   programs = {
