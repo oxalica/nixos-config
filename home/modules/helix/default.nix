@@ -1,25 +1,6 @@
-{ lib, pkgs, ... }:
+{ lib, pkgs, inputs, ... }:
 let
-  inherit (builtins) toJSON;
-  inherit (lib) mapAttrsToList concatStringsSep concatMapStringsSep isAttrs isList;
-
-  toTOML = obj:
-    concatStringsSep "\n"
-      (mapAttrsToList
-        (name: value: "${toJSON name}=${toTOMLInline value}")
-        obj);
-  toTOMLInline = obj:
-    if isAttrs obj then
-      "{${concatStringsSep ","
-        (mapAttrsToList
-          (name: value: "${toJSON name}=${toTOMLInline value}")
-          obj)
-      }}"
-    else if isList obj then
-      "[${concatMapStringsSep "," toTOMLInline obj}]"
-    else
-      toJSON obj;
-
+  inherit (inputs.self.lib) toTOML;
 in {
   home.packages = with pkgs; [ helix ];
 

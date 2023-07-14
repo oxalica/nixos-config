@@ -116,6 +116,10 @@
   in {
     inherit overlays nixosModules;
 
+    lib = import ./lib.nix {
+      inherit (nixpkgs) lib;
+    };
+
     nixosSystems = lib.mapAttrs
       (name: conf: conf.config.system.build.toplevel)
       self.nixosConfigurations;
