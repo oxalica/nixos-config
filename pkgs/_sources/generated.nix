@@ -35,15 +35,14 @@
   };
   sway-git-unwrapped = {
     pname = "sway-git-unwrapped";
-    version = "6c234d013a7457cefd7938182088530d631b875e";
+    version = "20ffe545bab3fe518d8d1be00949943f7d39cfe0";
     src = fetchFromGitHub {
       owner = "swaywm";
       repo = "sway";
-      rev = "6c234d013a7457cefd7938182088530d631b875e";
+      rev = "20ffe545bab3fe518d8d1be00949943f7d39cfe0";
       fetchSubmodules = false;
-      sha256 = "sha256-gRO0x4hybym1y/xs91/zOJc1/7WDqleXYRjgirhp/kk=";
+      sha256 = "sha256-2plFvH3747PWHRF8il2FipRG79eXxgzTRpy4A24YHGY=";
     };
-    date = "2023-07-13";
   };
   wlroots-git = {
     pname = "wlroots-git";

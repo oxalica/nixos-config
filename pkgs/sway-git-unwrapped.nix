@@ -13,7 +13,7 @@
   inherit isNixOS enableXWayland;
 }).overrideAttrs (old: {
   inherit (source) src;
-  version = "git-${source.date}";
+  version = "git-${source.date or "unknown"}";
 
   patches =
     lib.filter (p: p.name or "" != "LIBINPUT_CONFIG_ACCEL_PROFILE_CUSTOM.patch") old.patches ++ [
