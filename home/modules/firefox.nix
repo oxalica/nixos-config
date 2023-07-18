@@ -52,10 +52,6 @@
         # See: https://wiki.archlinux.org/index.php/Firefox#Hardware_video_acceleration
         "gfx.webrender.all" = true;
         "media.ffmpeg.vaapi.enabled" = true;
-        "media.ffvpx.enabled" = false;
-        "media.rdd-vpx.enabled" = false;
-        "media.navigator.mediadatadecoder_vpx_enabled" = true;
-        "media.av1.enabled" = false; # My GPU doesn't support this.
 
         # Enable user chrome, which is by default disabled.
         "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
