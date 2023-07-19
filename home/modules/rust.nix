@@ -37,8 +37,10 @@ in {
         "rust-src"
       ];
       targets = [
+        "aarch64-apple-darwin"
         "riscv64gc-unknown-linux-gnu"
         "wasm32-unknown-unknown"
+        "x86_64-pc-windows-msvc"
       ];
     })
 
