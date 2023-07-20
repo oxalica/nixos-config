@@ -166,6 +166,10 @@
         description = "A simple Rust project for libraries";
         path = ./templates/rust-lib;
       };
+      rust-criterion = {
+        description = "Criterion benchmark templates";
+        path = ./templates/rust-criterion;
+      };
       ci-rust = {
         description = "A sample GitHub CI setup for Rust projects";
         path = ./templates/ci-rust;
