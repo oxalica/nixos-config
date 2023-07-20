@@ -43,6 +43,7 @@ in {
     gcc ghc myPython # Compiler & interpreters
     gdb # Debugger
     sqlite-interactive # sqlite
+    linuxPackages.perf
   ];
 
   programs.feh.enable = true;
