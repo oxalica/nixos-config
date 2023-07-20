@@ -29,7 +29,7 @@
 
     kernelModules = [ "kvm-amd" ];
     kernelParams = [
-      "amd_pstate=passive"
+      "amd_pstate=active"
       # Try fixing nvme unavailability issue after S3 resume.
       # See: https://wiki.archlinux.org/title/Solid_state_drive/NVMe#Controller_failure_due_to_broken_suspend_support
       "amd_iommu=fullflush"
@@ -93,7 +93,7 @@
   # Hardware.
 
   time.timeZone = "Asia/Shanghai";
-  powerManagement.cpuFreqGovernor = "schedutil";
+  powerManagement.cpuFreqGovernor = "performance";
   hardware = {
     enableRedistributableFirmware = true;
     cpu.amd.updateMicrocode = true;
