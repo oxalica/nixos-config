@@ -3,7 +3,17 @@
   programs.git = {
     enable = true;
 
-    ignores = [ "*~" "*.swp" ]; # vim swap file
+    ignores = [
+      # vim swap files.
+      "*~" "*.swp"
+
+      # Editor local settings.
+      ".vim/coc-settings.json"
+      ".vscode"
+
+      # Environments
+      ".envrc"
+    ];
 
     aliases = {
       br = "branch";
