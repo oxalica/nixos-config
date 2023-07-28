@@ -15,10 +15,10 @@
 
   # Ref: https://catcat.cc/post/2021-03-07/
   fonts = {
-    enableDefaultFonts = false;
+    enableDefaultPackages = false;
     fontDir.enable = true;
 
-    fonts = with pkgs; [
+    packages = with pkgs; [
       noto-fonts
       noto-fonts-cjk-sans
       noto-fonts-cjk-serif
