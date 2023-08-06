@@ -24,7 +24,7 @@ let
 in {
   home.packages = with pkgs; [
     # Console
-    runzip scc bubblewrap difftastic # Random stuff
+    runzip scc bubblewrap difftastic typos # Random stuff
     xsel wl-clipboard # CLI-Desktop
     beancount my.pkgs.double-entry-generator # Accounting
     tealdeer man-pages # Manual
