@@ -7,7 +7,7 @@
     SQLITE_HISTORY = "${config.xdg.stateHome}/sqlite/history";
   };
 
-  # XDG Spec doens't have BIN_HOME yet.
+  # XDG Spec doesn't have BIN_HOME yet.
   home.xdg.configFile."go/env".text = ''
     GOPATH=${config.xdg.cacheHome}/go
     GOBIN=${config.homeDirectory}/.local/bin

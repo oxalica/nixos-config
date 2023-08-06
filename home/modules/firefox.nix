@@ -13,12 +13,12 @@
 
         # Rebind C-W to C-S-W for closing tab.
         from1='<key id="key_close" data-l10n-id="close-shortcut" command="cmd_close" modifiers="accel" reserved="true"/>'
-        tooo1='<key id="key_close" data-l10n-id="close-shortcut" command="cmd_close" modifiers="accel,shift" reserved="true"/>'
+        to__1='<key id="key_close" data-l10n-id="close-shortcut" command="cmd_close" modifiers="accel,shift" reserved="true"/>'
         from2='<key id="key_closeWindow" data-l10n-id="close-shortcut" command="cmd_closeWindow" modifiers="accel,shift" reserved="true"/>'
-        tooo2='                                                                                                                     '
+        to__2='                                                                                                                     '
         file="$out/lib/firefox/browser/omni.ja"
         # The original file is a symlink.
-        sed -E "s|$from1|$tooo1|; s|$from2|$tooo2|" "$file" >"$file.new"
+        sed -E "s|$from1|$to__1|; s|$from2|$to__2|" "$file" >"$file.new"
         size1="$(stat -L -c '%s' "$file")"
         size2="$(stat -L -c '%s' "$file.new")"
         echo "$size1 $size2"

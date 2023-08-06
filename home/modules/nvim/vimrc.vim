@@ -77,10 +77,10 @@ vmap <C-j> :move'>+<CR>gv
 vmap <C-k> :move'<-2<CR>gv
 
 " Mouse.
-nmap <S-ScrollWheelDown> <ScrollWhellRight>
-nmap <S-ScrollWheelUp>   <ScrollWhellLeft>
-imap <S-ScrollWheelDown> <ScrollWhellRight>
-imap <S-ScrollWheelUp>   <ScrollWhellLeft>
+nmap <S-ScrollWheelDown> <ScrollWheelRight>
+nmap <S-ScrollWheelUp>   <ScrollWheelLeft>
+imap <S-ScrollWheelDown> <ScrollWheelRight>
+imap <S-ScrollWheelUp>   <ScrollWheelLeft>
 
 " Options
 nmap <M-n> <Cmd>set relativenumber!\|set relativenumber?<CR>

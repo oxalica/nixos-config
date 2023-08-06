@@ -1,0 +1,10 @@
+[files]
+extend-exclude = [
+    "home/modules/nvim/vimrc.vim",
+    "my/gpg-pubkey.asc",
+    "secrets",
+]
+
+[default.extend-words]
+lazer = "lazer" # osu-lazer
+thumbnailers = "thumbnailers" # kdegraphics-thumbnailers

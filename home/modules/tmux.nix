@@ -8,7 +8,7 @@
     historyLimit = 100000;
     keyMode = "vi";
     prefix = "C-a";
-    terminal = "tmux-256color"; # Fix wierd behaviors for dim colors.
+    terminal = "tmux-256color"; # Fix weird behaviors for dim colors.
 
     # tmux
     extraConfig = ''
