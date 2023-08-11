@@ -71,10 +71,6 @@ in
     wrapperFeatures.gtk = true;
     systemd.enable = true;
 
-    package = pkgs.sway.override {
-      sway-unwrapped = my.pkgs.sway-git-unwrapped;
-    };
-
     config =
       let
         modifier = "Mod4";
