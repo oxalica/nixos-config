@@ -19,6 +19,7 @@
       RestartSec = 10;
       Slice = "background.slice";
     };
-    Install.WantedBy = [ "graphical-session.target" ];
+    # XXX: Disabled due to not working.
+    # Install.WantedBy = [ "graphical-session.target" ];
   };
 }
