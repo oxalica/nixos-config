@@ -53,6 +53,8 @@
       "net.ipv4.ip_forward" = 1;
       "kernel.sysrq" = 1;
       "net.ipv4.tcp_congestion_control" = "bbr";
+
+      "vm.swappiness" = 150;
     };
 
     loader = {
@@ -80,12 +82,14 @@
     };
   };
 
-  swapDevices = [
-    {
-      device = "/var/swapfile";
-      size = 16 * 1024; # 16G
-    }
-  ];
+  # Ref: https://github.com/NickCao/flakes/blob/28c25f4fc9eac535afa8c350fc9769f5fa59dd18/modules/baseline.nix#L48
+  services.zram-generator = {
+    enable = true;
+    settings.zram0 = {
+      compression-algorithm = "zstd";
+      zram-size = "ram";
+    };
+  };
 
   # Hardware.
 
