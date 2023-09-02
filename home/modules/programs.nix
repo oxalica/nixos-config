@@ -31,7 +31,7 @@ in {
     sops # Sops
 
     # GUI
-    kolourpaint /*FIXME: libreoffice*/ mpv okular gwenview # Files
+    kolourpaint libreoffice mpv okular gwenview # Files
     electrum electron-cash monero-gui # Cryptocurrency
     prismlauncher /* steam <- enabled system-wide */ # Games
     tdesktop nheko # Messaging

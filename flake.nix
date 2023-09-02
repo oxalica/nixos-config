@@ -11,8 +11,7 @@
 
     flake-utils.url = "github:numtide/flake-utils";
     home-manager = {
-      # FIXME: https://github.com/nix-community/home-manager/issues/4367
-      url = "github:nix-community/home-manager/18791781ea86cbec6bce8bcb847444b9c73b8b3b";
+      url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     rust-overlay = {
