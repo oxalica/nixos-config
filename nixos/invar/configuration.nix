@@ -86,7 +86,9 @@
     enable = true;
     settings.zram0 = {
       compression-algorithm = "zstd";
-      zram-size = "ram";
+      # The typical compression rate is ~20% for zstd in experience.
+      # So 2x RAM is expected to be <40% RAM after compression.
+      zram-size = "ram * 2";
     };
   };
 
