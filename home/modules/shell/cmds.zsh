@@ -1,9 +1,15 @@
-local DEFAULT_EXA_ARGS=(--classify --time-style=iso)
-alias ls="exa"
-alias l="exa $DEFAULT_EXA_ARGS"
-alias la="exa $DEFAULT_EXA_ARGS -a"
-alias ll="exa $DEFAULT_EXA_ARGS -l --binary"
-alias lla="exa $DEFAULT_EXA_ARGS -l --binary -a"
+local DEFAULT_LS_ARGS=(
+    --escape
+    --color=auto
+    --classify
+    --time-style=iso
+    --human-readable
+    --kibibytes
+)
+alias l="command ls $DEFAULT_LS_ARGS"
+alias la="command ls $DEFAULT_LS_ARGS --almost-all"
+alias ll="command ls $DEFAULT_LS_ARGS -l"
+alias lla="command ls $DEFAULT_LS_ARGS -l --almost-all"
 
 alias n="nix"
 alias nb="nix build"
@@ -23,7 +29,8 @@ alias reset="tput reset"
 
 # List tree.
 lt() {
-    exa $DEFAULT_EXA_ARGS -T --color=always $@ | eval $PAGER
+    # `-C` for `color=always`.
+    tree -C $@ | eval $PAGER
 }
 
 # Clipboard input/output.
