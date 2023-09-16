@@ -132,7 +132,7 @@
   users.users."oxa" = {
     isNormalUser = true;
     shell = pkgs.zsh;
-    passwordFile = config.sops.secrets.passwd.path;
+    hashedPasswordFile = config.sops.secrets.passwd.path;
     uid = 1000;
     group = config.users.groups.oxa.name;
     extraGroups = [ "wheel" "libvirtd" ];
