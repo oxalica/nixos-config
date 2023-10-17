@@ -29,8 +29,8 @@
       # Use bin to save build time (~11min).
       (iosevka-bin.override { variant = "sgr-iosevka-fixed"; })
 
-      # PDF basic fonts for eg. Roman.
-      my.pkgs.urw-base35-fonts
+      # Roman for PDF.
+      liberation_ttf
     ];
 
     fontconfig = {
