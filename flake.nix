@@ -44,6 +44,10 @@
       url = "github:Admicos/minecraft-wayland/one-nineteen";
       flake = false;
     };
+    koka-vim = {
+      url = "github:oxalica/koka/support/vim";
+      flake = false;
+    };
 
     meta-sifive = {
       url = "github:sifive/meta-sifive/2021.11.00";

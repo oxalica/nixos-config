@@ -1,4 +1,4 @@
-{ lib, config, pkgs, ... }:
+{ lib, config, pkgs, my, ... }:
 let
   inherit (pkgs) vimPlugins;
 
@@ -13,7 +13,9 @@ let
     map (x: vimPlugins.${lib.elemAt x 0})
       (lib.filter (x: lib.isList x)
         (builtins.split ''" plugin: ([A-Za-z_-]+)'' vimrc)) ++
-    cocPlugins;
+    cocPlugins ++ [
+      my.pkgs.koka-vim
+    ];
 
   cocPlugins = with vimPlugins; [
     coc-eslint
