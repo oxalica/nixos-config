@@ -2,7 +2,7 @@
   description = "oxalica's NixOS configuration";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable-small";
     nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-23.05";
     nixpkgs-unmatched.url = "github:oxalica/nixpkgs/test/unmatched";
 
