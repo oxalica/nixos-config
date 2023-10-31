@@ -141,12 +141,9 @@ lua require('leap').add_default_mappings()
 
 " plugin: markdown-preview-nvim
 
-" plugin: nerdcommenter {{{
-let g:NERDCreateDefaultMappings = 1
-let g:NERDSpaceDelims = 1
-let g:NERDDefaultAlign = 'left'
-let g:NERDCommentEmptyLines = 1
-let g:NERDTrimTrailingWhitespace = 1
+" plugin: vim-commentary {{{
+nmap <Leader>c <Plug>CommentaryLine
+xmap <Leader>c <Plug>Commentary
 "}}}
 
 " plugin: vim-better-whitespace {{{
