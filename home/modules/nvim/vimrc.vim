@@ -201,7 +201,7 @@ lua <<EOF
   }
 
   if vim.env.TMUX ~= nil or vim.env.COLORTERM ~= nil then
-    vim.cmd('colorscheme dayfox')
+    vim.cmd('colorscheme nightfox')
   end
 EOF
 "}}}

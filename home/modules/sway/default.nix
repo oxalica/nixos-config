@@ -44,11 +44,11 @@ in
     enable = true;
     theme = {
       package = pkgs.breeze-gtk;
-      name = "Breeze";
+      name = "Breeze-Dark";
     };
     iconTheme = {
       package = pkgs.breeze-icons;
-      name = "breeze";
+      name = "breeze-dark";
     };
     font = {
       name = "Sans Serif Regular";
@@ -61,9 +61,9 @@ in
     enable = true;
     platformTheme = "gnome";
     style.package = pkgs.breeze-qt5;
-    style.name = "breeze";
+    style.name = "Breeze-dark"; # It should be `Breeze` but qtgnomeplatform needs a "-dark" postfix.
   };
-  xdg.configFile."kdeglobals".source = "${pkgs.breeze-qt5}/share/color-schemes/BreezeLight.colors";
+  xdg.configFile."kdeglobals".source = "${pkgs.breeze-qt5}/share/color-schemes/BreezeDark.colors";
 
   wayland.windowManager.sway = {
     enable = true;

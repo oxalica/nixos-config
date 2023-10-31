@@ -1,8 +1,8 @@
-{ ... }:
+{ pkgs, ... }:
 {
   programs.taskwarrior = {
     enable = true;
-    colorTheme = "light-256";
+    colorTheme = "dark-violets-256";
 
     # https://taskwarrior.org/docs/urgency.html
     config = {
