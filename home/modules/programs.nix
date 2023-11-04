@@ -32,7 +32,7 @@ in {
 
     # GUI
     kolourpaint libreoffice mpv okular gwenview # Files
-    /* FIXME: electrum */ electron-cash monero-gui # Cryptocurrency
+    electrum electron-cash monero-gui # Cryptocurrency
     prismlauncher /* steam <- enabled system-wide */ # Games
     tdesktop nheko # Messaging
     wf-recorder obs # Recording
