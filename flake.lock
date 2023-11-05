@@ -235,6 +235,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-fcitx-5-1-4": {
+      "locked": {
+        "lastModified": 1699226450,
+        "narHash": "sha256-dridB9PI3gtDJayUwN9i7DHIsETKlw9dDam4D4+ww/4=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "0b2e5e9d982fddeabc6344665b0b8e1e44cf3951",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "pull/265589/head",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs-stable": {
       "locked": {
         "lastModified": 1678872516,
@@ -367,6 +383,7 @@
         "meta-sifive": "meta-sifive",
         "nix-dram": "nix-dram",
         "nixpkgs": "nixpkgs",
+        "nixpkgs-fcitx-5-1-4": "nixpkgs-fcitx-5-1-4",
         "nixpkgs-stable": "nixpkgs-stable_2",
         "nixpkgs-unmatched": "nixpkgs-unmatched",
         "nocargo": "nocargo",

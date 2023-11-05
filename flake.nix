@@ -6,6 +6,7 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable-small";
     nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-23.05";
     nixpkgs-unmatched.url = "github:oxalica/nixpkgs/test/unmatched";
+    nixpkgs-fcitx-5-1-4.url = "github:NixOS/nixpkgs/pull/265589/head";
 
     # Placeholder.
     blank.follows = "nixpkgs";
@@ -68,6 +69,24 @@
       # Wrap the launcher in sandbox to mitigate potential malwares.
       prismlauncher-bwrap = final: prev: {
         prismlauncher = self.packages.${final.stdenv.system}.prismlauncher-bwrap;
+      };
+      # Hopefully fix the freezing issue in QT apps.
+      # https://github.com/NixOS/nixpkgs/pull/265589
+      fcitx-5-1-4 = final: prev: let
+        pkgs' = inputs.nixpkgs-fcitx-5-1-4.legacyPackages.${final.system};
+      in {
+        inherit (pkgs')
+          librime
+          fcitx5
+          fcitx5-chinese-addons
+          fcitx5-configtool
+          fcitx5-rime
+          fcitx5-with-addons
+        ;
+
+        libsForQt5 = prev.libsForQt5.overrideScope' (finalLibs: prevLibs: {
+          inherit (pkgs'.libsForQt5) fcitx5-qt;
+        });
       };
     };
 
