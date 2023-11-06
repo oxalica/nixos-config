@@ -70,6 +70,11 @@
       prismlauncher-bwrap = final: prev: {
         prismlauncher = self.packages.${final.stdenv.system}.prismlauncher-bwrap;
       };
+
+      sway-unwrapped-im-popup = final: prev: {
+        sway-unwrapped = self.packages.${final.stdenv.system}.sway-unwrapped-im-popup;
+      };
+
       # Hopefully fix the freezing issue in QT apps.
       # https://github.com/NixOS/nixpkgs/pull/265589
       fcitx-5-1-4 = final: prev: let
