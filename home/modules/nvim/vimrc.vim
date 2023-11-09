@@ -279,19 +279,19 @@ augroup coc_autocmd
 augroup end
 
 " Additional highlighting.
-highlight! link CocSemAsync Conditional
-highlight! link CocSemControlFlow Conditional
-highlight! link CocSemDocumentation SpecialComment
-highlight! link CocSemLifetime Label
-highlight! link CocSemEnum Constant
-highlight! link CocSemEnumMember Constant
+highlight! link CocSemTypeAsync Conditional
+highlight! link CocSemTypeControlFlow Conditional
+highlight! link CocSemTypeDocumentation SpecialComment
+highlight! link CocSemTypeLifetime Label
+highlight! link CocSemTypeEnum Constant
+highlight! link CocSemTypeEnumMember Constant
 
-highlight! link CocSemBuiltin @variable.builtin
-highlight! link CocSemBuiltinConstant @constant.builtin
-highlight! link CocSemBuiltinFunction @function.builtin
-highlight! link CocSemBuiltinNamespace @namespace.builtin
-highlight! link CocSemBuiltinType @type.builtin
-highlight! link CocSemConstant Constant
+highlight! link CocSemModBuiltin @variable.builtin
+highlight! link CocSemTypeModBuiltinConstant @constant.builtin
+highlight! link CocSemTypeModBuiltinFunction @function.builtin
+highlight! link CocSemTypeModBuiltinNamespace @namespace.builtin
+highlight! link CocSemTypeBuiltinType @type.builtin
+highlight! link CocSemTypeConstant Constant
 
 if !empty(synIDattr(hlID('@field'), 'fg'))
   execute "highlight CocSemWithAttribute gui=underline guifg="..synIDattr(hlID('@field'), 'fg')

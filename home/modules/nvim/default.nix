@@ -82,6 +82,7 @@ in
 
     coc = {
       enable = true;
+      package = my.pkgs.coc-nvim-rename-sem-hlgroups;
       settings = cocSettings;
     };
   };

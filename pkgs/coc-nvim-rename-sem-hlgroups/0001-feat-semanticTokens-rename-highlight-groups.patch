@@ -1,0 +1,178 @@
+From dab2f397509f6551eaf855d765d77bfed60b1ef7 Mon Sep 17 00:00:00 2001
+From: oxalica <oxalicc@pm.me>
+Date: Thu, 9 Nov 2023 15:17:40 +0800
+Subject: [PATCH] feat(semanticTokens)!: rename highlight groups
+
+CocSemType + type
+CocSemMod + modifier
+CocSemTypeMod + type + modifier
+---
+ doc/coc.txt                          | 23 +++++--------
+ history.md                           |  7 ++++
+ plugin/coc.vim                       | 49 ++++++++++++++--------------
+ src/handler/semanticTokens/buffer.ts | 16 ++++-----
+ 4 files changed, 49 insertions(+), 46 deletions(-)
+
+diff --git a/doc/coc.txt b/doc/coc.txt
+index ee91f057..29fd9354 100644
+--- a/doc/coc.txt
++++ b/doc/coc.txt
+@@ -3350,27 +3350,22 @@ Semantic highlight groups are starts with `CocSem` which link to related
+ highlight groups, use variable |g:coc_default_semantic_highlight_groups| to
+ disable creation of these highlight groups.
+ 
++The highlight groups rules:
++>
++`CocSemType + type` for types
++`CocSemMod + modifier` for modifiers
++`CocSemTypeMode + type + modifier` for modifier with type
++<
++
+ Only semantic tokens types and `deprecated` modifier have default
+ highlight groups.
+ 
+ You need create highlight groups for highlight other modifiers and/or specific
+ modifier with type, for example:
+ >
+-	" Add highlights for defaultLibrary modifier
+-	hi link CocSemDefaultLibrary TSOtherDefaultLibrary
+-	hi link CocSemDefaultLibraryClass TSTypeDefaultLibrary
+-	hi link CocSemDefaultLibraryInterface TSTypeDefaultLibrary
+-	hi link CocSemDefaultLibraryEnum TSTypeDefaultLibrary
+-	hi link CocSemDefaultLibraryType TSTypeDefaultLibrary
+-	hi link CocSemDefaultLibraryNamespace TSTypeDefaultLibrary
+-
+ 	" Add highlights for declaration modifier
+-	hi link CocSemDeclaration TSOtherDeclaration
+-	hi link CocSemDeclarationClass TSTypeDeclaration
+-	hi link CocSemDeclarationInterface TSTypeDeclaration
+-	hi link CocSemDeclarationEnum TSTypeDeclaration
+-	hi link CocSemDeclarationType TSTypeDeclaration
+-	hi link CocSemDeclarationNamespace TSTypeDeclaration
++	hi link CocSemModDeclaration Declaration
++	hi link CocSemTypeModClassDeclaration ClassDeclaration
+ <
+ The modifier highlight groups have higher priority.
+ 
+diff --git a/history.md b/history.md
+index 8b151bfd..9c71b9ee 100644
+--- a/history.md
++++ b/history.md
+@@ -1,3 +1,10 @@
++# 2023-11-09
++
++- Break change: semanticTokens highlight groups changed:
++  - `CocSem + type` to `CocSemType + type`
++  - `CocSem + modifier` to `CocSemMod + modifier`
++  - `CocSem + modifier + type` to `CocSemTypeMod + type + modifier`
++
+ # 2023-09-02
+ 
+ - Support `g:coc_list_preview_filetype`.
+diff --git a/plugin/coc.vim b/plugin/coc.vim
+index ec031c7d..97e57db5 100644
+--- a/plugin/coc.vim
++++ b/plugin/coc.vim
+@@ -562,32 +562,33 @@ function! s:Highlight() abort
+ 
+   if get(g:, 'coc_default_semantic_highlight_groups', 1)
+     let hlMap = {
+-        \ 'Namespace': ['@namespace', 'Include'],
+-        \ 'Type': ['@type', 'Type'],
+-        \ 'Class': ['@constructor', 'Special'],
+-        \ 'Enum': ['@type', 'Type'],
+-        \ 'Interface': ['@type', 'Type'],
+-        \ 'Struct': ['@structure', 'Identifier'],
++        \ 'TypeNamespace': ['@namespace', 'Include'],
++        \ 'TypeType': ['@type', 'Type'],
++        \ 'TypeClass': ['@constructor', 'Special'],
++        \ 'TypeEnum': ['@type', 'Type'],
++        \ 'TypeInterface': ['@type', 'Type'],
++        \ 'TypeStruct': ['@structure', 'Identifier'],
++        \ 'TypeTypeParameter': ['@parameter', 'Identifier'],
+         \ 'TypeParameter': ['@parameter', 'Identifier'],
+-        \ 'Parameter': ['@parameter', 'Identifier'],
+-        \ 'Variable': ['@variable', 'Identifier'],
+-        \ 'Property': ['@property', 'Identifier'],
+-        \ 'EnumMember': ['@property', 'Constant'],
+-        \ 'Event': ['@keyword', 'Keyword'],
+-        \ 'Function': ['@function', 'Function'],
+-        \ 'Method': ['@method', 'Function'],
+-        \ 'Macro': ['@constant.macro', 'Define'],
+-        \ 'Keyword': ['@keyword', 'Keyword'],
+-        \ 'Modifier': ['@storageclass', 'StorageClass'],
+-        \ 'Comment': ['@comment', 'Comment'],
+-        \ 'String': ['@string', 'String'],
+-        \ 'Number': ['@number', 'Number'],
+-        \ 'Boolean': ['@boolean', 'Boolean'],
+-        \ 'Regexp': ['@string.regex', 'String'],
+-        \ 'Operator': ['@operator', 'Operator'],
+-        \ 'Decorator': ['@symbol', 'Identifier'],
+-        \ 'Deprecated': ['@text.strike', 'CocDeprecatedHighlight']
++        \ 'TypeVariable': ['@variable', 'Identifier'],
++        \ 'TypeProperty': ['@property', 'Identifier'],
++        \ 'TypeEnumMember': ['@property', 'Constant'],
++        \ 'TypeEvent': ['@keyword', 'Keyword'],
++        \ 'TypeFunction': ['@function', 'Function'],
++        \ 'TypeMethod': ['@method', 'Function'],
++        \ 'TypeMacro': ['@constant.macro', 'Define'],
++        \ 'TypeKeyword': ['@keyword', 'Keyword'],
++        \ 'TypeModifier': ['@storageclass', 'StorageClass'],
++        \ 'TypeComment': ['@comment', 'Comment'],
++        \ 'TypeString': ['@string', 'String'],
++        \ 'TypeNumber': ['@number', 'Number'],
++        \ 'TypeBoolean': ['@boolean', 'Boolean'],
++        \ 'TypeRegexp': ['@string.regex', 'String'],
++        \ 'TypeOperator': ['@operator', 'Operator'],
++        \ 'TypeDecorator': ['@symbol', 'Identifier'],
++        \ 'ModDeprecated': ['@text.strike', 'CocDeprecatedHighlight']
+         \ }
++    " TODO: add CocSemModXXX and CocSemTypeModeXXX
+     for [key, value] in items(hlMap)
+       let ts = get(value, 0, '')
+       let fallback = get(value, 1, '')
+diff --git a/src/handler/semanticTokens/buffer.ts b/src/handler/semanticTokens/buffer.ts
+index ba3904e2..e40de113 100644
+--- a/src/handler/semanticTokens/buffer.ts
++++ b/src/handler/semanticTokens/buffer.ts
+@@ -238,16 +238,22 @@ export default class SemanticTokensBuffer implements SyncItem {
+     let combine = false
+     // Compose highlight group CocSem + modifier + type
+     for (let item of tokenModifiers) {
+-      let hlGroup = HLGROUP_PREFIX + toHighlightPart(item) + toHighlightPart(tokenType)
++      let hlGroup = HLGROUP_PREFIX + 'TypeMod' + toHighlightPart(item) + toHighlightPart(tokenType)
+       if (highlightGroups.includes(hlGroup)) {
+         combine = combinedModifiers.includes(item)
+         highlightGroup = hlGroup
+         break
+       }
+     }
++    if (!highlightGroup) {
++      let hlGroup = HLGROUP_PREFIX + 'Type' + toHighlightPart(tokenType)
++      if (highlightGroups.includes(hlGroup)) {
++        highlightGroup = hlGroup
++      }
++    }
+     if (!highlightGroup) {
+       for (let modifier of tokenModifiers) {
+-        let hlGroup = HLGROUP_PREFIX + toHighlightPart(modifier)
++        let hlGroup = HLGROUP_PREFIX + 'Mod' + toHighlightPart(modifier)
+         if (highlightGroups.includes(hlGroup)) {
+           highlightGroup = hlGroup
+           combine = combinedModifiers.includes(modifier)
+@@ -255,12 +261,6 @@ export default class SemanticTokensBuffer implements SyncItem {
+         }
+       }
+     }
+-    if (!highlightGroup) {
+-      let hlGroup = HLGROUP_PREFIX + toHighlightPart(tokenType)
+-      if (highlightGroups.includes(hlGroup)) {
+-        highlightGroup = hlGroup
+-      }
+-    }
+     highlights.push({
+       range,
+       tokenType,
+-- 
+2.42.0
+
