@@ -34,7 +34,7 @@ in {
     kolourpaint libreoffice mpv okular gwenview # Files
     electrum electron-cash monero-gui # Cryptocurrency
     prismlauncher /* steam <- enabled system-wide */ # Games
-    tdesktop nheko # Messaging
+    my.pkgs.telegram-desktop-fix-freeze nheko # Messaging
     wf-recorder obs # Recording
     my.pkgs.systemd-run-app
 
