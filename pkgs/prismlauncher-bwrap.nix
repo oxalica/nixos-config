@@ -81,6 +81,7 @@ runCommandLocal "prismlauncher-bwrap-${prismlauncherFinal.version}" {
     "--proc /proc"
     "--ro-bind /nix /nix"
     "--ro-bind /etc /etc"
+    "--ro-bind /var /var" # Required for some symlinks under `/etc`, eg. `/etc/machine-id`.
     "--tmpfs /tmp"
 
     # Network is required.
