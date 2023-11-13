@@ -2,9 +2,8 @@
 qt6.qtwayland.overrideAttrs (old: {
   patches = old.patches or [ ] ++ [
     (fetchpatch {
-      url = "https://code.qt.io/cgit/qt/qtwayland.git/patch/?id=8ed9c8279fd568ce4222e196847b90ac4e362ee8";
-      hash = "sha256-9dOkkjJTxhpOPKPOOrchRtq6uhhOXF1iaFykp7TZEnw=";
-      revert = true;
+      url = "https://codereview.qt-project.org/gitweb?p=qt/qtwayland.git;a=patch;h=a744af148b1753a2ca0e18446cd17721443d961c";
+      hash = "sha256-TlZozKezpYm90B9qFP9qv76asRdIt+5bq9E3GcmFiDc=";
     })
   ];
 })
