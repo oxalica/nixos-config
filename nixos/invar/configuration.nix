@@ -150,9 +150,9 @@
     CPUWeight = 30;
     IOWeight = 30;
 
-    MemoryMax = "12G";
-    MemoryHigh = "10G";
-    MemorySwapMax = "4G";
+    MemoryMax = "80%";
+    MemoryHigh = "75%";
+    MemorySwapMax = "50%";
   };
 
   security.rtkit.enable = true; # Better installed with pipewire.
