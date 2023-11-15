@@ -74,24 +74,6 @@
       sway-unwrapped-im-popup = final: prev: {
         sway-unwrapped = self.packages.${final.stdenv.system}.sway-unwrapped-im-popup;
       };
-
-      # https://github.com/NixOS/nixpkgs/pull/265589
-      fcitx-5-1-4 = final: prev: let
-        pkgs' = inputs.nixpkgs-fcitx-5-1-4.legacyPackages.${final.system};
-      in {
-        inherit (pkgs')
-          librime
-          fcitx5
-          fcitx5-chinese-addons
-          fcitx5-configtool
-          fcitx5-rime
-          fcitx5-with-addons
-        ;
-
-        libsForQt5 = prev.libsForQt5.overrideScope' (finalLibs: prevLibs: {
-          inherit (pkgs'.libsForQt5) fcitx5-qt;
-        });
-      };
     };
 
     nixosModules = {
