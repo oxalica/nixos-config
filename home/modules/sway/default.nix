@@ -21,6 +21,7 @@ in
     grim
     slurp
     sway-contrib.grimshot
+    wl-mirror
   ]) ++ (with pkgs.libsForQt5; [
     # From plasma5.
     dolphin
@@ -93,6 +94,18 @@ in
           { command = app "telegram-desktop"; }
           { command = app "nheko"; }
           { command = app "thunderbird"; }
+
+          # Use a HEADLESS display as a workaround of unsupported window capturing feature.
+          # See: https://github.com/emersion/xdg-desktop-portal-wlr/issues/107#issuecomment-1596107337
+          {
+            command = toString (pkgs.writeShellScript "sway-create-headless" ''
+              PATH="${pkgs.lib.makeBinPath [ pkgs.jq sway ]}''${PATH:+:}$PATH"
+              out="$(swaymsg -t get_outputs | jq -r '.[] | .name' -r)"
+              if [[ "$out" != *HEADLESS-1* ]]; then
+                swaymsg create_output
+              fi
+            '');
+          }
         ];
         assigns = {
           "2" = [ { app_id = "firefox"; } ];
@@ -140,6 +153,10 @@ in
         output = {
           "*".background = "${my.pkgs.wallpaper} fill";
           # No scale! See ../wayland-dpi.nix
+
+          "DP-1".position = "2560,0";
+          "HEADLESS-1".position = "0,0"; # On the LHS of primary display.
+          "HEADLESS-1".resolution = "2560x1440";
         };
 
         inherit modifier;
@@ -164,6 +181,9 @@ in
             "XF86AudioRaiseVolume" = "exec ${pkgs.pulseaudio}/bin/pactl set-sink-volume @DEFAULT_SINK@ +5%";
             "XF86AudioLowerVolume" = "exec ${pkgs.pulseaudio}/bin/pactl set-sink-volume @DEFAULT_SINK@ -5%";
             "XF86AudioMute" = "exec ${pkgs.pulseaudio}/bin/pactl set-sink-mute @DEFAULT_SINK@ toggle";
+
+            "${modifier}+0" = "workspace number 0";
+            "${modifier}+Shift+0" = "move container to workspace number 0";
           };
 
         modes = {
