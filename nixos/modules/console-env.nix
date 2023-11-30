@@ -7,7 +7,6 @@
   fonts.fontconfig.enable = lib.mkDefault false;
 
   # Default:
-  # - nano # Already have vim.
   # - perl # No.
   # - rsync strace # Already in systemPackages.
   environment.defaultPackages = [ ];
@@ -57,4 +56,6 @@
   programs.command-not-found.enable = false;
 
   programs.vim.defaultEditor = true;
+
+  programs.nano.enable = lib.mkDefault false;
 }

@@ -214,9 +214,10 @@
     package = pkgs.wireshark-qt;
   };
 
+  programs.virt-manager.enable = true;
+
   environment.systemPackages = with pkgs; [
     ltunify
-    virt-manager
   ];
 
   system.stateVersion = "23.05";

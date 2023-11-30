@@ -4,7 +4,7 @@
   inputs = {
     # Workaround: https://github.com/NixOS/nixpkgs/pull/264832
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable-small";
-    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-23.05";
+    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-23.11";
     nixpkgs-unmatched.url = "github:oxalica/nixpkgs/test/unmatched";
 
     # Placeholder.

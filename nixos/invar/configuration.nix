@@ -237,6 +237,8 @@
   };
   users.groups."wireshark".members = [ config.users.users.oxa.name ];
 
+  programs.virt-manager.enable = true;
+
   services.fwupd.enable = true;
 
   services.printing.cups-pdf.enable = true;
@@ -252,7 +254,6 @@
   environment.systemPackages = with pkgs; [
     radeontop
     solaar # Logitech devices control.
-    virt-manager
     virtiofsd
   ];
 
