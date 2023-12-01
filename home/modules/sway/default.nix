@@ -190,6 +190,12 @@ in
           ${logoutMode.name} = logoutMode.keys;
         };
       };
+
+      # Initial placement.
+      extraConfig = ''
+        workspace 0 output HEADLESS-1
+        workspace 1 output DP-1
+      '';
   };
 
   services.mako = {
