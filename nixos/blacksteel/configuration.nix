@@ -34,6 +34,7 @@
       };
     };
 
+    kernelPackages = pkgs.linuxPackages_latest;
     kernelModules = [ "kvm-intel" ];
     extraModulePackages = [ ];
 
