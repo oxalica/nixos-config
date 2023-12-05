@@ -1,6 +1,8 @@
 { inputs, ... }:
 {
   nix = {
+    channel.enable = false;
+
     gc = {
       automatic = true;
       dates = "Wed,Sat 01:00";
