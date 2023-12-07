@@ -1,5 +1,5 @@
 # NB. systemd-initrd doesn't work for ISO yet.
-{ config, pkgs, modulesPath, ... }:
+{ lib, config, pkgs, modulesPath, ... }:
 {
   imports = [
     (modulesPath + "/installer/cd-dvd/installation-cd-minimal.nix")
@@ -13,6 +13,9 @@
     # Worse compression but way faster.
     squashfsCompression = "zstd -Xcompression-level 6";
   };
+
+  # Workaround: https://github.com/NixOS/nixpkgs/issues/254807
+  boot.swraid.enable = lib.mkForce false;
 
   networking.hostName = "nixoxa";
 
