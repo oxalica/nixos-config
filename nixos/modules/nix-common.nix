@@ -1,6 +1,10 @@
-{ inputs, ... }:
+{ pkgs, inputs, ... }:
 {
   nix = {
+    # !! Warning: 2.19 currently fails to build this config !!
+    # See: https://github.com/nix-community/home-manager/issues/4692
+    package = assert builtins.compareVersions pkgs.nix.version "2.19" < 0; pkgs.nix;
+
     channel.enable = false;
 
     gc = {

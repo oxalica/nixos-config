@@ -143,8 +143,6 @@
   home-manager.users."oxa" = import ../../home/invar.nix;
 
   # Services.
-
-  nix.package = pkgs.nixUnstable;
   nix.settings.cores = 14;
   systemd.services.nix-daemon.serviceConfig = {
     CPUWeight = 30;
