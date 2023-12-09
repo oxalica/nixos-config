@@ -30,6 +30,9 @@
       connect-timeout = 10;
       download-attempts = 3;
       stalled-download-timeout = 10;
+
+      # Workaround: https://github.com/NixOS/nixpkgs/pull/273170
+      nix-path = "nixpkgs=${inputs.nixpkgs}";
     };
 
     registry = {
