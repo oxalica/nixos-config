@@ -209,7 +209,7 @@ in
   systemd.user.services.mako = {
     Unit = {
       Description = "Notification daemon for Wayland";
-      Documentatio = "man:mako(1)";
+      Documentation = "man:mako(1)";
       After = "graphical-session-pre.target";
       PartOf = "sway-session.target"; # Should be terminated when the session ends.
     };
