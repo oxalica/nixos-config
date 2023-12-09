@@ -97,7 +97,6 @@
 
   home.packages = with pkgs; [
     nix-zsh-completions # Prefer nix's builtin completion.
-    fzf bat # WARN: They are used by fzf.vim!
     my.pkgs.colors
     my.pkgs.zsh-comma
   ];

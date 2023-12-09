@@ -92,5 +92,6 @@ in
   home.packages = with pkgs; [
     nil
     watchman # Required by coc.nvim for file watching.
+    fzf bat # Required by fzf.vim.
   ];
 }
