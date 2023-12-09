@@ -4,15 +4,20 @@ writeShellApplication {
   name = "systemd-run-app";
   text = ''
     name="$(/run/current-system/systemd/bin/systemd-escape "$(${coreutils}/bin/basename "$1")")"
+    unit="app-$name-$(printf %04x $RANDOM)"
     exec /run/current-system/systemd/bin/systemd-run \
       --user \
       --scope \
-      --unit="app-$name-$(printf %04x $RANDOM)" \
+      --unit="$unit" \
       --slice=app \
       --same-dir \
       --collect \
       --property PartOf=graphical-session.target \
       --property After=graphical-session.target \
-      -- "$@"
+      -- \
+      /run/current-system/systemd/bin/systemd-cat \
+      --identifier="$unit" \
+      -- \
+      "$@"
   '';
 }
