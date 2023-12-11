@@ -30,11 +30,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.nixpkgs-stable.follows = "nixpkgs-stable";
     };
-    nix-dram = {
-      url = "github:dramforever/nix-dram";
-      inputs.flake-utils.follows = "flake-utils";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     lanzaboote = {
       url = "github:nix-community/lanzaboote/v0.3.0";
       inputs.flake-compat.follows = "blank";
@@ -64,7 +59,7 @@
     inherit (nixpkgs) lib;
 
     overlays = {
-      # FIXME: https://github.com/NixOS/nixpkgs/pull/236655
+      # TODO: https://github.com/NixOS/nixpkgs/pull/236655
       # Wrap the launcher in sandbox to mitigate potential malwares.
       prismlauncher-bwrap = final: prev: {
         prismlauncher = self.packages.${final.stdenv.system}.prismlauncher-bwrap;

@@ -174,13 +174,6 @@
   };
 
   nix = {
-    # FIXME: nix-dram is broken with nix-2.16.1
-    # package = inputs.nix-dram.packages.${config.nixpkgs.system}.nix-dram;
-    # settings = {
-    #   default-flake = "flake:nixpkgs";
-    #   environment = [ "SSH_AUTH_SOCK" ];
-    # };
-
     buildMachines = [
       {
         hostName = "aluminum.lan.hexade.ca";

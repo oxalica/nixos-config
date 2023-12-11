@@ -1,6 +1,5 @@
 { lib }:
 {
-  # TODO: Wait for https://github.com/NixOS/nixpkgs/pull/243390
   toTOML = let
     inherit (builtins) toJSON concatStringsSep isAttrs isList isFloat;
     inherit (lib) isStringLike concatMapStringsSep mapAttrsToList;
