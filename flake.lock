@@ -348,7 +348,8 @@
         "nocargo": "nocargo",
         "rust-overlay": "rust-overlay_2",
         "secrets": "secrets",
-        "sops-nix": "sops-nix"
+        "sops-nix": "sops-nix",
+        "sway-xwayland-hidpi": "sway-xwayland-hidpi"
       }
     },
     "rust-overlay": {
@@ -437,6 +438,28 @@
         "type": "github"
       }
     },
+    "sway-xwayland-hidpi": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "wlroots-hidpi-xprop-git": "wlroots-hidpi-xprop-git",
+        "xorg-xwayland-hidpi-xprop": "xorg-xwayland-hidpi-xprop"
+      },
+      "locked": {
+        "lastModified": 1702279937,
+        "narHash": "sha256-ckztw48UsKPJkVVhrVZowQWoXW033xPmkMzW+etwZA4=",
+        "owner": "oxalica",
+        "repo": "sway-xwayland-hidpi",
+        "rev": "776d5d2dafed388140ddb294ec15f64003b21307",
+        "type": "github"
+      },
+      "original": {
+        "owner": "oxalica",
+        "repo": "sway-xwayland-hidpi",
+        "type": "github"
+      }
+    },
     "systems": {
       "locked": {
         "lastModified": 1681028828,
@@ -450,6 +473,40 @@
         "owner": "nix-systems",
         "repo": "default",
         "type": "github"
+      }
+    },
+    "wlroots-hidpi-xprop-git": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1698386614,
+        "narHash": "sha256-rO4hEmDG5fHRtmr5AZTUE16onqoV8myW10xCsVSAis0=",
+        "ref": "HEAD",
+        "rev": "53aa9d79188def611daffcf33d194509238e1823",
+        "revCount": 10,
+        "type": "git",
+        "url": "https://aur.archlinux.org/wlroots-hidpi-xprop-git.git"
+      },
+      "original": {
+        "ref": "HEAD",
+        "type": "git",
+        "url": "https://aur.archlinux.org/wlroots-hidpi-xprop-git.git"
+      }
+    },
+    "xorg-xwayland-hidpi-xprop": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1698218166,
+        "narHash": "sha256-jIvsjTO2goU7W6rrMDuJPWsVOC1GUd6aFyV+bRGG1tM=",
+        "ref": "HEAD",
+        "rev": "f6c6d0af4c64d520923481bbe5fc3fd6243385ab",
+        "revCount": 18,
+        "type": "git",
+        "url": "https://aur.archlinux.org/xorg-xwayland-hidpi-xprop.git"
+      },
+      "original": {
+        "ref": "HEAD",
+        "type": "git",
+        "url": "https://aur.archlinux.org/xorg-xwayland-hidpi-xprop.git"
       }
     }
   },

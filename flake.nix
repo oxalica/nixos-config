@@ -44,6 +44,10 @@
       url = "github:oxalica/koka/support/vim";
       flake = false;
     };
+    sway-xwayland-hidpi = {
+      url = "github:oxalica/sway-xwayland-hidpi";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     meta-sifive = {
       url = "github:sifive/meta-sifive/2021.11.00";
@@ -65,8 +69,9 @@
         prismlauncher = self.packages.${final.stdenv.system}.prismlauncher-bwrap;
       };
 
-      sway-unwrapped-im-popup = final: prev: {
-        sway-unwrapped = self.packages.${final.stdenv.system}.sway-unwrapped-im-popup;
+      # TODO: This is incompatible with im-popup patches.
+      sway-unwrapped-xwayland-hidpi = final: prev: {
+        sway-unwrapped = inputs.sway-xwayland-hidpi.packages.${final.stdenv.system}.sway-unwrapped-xwayland-hidpi;
       };
     };
 
