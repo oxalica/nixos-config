@@ -1,7 +1,7 @@
 # We avoid wayland scaling since fractional scaling support is still TODO.
 # https://gitlab.freedesktop.org/wayland/wayland-protocols/-/merge_requests/143
 # https://blog.lilydjwg.me/2022/2/2/wayfire-migration-4-not-so-high-dpi.216078.html
-{ lib, config, ... }:
+{ lib, pkgs, config, ... }:
 let
   inherit (lib) mkOption mkDefault mkIf types;
   cfg = config.wayland.dpi;
@@ -24,5 +24,9 @@ in
     dconf.settings."org/gnome/desktop/interface".text-scaling-factor = cfg * 1.0 / default;
     systemd.user.sessionVariables.QT_WAYLAND_FORCE_DPI = cfg;
     xresources.properties."Xft.dpi" = cfg;
+
+    wayland.windowManager.sway.extraConfig = ''
+      exec_always ${lib.getExe pkgs.xorg.xrdb} -load ${config.home.homeDirectory}/.Xresources
+    '';
   };
 }
