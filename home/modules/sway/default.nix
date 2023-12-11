@@ -152,11 +152,15 @@ in
         };
         output = {
           "*".background = "${my.pkgs.wallpaper} fill";
-          # No scale! See ../wayland-dpi.nix
 
-          "DP-1".position = "2560,0";
-          "HEADLESS-1".position = "0,0"; # On the LHS of primary display.
-          "HEADLESS-1".resolution = "2560x1440";
+          "DP-1" = {
+            position = "2560,0";
+            scale = "1.25";
+          };
+          "HEADLESS-1" = {
+            position = "0,0"; # On the LHS of primary display.
+            resolution = "2560x1440";
+          };
         };
 
         inherit modifier;
