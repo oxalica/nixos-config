@@ -20,7 +20,11 @@
       "steam"
       "steam-original"
       "steam-run"
+      "obsidian"
     ];
+  nixpkgs.config.permittedInsecurePackages = [
+    "electron-25.9.0" # Used by obsidian and logseq.
+  ];
 
   # Boot.
 
