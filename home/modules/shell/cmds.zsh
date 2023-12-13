@@ -26,6 +26,7 @@ alias t="bsdtar"
 alias hex="hexdump -C"
 alias o="xdg-open"
 alias reset="tput reset"
+alias mv="mv --no-copy"
 
 # List tree.
 lt() {
