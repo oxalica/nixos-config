@@ -257,6 +257,9 @@
     radeontop
     solaar # Logitech devices control.
     virtiofsd
+
+    wineWowPackages.staging
+    lutris
   ];
 
   system.stateVersion = "23.11";
