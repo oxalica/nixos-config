@@ -29,10 +29,7 @@
   # Boot.
 
   boot = {
-    kernelPackages =
-      # It's currently 6.7-rc5.
-      assert pkgs.linuxPackages_testing.kernelOlder "6.8";
-      pkgs.linuxPackages_testing;
+    kernelPackages = pkgs.linuxPackages_latest;
 
     kernelModules = [ "kvm-amd" ];
     kernelParams = [
