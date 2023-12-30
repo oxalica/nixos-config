@@ -1,4 +1,4 @@
-{ pkgs, my, ... }:
+{ pkgs, super, my, ... }:
 
 let
   myPython = pkgs.python3.withPackages (ps: with ps; [
@@ -43,7 +43,7 @@ in {
     gcc ghc myPython # Compiler & interpreters
     gdb # Debugger
     sqlite-interactive # sqlite
-    linuxPackages.perf hyperfine
+    super.boot.kernelPackages.perf hyperfine
   ];
 
   programs.feh.enable = true;
