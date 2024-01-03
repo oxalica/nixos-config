@@ -22,6 +22,7 @@ in
     slurp
     sway-contrib.grimshot
     wl-mirror
+    my.pkgs.show-headless-desktop
   ]) ++ (with pkgs.libsForQt5; [
     # From plasma5.
     dolphin
