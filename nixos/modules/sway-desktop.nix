@@ -11,6 +11,7 @@
     enable = true;
     wlr.enable = true;
     extraPortals = [ pkgs.xdg-desktop-portal-gtk ]; # GTK portal is required for GTK apps.
+    xdgOpenUsePortal = true;
   };
 
   services.greetd = {

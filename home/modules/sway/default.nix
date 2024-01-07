@@ -192,6 +192,10 @@ in
         };
       };
 
+      extraSessionCommands = ''
+        ${pkgs.dbus}/bin/dbus-update-activation-environment --systemd --all
+      '';
+
       # Initial placement.
       extraConfig = ''
         workspace 0 output HEADLESS-1
