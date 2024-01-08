@@ -6,7 +6,10 @@
     # https://github.com/alacritty/alacritty/blob/master/alacritty.yml
     settings = {
       import = [
-        "${pkgs.vimPlugins.nightfox-nvim}/extra/nightfox/nightfox_alacritty.yml"
+        # Workaround: https://github.com/EdenEast/nightfox.nvim/issues/399
+        (pkgs.runCommandNoCC "nightfox_alacritty.toml" { } ''
+          ${pkgs.yj}/bin/yj -yt <"${pkgs.vimPlugins.nightfox-nvim}/extra/nightfox/nightfox_alacritty.yml" >$out
+        '')
       ];
 
       window.padding = { x = 4; y = 0; };
