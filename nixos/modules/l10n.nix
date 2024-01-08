@@ -11,7 +11,6 @@
             rimeDataPkgs = [ rime-data my.pkgs.rime_latex ];
           })
         ];
-        waylandFrontend = true;
       };
     };
   };
