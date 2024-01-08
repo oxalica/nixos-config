@@ -5,11 +5,14 @@
     defaultLocale = "en_CA.UTF-8";
     inputMethod = {
       enabled = "fcitx5";
-      fcitx5.addons = with pkgs; [
-        (fcitx5-rime.override {
-          rimeDataPkgs = [ rime-data my.pkgs.rime_latex ];
-        })
-      ];
+      fcitx5 = {
+        addons = with pkgs; [
+          (fcitx5-rime.override {
+            rimeDataPkgs = [ rime-data my.pkgs.rime_latex ];
+          })
+        ];
+        waylandFrontend = true;
+      };
     };
   };
 

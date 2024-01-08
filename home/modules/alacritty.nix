@@ -19,7 +19,7 @@
       font.size = 12 * config.wayland.dpi / 96;
 
       # Set initial command on shortcuts, not for all alacritty.
-      # shell.program = "${pkgs.tmux}/bin/tmux";
+      # `shell.program` is NOT set here.
 
       mouse.hide_when_typing = true;
     };
