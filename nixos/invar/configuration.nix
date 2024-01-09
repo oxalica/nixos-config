@@ -245,6 +245,12 @@
 
   services.printing.cups-pdf.enable = true;
 
+  services.btrfs.autoScrub = {
+    enable = true;
+    fileSystems = [ "/" ];
+    interval = "monthly";
+  };
+
   environment.etc = {
     "machine-id".source = "/var/machine-id";
     "ssh/ssh_host_rsa_key".source = "/var/ssh/ssh_host_rsa_key";

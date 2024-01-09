@@ -214,6 +214,12 @@
 
   programs.virt-manager.enable = true;
 
+  services.btrfs.autoScrub = {
+    enable = true;
+    fileSystems = [ "/" ];
+    interval = "monthly";
+  };
+
   environment.systemPackages = with pkgs; [
     ltunify
   ];
