@@ -5,6 +5,8 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-23.11";
     nixpkgs-unmatched.url = "github:oxalica/nixpkgs/test/unmatched";
+    # WAIT: https://github.com/NixOS/nixpkgs/pull/280054
+    nixpkgs-fix-systembus-notify.url = "github:NixOS/nixpkgs/pull/280054/head";
 
     # Placeholder.
     blank.follows = "nixpkgs";
@@ -66,6 +68,10 @@
 
       sway-unwrapped-im-popup = final: prev: {
         sway-unwrapped = self.packages.${final.stdenv.system}.sway-unwrapped-im-popup;
+      };
+
+      systembus-notify = final: prev: {
+        inherit (inputs.nixpkgs-fix-systembus-notify.legacyPackages.${final.stdenv.system}) systembus-notify;
       };
     };
 
