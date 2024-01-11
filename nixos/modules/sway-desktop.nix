@@ -9,9 +9,13 @@
 
   xdg.portal = {
     enable = true;
-    wlr.enable = true;
     extraPortals = [ pkgs.xdg-desktop-portal-gtk ]; # GTK portal is required for GTK apps.
     xdgOpenUsePortal = true;
+
+    wlr = {
+      enable = true;
+      settings.screencast.max_fps = 10;
+    };
   };
 
   services.greetd = {
