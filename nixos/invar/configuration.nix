@@ -251,6 +251,13 @@
     interval = "monthly";
   };
 
+  programs.gamemode = {
+    enable = true;
+    settings = {
+      general.renice = 10;
+    };
+  };
+
   environment.etc = {
     "machine-id".source = "/var/machine-id";
     "ssh/ssh_host_rsa_key".source = "/var/ssh/ssh_host_rsa_key";

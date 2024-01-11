@@ -26,6 +26,7 @@
       ];
 
       modules-right = [
+        "gamemode"
         "pulseaudio"
         "network"
         "cpu"
