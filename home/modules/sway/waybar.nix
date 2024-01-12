@@ -1,9 +1,13 @@
 # Reference: https://github.com/Egosummiki/dotfiles/tree/f6577e7c7b9474e05d62c0e6e0d38fee860ea4ea/waybar
-{ pkgs, config, ... }:
+{ pkgs, config, my, ... }:
 {
   systemd.user.services.waybar.Service.Slice = "session.slice";
   programs.waybar = {
     enable = true;
+
+    # WAIT: https://github.com/Alexays/Waybar/pull/2820
+    package = my.pkgs.waybar-systemd;
+
     style = pkgs.substituteAll {
       src = ./waybar.css;
       fontSize = 14 * config.wayland.dpi / 96;
@@ -27,6 +31,7 @@
 
       modules-right = [
         "pulseaudio"
+        "systemd-failed-units"
         "network"
         "cpu"
         "memory"
@@ -76,6 +81,10 @@
           critical = 15;
         };
         format-icons = ["" "" "" "" ""];
+      };
+
+      systemd-failed-units = {
+        format = "🩲✗ {nr_failed}";
       };
 
       network = {

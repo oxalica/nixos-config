@@ -75,6 +75,10 @@ window#waybar {
     background: #f53c3c;
 }
 
+#systemd-failed-units {
+    background: #f53c3c;
+}
+
 #pulseaudio {
 }
 
