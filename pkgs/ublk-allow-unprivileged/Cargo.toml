@@ -1,0 +1,7 @@
+[package]
+name = "ublk-allow-unprivileged"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+libublk = "0.2.2"

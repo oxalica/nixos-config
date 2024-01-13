@@ -96,6 +96,8 @@
     };
   };
 
+  services.udev.packages = [ my.pkgs.ublk-allow-unprivileged ];
+
   # Hardware.
 
   time.timeZone = "Asia/Shanghai";
