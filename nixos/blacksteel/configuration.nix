@@ -174,7 +174,6 @@
         };
       };
     };
-    fwupd.enable = true;
   };
 
   nix = {

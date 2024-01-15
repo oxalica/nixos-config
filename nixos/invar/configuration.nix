@@ -243,8 +243,6 @@
 
   programs.virt-manager.enable = true;
 
-  services.fwupd.enable = true;
-
   services.printing.cups-pdf.enable = true;
 
   services.btrfs.autoScrub = {
