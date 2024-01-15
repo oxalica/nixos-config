@@ -216,6 +216,7 @@
   virtualisation.libvirtd = {
     enable = true;
     onBoot = "ignore";
+    qemu.vhostUserPackages = [ pkgs.virtiofsd ];
   };
 
   # Global ssh settings. Also for remote builders.
@@ -262,7 +263,6 @@
   environment.systemPackages = with pkgs; [
     radeontop
     solaar # Logitech devices control.
-    virtiofsd
 
     wineWowPackages.staging
     lutris
