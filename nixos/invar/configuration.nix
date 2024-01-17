@@ -30,6 +30,13 @@
 
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;
+    kernelPatches = [
+      {
+        name = "enable-zone-device";
+        patch = null;
+        extraStructuredConfig.BLK_DEV_ZONED = lib.kernel.yes;
+      }
+    ];
 
     kernelModules = [ "kvm-amd" ];
     kernelParams = [
