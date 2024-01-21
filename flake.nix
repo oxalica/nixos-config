@@ -13,8 +13,7 @@
 
     flake-utils.url = "github:numtide/flake-utils";
     home-manager = {
-      # WAIT: IFD since https://github.com/nix-community/home-manager/pull/4884
-      url = "github:nix-community/home-manager/f2942f3385f1b35cc8a1abb03a45e29c9cb4d3c8";
+      url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     rust-overlay = {
