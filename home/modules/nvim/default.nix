@@ -1,4 +1,4 @@
-{ lib, config, pkgs, my, ... }:
+{ lib, config, pkgs, my, inputs, ... }:
 let
   inherit (pkgs) vimPlugins;
 
@@ -50,6 +50,7 @@ let
     "rust-analyzer.check.command" = "clippy";
     "rust-analyzer.imports.granularity.group" = "module";
     "rust-analyzer.semanticHighlighting.strings.enable" = false;
+    "rust-analyzer.inlayHints.parameterHints.enable" = false;
 
     "sumneko-lua.checkUpdate" = false;
     # https://github.com/xiyaowong/coc-sumneko-lua/issues/22#issuecomment-1252284377
@@ -76,6 +77,7 @@ in
 {
   programs.neovim = {
     enable = true;
+    package = inputs.neovim.packages.${pkgs.system}.neovim;
     withRuby = false;
     inherit plugins;
     extraConfig = vimrc';

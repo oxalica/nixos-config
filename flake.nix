@@ -45,6 +45,11 @@
       url = "github:oxalica/koka/support/vim";
       flake = false;
     };
+    neovim = {
+      url = "github:jlesquembre/neovim?dir=contrib";
+      inputs.flake-utils.follows = "flake-utils";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     meta-sifive = {
       url = "github:sifive/meta-sifive/2021.11.00";

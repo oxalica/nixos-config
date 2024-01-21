@@ -196,6 +196,31 @@
         "type": "github"
       }
     },
+    "neovim": {
+      "inputs": {
+        "flake-utils": [
+          "flake-utils"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "dir": "contrib",
+        "lastModified": 1701468436,
+        "narHash": "sha256-qbFDls2PkSCg1YqWkSm8tYbeqvgVEFrThIoTX1jS8Gw=",
+        "owner": "jlesquembre",
+        "repo": "neovim",
+        "rev": "326045682d04821796d0b07eb4acaf6b6d55b590",
+        "type": "github"
+      },
+      "original": {
+        "dir": "contrib",
+        "owner": "jlesquembre",
+        "repo": "neovim",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1705677747,
@@ -358,6 +383,7 @@
         "koka-vim": "koka-vim",
         "lanzaboote": "lanzaboote",
         "meta-sifive": "meta-sifive",
+        "neovim": "neovim",
         "nixpkgs": "nixpkgs",
         "nixpkgs-fix-systembus-notify": "nixpkgs-fix-systembus-notify",
         "nixpkgs-stable": "nixpkgs-stable_2",
