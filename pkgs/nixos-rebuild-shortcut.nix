@@ -37,8 +37,6 @@ runCommand "nixos-rebuild-shortcut" {
         --use-remote-sudo
         --target-host "$name"
       )
-      # Required by `--use-remote-sudo`
-      export NIX_SSHOPTS="-t"
     fi
 
     cmd+=("$@")
