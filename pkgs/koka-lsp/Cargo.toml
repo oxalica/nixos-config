@@ -1,0 +1,9 @@
+[package]
+name = "koka-lsp"
+version = "0.1.0"
+edition = "2021"
+description = "Wrapper for koka's builtin LSP to work under stdio"
+license = "MIT OR Apache-2.0"
+
+[dependencies]
+anyhow = "1"

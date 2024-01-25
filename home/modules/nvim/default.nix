@@ -70,6 +70,11 @@ let
           formatting.command = [ "${pkgs.nixpkgs-fmt}/bin/nixpkgs-fmt" ];
         };
       };
+      koka = {
+        filetypes = [ "koka" ];
+        command = "${lib.getExe my.pkgs.koka-lsp}";
+        args = [ "koka" ];
+      };
     };
   };
 
