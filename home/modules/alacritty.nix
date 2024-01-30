@@ -3,13 +3,10 @@
   programs.alacritty = {
     enable = true;
 
-    # https://github.com/alacritty/alacritty/blob/master/alacritty.yml
+    # https://alacritty.org/config-alacritty.html
     settings = {
       import = [
-        # Workaround: https://github.com/EdenEast/nightfox.nvim/issues/399
-        (pkgs.runCommandNoCC "nightfox_alacritty.toml" { } ''
-          ${pkgs.yj}/bin/yj -yt <"${pkgs.vimPlugins.nightfox-nvim}/extra/nightfox/nightfox_alacritty.yml" >$out
-        '')
+        "${pkgs.vimPlugins.nightfox-nvim}/extra/nightfox/nightfox_alacritty.toml"
       ];
 
       window.padding = { x = 4; y = 0; };
