@@ -41,10 +41,6 @@
       url = "github:Admicos/minecraft-wayland/one-nineteen";
       flake = false;
     };
-    koka-vim = {
-      url = "github:oxalica/koka/support/vim";
-      flake = false;
-    };
     neovim = {
       url = "github:jlesquembre/neovim?dir=contrib";
       inputs.flake-utils.follows = "flake-utils";

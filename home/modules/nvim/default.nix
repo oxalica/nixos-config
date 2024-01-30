@@ -14,7 +14,9 @@ let
       (lib.filter (x: lib.isList x)
         (builtins.split ''" plugin: ([A-Za-z_-]+)'' vimrc)) ++
     cocPlugins ++ [
-      my.pkgs.koka-vim
+      (pkgs.runCommandNoCC "koka-vim" { } ''
+        ln -s ${my.pkgs.koka}/share/vim-plugins/koka $out
+      '')
     ];
 
   cocPlugins = with vimPlugins; [

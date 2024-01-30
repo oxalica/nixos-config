@@ -131,23 +131,6 @@
         "type": "github"
       }
     },
-    "koka-vim": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1698727938,
-        "narHash": "sha256-iSXA28QZWswLgIgQRQC/q/g6i6f8oOBzVUQm5gpcObM=",
-        "owner": "oxalica",
-        "repo": "koka",
-        "rev": "e09d3a76bf427054189f7e2735168f9c4cafce59",
-        "type": "github"
-      },
-      "original": {
-        "owner": "oxalica",
-        "ref": "support/vim",
-        "repo": "koka",
-        "type": "github"
-      }
-    },
     "lanzaboote": {
       "inputs": {
         "crane": "crane",
@@ -380,7 +363,6 @@
         "flake-utils": "flake-utils",
         "glfw-minecraft-wayland": "glfw-minecraft-wayland",
         "home-manager": "home-manager",
-        "koka-vim": "koka-vim",
         "lanzaboote": "lanzaboote",
         "meta-sifive": "meta-sifive",
         "neovim": "neovim",

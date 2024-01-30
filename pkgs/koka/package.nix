@@ -16,6 +16,7 @@
 , cond
 , containers
 , directory
+, FloatingHex
 , isocline
 , lens
 , lsp
@@ -27,16 +28,15 @@
 , text
 , text-rope
 , time
-, fetchpatch
 }:
 
 let
-  version = "3.0.1";
+  version = "3.0.4";
   src = fetchFromGitHub {
     owner = "koka-lang";
     repo = "koka";
     rev = "v${version}";
-    sha256 = "sha256-fLk4XokoKRQTLlBfpc7JZ3LUiYSIUZTBLyxTsCCXW7Q=";
+    sha256 = "sha256-U8BW1Aq9t3je0YDV8NkE0MzdnjwXBJQbmekh5ufOs3k=";
     fetchSubmodules = true;
   };
   kklib = stdenv.mkDerivation {
@@ -61,12 +61,6 @@ in
 mkDerivation rec {
   pname = "koka";
   inherit version src;
-  patches = [
-    (fetchpatch {
-      url = "https://github.com/koka-lang/koka/commit/9346296a9369f338cc9e8be35550724ec4867943.patch";
-      hash = "sha256-87xbWBca34+gNI/f7h0cKaCyP+NLkajWZTO/KCTErfM=";
-    })
-  ];
   isLibrary = false;
   isExecutable = true;
   libraryToolDepends = [ hpack ];
@@ -80,6 +74,7 @@ mkDerivation rec {
     cond
     containers
     directory
+    FloatingHex
     isocline
     lens
     lsp
@@ -101,6 +96,10 @@ mkDerivation rec {
     wrapProgram "$out/bin/koka" \
       --set CC "${lib.getBin cc}/bin/${cc.targetPrefix}cc" \
       --prefix PATH : "${lib.makeSearchPath "bin" runtimeDeps}"
+
+    mkdir -p $out/share/{vim-plugins,nvim}
+    cp -r support/vim -T $out/share/vim-plugins/koka
+    ln -s $out/share/vim-plugins/koka $out/share/nvim/site
   '';
   doCheck = false;
   prePatch = "hpack";
