@@ -6,7 +6,7 @@
     # https://alacritty.org/config-alacritty.html
     settings = {
       import = [
-        "${pkgs.vimPlugins.nightfox-nvim}/extra/nightfox/nightfox_alacritty.toml"
+        "${pkgs.vimPlugins.nightfox-nvim}/extra/nightfox/alacritty.toml"
       ];
 
       window.padding = { x = 4; y = 0; };
