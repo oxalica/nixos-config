@@ -103,4 +103,13 @@ in
     watchman # Required by coc.nvim for file watching.
     fzf bat # Required by fzf.vim.
   ];
+
+  # Forbid some LSP (eg. pyright) from watching big directories.
+  home.file.".watchman.json".text = builtins.toJSON {
+    ignore_dirs = [
+      "/" "/nix" "/nix/store"
+      "${config.home.homeDirectory}/storage"
+      "${config.home.homeDirectory}/archive"
+    ];
+  };
 }
