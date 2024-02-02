@@ -214,12 +214,6 @@
     enableNotifications = true;
   };
 
-  services.transmission = {
-    enable = true;
-    home = "/home/transmission";
-  };
-  users.groups."transmission".members = [ config.users.users.oxa.name ];
-
   virtualisation.libvirtd = {
     enable = true;
     onBoot = "ignore";
