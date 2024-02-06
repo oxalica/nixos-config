@@ -107,7 +107,7 @@
 
   # Hardware.
 
-  time.timeZone = "Asia/Shanghai";
+  time.timeZone = "America/Toronto";
   powerManagement.cpuFreqGovernor = "performance";
   hardware = {
     enableRedistributableFirmware = true;

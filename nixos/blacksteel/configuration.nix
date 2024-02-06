@@ -100,7 +100,7 @@
     firewall.logRefusedConnections = false;
   };
 
-  time.timeZone = "Asia/Shanghai";
+  time.timeZone = "America/Toronto";
 
   # KDE pulls in pipewire via xdg-desktop-portal anyways.
   services.pipewire = {
