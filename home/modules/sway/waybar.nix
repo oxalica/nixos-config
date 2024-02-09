@@ -64,9 +64,15 @@
 
       clock = {
         interval = 1;
-        format = "{:%Y-%m-%d %H:%M:%S}";
+        format = "{:%Y-%m-%d %H:%M:%S %Z}";
         tooltip = true;
-        tooltip-format = "<big>{:%Y-%m-%d %a}</big>\n<tt>{calendar}</tt>";
+        tooltip-format = "<big>{:%Y-%m-%d %a}</big>\n<tt>{calendar}</tt>\n\n{timezoned_time_list}";
+        timezones = [
+          ""
+          "Asia/Shanghai"
+          "Europe/Helsinki"
+          "Etc/UTC"
+        ];
       };
 
       cpu = {
