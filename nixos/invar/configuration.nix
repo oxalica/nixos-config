@@ -123,17 +123,46 @@
   };
   networking = {
     hostName = "invar";
-    search = [ "lan." ];
     useNetworkd = true;
-    useDHCP = true; # PCIE device changes would cause name changes.
+    # This will be set as systemd-resolved global DNS.
+    nameservers = [ "1.1.1.1#cloudflare-dns.com" "1.0.0.1#cloudflare-dns.com" ];
+    # PCIE device changes would cause name changes.
+    useDHCP = true;
     wireless = {
       enable = true;
-      userControlled.enable = true;
+      environmentFile = config.sops.secrets.wifi-env.path;
+      networks."Our Network".psk = "@HOME_PSK@";
     };
   };
-  systemd.network.wait-online = {
-    anyInterface = true;
-    timeout = 15;
+  sops.secrets.wifi-env.restartUnits = [ "wpa_supplicant.service" ];
+  systemd.network = {
+    enable = true;
+    wait-online = {
+      anyInterface = true;
+      timeout = 15;
+    };
+    networks."50-wlan-home" = {
+      name = "wlp9s0";
+      DHCP = "yes";
+      # NB. The router advertises both itself and upstream DNS. But we must
+      # resolve and only resolve local hostnames via itself.
+      dns = [ "10.0.0.1" ];
+      networkConfig = {
+        DNSOverTLS = false;
+        DNSSEC = false;
+      };
+      dhcpV4Config = {
+        UseDomains = true;
+        UseMTU = true;
+      };
+    };
+  };
+  services.resolved = {
+    enable = true;
+    dnsovertls = "true";
+    dnssec = "true";
+    # Resolve all global domains using public nameservers with DoT and DNSSEC.
+    domains = [ "~." ];
   };
 
   # Users.
