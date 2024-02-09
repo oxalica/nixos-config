@@ -1,7 +1,13 @@
 # Reference: https://github.com/Egosummiki/dotfiles/tree/f6577e7c7b9474e05d62c0e6e0d38fee860ea4ea/waybar
-{ pkgs, config, my, ... }:
+{ lib, pkgs, config, my, ... }:
 {
-  systemd.user.services.waybar.Service.Slice = "session.slice";
+  systemd.user.services.waybar = {
+    Service.Slice = "session.slice";
+    # Restart rather than reload.
+    # Workaround: https://github.com/Alexays/Waybar/issues/1881
+    Service.ExecReload = lib.mkForce "";
+  };
+
   programs.waybar = {
     enable = true;
 
