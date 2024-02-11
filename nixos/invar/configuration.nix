@@ -202,7 +202,7 @@
     pulse.enable = true;
   };
 
-  services.xserver.xkbOptions = "ctrl:swapcaps";
+  services.xserver.xkb.options = "ctrl:swapcaps";
 
   services.timesyncd.enable = true;
 
