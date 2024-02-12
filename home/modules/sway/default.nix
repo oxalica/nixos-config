@@ -132,6 +132,7 @@ in
         floating.criteria = [
           { app_id = "udiskie"; }
           { app_id = "org.kde.ark"; }
+          { app_id = "xdg-desktop-portal-gtk"; }
         ];
 
         gaps = {
