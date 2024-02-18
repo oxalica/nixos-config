@@ -40,7 +40,7 @@ in {
 
     # Dev
     cachix patchelf nixpkgs-review nix-update nix-output-monitor # Nix utils
-    gcc ghc myPython my.pkgs.koka # Compiler & interpreters
+    gcc ghc myPython koka # Compiler & interpreters
     gdb # Debugger
     sqlite-interactive # sqlite
     super.boot.kernelPackages.perf hyperfine

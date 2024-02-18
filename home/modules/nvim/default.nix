@@ -15,7 +15,7 @@ let
         (builtins.split ''" plugin: ([A-Za-z_-]+)'' vimrc)) ++
     cocPlugins ++ [
       (pkgs.runCommandNoCC "koka-vim" { } ''
-        ln -s ${my.pkgs.koka}/share/vim-plugins/koka $out
+        cp -r ${pkgs.koka.src}/support/vim $out
       '')
     ];
 
@@ -74,8 +74,8 @@ let
       };
       koka = {
         filetypes = [ "koka" ];
-        command = "${lib.getExe my.pkgs.koka-lsp}";
-        args = [ "koka" ];
+        command = "koka";
+        args = [ "--language-server" "--lsstdio" ];
       };
     };
   };
