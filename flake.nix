@@ -32,10 +32,15 @@
       inputs.nixpkgs-stable.follows = "nixpkgs-stable";
     };
     lanzaboote = {
-      url = "github:nix-community/lanzaboote/v0.3.0";
+      # Updating this requires quite a bit of recompilation. Locked to a recent enough version
+      # containing <https://github.com/nix-community/lanzaboote/pull/302>.
+      url = "github:nix-community/lanzaboote/098f019407b020f808cf4acecb6f58c6ac12e0ab";
       inputs.flake-compat.follows = "blank";
       inputs.flake-utils.follows = "flake-utils";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.rust-overlay.follows = "rust-overlay";
+      # WAIT: upstream crane is too old without <https://github.com/ipetkov/crane/pull/517>.
+      inputs.crane.follows = "crane";
     };
     glfw-minecraft-wayland = {
       url = "github:Admicos/minecraft-wayland/one-nineteen";
@@ -44,6 +49,11 @@
     neovim = {
       url = "github:jlesquembre/neovim?dir=contrib";
       inputs.flake-utils.follows = "flake-utils";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    # This is in the root just for overriding its 'nixpkgs'.
+    crane = {
+      url = "github:ipetkov/crane/f2926e34a1599837f3256c701739529d772e36e7";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
