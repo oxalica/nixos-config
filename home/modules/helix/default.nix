@@ -17,8 +17,7 @@ in {
         lsp.display-messages = true;
         auto-pairs = true;
 
-        # Wait for: https://github.com/helix-editor/helix/commit/20162a426b991f1a07f347f8180480871d15a27a
-        # auto-format = false;
+        auto-format = false;
 
         cursor-shape = {
           normal = "block";

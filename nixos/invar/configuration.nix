@@ -29,22 +29,14 @@
   # Boot.
 
   boot = {
-    # WAIT: This is 6.8-rc4 currently so that btrfs-fix-over-reservation
-    # patch can be applied.
+    # WAIT: This is 6.8-rc5 with BTRFS over-reservation fix included.
+    # <https://github.com/torvalds/linux/commit/1f3a3e2aaeb4e6ba9b6df6f2e720131765b23b82>
     kernelPackages = pkgs.linuxPackages_testing;
     kernelPatches = [
       {
         name = "enable-zone-device";
         patch = null;
         extraStructuredConfig.BLK_DEV_ZONED = lib.kernel.yes;
-      }
-      {
-        # https://lore.kernel.org/linux-btrfs/eba624e8cef9a1e84c9e1ba0c8f32347aa487e63.1706892030.git.fdmanana@suse.com/
-        name = "btrfs-fix-over-reservation";
-        patch = pkgs.fetchpatch {
-          url = "https://github.com/torvalds/linux/commit/1f3a3e2aaeb4e6ba9b6df6f2e720131765b23b82.patch";
-          hash = "sha256-sn3LA+ZsVl3Ll9iXACKewdC4mmpnhmFIZP+Iz4Nokoc=";
-        };
       }
     ];
 

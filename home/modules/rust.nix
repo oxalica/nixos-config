@@ -44,8 +44,7 @@ in {
       ];
     })
 
-    # WAIT: https://github.com/NixOS/nixpkgs/issues/288064
-    # cargo-audit
+    cargo-audit
     cargo-bloat
     cargo-flamegraph
     cargo-hack
