@@ -77,8 +77,8 @@
         prismlauncher = self.packages.${final.stdenv.system}.prismlauncher-bwrap;
       };
 
-      sway-unwrapped-im-popup = final: prev: {
-        sway-unwrapped = self.packages.${final.stdenv.system}.sway-unwrapped-im-popup;
+      sway-unwrapped-1-9 = final: prev: {
+        sway-unwrapped = self.packages.${final.stdenv.system}.sway-unwrapped-1-9;
       };
 
       systembus-notify = final: prev: {
