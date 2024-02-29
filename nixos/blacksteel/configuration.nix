@@ -38,7 +38,12 @@
       };
     };
 
-    kernelPackages = pkgs.linuxPackages_latest;
+    kernelPackages =
+      # WAIT: 6.8 with BTRFS fixes.
+      lib.warnIf
+        (pkgs.linuxPackages_latest.kernel.kernelAtLeast "6.8")
+        "latest kernel is 6.8 now, no need for testing one"
+        pkgs.linuxPackages_testing;
     kernelModules = [ "kvm-intel" ];
     extraModulePackages = [ ];
 
@@ -48,7 +53,6 @@
     resumeDevice = "/dev/disk/by-uuid/fbfe849d-2d2f-415f-88d3-65ded870e46b";
     kernelParams = [
       "resume_offset=38868224"
-      "intel_pstate=passive"
     ];
 
     loader = {
