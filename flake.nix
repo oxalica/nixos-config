@@ -84,6 +84,11 @@
       systembus-notify = final: prev: {
         inherit (inputs.nixpkgs-fix-systembus-notify.legacyPackages.${final.stdenv.system}) systembus-notify;
       };
+
+      # WAIT: https://github.com/NixOS/nixpkgs/pull/293307
+      rust-analyzer-unwrapped = final: prev: {
+        rust-analyzer-unwrapped = self.packages.${final.stdenv.system}.rust-analyzer-unwrapped-fix-16682;
+      };
     };
 
     nixosModules = {
