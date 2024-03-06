@@ -34,14 +34,6 @@
         "latest kernel is 6.8 now, no need for testing one"
         pkgs.linuxPackages_testing;
 
-    kernelPatches = [
-      {
-        name = "enable-zone-device";
-        patch = null;
-        extraStructuredConfig.BLK_DEV_ZONED = lib.kernel.yes;
-      }
-    ];
-
     kernelModules = [ "kvm-amd" ];
     kernelParams = [
       # Try fixing nvme unavailability issue after S3 resume.
