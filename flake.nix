@@ -77,10 +77,6 @@
         prismlauncher = self.packages.${final.stdenv.system}.prismlauncher-bwrap;
       };
 
-      sway-unwrapped-im-popup = final: prev: {
-        sway-unwrapped = self.packages.${final.stdenv.system}.sway-unwrapped-im-popup;
-      };
-
       systembus-notify = final: prev: {
         inherit (inputs.nixpkgs-fix-systembus-notify.legacyPackages.${final.stdenv.system}) systembus-notify;
       };
