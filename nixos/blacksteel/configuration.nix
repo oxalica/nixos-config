@@ -83,7 +83,6 @@
 
   # Hardware.
 
-  powerManagement.cpuFreqGovernor = "schedutil";
   hardware = {
     cpu.intel.updateMicrocode = true;
     bluetooth.enable = true;
