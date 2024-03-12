@@ -29,7 +29,7 @@
       font-awesome
       hanazono
       # Use bin to save build time (~11min).
-      (iosevka-bin.override { variant = "sgr-iosevka-fixed"; })
+      (iosevka-bin.override { variant = "SGr-IosevkaFixed"; })
 
       # Roman for PDF.
       liberation_ttf
