@@ -19,7 +19,7 @@
     enableScDaemon = true;
     enableSshSupport = true;
 
-    pinentryFlavor = "qt";
+    pinentryPackage = pkgs.pinentry-qt;
     defaultCacheTtl = 600; # Default
     maxCacheTtl = 1800; # Default
   };

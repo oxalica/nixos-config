@@ -34,13 +34,11 @@
     lanzaboote = {
       # Updating this requires quite a bit of recompilation. Locked to a recent enough version
       # containing <https://github.com/nix-community/lanzaboote/pull/302>.
-      url = "github:nix-community/lanzaboote/098f019407b020f808cf4acecb6f58c6ac12e0ab";
+      url = "github:nix-community/lanzaboote/ded8d23709f94aedb1407bee9e26581f258e9e3a";
       inputs.flake-compat.follows = "blank";
       inputs.flake-utils.follows = "flake-utils";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.rust-overlay.follows = "rust-overlay";
-      # WAIT: upstream crane is too old without <https://github.com/ipetkov/crane/pull/517>.
-      inputs.crane.follows = "crane";
     };
     glfw-minecraft-wayland = {
       url = "github:Admicos/minecraft-wayland/one-nineteen";
@@ -49,11 +47,6 @@
     neovim = {
       url = "github:jlesquembre/neovim?dir=contrib";
       inputs.flake-utils.follows = "flake-utils";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    # This is in the root just for overriding its 'nixpkgs'.
-    crane = {
-      url = "github:ipetkov/crane/f2926e34a1599837f3256c701739529d772e36e7";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -79,11 +72,6 @@
 
       systembus-notify = final: prev: {
         inherit (inputs.nixpkgs-fix-systembus-notify.legacyPackages.${final.stdenv.system}) systembus-notify;
-      };
-
-      # WAIT: https://github.com/NixOS/nixpkgs/pull/293307
-      rust-analyzer-unwrapped = final: prev: {
-        rust-analyzer-unwrapped = self.packages.${final.stdenv.system}.rust-analyzer-unwrapped-fix-16682;
       };
     };
 

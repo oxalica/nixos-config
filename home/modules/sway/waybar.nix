@@ -1,5 +1,5 @@
 # Reference: https://github.com/Egosummiki/dotfiles/tree/f6577e7c7b9474e05d62c0e6e0d38fee860ea4ea/waybar
-{ lib, pkgs, config, my, ... }:
+{ lib, pkgs, config, ... }:
 {
   systemd.user.services.waybar = {
     Service.Slice = "session.slice";
@@ -10,9 +10,6 @@
 
   programs.waybar = {
     enable = true;
-
-    # WAIT: https://github.com/Alexays/Waybar/pull/2820
-    package = my.pkgs.waybar-systemd;
 
     style = pkgs.substituteAll {
       src = ./waybar.css;

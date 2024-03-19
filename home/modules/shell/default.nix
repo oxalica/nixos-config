@@ -40,7 +40,7 @@
       setopt no_global_rcs
     '';
 
-    enableAutosuggestions = true;
+    autosuggestion.enable = true;
     enableCompletion = false; # We do it ourselves.
     enableVteIntegration = true;
 

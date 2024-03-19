@@ -26,13 +26,7 @@
   # Boot.
 
   boot = {
-    # WAIT: This is 6.8-rc5 with BTRFS over-reservation fix included.
-    # <https://github.com/torvalds/linux/commit/1f3a3e2aaeb4e6ba9b6df6f2e720131765b23b82>
-    kernelPackages =
-      lib.warnIf
-        (pkgs.linuxPackages_latest.kernel.kernelAtLeast "6.8")
-        "latest kernel is 6.8 now, no need for testing one"
-        pkgs.linuxPackages_testing;
+    kernelPackages = pkgs.linuxPackages_latest;
 
     kernelModules = [ "kvm-amd" ];
     kernelParams = [
