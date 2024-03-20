@@ -34,7 +34,7 @@
       settings = {
         # Random config
         "browser.aboutConfig.showWarning" = false;
-        "browser.toolbars.bookmarks.visibility" = "always";
+        "browser.toolbars.bookmarks.visibility" = "newtab";
         "browser.quitShortcut.disabled" = true; # Prevent C-Q to exit browser.
 
         # Theme.
