@@ -29,11 +29,7 @@
     kernelPackages = pkgs.linuxPackages_latest;
 
     kernelModules = [ "kvm-amd" ];
-    kernelParams = [
-      # Try fixing nvme unavailability issue after S3 resume.
-      # See: https://wiki.archlinux.org/title/Solid_state_drive/NVMe#Controller_failure_due_to_broken_suspend_support
-      "amd_iommu=fullflush"
-    ];
+    kernelParams = [ ];
 
     initrd = {
       systemd.enable = true;
