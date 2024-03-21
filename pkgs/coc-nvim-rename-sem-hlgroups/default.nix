@@ -1,21 +1,17 @@
-# From: https://github.com/neoclide/coc.nvim/pull/4667
+# WAIT: https://github.com/neoclide/coc.nvim/pull/4667
 { fetchFromGitHub, buildNpmPackage }:
 buildNpmPackage rec {
   pname = "coc.nvim-rename-hlgroups";
-  version = "2023-10-19";
+  version = "2024-03-20";
 
   src = fetchFromGitHub {
     owner = "neoclide";
     repo = "coc.nvim";
-    rev = "e3f91b5ed551ae95d1f5c3b75f557f188ad17b52";
-    hash = "sha256-tPuwDO9UUJV3HiCYtBDcx2vDf9WWV5Ca6GusUuNklAI=";
+    rev = "b01ae44a99fd90ac095fbf101ebd234ccf0335d6";
+    hash = "sha256-Ey42t7e1XAOSd0QMyqVFu7Jr9xYTwpnNAgutAgYnKXM=";
   };
 
-  npmDepsHash = "sha256-voD1Mq2QSL/QTpeHhdyPgm1P/sRUzTUAuGW8x5SRkQI=";
-
-  patches = [
-    ./0001-feat-semanticTokens-rename-highlight-groups.patch
-  ];
+  npmDepsHash = "sha256-toV0zuM8f/Jl1CiCnb/902YdranGfU/SFOkX+tkRrVY=";
 
   postPatch = ''
     sed "s/let revision = 'master'/let revision = '${src.rev}'/" \
