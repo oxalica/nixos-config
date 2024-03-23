@@ -86,12 +86,11 @@ in
         snapshot_preserve_min = "latest";
 
         target = "send-receive /mnt/orbmain/backup-invar";
-        target_preserve_min = "1d";
+        target_preserve_min = "1w";
         target_preserve = "*w";
 
-        # subvolume."home/oxa" = {};
         subvolume."home/oxa/storage" = {};
-        # subvolume."home/oxa/archive" = {};
+        subvolume."home/oxa/archive" = {};
       };
     };
   };
