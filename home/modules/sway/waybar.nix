@@ -63,13 +63,19 @@
         interval = 1;
         format = "{:%Y-%m-%d %H:%M:%S %Z}";
         tooltip = true;
-        tooltip-format = "<big>{:%Y-%m-%d %a}</big>\n<tt>{calendar}</tt>\n\n{timezoned_time_list}";
+        tooltip-format = "<big>{:%Y-%m-%d %a}</big>\n<tt>{calendar}</tt>";
         timezones = [
           ""
           "Asia/Shanghai"
           "Europe/Helsinki"
           "Etc/UTC"
         ];
+
+        actions = {
+          on-click-right = "mode";
+          on-scroll-up = "tz_up";
+          on-scroll-down = "tz_down";
+        };
       };
 
       cpu = {
