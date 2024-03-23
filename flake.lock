@@ -298,6 +298,26 @@
         "type": "github"
       }
     },
+    "orb": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1711233589,
+        "narHash": "sha256-htmp0+JJSoMwERuM9PuMpLrXfq2ehXy7Z6xNs60JWjI=",
+        "owner": "oxalica",
+        "repo": "orb",
+        "rev": "c4708783d1ea3aacb25a6be130734572d04f50d7",
+        "type": "github"
+      },
+      "original": {
+        "owner": "oxalica",
+        "repo": "orb",
+        "type": "github"
+      }
+    },
     "pre-commit-hooks-nix": {
       "inputs": {
         "flake-compat": [
@@ -361,6 +381,7 @@
         "nixpkgs-stable": "nixpkgs-stable_2",
         "nixpkgs-unmatched": "nixpkgs-unmatched",
         "nocargo": "nocargo",
+        "orb": "orb",
         "rust-overlay": "rust-overlay",
         "secrets": "secrets",
         "sops-nix": "sops-nix"

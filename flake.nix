@@ -49,6 +49,10 @@
       inputs.flake-utils.follows = "flake-utils";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    orb = {
+      url = "github:oxalica/orb";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     meta-sifive = {
       url = "github:sifive/meta-sifive/2021.11.00";

@@ -2,6 +2,7 @@
 {
   imports = [
     ./btrbk.nix
+    ./orb.nix
 
     ../modules/console-env.nix
     ../modules/device-fix.nix
