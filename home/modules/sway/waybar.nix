@@ -25,6 +25,7 @@
 
       modules-left = [
         "sway/workspaces"
+        "privacy"
         "sway/mode"
       ];
 
