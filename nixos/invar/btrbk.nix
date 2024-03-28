@@ -41,7 +41,7 @@ in
         snapshot_create = "ondemand"; # Always create.
         snapshot_preserve_min = "latest";
 
-        target = "send-receive /mnt/backup/backup-invar";
+        target = "send-receive /mnt/wd2t-btrfs/backup-invar";
         target_preserve_min = "1d";
         target_preserve = "7d 4w *m";
 
@@ -51,8 +51,13 @@ in
       };
     };
   };
+
+  # Backup on harddisk wd2t-btrfs.
   systemd.services."btrbk-backup-wd2t" = {
-    unitConfig.RequiresMountsFor = "/mnt/backup";
+    unitConfig = {
+      RequiresMountsFor = "/mnt/wd2t-btrfs/backup-invar";
+      PropagatesStopTo = [ "systemd-cryptsetup@wd2t\\x2dbtrfs.service" ];
+    };
     serviceConfig = {
       ProtectSystem = "full";
       ProtectHome = "read-only";
@@ -60,20 +65,17 @@ in
       IPAddressDeny = "any";
     };
   };
-
-  # Mount units for the backup harddisk.
   systemd.mounts = [
     {
       type = "btrfs";
       what = "/dev/disk/by-uuid/25d5061d-ef96-456c-8dd1-1bf650f9152b";
-      where = "/mnt/backup";
-      requires = [ "systemd-cryptsetup@luksbackup.service" ];
-      after = [ "systemd-cryptsetup@luksbackup.service" ];
+      where = "/mnt/wd2t-btrfs";
+      requires = [ "systemd-cryptsetup@wd2t\\x2dbtrfs.service" ];
+      after = [ "systemd-cryptsetup@wd2t\\x2dbtrfs.service" ];
     }
   ];
-  # Dashes inside names seem to be escaped inconsistently.
   environment.etc."crypttab".text = ''
-    luksbackup UUID=b300c99f-ca98-4efc-a696-f6e97359bd3c /var/keys/luks-backup-keyfile discard,noauto
+    wd2t-btrfs UUID=b300c99f-ca98-4efc-a696-f6e97359bd3c /var/keys/wd2t-btrfs-keyfile discard,noauto
   '';
 
   # Cloud backup.
@@ -85,7 +87,7 @@ in
         snapshot_create = "ondemand"; # Always create.
         snapshot_preserve_min = "latest";
 
-        target = "send-receive /mnt/orbmain/backup-invar";
+        target = "send-receive /mnt/orb-main/backup-invar";
         target_preserve_min = "1w";
         target_preserve = "*w";
 
@@ -97,7 +99,7 @@ in
   systemd.services."btrbk-backup-orb" = {
     unitConfig = {
       PropagatesStopTo = [ "orb@main.service" ]; # Stop orb when done.
-      RequiresMountsFor = "/mnt/orbmain";
+      RequiresMountsFor = "/mnt/orb-main/backup-invar";
     };
     serviceConfig = {
       ProtectSystem = "full";

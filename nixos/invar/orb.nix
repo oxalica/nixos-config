@@ -28,12 +28,12 @@ in {
 
   environment.etc."orb/main.toml".text = toTOML orbConfig;
 
-  # Escaping of `-` is problematic.
   environment.etc."crypttab".text = ''
-    orbmain /dev/ublkb80 /var/keys/invar-orb-main-keyfile discard,noauto
+    orb-main /dev/ublkb80 /var/keys/orb-main-keyfile noauto
   '';
-  systemd.services."systemd-cryptsetup@orbmain" = {
+  systemd.services."systemd-cryptsetup@orb\\x2dmain" = {
     overrideStrategy = "asDropin";
+    # No way to continue if the service is dead somehow.
     bindsTo = [ "orb@main.service" ];
     after = [ "orb@main.service" ];
   };
@@ -41,9 +41,9 @@ in {
     {
       type = "btrfs";
       what = "/dev/disk/by-uuid/0f880b1f-3fd6-4aac-a29e-959e6f07ed81";
-      where = "/mnt/orbmain";
-      bindsTo = [ "systemd-cryptsetup@orbmain.service" ];
-      after = [ "systemd-cryptsetup@orbmain.service" ];
+      where = "/mnt/orb-main";
+      requires = [ "systemd-cryptsetup@orb\\x2dmain.service" ];
+      after = [ "systemd-cryptsetup@orb\\x2dmain.service" ];
       options = "noatime,commit=300,compress=zstd:7";
     }
   ];
