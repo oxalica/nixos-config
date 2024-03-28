@@ -90,7 +90,7 @@
     };
   };
 
-  services.udev.packages = [ my.pkgs.ublk-allow-unprivileged ];
+  services.udev.packages = [ inputs.orb.packages.${pkgs.system}.ublk-chown-unprivileged ];
 
   # Hardware.
 

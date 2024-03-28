@@ -305,11 +305,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1711443951,
-        "narHash": "sha256-CNYUFKkPqGJL0Pnb1I5wsx3VAbQBrgvX0FAnnhWMz7E=",
+        "lastModified": 1711631266,
+        "narHash": "sha256-q+orXcIULQ74wnLRlY5xY9aBsRmQEqZnyKaeszZCB50=",
         "owner": "oxalica",
         "repo": "orb",
-        "rev": "bbd72ddb876a723988be0bbb70b1c2af010801b1",
+        "rev": "42369a77c61b0c54a632343fe4ed42bcf460199c",
         "type": "github"
       },
       "original": {
