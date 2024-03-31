@@ -1,0 +1,343 @@
+From a7224b1e785d51d74c6bd369ee0c0f586cbdf616 Mon Sep 17 00:00:00 2001
+From: Qu Wenruo <wqu@suse.com>
+Date: Tue, 26 Mar 2024 10:10:33 +1030
+Subject: [PATCH 1/6] btrfs-progs: remove unused header for tune/main.c
+
+My clangd LSP server reports warning that "common/parse-utils.h" is not
+utilized at all.
+
+Just remove it.
+
+Signed-off-by: Qu Wenruo <wqu@suse.com>
+---
+ tune/main.c | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/tune/main.c b/tune/main.c
+index 0fbf37dd4..aa9f39d98 100644
+--- a/tune/main.c
++++ b/tune/main.c
+@@ -33,7 +33,6 @@
+ #include "common/open-utils.h"
+ #include "common/device-scan.h"
+ #include "common/messages.h"
+-#include "common/parse-utils.h"
+ #include "common/string-utils.h"
+ #include "common/help.h"
+ #include "common/box.h"
+
+From 989f76ff228860f64742c7a6672c5f699fea0c18 Mon Sep 17 00:00:00 2001
+From: Qu Wenruo <wqu@suse.com>
+Date: Tue, 26 Mar 2024 10:41:00 +1030
+Subject: [PATCH 2/6] btrfs-progs: tune: add the missing newline for
+ --convert-from-block-group-tree
+
+There is a missing newline for a successful
+--convert-from-block-group-tree run, meanwhile
+--convert-to-block-group-tree has the correct newline.
+
+Signed-off-by: Qu Wenruo <wqu@suse.com>
+---
+ tune/convert-bgt.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/tune/convert-bgt.c b/tune/convert-bgt.c
+index dd3a8c750..1263b1472 100644
+--- a/tune/convert-bgt.c
++++ b/tune/convert-bgt.c
+@@ -270,7 +270,7 @@ int convert_to_extent_tree(struct btrfs_fs_info *fs_info)
+ 		return ret;
+ 	}
+ 	pr_verbose(LOG_DEFAULT,
+-		"Converted filesystem with block-group-tree to extent tree feature");
++		"Converted filesystem with block-group-tree to extent tree feature\n");
+ 	return 0;
+ 
+ error:
+
+From a02d6663b98c19782dc553028b9683fe2929bb37 Mon Sep 17 00:00:00 2001
+From: Qu Wenruo <wqu@suse.com>
+Date: Tue, 26 Mar 2024 09:54:57 +1030
+Subject: [PATCH 3/6] btrfs-progs: mkfs: use proper zoned compatible write for
+ bgt feature
+
+[BUG]
+There is a bug report that mkfs.btrfs can not specify block-group-tree
+feature along with zoned devices:
+
+  # mkfs.btrfs /dev/nullb0 -O block-group-tree,zoned
+  btrfs-progs v6.7.1
+  See https://btrfs.readthedocs.io for more information.
+
+  Resetting device zones /dev/nullb0 (40 zones) ...
+  NOTE: several default settings have changed in version 5.15, please make sure
+        this does not affect your deployments:
+        - DUP for metadata (-m dup)
+        - enabled no-holes (-O no-holes)
+        - enabled free-space-tree (-R free-space-tree)
+
+  ERROR: error during mkfs: Invalid argument
+
+[CAUSE]
+During mkfs, we need to write all the 7 or 8 tree blocks into the
+metadata zone, and since it's zoned device, we need to fulfill all the
+requirement for zoned writes, including:
+
+- All writes must be in sequential bytenr
+- Buffer must be aligned to sector size
+
+The sequential bytenr requirement is already met by the mkfs design, but
+the second requirement on memory alignment is never met for metadata, as
+we put the contents of a leaf in extent_buffer::data[], which is after a
+lot of small members.
+
+Thus metadata IO buffer would never be aligned to sector size (normally
+4K).
+And we require btrfs_pwrite() and btrfs_pread() to handle the memory
+alignment for us.
+
+However in create_block_group_tree() we didn't use btrfs_pwrite(), but
+plain pwrite() call directly, which would lead to -EINVAL error due to
+memory alignment problem.
+
+[FIX]
+Just call btrfs_pwrite() instead of the plain pwrite() in
+create_block_group_tree().
+
+Issue: #765
+Signed-off-by: Qu Wenruo <wqu@suse.com>
+---
+ mkfs/common.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/mkfs/common.c b/mkfs/common.c
+index 5e56b33dd..3c48a6c12 100644
+--- a/mkfs/common.c
++++ b/mkfs/common.c
+@@ -249,8 +249,8 @@ static int create_block_group_tree(int fd, struct btrfs_mkfs_config *cfg,
+ 	btrfs_set_header_nritems(buf, 1);
+ 	csum_tree_block_size(buf, btrfs_csum_type_size(cfg->csum_type), 0,
+ 			     cfg->csum_type);
+-	ret = pwrite(fd, buf->data, cfg->nodesize,
+-		     cfg->blocks[MKFS_BLOCK_GROUP_TREE]);
++	ret = btrfs_pwrite(fd, buf->data, cfg->nodesize,
++			   cfg->blocks[MKFS_BLOCK_GROUP_TREE], cfg->zone_size);
+ 	if (ret != cfg->nodesize)
+ 		return ret < 0 ? -errno : -EIO;
+ 	return 0;
+
+From e9b5485ae6d5c11196e0fb0c611f256dbf606171 Mon Sep 17 00:00:00 2001
+From: Qu Wenruo <wqu@suse.com>
+Date: Tue, 26 Mar 2024 10:13:05 +1030
+Subject: [PATCH 4/6] btrfs-progs: tune: properly open zoned devices for RW
+
+[BUG]
+There is a report that, for zoned devices btrfstune is unable to convert
+it to block group tree.
+
+ # btrfstune /dev/nullb0 --convert-to-block-group-tree
+ Error reading 1342193664, -1
+ Error reading 1342193664, -1
+ ERROR: cannot read chunk root
+ ERROR: open ctree failed
+
+[CAUSE]
+For read-write opened zoned devices, all the read/write has to be
+aligned to its sector size.
+
+However btrfs stores its metadata by extent_buffer::data[], which has
+all the structures before it, thus never aligned to zoned device sector
+size.
+
+Normally we would require btrfs_pread() and btrfs_pwrite() to do the
+extra alignment, but during open_ctree(), we are not aware if a device
+is zoned or not.
+
+Thus we rely on if the fd is opened with O_DIRECT flag, if the fd has
+O_DIRECT, then we would temporarily set fs_info->zoned for chunk tree
+read.
+
+Unforunately not all open_ctree_fd() callers have the flags set
+properly, and btrfstune is one of the missing call site.
+
+This makes all the read not properly aligned and cause read failure.
+
+[FIX]
+Just manually check if the target device is a zoned one, and set
+O_DIRECT accordingly.
+
+Issue: #765
+Signed-off-by: Qu Wenruo <wqu@suse.com>
+---
+ tune/main.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+diff --git a/tune/main.c b/tune/main.c
+index aa9f39d98..397549837 100644
+--- a/tune/main.c
++++ b/tune/main.c
+@@ -29,6 +29,7 @@
+ #include "kernel-shared/transaction.h"
+ #include "kernel-shared/volumes.h"
+ #include "kernel-shared/free-space-tree.h"
++#include "kernel-shared/zoned.h"
+ #include "common/utils.h"
+ #include "common/open-utils.h"
+ #include "common/device-scan.h"
+@@ -193,6 +194,7 @@ int BOX_MAIN(btrfstune)(int argc, char *argv[])
+ 	u64 super_flags = 0;
+ 	int quota = 0;
+ 	int fd = -1;
++	int oflags = O_RDWR;
+ 
+ 	btrfs_config_init();
+ 
+@@ -336,7 +338,9 @@ int BOX_MAIN(btrfstune)(int argc, char *argv[])
+ 		}
+ 	}
+ 
+-	fd = open(device, O_RDWR);
++	if (zoned_model(device) == ZONED_HOST_MANAGED)
++		oflags |= O_DIRECT;
++	fd = open(device, oflags);
+ 	if (fd < 0) {
+ 		error("mount check: cannot open %s: %m", device);
+ 		ret = 1;
+
+From 4bf6bc80f18c716d1cfd21f8f25c3552064c36a5 Mon Sep 17 00:00:00 2001
+From: Qu Wenruo <wqu@suse.com>
+Date: Tue, 26 Mar 2024 10:28:02 +1030
+Subject: [PATCH 5/6] btrfs-progs: tests-mkfs: add test case for zoned block
+ group tree feature
+
+Signed-off-by: Qu Wenruo <wqu@suse.com>
+---
+ tests/mkfs-tests/031-zoned-bgt/test.sh | 40 ++++++++++++++++++++++++++
+ 1 file changed, 40 insertions(+)
+ create mode 100755 tests/mkfs-tests/031-zoned-bgt/test.sh
+
+diff --git a/tests/mkfs-tests/031-zoned-bgt/test.sh b/tests/mkfs-tests/031-zoned-bgt/test.sh
+new file mode 100755
+index 000000000..91c107cd5
+--- /dev/null
++++ b/tests/mkfs-tests/031-zoned-bgt/test.sh
+@@ -0,0 +1,40 @@
++#!/bin/bash
++# Verify mkfs for zoned devices support block-group-tree feature
++
++source "$TEST_TOP/common" || exit
++
++setup_root_helper
++prepare_test_dev
++
++nullb="$TEST_TOP/nullb"
++# Create one 128M device with 4M zones, 32 of them
++size=128
++zone=4
++
++run_mayfail $SUDO_HELPER "$nullb" setup
++if [ $? != 0 ]; then
++	_not_run "cannot setup nullb environment for zoned devices"
++fi
++
++# Record any other pre-existing devices in case creation fails
++run_check $SUDO_HELPER "$nullb" ls
++
++# Last line has the name of the device node path
++out=$(run_check_stdout $SUDO_HELPER "$nullb" create -s "$size" -z "$zone")
++if [ $? != 0 ]; then
++	_fail "cannot create nullb zoned device $i"
++fi
++dev=$(echo "$out" | tail -n 1)
++name=$(basename "${dev}")
++
++run_check $SUDO_HELPER "$nullb" ls
++
++TEST_DEV="${dev}"
++# Use single as it's supported on more kernels
++run_check $SUDO_HELPER "$TOP/mkfs.btrfs" -m single -d single -O block-group-tree "${dev}"
++run_check_mount_test_dev
++run_check $SUDO_HELPER dd if=/dev/zero of="$TEST_MNT"/file bs=1M count=1
++run_check $SUDO_HELPER "$TOP/btrfs" filesystem usage -T "$TEST_MNT"
++run_check_umount_test_dev
++
++run_check $SUDO_HELPER "$nullb" rm "${name}"
+
+From 7d908ff898f01f5401cc0f2d9865873c09f884a7 Mon Sep 17 00:00:00 2001
+From: Qu Wenruo <wqu@suse.com>
+Date: Tue, 26 Mar 2024 10:38:50 +1030
+Subject: [PATCH 6/6] btrfs-progs: tests-misc: add a test case to check zoned
+ bgt conversion
+
+Add a new test case to make sure:
+
+- btrfstune can convert a zoned btrfs with extent tree to bgt
+- btrfstune can convert a zoned btrfs with bgt back to extent tree
+
+Signed-off-by: Qu Wenruo <wqu@suse.com>
+---
+ .../063-btrfstune-zoned-bgt/test.sh           | 55 +++++++++++++++++++
+ 1 file changed, 55 insertions(+)
+ create mode 100755 tests/misc-tests/063-btrfstune-zoned-bgt/test.sh
+
+diff --git a/tests/misc-tests/063-btrfstune-zoned-bgt/test.sh b/tests/misc-tests/063-btrfstune-zoned-bgt/test.sh
+new file mode 100755
+index 000000000..dc2003cc7
+--- /dev/null
++++ b/tests/misc-tests/063-btrfstune-zoned-bgt/test.sh
+@@ -0,0 +1,55 @@
++#!/bin/bash
++# Verify btrfstune for zoned devices with block-group-tree conversion
++
++source "$TEST_TOP/common" || exit
++
++setup_root_helper
++prepare_test_dev
++
++nullb="$TEST_TOP/nullb"
++# Create one 128M device with 4M zones, 32 of them
++size=128
++zone=4
++
++run_mayfail $SUDO_HELPER "$nullb" setup
++if [ $? != 0 ]; then
++	_not_run "cannot setup nullb environment for zoned devices"
++fi
++
++# Record any other pre-existing devices in case creation fails
++run_check $SUDO_HELPER "$nullb" ls
++
++# Last line has the name of the device node path
++out=$(run_check_stdout $SUDO_HELPER "$nullb" create -s "$size" -z "$zone")
++if [ $? != 0 ]; then
++	_fail "cannot create nullb zoned device $i"
++fi
++dev=$(echo "$out" | tail -n 1)
++name=$(basename "${dev}")
++
++run_check $SUDO_HELPER "$nullb" ls
++
++TEST_DEV="${dev}"
++
++# Create the fs without bgt
++run_check $SUDO_HELPER "$TOP/mkfs.btrfs" -f -m single -d single -O ^block-group-tree "${dev}"
++run_check_mount_test_dev
++run_check $SUDO_HELPER dd if=/dev/zero of="$TEST_MNT"/file1 bs=1M count=1
++run_check $SUDO_HELPER "$TOP/btrfs" filesystem usage -T "$TEST_MNT"
++run_check_umount_test_dev
++
++# Convert to bgt
++run_check $SUDO_HELPER "$TOP/btrfstune" --convert-to-block-group-tree "${dev}"
++run_check_mount_test_dev
++run_check $SUDO_HELPER dd if=/dev/zero of="$TEST_MNT"/file2 bs=1M count=1
++run_check $SUDO_HELPER "$TOP/btrfs" filesystem usage -T "$TEST_MNT"
++run_check_umount_test_dev
++
++# And convert back to old extent tree
++run_check $SUDO_HELPER "$TOP/btrfstune" --convert-from-block-group-tree "${dev}"
++run_check_mount_test_dev
++run_check $SUDO_HELPER dd if=/dev/zero of="$TEST_MNT"/file3 bs=1M count=1
++run_check $SUDO_HELPER "$TOP/btrfs" filesystem usage -T "$TEST_MNT"
++run_check_umount_test_dev
++
++run_check $SUDO_HELPER "$nullb" rm "${name}"
