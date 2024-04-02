@@ -139,7 +139,7 @@
 
     nixosConfigurations = {
       invar = mkSystem "invar" "x86_64-linux" inputs.nixpkgs {
-        extraModules = with nixosModules; [ home-manager sops ];
+        extraModules = with nixosModules; [ home-manager sops inputs.orb.nixosModules.orb ];
       };
 
       blacksteel = mkSystem "blacksteel" "x86_64-linux" inputs.nixpkgs {

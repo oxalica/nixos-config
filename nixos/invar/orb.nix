@@ -1,9 +1,6 @@
-{ pkgs, inputs, ... }:
-let
-  inherit (inputs.orb.packages.${pkgs.system}) orb;
-  inherit (inputs.self.lib) toTOML;
-
-  orbConfig = {
+{ ... }:
+{
+  services.orb.instances.main.settings = {
     ublk.id = 80;
     device = {
       dev_size = "1TiB";
@@ -15,18 +12,6 @@ let
     };
     backend.onedrive.remote_dir = "/orb";
   };
-
-in {
-  systemd.packages = [ orb ];
-  environment.systemPackages = [ orb ];
-
-  # Do not accidentally stop active filesystems.
-  systemd.services."orb@" = {
-    restartIfChanged = false;
-    stopIfChanged = false;
-  };
-
-  environment.etc."orb/main.toml".text = toTOML orbConfig;
 
   environment.etc."crypttab".text = ''
     orb-main /dev/ublkb80 /var/keys/orb-main-keyfile noauto
