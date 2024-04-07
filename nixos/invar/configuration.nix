@@ -27,7 +27,10 @@
   # Boot.
 
   boot = {
-    kernelPackages = pkgs.linuxPackages_latest;
+    kernelPackages =
+      # WAIT https://github.com/torvalds/linux/commit/a8b70c7f8600bc77d03c0b032c0662259b9e615e
+      lib.warnIf (pkgs.linuxPackages_latest.kernelAtLeast "6.9") "stable kernel >= 6.9 now"
+        pkgs.linuxPackages_testing;
 
     kernelModules = [ "kvm-amd" ];
     kernelParams = [ ];
