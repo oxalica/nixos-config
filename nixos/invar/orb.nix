@@ -29,7 +29,7 @@
       where = "/mnt/orb-main";
       requires = [ "systemd-cryptsetup@orb\\x2dmain.service" ];
       after = [ "systemd-cryptsetup@orb\\x2dmain.service" ];
-      options = "noatime,commit=300,compress=zstd:7";
+      options = "noatime,compress=zstd:7";
     }
   ];
 }
