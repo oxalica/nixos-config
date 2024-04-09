@@ -255,6 +255,12 @@
   users.groups."adbusers".members = [ config.users.users.oxa.name ];
 
   programs.steam.enable = true;
+  # WAIT: https://github.com/NixOS/nixpkgs/pull/302862
+  programs.steam.package = pkgs.steam.override (prev: {
+    extraPkgs = pkgs: let
+      prevPkgs = if prev ? extraPkgs then prev.extraPkgs pkgs else [ ];
+    in prevPkgs ++ config.fonts.packages;
+  });
 
   programs.wireshark = {
     enable = true;
