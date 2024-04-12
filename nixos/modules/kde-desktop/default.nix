@@ -13,10 +13,9 @@
   };
 
   services.desktopManager.plasma6.enable = true;
-  services.xserver = {
+  services.displayManager.sddm = {
     enable = true;
-    xkb.layout = "us";
-    displayManager.sddm.enable = true;
+    wayland.enable = true;
   };
 
   networking.networkmanager.enable = true;
