@@ -89,7 +89,7 @@
       source ${pkgs.zsh-fast-syntax-highlighting}/share/zsh/site-functions/fast-syntax-highlighting.plugin.zsh
       source ${my.pkgs.zsh-comma}/share/zsh/comma/comma.zsh
       FAST_HIGHLIGHT[use_async]=1 # Improve paste delay for nix store paths.
-      source ${pkgs.fzf}/share/fzf/key-bindings.zsh
+      source <(${lib.getExe pkgs.fzf} --zsh)
     '';
   };
 
