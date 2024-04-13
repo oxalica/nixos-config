@@ -3,6 +3,7 @@
   imports = [
     ./btrbk.nix
     ./orb.nix
+    ./syncthing.nix
 
     ../modules/console-env.nix
     ../modules/device-fix.nix
