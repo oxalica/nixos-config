@@ -5,8 +5,6 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-23.11";
     nixpkgs-unmatched.url = "github:oxalica/nixpkgs/test/unmatched";
-    # WAIT: https://github.com/NixOS/nixpkgs/pull/280054
-    nixpkgs-fix-systembus-notify.url = "github:NixOS/nixpkgs/pull/280054/head";
 
     # Placeholder.
     blank.follows = "nixpkgs";
@@ -72,10 +70,6 @@
       # Wrap the launcher in sandbox to mitigate potential malwares.
       prismlauncher-bwrap = final: prev: {
         prismlauncher = self.packages.${final.stdenv.system}.prismlauncher-bwrap;
-      };
-
-      systembus-notify = final: prev: {
-        inherit (inputs.nixpkgs-fix-systembus-notify.legacyPackages.${final.stdenv.system}) systembus-notify;
       };
     };
 

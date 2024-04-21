@@ -61,7 +61,7 @@ in
 
   qt = {
     enable = true;
-    platformTheme = "gnome";
+    platformTheme.name = "adwaita";
     style.package = pkgs.breeze-qt5;
     style.name = "Breeze-dark"; # It should be `Breeze` but qtgnomeplatform needs a "-dark" postfix.
   };
@@ -72,6 +72,8 @@ in
     xwayland = true;
     wrapperFeatures.gtk = true;
     systemd.enable = true;
+    # This makes the xdg-open portal work, but I don't know why.
+    systemd.variables = [ "--all" ];
 
     config =
       let
@@ -192,10 +194,6 @@ in
           ${logoutMode.name} = logoutMode.keys;
         };
       };
-
-      extraSessionCommands = ''
-        ${pkgs.dbus}/bin/dbus-update-activation-environment --systemd --all
-      '';
 
       # Initial placement.
       extraConfig = ''
