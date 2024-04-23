@@ -30,18 +30,12 @@
   xdg.enable = true;
 
   home.file = let
-    home = config.home.homeDirectory;
-    link = path: config.lib.file.mkOutOfStoreSymlink "${home}/${path}";
-    linkPersonal = path: link "storage/personal/${path}";
+    link = path: config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/${path}";
   in {
-    ".local/share/fcitx5/rime/sync".source = linkPersonal "rime-sync";
-    ".local/share/osu".source = linkPersonal "game/osu-lazer";
-    ".local/share/password-store".source = linkPersonal "password-store";
-    ".local/share/task".source = linkPersonal "taskwarrior";
-    ".ssh".source = linkPersonal "ssh";
+    ".local/share/task".source = link "storage/0x-system/02-todo/02.01-taskwarrior";
+    ".local/share/password-store".source = link "storage/5x-state/51-secret/51.10-password-store";
+    ".local/share/fcitx5/rime/sync".source = link "storage/5x-state/55-backup/55.06-rime-directory";
   };
-
-  programs.gpg.homedir = "${config.home.homeDirectory}/storage/personal/gnupg";
 
   systemd.user.services."rime-sync" = {
     Unit.Description = "Export rime dictionary";
