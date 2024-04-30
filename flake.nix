@@ -38,10 +38,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.rust-overlay.follows = "rust-overlay";
     };
-    glfw-minecraft-wayland = {
-      url = "github:Admicos/minecraft-wayland/one-nineteen";
-      flake = false;
-    };
     neovim = {
       url = "github:jlesquembre/neovim?dir=contrib";
       inputs.flake-utils.follows = "flake-utils";

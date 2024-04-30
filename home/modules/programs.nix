@@ -17,10 +17,6 @@ let
     ];
   };
 
-  prismlauncher = pkgs.prismlauncher.override {
-    glfw = my.pkgs.glfw-minecraft-wayland;
-  };
-
 in {
   home.packages = with pkgs; [
     # Console
