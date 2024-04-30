@@ -178,7 +178,7 @@
   # Services.
   nix.settings.cores = 14;
   systemd.services.nix-daemon.serviceConfig = {
-    CPUWeight = 30;
+    CPUWeight = "idle";
     IOWeight = 30;
 
     MemoryMax = "80%";
