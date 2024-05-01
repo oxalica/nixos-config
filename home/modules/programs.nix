@@ -17,6 +17,8 @@ let
     ];
   };
 
+  telegram-desktop = my.pkgs.telegram-desktop-fix-screencast-glitch;
+
 in {
   home.packages = with pkgs; [
     # Console
