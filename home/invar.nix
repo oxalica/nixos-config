@@ -1,4 +1,4 @@
-{ pkgs, config, ... }:
+{ lib, pkgs, config, ... }:
 
 {
   programs.home-manager.enable = true;
@@ -24,6 +24,14 @@
 
   # For Xwayland apps, ie. electron and steam.
   xresources.properties."Xft.dpi" = 120;
+  # NB. The Xresources is not loaded automatically outside an X session.
+  systemd.user.services."load-xresources" = {
+    Unit.Description = "Load user X resources from '~/.Xresources'";
+    Service.Type = "oneshot";
+    Service.ExecStart = "${lib.getExe pkgs.xorg.xrdb} -load ${config.xresources.path}";
+    Unit.After = [ "plasma-kwin_wayland.service" ];
+    Install.WantedBy = [ "graphical-session.target" ];
+  };
 
   xdg.enable = true;
 
