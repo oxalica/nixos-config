@@ -1,4 +1,4 @@
-{ pkgs, super, my, ... }:
+{ lib, pkgs, super, my, ... }:
 
 let
   myPython = pkgs.python3.withPackages (ps: with ps; [
@@ -45,4 +45,16 @@ in {
   ];
 
   programs.feh.enable = true;
+
+  xdg.configFile = let
+    gen = path: {
+      name = "autostart/${builtins.unsafeDiscardStringContext (builtins.baseNameOf path)}";
+      value.source = path;
+    };
+  in lib.listToAttrs (map gen [
+    "${pkgs.firefox}/share/applications/firefox.desktop"
+    "${pkgs.telegram-desktop}/share/applications/org.telegram.desktop.desktop"
+    "${pkgs.nheko}/share/applications/nheko.desktop"
+    "${pkgs.thunderbird}/share/applications/thunderbird.desktop"
+  ]);
 }
