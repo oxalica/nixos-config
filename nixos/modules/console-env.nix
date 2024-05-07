@@ -14,7 +14,7 @@
   environment.systemPackages = with pkgs; [
     cntr # Nix helpers.
     procs gdu swapview smartmontools pciutils usbutils # System info.
-    curl git strace pv tree fd ripgrep lsof jq loop bc file rsync dnsutils # Utilities.
+    moreutils curl git strace pv tree fd ripgrep lsof jq loop bc file rsync dnsutils # Utilities.
     e2fsprogs compsize # Filesystems.
     gnupg age pwgen sops ssh-to-age # Crypto.
     libarchive zstd # Compression.
