@@ -23,7 +23,7 @@ runCommand "nixos-rebuild-shortcut" {
     # Simple local build.
     if [[ "$action" == build && "$name" == "$localname" ]]; then
       set -x
-      exec nix build .#nixosSystems."$name" "$@"
+      exec nom build .#nixosSystems."$name" "$@"
     fi
 
     if [[ "$action" =~ (boot|switch|test) && "$name" == "$localname" && "$(id -u)" != 0 ]]; then
