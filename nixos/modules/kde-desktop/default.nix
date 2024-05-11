@@ -1,10 +1,9 @@
-{ pkgs, my, ... }:
+{ pkgs, ... }:
 {
   imports = [ ../l10n.nix ];
 
   environment.systemPackages = with pkgs.kdePackages; [
     filelight
-    my.pkgs.bismuth-fix-5-27
   ];
 
   programs = {
