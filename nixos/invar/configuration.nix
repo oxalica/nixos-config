@@ -264,6 +264,22 @@
       prevPkgs = if prev ? extraPkgs then prev.extraPkgs pkgs else [ ];
     in prevPkgs ++ config.fonts.packages;
   });
+  programs.gamemode = {
+    enable = true;
+    settings = {
+      general.igpu_desiredgov = "performance";
+      gpu = {
+        apply_gpu_optimisations = "accept-responsibility";
+        gpu_device = 1;
+        amd_performance_level = "high";
+      };
+      custom = {
+        start = "${lib.getExe pkgs.libnotify} 'Enter GameMode'";
+        end = "${lib.getExe pkgs.libnotify} 'Leave GameMode'";
+      };
+    };
+  };
+  users.groups."gamemode".members = [ config.users.users.oxa.name ];
 
   programs.wireshark = {
     enable = true;
