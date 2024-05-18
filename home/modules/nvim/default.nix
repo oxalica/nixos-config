@@ -84,7 +84,6 @@ in
 {
   programs.neovim = {
     enable = true;
-    package = inputs.neovim.packages.${pkgs.system}.neovim;
     withRuby = false;
     inherit plugins;
     extraConfig = vimrc';

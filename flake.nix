@@ -38,11 +38,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.rust-overlay.follows = "rust-overlay";
     };
-    neovim = {
-      url = "github:jlesquembre/neovim?dir=contrib";
-      inputs.flake-utils.follows = "flake-utils";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     orb = {
       url = "github:oxalica/orb";
       inputs.nixpkgs.follows = "nixpkgs";
