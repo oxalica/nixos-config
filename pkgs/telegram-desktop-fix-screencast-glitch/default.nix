@@ -2,12 +2,10 @@
 let
   tg_owt' = telegram-desktop.tg_owt.overrideAttrs (old: {
     patches = old.patches or [] ++ [
+      # WAIT: https://github.com/desktop-app/tg_owt/pull/129
       (fetchpatch {
-        url = "https://webrtc-review.googlesource.com/changes/src~349881/revisions/3/patch?download";
-        decode = "base64 -d";
-        stripLen = 1;
-        extraPrefix = "src/";
-        hash = "sha256-/zMTejwEODfNDBLFaZ9Q15kZnfubUocBx5qXzb297cE=";
+        url = "https://github.com/oxalica/tg_owt/commit/e933a7bb3969e5215e305bd0d656da16008bc747.patch";
+        hash = "sha256-8a500E2G4FP1bwJLH8RnViSkjBshWobPpW0hQiMytb0=";
       })
     ];
   });
