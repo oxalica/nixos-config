@@ -11,6 +11,7 @@
       automatic = true;
       dates = "Wed,Sat 01:00";
       options = "--delete-older-than 8d";
+      persistent = false;
     };
 
     settings = {
