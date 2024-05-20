@@ -59,4 +59,23 @@
       KbdInteractiveAuthentication = false;
     };
   };
+
+  environment.defaultPackages = lib.mkForce [ ];
+  services.lvm.enable = false;
+  boot.swraid.enable = false;
+  documentation.enable = false;
+  fonts.fontconfig.enable = lib.mkDefault false;
+
+  programs = {
+    command-not-found.enable = false;
+    vim.defaultEditor = true;
+    nano.enable = lib.mkDefault false;
+    htop.enable = true;
+    tmux.enable = true;
+    less.enable = true;
+  };
+
+  environment.systemPackages = with pkgs; [
+    curl dnsutils
+  ];
 }

@@ -1,11 +1,8 @@
-{ config, pkgs, inputs, ... }:
+{ config, pkgs, ... }:
 {
   imports = [
-    ../modules/console-env.nix
     ../modules/nix-common.nix
     ../modules/vultr-common.nix
-
-    inputs.secrets.nixosModules.lithium
   ];
 
   documentation.enable = false;
@@ -18,7 +15,7 @@
   ];
 
   environment.systemPackages = with pkgs; [
-    git
+    gitMinimal curl
   ];
 
   sops.secrets."cloudflare/privateKey".restartUnits = [ "wireguard-cloudflare.service" ];
