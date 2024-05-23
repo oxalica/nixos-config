@@ -9,6 +9,7 @@
     ../modules/kde-desktop
     ../modules/nix-cgroups.nix
     ../modules/nix-common.nix
+    ../modules/nix-keep-flake-inputs.nix
     ../modules/nix-registry.nix
     ../modules/secure-boot.nix
   ] ++ lib.optional (inputs ? secrets) (inputs.secrets.nixosModules.blacksteel);
