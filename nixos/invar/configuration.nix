@@ -150,8 +150,6 @@
   };
   services.resolved = {
     enable = true;
-    dnsovertls = "true";
-    dnssec = "true";
     # Resolve all global domains using public nameservers with DoT and DNSSEC.
     domains = [ "~." ];
   };
