@@ -45,8 +45,6 @@ let
 
     "[rust]"."coc.preferences.formatOnSave" = true;
 
-    "pyright.server" = "${lib.getBin pkgs.pyright}/bin/pyright-langserver";
-
     "rust-analyzer.updates.checkOnStartup" = false;
     "rust-analyzer.server.path" = "${lib.getBin pkgs.rust-analyzer}/bin/rust-analyzer";
     "rust-analyzer.check.command" = "clippy";
