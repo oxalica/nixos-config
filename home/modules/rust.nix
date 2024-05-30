@@ -62,7 +62,7 @@ in {
     cargoAudit = toTOML cargoAudit;
   } ''
     mkdir -p $out
-    ln -st $out "${config.xdg.cacheHome}"/cargo/{registry,git}
+    ln -st $out "${config.xdg.cacheHome}"/cargo/{registry,git,.global-cache,.package-cache,.package-cache-mutate}
     ln -st $out "${config.xdg.configHome}"/cargo/credentials.toml
     echo -n "$cargoConfig" >$out/config.toml
     echo -n "$cargoAudit" >$out/audit.toml
@@ -73,5 +73,10 @@ in {
     if [[ ! -e "${config.xdg.configHome}"/cargo/credentials.toml ]]; then
       $DRY_RUN_CMD touch -a "${config.xdg.configHome}"/cargo/credentials.toml
     fi
+    for f in .global-cache .package-cache .package-cache-mutate; do
+      if [[ ! -e "${config.xdg.cacheHome}"/cargo/"$f" ]]; then
+        $DRY_RUN_CMD touch -a "${config.xdg.cacheHome}"/cargo/"$f"
+      fi
+    done
   '';
 }
