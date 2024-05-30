@@ -1,9 +1,9 @@
 { pkgs, inputs, ... }:
 {
   nix = {
-    # !! Warning: 2.19 currently fails to build this config !!
-    # See: https://github.com/nix-community/home-manager/issues/4692
-    package = assert builtins.compareVersions pkgs.nix.version "2.19" < 0; pkgs.nix;
+    # Ensure this is >= 2.22.1 with the following fix included, or it failes to eval.
+    # https://github.com/NixOS/nix/pull/10456
+    package = pkgs.nixVersions.latest;
 
     channel.enable = false;
 
@@ -18,7 +18,6 @@
       experimental-features = [
         "nix-command"
         "flakes"
-        "repl-flake"
         "ca-derivations"
       ];
 
