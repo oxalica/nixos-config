@@ -1,9 +1,9 @@
-{ pkgs, inputs, ... }:
+{ lib, pkgs, inputs, ... }:
 {
   nix = {
     # Ensure this is >= 2.22.1 with the following fix included, or it failes to eval.
     # https://github.com/NixOS/nix/pull/10456
-    package = pkgs.nixVersions.latest;
+    package = lib.mkDefault pkgs.nixVersions.latest;
 
     channel.enable = false;
 

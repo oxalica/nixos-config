@@ -1,4 +1,4 @@
-{ lib, config, modulesPath, my, ... }:
+{ lib, config, pkgs, modulesPath, my, ... }:
 {
   imports = [
     (modulesPath + "/profiles/qemu-guest.nix")
@@ -49,6 +49,7 @@
 
   security.sudo.wheelNeedsPassword = false;
 
+  nix.package = pkgs.nix;
   nix.settings.auto-optimise-store = lib.mkForce false;
 
   services.openssh = {
