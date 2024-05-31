@@ -141,6 +141,7 @@
   services = {
     openssh = {
       enable = true;
+      authorizedKeysInHomedir = false;
       settings = {
         KbdInteractiveAuthentication = false;
         PasswordAuthentication = false;
