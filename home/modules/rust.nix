@@ -69,13 +69,13 @@ in {
   ''}";
 
   home.activation.setupCargoDirectories = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-    $DRY_RUN_CMD mkdir -p "${config.xdg.configHome}"/cargo "${config.xdg.cacheHome}"/cargo/{registry,git}
+    run mkdir -p "${config.xdg.configHome}"/cargo "${config.xdg.cacheHome}"/cargo/{registry,git}
     if [[ ! -e "${config.xdg.configHome}"/cargo/credentials.toml ]]; then
-      $DRY_RUN_CMD touch -a "${config.xdg.configHome}"/cargo/credentials.toml
+      run touch -a "${config.xdg.configHome}"/cargo/credentials.toml
     fi
     for f in .global-cache .package-cache .package-cache-mutate; do
       if [[ ! -e "${config.xdg.cacheHome}"/cargo/"$f" ]]; then
-        $DRY_RUN_CMD touch -a "${config.xdg.cacheHome}"/cargo/"$f"
+        run touch -a "${config.xdg.cacheHome}"/cargo/"$f"
       fi
     done
   '';

@@ -7,12 +7,12 @@ let
   '';
 in {
   home.activation.setupRimeCacheDirectory = lib.hm.dag.entryAfter [ "writeBoundary" "onFilesChange" ] ''
-    $DRY_RUN_CMD mkdir -p "${buildDir}"
+    run mkdir -p "${buildDir}"
     if [[ -v rimeSettingChanged ]]; then
-      $DRY_RUN_CMD rm -rf "${buildDir}"/*
+      run rm -rf "${buildDir}"/*
     fi
     if [[ -z "$(ls ${buildDir})" ]]; then
-      $DRY_RUN_CMD ${pkgs.qt5.qttools.bin}/bin/qdbus org.fcitx.Fcitx5 /controller org.fcitx.Fcitx.Controller1.SetConfig "fcitx://config/addon/rime/deploy" ""
+      run ${pkgs.qt5.qttools.bin}/bin/qdbus org.fcitx.Fcitx5 /controller org.fcitx.Fcitx.Controller1.SetConfig "fcitx://config/addon/rime/deploy" ""
     fi
   '';
 
