@@ -174,6 +174,9 @@
   home-manager.users."oxa" = import ../../home/invar.nix;
 
   # Services.
+
+  services.dbus.implementation = "broker";
+
   nix.settings.cores = 14;
   systemd.services.nix-daemon.serviceConfig = {
     CPUWeight = "idle";

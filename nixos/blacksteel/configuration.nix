@@ -139,6 +139,7 @@
   # Services.
 
   services = {
+    dbus.implementation = "broker";
     openssh = {
       enable = true;
       authorizedKeysInHomedir = false;
