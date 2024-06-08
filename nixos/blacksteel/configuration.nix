@@ -217,6 +217,22 @@
     interval = "monthly";
   };
 
+  programs.gamemode = {
+    enable = true;
+    settings = {
+      general.igpu_desiredgov = "performance";
+      gpu = {
+        apply_gpu_optimisations = "accept-responsibility";
+        gpu_device = 1;
+      };
+      custom = {
+        start = "${lib.getExe pkgs.libnotify} 'Enter GameMode'";
+        end = "${lib.getExe pkgs.libnotify} 'Leave GameMode'";
+      };
+    };
+  };
+  users.groups."gamemode".members = [ config.users.users.oxa.name ];
+
   environment.systemPackages = with pkgs; [
     ltunify
   ];
