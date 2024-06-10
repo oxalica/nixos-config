@@ -2,7 +2,7 @@
 { lib, config, pkgs, modulesPath, ... }:
 {
   imports = [
-    (modulesPath + "/installer/cd-dvd/installation-cd-minimal.nix")
+    (modulesPath + "/installer/cd-dvd/installation-cd-minimal-new-kernel-no-zfs.nix")
     ../modules/console-env.nix
     ../modules/nix-binary-cache-mirror.nix
   ];
@@ -18,8 +18,6 @@
   boot.swraid.enable = lib.mkForce false;
 
   networking.hostName = "nixoxa";
-
-  boot.kernelPackages = pkgs.linuxPackages_latest;
 
   nix = {
     settings = {
