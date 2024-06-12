@@ -23,7 +23,6 @@
       "steam"
       "steam-original"
       "steam-run"
-      "obsidian"
     ];
 
   # Boot.

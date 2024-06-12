@@ -31,7 +31,7 @@ in {
     sops # Sops
 
     # GUI
-    kolourpaint libreoffice mpv okular gwenview obsidian logseq lyx # Files
+    kolourpaint libreoffice mpv okular gwenview logseq lyx # Files
     electrum electron-cash monero-gui # Cryptocurrency
     prismlauncher /* steam <- enabled system-wide */ # Games
     telegram-desktop nheko # Messaging
