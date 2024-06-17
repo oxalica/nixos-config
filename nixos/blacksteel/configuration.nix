@@ -21,6 +21,11 @@
       "steam-run"
     ];
 
+  # FIXME: `logseq` depends on electron 27 yet.
+  nixpkgs.config.permittedInsecurePackages = [
+    "electron-27.3.11"
+  ];
+
   # Boot.
 
   boot = {
