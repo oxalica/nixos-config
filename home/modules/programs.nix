@@ -17,8 +17,6 @@ let
     ];
   };
 
-  telegram-desktop = my.pkgs.telegram-desktop-fix-screencast-glitch;
-
   nix-output-monitor = my.pkgs.nix-output-monitor-fix-trace;
 
 in {
