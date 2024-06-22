@@ -37,7 +37,7 @@ in {
     my.pkgs.systemd-run-app
 
     # Dev
-    cachix patchelf nixpkgs-review nix-update nix-output-monitor # Nix utils
+    cachix patchelf nixpkgs-review nix-update nix-output-monitor nixfmt-rfc-style # Nix utils
     gcc ghc myPython koka # Compiler & interpreters
     gdb # Debugger
     sqlite-interactive # sqlite
