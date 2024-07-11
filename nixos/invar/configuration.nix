@@ -85,16 +85,24 @@
     };
   };
 
-  # Ref: https://github.com/NickCao/flakes/blob/28c25f4fc9eac535afa8c350fc9769f5fa59dd18/modules/baseline.nix#L48
-  services.zram-generator = {
-    enable = true;
-    settings.zram0 = {
-      compression-algorithm = "zstd";
-      # The typical compression rate is ~20% for zstd in experience.
-      # So 2x RAM is expected to be <40% RAM after compression.
-      zram-size = "ram * 2";
+  # ZSwap
+  systemd.services.zswap = {
+    description = "Enable ZSwap";
+    wantedBy = [ "basic.target" ];
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
     };
+    script = ''
+      echo 1 >/sys/module/zswap/parameters/enabled
+    '';
   };
+  swapDevices = [
+    {
+      device = "/var/swap/swapfile";
+      size = 16 * 1024; # 16G
+    }
+  ];
 
   services.udev.packages = [ inputs.orb.packages.${pkgs.system}.ublk-chown-unprivileged ];
 
