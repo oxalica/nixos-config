@@ -30,7 +30,9 @@ in {
 
     # GUI
     kolourpaint libreoffice mpv okular gwenview logseq lyx # Files
-    electrum electron-cash monero-gui # Cryptocurrency
+    # FIXME: electrum fails to eval: tlslite-ng-0.7.6 not supported for interpreter python3.12
+    # FIXME: electron-cash fails to build: ModuleNotFoundError: No module named 'imp'
+    # FIXME: monero-gui (monero-cli) fails to build
     prismlauncher /* steam <- enabled system-wide */ # Games
     telegram-desktop nheko # Messaging
     wf-recorder obs # Recording

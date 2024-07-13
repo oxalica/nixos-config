@@ -109,7 +109,6 @@
     alsa.enable = true;
   };
   security.rtkit.enable = true; # pipewire expects this.
-  sound.enable = false; # pipewire expects this.
 
   # Swap capslock and leftctrl only for the builtin keyboard.
   # Ref: https://wiki.archlinux.org/title/Map_scancodes_to_keycodes

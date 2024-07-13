@@ -108,6 +108,8 @@
 
   # Hardware.
 
+  sound.enable = true;
+
   time.timeZone = "America/Toronto";
   powerManagement.cpuFreqGovernor = "performance";
   hardware = {
