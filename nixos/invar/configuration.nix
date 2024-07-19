@@ -107,9 +107,6 @@
   services.udev.packages = [ inputs.orb.packages.${pkgs.system}.ublk-chown-unprivileged ];
 
   # Hardware.
-
-  sound.enable = true;
-
   time.timeZone = "America/Toronto";
   powerManagement.cpuFreqGovernor = "performance";
   hardware = {

@@ -145,7 +145,10 @@
   programs.command-not-found.enable = false;
 
   # Don't use vim_configurable.
-  programs.vim.defaultEditor = true;
+  programs.vim = {
+    enable = true;
+    defaultEditor = true;
+  };
 
   nix = {
     extraOptions = ''

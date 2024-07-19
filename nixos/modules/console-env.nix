@@ -55,7 +55,10 @@
   # Don't stuck for searching missing commands.
   programs.command-not-found.enable = false;
 
-  programs.vim.defaultEditor = true;
+  programs.vim = {
+    enable = true;
+    defaultEditor = true;
+  };
 
   programs.nano.enable = lib.mkDefault false;
 }
