@@ -1,7 +1,6 @@
 { pkgs, ... }:
 {
   home.packages = with pkgs; [
-    hydroxide
     (thunderbird.overrideAttrs (old: {
       # bash
       buildCommand = old.buildCommand + ''
@@ -10,15 +9,4 @@
       '';
     }))
   ];
-
-  systemd.user.services."hydroxide" = {
-    Unit.Description = "ProtonMail Bridge";
-    Service = {
-      ExecStart = "${pkgs.hydroxide}/bin/hydroxide serve";
-      Restart = "on-failure";
-      RestartSec = 10;
-      Slice = "background.slice";
-    };
-    Install.WantedBy = [ "graphical-session.target" ];
-  };
 }
