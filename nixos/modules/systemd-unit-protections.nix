@@ -31,7 +31,7 @@
       RestrictAddressFamilies = "AF_UNIX";
 
       SystemCallArchitectures = "native";
-      SystemCallFilter = [ "@system-service" "~@resources @privileged" ];
+      SystemCallFilter = [ "@system-service process_mrelease" "~@privileged" ];
     };
   };
 }
