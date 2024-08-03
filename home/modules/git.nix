@@ -39,6 +39,10 @@
       # Pull.
       pull.ff = "only";
 
+      # Rebase.
+      rebase.autoSquash = true;
+      rebase.abbreviateCommands = true;
+
       # Diff & merge.
       diff.external = "${pkgs.difftastic}/bin/difft";
       diff.tool = "nvimdiff";
