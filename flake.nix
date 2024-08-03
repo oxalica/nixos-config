@@ -29,9 +29,8 @@
       inputs.nixpkgs-stable.follows = "nixpkgs-stable";
     };
     lanzaboote = {
-      # Updating this requires quite a bit of recompilation. Locked to a recent enough version
-      # containing <https://github.com/nix-community/lanzaboote/pull/302>.
-      url = "github:nix-community/lanzaboote/ded8d23709f94aedb1407bee9e26581f258e9e3a";
+      url = "github:nix-community/lanzaboote/v0.4.1";
+      inputs.pre-commit-hooks-nix.follows = "blank";
       inputs.flake-compat.follows = "blank";
       inputs.flake-utils.follows = "flake-utils";
       inputs.nixpkgs.follows = "nixpkgs";

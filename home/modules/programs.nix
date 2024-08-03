@@ -17,8 +17,6 @@ let
     ];
   };
 
-  nix-output-monitor = my.pkgs.nix-output-monitor-fix-trace;
-
 in {
   home.packages = with pkgs; [
     # Console
@@ -30,10 +28,10 @@ in {
 
     # GUI
     kolourpaint libreoffice mpv okular gwenview logseq lyx # Files
-    # FIXME: electrum fails to eval: tlslite-ng-0.7.6 not supported for interpreter python3.12
     # FIXME: electron-cash fails to build: ModuleNotFoundError: No module named 'imp'
-    # FIXME: monero-gui (monero-cli) fails to build
-    prismlauncher /* steam <- enabled system-wide */ # Games
+    electrum monero-gui
+    # steam is enabled system-wide.
+    prismlauncher # Games
     telegram-desktop nheko # Messaging
     wf-recorder obs # Recording
     my.pkgs.systemd-run-app

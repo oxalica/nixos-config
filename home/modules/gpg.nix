@@ -26,8 +26,8 @@
 
   programs.password-store = {
     enable = true;
-    # FIXME: ps.pass-audit fails to build.
-    package = pkgs.pass.withExtensions (ps: [ ps.pass-otp ps.pass-import ]);
+    # FIXME: ps.pass-import fails to build.
+    package = pkgs.pass.withExtensions (ps: [ ps.pass-otp ps.pass-audit ]);
   };
 
   home.packages = [ pkgs.qtpass ];
