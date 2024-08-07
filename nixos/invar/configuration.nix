@@ -57,7 +57,7 @@
       "kernel.sysrq" = 1;
       "net.ipv4.tcp_congestion_control" = "bbr";
 
-      "vm.swappiness" = 100;
+      "vm.swappiness" = 80;
     };
 
     loader = {
