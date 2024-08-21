@@ -25,9 +25,11 @@
       "steam-run"
     ];
 
-  # FIXME: `logseq` depends on fixed version of electron yet.
   nixpkgs.config.permittedInsecurePackages = [
+    # FIXME: `logseq` depends on fixed version of electron yet.
     "electron-27.3.11"
+    # FIXME: `nheko` depends on olm: https://github.com/Nheko-Reborn/nheko/issues/1786
+    "olm-3.2.16"
   ];
 
   # Boot.
