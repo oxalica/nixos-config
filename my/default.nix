@@ -23,8 +23,8 @@
         publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIO1TnA8NpurpJFgf4xZZvJrgFpkaE9y6qRgFiFe1mX21";
       };
       lithium = {
-        extraHostNames = [ "|1|03iz3vLed3+JuFU4jY9i+nna9Uc=|F1vUXreBxQBexS9B8ocVVVvv8Hc=" ];
-        publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGafc2sPL47lOJECY1K2X7p2nzfxrLoCMvJ15W/wiJ80";
+        extraHostNames = [ "|1|yrXSPIhZYqHg3ii/siCoKs2PRU4=|uaJAOcFrhozPJsul0YF/+1CaAKw=" ];
+        publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMPG3JTJrW5kDTFXOftags+aWWjn2D1E5iIbU57ni9rH";
       };
 
       aluminum = {
