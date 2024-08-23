@@ -129,7 +129,7 @@
         extraModules = with nixosModules; [ home-manager sops ];
       };
 
-      lithium = mkSystem "lithium" "x86_64-linux" inputs.nixpkgs-stable {
+      lithium = mkSystem "lithium" "x86_64-linux" inputs.nixpkgs {
         extraModules = with nixosModules; [ sops ];
       };
 
