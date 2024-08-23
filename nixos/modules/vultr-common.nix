@@ -6,11 +6,10 @@
     ./vultr-image.nix
   ];
 
-  boot.loader.grub = {
-    enable = true;
-    device = "/dev/vda";
-  };
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.timeout = 1;
 
+  boot.initrd.systemd.enable = true;
   boot.initrd.availableKernelModules = [ "ahci" "xhci_pci" "virtio_pci" "sr_mod" "virtio_blk" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ ];

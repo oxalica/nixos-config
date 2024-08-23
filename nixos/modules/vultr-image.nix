@@ -28,7 +28,7 @@ in
 
     diskSize = mkOption {
       type = with types; either (enum [ "auto" ]) int;
-      default = 2048;
+      default = 3072;
       example = 8192;
       description = "The size in MB of the image";
     };
@@ -40,7 +40,7 @@ in
 
     format = "raw";
     fsType = "ext4";
-    partitionTableType = "legacy";
+    partitionTableType = "efi";
     label = "nixos"; # Root filesystem label.
     copyChannel = false;
   };
