@@ -3,6 +3,7 @@
   imports = [
     (modulesPath + "/profiles/qemu-guest.nix")
 
+    ../modules/zswap-enable.nix
     ./vultr-image.nix
   ];
 

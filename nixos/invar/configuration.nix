@@ -14,6 +14,7 @@
     ../modules/nix-registry.nix
     ../modules/secure-boot.nix
     ../modules/systemd-unit-protections.nix
+    ../modules/zswap-enable.nix
   ] ++ lib.optional (inputs ? secrets) inputs.secrets.nixosModules.invar;
 
   sops.age.sshKeyPaths = lib.mkForce [ "/var/ssh/ssh_host_ed25519_key" ];
@@ -87,18 +88,6 @@
     };
   };
 
-  # ZSwap
-  systemd.services.zswap = {
-    description = "Enable ZSwap";
-    wantedBy = [ "basic.target" ];
-    serviceConfig = {
-      Type = "oneshot";
-      RemainAfterExit = true;
-    };
-    script = ''
-      echo 1 >/sys/module/zswap/parameters/enabled
-    '';
-  };
   swapDevices = [
     {
       device = "/var/swap/swapfile";

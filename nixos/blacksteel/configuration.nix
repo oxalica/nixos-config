@@ -12,6 +12,7 @@
     ../modules/nix-keep-flake-inputs.nix
     ../modules/nix-registry.nix
     ../modules/secure-boot.nix
+    ../modules/zswap-enable.nix
   ] ++ lib.optional (inputs ? secrets) (inputs.secrets.nixosModules.blacksteel);
 
   nixpkgs.config.allowUnfreePredicate = drv:
