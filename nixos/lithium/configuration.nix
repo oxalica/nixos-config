@@ -8,6 +8,12 @@
 
   documentation.enable = false;
 
+  fileSystems."/" = lib.mkForce {
+    device = "/dev/disk/by-label/nixos";
+    fsType = "btrfs";
+    options = [ "noatime" "space_cache=v2" "compress=zstd" ];
+  };
+
   swapDevices = [
     {
       device = "/var/swapfile";
