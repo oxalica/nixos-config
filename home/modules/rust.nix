@@ -1,7 +1,9 @@
-{ config, lib, pkgs, inputs, ... }:
+{ config, lib, pkgs, inputs, my, ... }:
 
 let
   inherit (inputs.self.lib) toTOML;
+
+  cargo-machete = my.pkgs.cargo-machete-no-spam;
 
   cargoConfig = {
     install.root = "${config.home.homeDirectory}/.local";
