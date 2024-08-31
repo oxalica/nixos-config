@@ -1,5 +1,26 @@
 {
   "nodes": {
+    "blahrs": {
+      "inputs": {
+        "naersk": "naersk",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1725352776,
+        "narHash": "sha256-w718Lpv4v4F79ePRrnXt/4Bhay5YojspKWsoC+iIHE8=",
+        "owner": "Blah-IM",
+        "repo": "blahrs",
+        "rev": "cc51d5357521be7e2aaa51187a335d7e524f3cf2",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Blah-IM",
+        "repo": "blahrs",
+        "type": "github"
+      }
+    },
     "crane": {
       "inputs": {
         "nixpkgs": [
@@ -132,6 +153,27 @@
         "type": "github"
       }
     },
+    "naersk": {
+      "inputs": {
+        "nixpkgs": [
+          "blahrs",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1721727458,
+        "narHash": "sha256-r/xppY958gmZ4oTfLiHN0ZGuQ+RSTijDblVgVLFi1mw=",
+        "owner": "nix-community",
+        "repo": "naersk",
+        "rev": "3fb418eaf352498f6b6c30592e3beb63df42ef11",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "naersk",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1724819573,
@@ -242,6 +284,7 @@
     },
     "root": {
       "inputs": {
+        "blahrs": "blahrs",
         "blank": [
           "nixpkgs"
         ],

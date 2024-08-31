@@ -40,6 +40,10 @@
       url = "github:oxalica/orb";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    blahrs = {
+      url = "github:Blah-IM/blahrs";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     meta-sifive = {
       url = "github:sifive/meta-sifive/2021.11.00";
@@ -130,7 +134,7 @@
       };
 
       lithium = mkSystem "lithium" "x86_64-linux" inputs.nixpkgs {
-        extraModules = with nixosModules; [ sops ];
+        extraModules = with nixosModules; [ sops inputs.blahrs.nixosModules.blahd ];
       };
 
       copper = mkSystem "copper" "x86_64-linux" inputs.nixpkgs-stable {

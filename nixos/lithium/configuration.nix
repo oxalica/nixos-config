@@ -6,6 +6,7 @@ in
   imports = [
     ../modules/vultr-common.nix
 
+    ./blah.nix
     ./webdav.nix
   ];
 
