@@ -1,4 +1,4 @@
-{ lib, pkgs, my, ... }:
+{ lib, config, pkgs, my, ... }:
 let
   inherit (lib) singleton;
 in
@@ -58,6 +58,21 @@ in
         });
       };
     };
+
+    adapter = null;
+    configFile = let
+      format = pkgs.formats.json { };
+    in
+      (format.generate "caddy.json" config.services.caddy.settings).overrideAttrs (old: {
+        # Validation will access env vars.
+        # From: https://github.com/caddyserver/caddy/blob/c050a37e1c3228708a6716c8971361134243e941/modules/caddyhttp/caddyauth/hashes.go#L56
+        buildCommand = old.buildCommand + ''
+          export WEBDAV_USERNAME=for-validate
+          export WEBDAV_PASSWORD='$2a$14$X3ulqf/iGxnf1k6oMZ.RZeJUoqI9PX2PM4rS5lkIKJXduLGXGPrt6'
+          ${lib.getExe config.services.caddy.package} validate --config $out
+        '';
+      });
+
   };
 
   system.stateVersion = "24.05";
