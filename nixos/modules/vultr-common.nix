@@ -1,6 +1,7 @@
-{ lib, config, pkgs, modulesPath, my, ... }:
+{ lib, pkgs, modulesPath, my, ... }:
 {
   imports = [
+    "${modulesPath}/profiles/perlless.nix"
     "${modulesPath}/profiles/qemu-guest.nix"
 
     ../modules/nix-common.nix
@@ -39,22 +40,9 @@
     "2606:4700:4700::1111" "2606:4700:4700::1001"
   ];
 
-  users = {
-    mutableUsers = false;
-    users."oxa" = {
-      isNormalUser = true;
-      uid = 1000;
-      group = config.users.groups.oxa.name;
-      extraGroups = [ "wheel" ];
-
-      openssh.authorizedKeys.keys = with my.ssh.identities; [ oxa ];
-    };
-    groups."oxa".gid = 1000;
-  };
-
-  services.getty.autologinUser = config.users.users.oxa.name;
-
-  security.sudo.wheelNeedsPassword = false;
+  users.users.root.openssh.authorizedKeys.keys = with my.ssh.identities; [ oxa ];
+  services.getty.autologinUser = "root";
+  system.forbiddenDependenciesRegexes = lib.mkForce [];
 
   nix.package = pkgs.nix;
   nix.gc.options = lib.mkForce "--delete-older-than 3d";
@@ -69,6 +57,7 @@
     settings = {
       PasswordAuthentication = false;
       KbdInteractiveAuthentication = false;
+      PermitRootLogin = "prohibit-password";
     };
   };
 }
