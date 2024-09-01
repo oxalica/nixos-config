@@ -4,14 +4,10 @@ let
 in
 {
   imports = [
-    ../modules/console-env.nix
-    ../modules/nix-common.nix
     ../modules/vultr-common.nix
 
     ./webdav.nix
   ];
-
-  documentation.enable = false;
 
   boot.kernelPackages =
     lib.warnIf
@@ -30,10 +26,6 @@ in
       device = "/var/swapfile";
       size = 1024;
     }
-  ];
-
-  environment.systemPackages = with pkgs; [
-    git
   ];
 
   networking.domain = "node.oxa.li";

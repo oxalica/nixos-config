@@ -3,6 +3,8 @@
   imports = [
     "${modulesPath}/profiles/qemu-guest.nix"
 
+    ../modules/nix-common.nix
+    ../modules/server-env.nix
     ../modules/zswap-enable.nix
     ./vultr-image.nix
   ];
@@ -11,7 +13,7 @@
   boot.loader.timeout = 1;
 
   boot.initrd.systemd.enable = true;
-  boot.initrd.availableKernelModules = [ "ahci" "xhci_pci" "virtio_pci" "sr_mod" "virtio_blk" ];
+  boot.initrd.availableKernelModules = [ "ahci" "xhci_pci" "sr_mod" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ ];
   boot.extraModulePackages = [ ];
