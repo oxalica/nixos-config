@@ -46,7 +46,6 @@
 
   nix.package = pkgs.nix;
   nix.gc.options = lib.mkForce "--delete-older-than 3d";
-  nix.settings.auto-optimise-store = lib.mkForce false;
   # Avoid dependency to nixpkgs itself.
   nix.settings.nix-path = lib.mkForce "";
   nix.registry = lib.mkForce { };
