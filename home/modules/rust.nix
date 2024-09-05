@@ -10,7 +10,7 @@ let
 
     build.target-dir = "${config.xdg.cacheHome}/cargo/target";
 
-    target."${pkgs.rust.toRustTarget pkgs.stdenv.hostPlatform}".linker = gcc-lld;
+    target."${pkgs.hostPlatform.rust.rustcTarget}".linker = gcc-lld;
   };
 
   # Seems it reject missing fields.
