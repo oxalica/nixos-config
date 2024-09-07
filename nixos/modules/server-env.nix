@@ -7,7 +7,16 @@
   documentation = {
     enable = false;
     man.enable = false;
+    info.enable = lib.mkDefault false;
   };
+
+  # Partially copied from `nixos/modules/profiles/perlless.nix`.
+  system.switch = lib.mkDefault {
+    enable = false;
+    enableNg = true;
+  };
+  system.disableInstallerTools = lib.mkDefault true;
+  boot.enableContainers = lib.mkDefault false;
 
   # Default:
   # - perl # No.

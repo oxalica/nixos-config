@@ -1,7 +1,6 @@
 { lib, pkgs, modulesPath, my, ... }:
 {
   imports = [
-    "${modulesPath}/profiles/perlless.nix"
     "${modulesPath}/profiles/qemu-guest.nix"
 
     ../modules/nix-common.nix
@@ -44,9 +43,10 @@
     "2606:4700:4700::1111" "2606:4700:4700::1001"
   ];
 
+  systemd.sysusers.enable = lib.mkDefault true;
+  users.mutableUsers = lib.mkDefault false;
   users.users.root.openssh.authorizedKeys.keys = with my.ssh.identities; [ oxa ];
-  services.getty.autologinUser = "root";
-  system.forbiddenDependenciesRegexes = lib.mkForce [];
+  services.getty.autologinUser = lib.mkDefault "root";
 
   nix.package = pkgs.nix;
   nix.gc.options = lib.mkForce "--delete-older-than 3d";
