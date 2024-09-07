@@ -25,10 +25,14 @@
 
   fileSystems."/" = {
     device = "/dev/disk/by-label/nixos";
-    fsType = "ext4";
+    fsType = "btrfs";
+    options = [ "noatime" "compress=zstd" ];
+  };
+  fileSystems."/boot" = {
+    device = "/dev/disk/by-label/ESP";
+    fsType = "vfat";
   };
 
-  # The initial partition is very small. Do not enable swap on it, or the system will freeze.
   swapDevices = [ ];
 
   networking.useNetworkd = true;

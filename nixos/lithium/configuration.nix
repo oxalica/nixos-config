@@ -16,18 +16,15 @@ in
       "LTS kernel already support squota"
       pkgs.linuxPackages;
 
-  fileSystems."/" = lib.mkForce {
-    device = "/dev/disk/by-label/nixos";
-    fsType = "btrfs";
-    options = [ "noatime" "space_cache=v2" "compress=zstd" ];
-  };
-
   swapDevices = [
     {
       device = "/var/swapfile";
       size = 1024;
     }
   ];
+
+  # `echo -n 'nixos-repart-seed/lithium' | sha256sum | head -c32`
+  image.repart.seed = "bedd7526-d0f7-6013-a6b0-986b264af135";
 
   networking.domain = "node.oxa.li";
 
