@@ -1,5 +1,5 @@
 # NB. systemd-initrd doesn't work for ISO yet.
-{ lib, config, pkgs, modulesPath, ... }:
+{ lib, config, pkgs, modulesPath, my, ... }:
 {
   imports = [
     (modulesPath + "/installer/cd-dvd/installation-cd-minimal-new-kernel-no-zfs.nix")
@@ -36,6 +36,16 @@
     neofetch
     sbctl # Secure boot.
   ];
+
+  users.users.root.openssh.authorizedKeys.keys = with my.ssh.identities; [ oxa ];
+  services.openssh = {
+    enable = true;
+    settings = {
+      PasswordAuthentication = false;
+      KbdInteractiveAuthentication = false;
+      PermitRootLogin = lib.mkForce "prohibit-password";
+    };
+  };
 
   system.stateVersion = "24.05";
 }
