@@ -14,7 +14,7 @@ in
     lib.warnIf
       (pkgs.linuxPackages.kernelAtLeast "6.7")
       "LTS kernel already support squota"
-      pkgs.linuxPackages_6_10;
+      pkgs.linuxPackages;
 
   fileSystems."/" = lib.mkForce {
     device = "/dev/disk/by-label/nixos";
