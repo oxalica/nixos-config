@@ -3,7 +3,7 @@ keys:
 
   - &invar age157zcs4687hmsd834xhvt66apf6v93ss3tt2l23x72lhtvpl69ggqeejgky
   - &blacksteel age1l9qly5vlx20uzrqvq8qygvcrtff64mgvqchet5uvs989upy5lugq4krj2c
-  - &lithium age13h9q4p7evpfjg94j0uxt2jccldexjcf4ay2ylys8f79lclykwchqc7tppq
+  - &lithium age1telu43gwg7fucnph6x5mgl46yvaj9z0cuj2v4e5d8fxhlsvduqas7psujn
 
 creation_rules:
   - path_regex: secrets/ssh\.yaml$
