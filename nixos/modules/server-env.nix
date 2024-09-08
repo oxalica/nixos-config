@@ -11,10 +11,6 @@
   };
 
   # Partially copied from `nixos/modules/profiles/perlless.nix`.
-  system.switch = lib.mkDefault {
-    enable = false;
-    enableNg = true;
-  };
   system.disableInstallerTools = lib.mkDefault true;
   boot.enableContainers = lib.mkDefault false;
 
