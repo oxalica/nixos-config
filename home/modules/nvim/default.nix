@@ -1,4 +1,4 @@
-{ lib, config, pkgs, my, inputs, ... }:
+{ lib, config, pkgs, ... }:
 let
   inherit (pkgs) vimPlugins;
 
@@ -67,7 +67,7 @@ let
         filetypes = [ "nix" ];
         rootPatterns = [ "flake.nix" ".git" ];
         settings.nil = {
-          formatting.command = [ "${pkgs.nixpkgs-fmt}/bin/nixpkgs-fmt" ];
+          formatting.command = [ (lib.getExe pkgs.nixfmt-rfc-style) "-" ];
         };
       };
       koka = {
