@@ -43,6 +43,7 @@
     blahrs = {
       url = "github:Blah-IM/blahrs";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.rust-overlay.follows = "rust-overlay";
     };
 
     meta-sifive = {

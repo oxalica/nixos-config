@@ -16,8 +16,8 @@ in
   services.blahd = {
     enable = true;
     settings = {
-      server.listen = "localhost:${toString port}";
-      server.base_url = "http://${host}/api";
+      listen.address = "localhost:${toString port}";
+      server.base_url = "https://${host}/api";
     };
   };
 
@@ -93,7 +93,7 @@ in
             {
               handler = "file_server";
               # Force re-dump a subdirectory without copying the whole flake input.
-              root = builtins.filterSource (path: type: true) "${inputs.blahrs}/pages";
+              root = builtins.filterSource (path: type: true) "${inputs.blahrs}/test-frontend";
             }
           ];
         }
