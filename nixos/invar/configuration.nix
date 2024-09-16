@@ -121,13 +121,13 @@
     useDHCP = true;
     wireless = {
       enable = true;
-      environmentFile = config.sops.secrets.wifi-env.path;
-      networks."Our Network".psk = "@HOME_PSK@";
+      secretsFile = config.sops.secrets.wifi-secrets.path;
+      networks."Our Network".pskRaw = "ext:home_psk";
     };
     # We have systemd-networkd.
     networkmanager.enable = lib.mkForce false;
   };
-  sops.secrets.wifi-env.restartUnits = [ "wpa_supplicant.service" ];
+  sops.secrets.wifi-secrets.restartUnits = [ "wpa_supplicant.service" ];
   systemd.network = {
     enable = true;
     wait-online = {
