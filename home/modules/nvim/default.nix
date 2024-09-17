@@ -46,7 +46,7 @@ let
     "[rust]"."coc.preferences.formatOnSave" = true;
 
     "rust-analyzer.updates.checkOnStartup" = false;
-    "rust-analyzer.server.path" = "${lib.getBin pkgs.rust-analyzer}/bin/rust-analyzer";
+    "rust-analyzer.server.path" = "rust-analyzer"; # Use relative path, so it prefers direnv if possible.
     "rust-analyzer.check.command" = "clippy";
     "rust-analyzer.imports.granularity.group" = "module";
     "rust-analyzer.semanticHighlighting.strings.enable" = false;
@@ -96,6 +96,7 @@ in
 
   home.packages = with pkgs; [
     nil
+    rust-analyzer
     watchman # Required by coc.nvim for file watching.
     fzf bat # Required by fzf.vim.
   ];
