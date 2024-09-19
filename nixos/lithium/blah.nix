@@ -17,7 +17,8 @@ in
     enable = true;
     settings = {
       listen.address = "localhost:${toString port}";
-      server.base_url = "https://${host}/api";
+      server.base_url = "https://${host}/";
+      server.register.enable_public = true;
     };
   };
 
@@ -70,8 +71,8 @@ in
             status_code = 200;
             headers.Content-Type = singleton "application/json";
             body = builtins.toJSON {
-              server_url = "https://${host}/api";
-              room = "00000000-0000-0000-0000-000000000000";
+              server_url = "https://${host}";
+              room = "0";
             };
           };
         }
@@ -98,13 +99,9 @@ in
           ];
         }
         {
-          match = singleton { path = singleton "/api/*"; };
+          match = singleton { path = singleton "/_blah/*"; };
           terminal = true;
           handle = [
-            {
-              handler = "rewrite";
-              strip_path_prefix = "/api";
-            }
             {
               handler = "reverse_proxy";
               upstreams = singleton { dial = "localhost:${toString port}"; };
