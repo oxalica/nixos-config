@@ -57,6 +57,7 @@
         "rm *" "\\rm *"
         "sudo *rm*"
         "task *(append|add|delete|perge|done|modify)*"
+        "g* stash (clear|drop)*"
         ":"
       ];
     };
