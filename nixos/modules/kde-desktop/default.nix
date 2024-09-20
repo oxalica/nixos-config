@@ -4,6 +4,7 @@
 
   environment.systemPackages = with pkgs.kdePackages; [
     filelight
+    pkgs.qpwgraph
   ];
 
   programs = {
