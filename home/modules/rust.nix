@@ -37,6 +37,7 @@ in {
     (rust.override {
       extensions = [
         "rust-src"
+        "llvm-tools" # For cargo-llvm-cov
       ];
       targets = [
         "aarch64-apple-darwin"
@@ -52,6 +53,7 @@ in {
     cargo-hack
     cargo-insta
     cargo-license
+    cargo-llvm-cov
     cargo-machete
     cargo-outdated
     cargo-show-asm
