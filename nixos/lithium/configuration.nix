@@ -7,6 +7,7 @@ in
     ../modules/vultr-common.nix
 
     ./blah.nix
+    ./ntfy.nix
     ./webdav.nix
   ];
 
