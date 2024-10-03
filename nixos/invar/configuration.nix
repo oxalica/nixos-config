@@ -36,7 +36,8 @@
   # Boot.
 
   boot = {
-    kernelPackages = pkgs.linuxPackages_latest;
+    # TODO: Figure out the random memory corruption issue.
+    kernelPackages = pkgs.linuxPackages;
 
     kernelModules = [ "kvm-amd" ];
     kernelParams = [ ];
