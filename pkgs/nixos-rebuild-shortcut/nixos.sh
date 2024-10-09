@@ -34,5 +34,11 @@ fi
 
 cmd+=("$@")
 
-set -x
-exec "${cmd[@]}"
+echo "+ ${cmd[*]}"
+"${cmd[@]}"
+
+newVer="$(nix eval ".#nixosConfigurations.$name.config.system.build.kernel.version" --raw)"
+curVer="$(uname --kernel-release)"
+if [[ "$newVer" != "$curVer" ]]; then
+    echo -e "\e[32;1mnote\e[0m: built kernel $newVer is different than the current $curVer"
+fi
