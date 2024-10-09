@@ -6,6 +6,9 @@ let
   cargo-machete = my.pkgs.cargo-machete-no-spam;
 
   cargoConfig = {
+    # TODO: use libsecret?
+    # https://doc.rust-lang.org/cargo/reference/registry-authentication.html#recommended-configuration
+
     install.root = "${config.home.homeDirectory}/.local";
 
     build.target-dir = "${config.xdg.cacheHome}/cargo/target";
