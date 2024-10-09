@@ -17,6 +17,11 @@ let
     ];
   };
 
+  # WAIT: https://github.com/NixOS/nixpkgs/pull/347293
+  logseq = pkgs.logseq.override {
+    electron = pkgs.electron_27;
+  };
+
 in {
   home.packages = with pkgs; [
     # Console
