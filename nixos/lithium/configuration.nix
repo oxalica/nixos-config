@@ -1,6 +1,7 @@
 { lib, config, pkgs, my, ... }:
 let
   inherit (lib) singleton;
+  logDir = "/var/lib/caddy/logs";
 in
 {
   imports = [
@@ -47,6 +48,15 @@ in
             status_code = "404";
           };
         });
+        logs.default_logger_name = "default";
+      };
+      logging.logs.default = {
+        writer = {
+          output = "file";
+          filename = "${logDir}/log";
+        };
+        encoder.format = "json";
+        include = [ "http.log.access.default" ];
       };
     };
 
@@ -64,6 +74,14 @@ in
         '';
       });
 
+  };
+
+  systemd.tmpfiles.settings."caddy-logs" = {
+    ${logDir}.d = {
+      group = config.users.groups.caddy.name;
+      user = config.users.users.caddy.name;
+      mode = "0755";
+    };
   };
 
   system.stateVersion = "24.05";
