@@ -40,6 +40,7 @@ in {
     telegram-desktop nheko # Messaging
     wf-recorder obs # Recording
     my.pkgs.systemd-run-app
+    syncplay
 
     # Dev
     cachix patchelf nixpkgs-review nix-update nix-output-monitor nixfmt-rfc-style # Nix utils
