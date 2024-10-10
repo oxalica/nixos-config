@@ -49,23 +49,4 @@
       dmsetup remove ${dmName}
     '';
   };
-
-  # Local samba for VM
-  services.samba = {
-    enable = true;
-    enableNmbd = false; # We don't need discovery.
-    extraConfig = ''
-      bind interfaces only = yes
-      interfaces = lo virbr0
-      guest account = nobody
-    '';
-    shares."vm_share" = {
-      path = "/home/oxa/vm/share";
-      writable = "yes";
-    };
-  };
-  networking.firewall.interfaces."virbr0" = {
-    allowedTCPPorts = [ 139 445 ];
-    allowedUDPPorts = [ 137 138 ];
-  };
 }
