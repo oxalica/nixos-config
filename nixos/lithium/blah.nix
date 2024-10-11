@@ -37,7 +37,6 @@ in
     match = singleton {
       host = singleton host;
     };
-    terminal = true;
     handle = singleton {
       handler = "subroute";
       routes = [

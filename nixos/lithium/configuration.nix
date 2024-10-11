@@ -45,7 +45,8 @@ in
         routes = lib.mkAfter (singleton {
           handle = singleton {
             handler = "static_response";
-            status_code = "404";
+            status_code = 404;
+            body = "404";
           };
         });
         logs.default_logger_name = "default";
