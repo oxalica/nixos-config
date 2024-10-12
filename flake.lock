@@ -11,11 +11,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1728443997,
-        "narHash": "sha256-+Y3PBdl6GelKSdvnQ55R0HY6P9GiOXNeEYwLIkVVAzw=",
+        "lastModified": 1728758728,
+        "narHash": "sha256-hf4LtOT+X+upK+WV7MSILrnRJcFGbYdVoZ+xgw6gOik=",
         "owner": "Blah-IM",
         "repo": "blahrs",
-        "rev": "b8921a5485b3e2de69bd4e01c6c76164f324ad5f",
+        "rev": "ba9673065a006790ba231ec3a35056d012f80d1c",
         "type": "github"
       },
       "original": {
