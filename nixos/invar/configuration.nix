@@ -22,8 +22,7 @@
   nixpkgs.config.allowUnfreePredicate = drv:
     lib.elem (lib.getName drv) [
       "steam"
-      "steam-original"
-      "steam-run"
+      "steam-unwrapped"
     ];
 
   nixpkgs.config.permittedInsecurePackages = [
