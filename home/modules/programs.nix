@@ -34,7 +34,8 @@ in {
     # GUI
     kolourpaint libreoffice mpv okular gwenview logseq lyx # Files
     # FIXME: electron-cash fails to build: ModuleNotFoundError: No module named 'imp'
-    electrum monero-gui
+    # FIXME: electrum fails dependency pyqt6, WAIT: https://github.com/NixOS/nixpkgs/pull/348697
+    monero-gui
     # steam is enabled system-wide.
     prismlauncher # Games
     telegram-desktop nheko # Messaging
