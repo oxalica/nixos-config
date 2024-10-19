@@ -1,4 +1,4 @@
-{ lib, pkgs, my, ... }:
+{ lib, config, pkgs, my, ... }:
 {
   i18n = {
     supportedLocales = [ "all" ]; # Override console-env.
@@ -15,6 +15,16 @@
       };
     };
   };
+
+  # Ref: https://github.com/dramforever/config/commit/1f3030741ed1d3f6a0af1b61cfa0016083917b58
+  # https://codereview.qt-project.org/c/qt/qtbase/+/597856
+  environment.variables.QT_PLUGIN_PATH =
+    let
+      fcitx5Workaround = pkgs.runCommand "fcitx5-workaround" {} ''
+        plugins="${config.i18n.inputMethod.package}/${pkgs.qt6.qtbase.qtPluginPrefix}"
+        cp -r --dereference "$plugins" $out
+      '';
+    in [ "${fcitx5Workaround}" ];
 
   # Ref: https://catcat.cc/post/2021-03-07/
   fonts = {
