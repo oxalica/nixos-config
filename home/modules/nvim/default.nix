@@ -99,6 +99,7 @@ in
     rust-analyzer
     watchman # Required by coc.nvim for file watching.
     fzf bat # Required by fzf.vim.
+    nodejs # FIXME: coc.nvim cannot find node executable
   ];
 
   # Forbid some LSP (eg. pyright) from watching big directories.
