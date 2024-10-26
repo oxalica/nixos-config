@@ -276,6 +276,15 @@
     };
   };
   users.groups."gamemode".members = [ config.users.users.oxa.name ];
+  systemd.user.services."app-steam@" = {
+    overrideStrategy = "asDropin";
+    serviceConfig = {
+      CPUWeight = 200;
+      MemorySwapMax = 0;
+      MemoryZSwapMax = 0;
+      IOWeight = 200;
+    };
+  };
 
   programs.wireshark = {
     enable = true;
