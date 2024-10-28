@@ -260,6 +260,7 @@
   users.groups."adbusers".members = [ config.users.users.oxa.name ];
 
   programs.steam.enable = true;
+  programs.steam.extraPackages = [ pkgs.gamemode ];
   programs.gamemode = {
     enable = true;
     settings = {
