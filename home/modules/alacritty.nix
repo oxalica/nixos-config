@@ -5,7 +5,7 @@
 
     # https://alacritty.org/config-alacritty.html
     settings = {
-      import = [
+      general.import = [
         "${pkgs.vimPlugins.nightfox-nvim}/extra/nightfox/alacritty.toml"
       ];
 
@@ -18,8 +18,10 @@
 
       font.size = 12;
 
-      shell.program = "${pkgs.tmux}/bin/tmux";
-      shell.args = [ "new-session" "-t" "main" ];
+      terminal.shell = {
+        program = "${pkgs.tmux}/bin/tmux";
+        args = [ "new-session" "-t" "main" ];
+      };
 
       mouse.hide_when_typing = true;
     };
