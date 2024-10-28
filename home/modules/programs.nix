@@ -17,11 +17,6 @@ let
     ];
   };
 
-  # WAIT: https://github.com/NixOS/nixpkgs/pull/347293
-  logseq = pkgs.logseq.override {
-    electron = pkgs.electron_27;
-  };
-
 in {
   home.packages = with pkgs; [
     # Console
@@ -34,7 +29,7 @@ in {
     # GUI
     kolourpaint libreoffice mpv okular gwenview logseq lyx # Files
     # FIXME: electron-cash fails to build: ModuleNotFoundError: No module named 'imp'
-    # FIXME: electrum fails to find protoc, WAIT: https://github.com/NixOS/nixpkgs/pull/349753
+    electrum
     monero-gui
     # steam is enabled system-wide.
     prismlauncher # Games

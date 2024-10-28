@@ -21,7 +21,7 @@
 
   environment.systemPackages = with pkgs; [
     # Utilities.
-    # FIXME: compsize fails to build: https://github.com/NixOS/nixpkgs/issues/336006
+    compsize
     curl
     dnsutils
     fd

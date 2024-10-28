@@ -15,8 +15,7 @@
     cntr # Nix helpers.
     procs gdu swapview smartmontools pciutils usbutils # System info.
     moreutils curl git strace pv tree fd ripgrep lsof jq loop bc file rsync dnsutils # Utilities.
-    # FIXME: compsize fails to build: https://github.com/NixOS/nixpkgs/issues/336006
-    e2fsprogs # Filesystems.
+    compsize e2fsprogs # Filesystems.
     gnupg age pwgen sops ssh-to-age # Crypto.
     libarchive zstd # Compression.
 
