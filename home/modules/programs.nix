@@ -34,7 +34,7 @@ in {
     # steam is enabled system-wide.
     prismlauncher # Games
     telegram-desktop nheko # Messaging
-    wf-recorder obs # Recording
+    obs # Recording
     my.pkgs.systemd-run-app
     syncplay
 
