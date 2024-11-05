@@ -190,5 +190,22 @@
       mkShellNoCC {
         packages = [ nvfetcher packages.nixos-rebuild-shortcut ];
       };
+
+    devShells.rust-nightly =
+      let
+        pkgs = nixpkgs.legacyPackages.${system};
+        now = inputs.rust-overlay.lastModifiedDate;
+        date = "${lib.substring 0 4 now}-${lib.substring 4 2 now}-01";
+        toolchain = inputs.rust-overlay.packages.${system}."rust-nightly_${date}".override {
+          extensions = [
+            "llvm-tools"
+            "miri"
+            "rust-src"
+          ];
+        };
+      in pkgs.mkShellNoCC {
+        packages = [ toolchain ];
+        env.CARGO_TARGET_DIR = "/tmp/cargo-nightly-target";
+      };
   });
 }
