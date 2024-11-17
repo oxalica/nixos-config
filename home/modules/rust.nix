@@ -6,8 +6,11 @@ let
   cargo-machete = my.pkgs.cargo-machete-no-spam;
 
   cargoConfig = {
-    # TODO: use libsecret?
-    # https://doc.rust-lang.org/cargo/reference/registry-authentication.html#recommended-configuration
+    # Ref: https://doc.rust-lang.org/cargo/reference/registry-authentication.html#recommended-configuration
+    registry.global-credential-providers = [
+      "cargo:token"
+      "cargo:libsecret"
+    ];
 
     install.root = "${config.home.homeDirectory}/.local";
 
