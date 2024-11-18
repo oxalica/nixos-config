@@ -16,7 +16,6 @@
     ./modules/rime-fcitx.nix
     ./modules/rust.nix
     ./modules/shell
-    ./modules/task.nix
     ./modules/tmux.nix
     ./modules/user-dirs.nix
   ];
@@ -30,7 +29,6 @@
   in {
     ".local/share/fcitx5/rime/sync".source = linkPersonal "rime-sync";
     ".local/share/password-store".source = linkPersonal "password-store";
-    ".local/share/task".source = linkPersonal "taskwarrior";
   };
 
   xdg.enable = true;

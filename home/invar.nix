@@ -17,7 +17,6 @@
     ./modules/rime-fcitx.nix
     ./modules/rust.nix
     ./modules/shell
-    ./modules/task.nix
     ./modules/tmux.nix
     ./modules/user-dirs.nix
   ];
@@ -38,7 +37,6 @@
   home.file = let
     link = path: config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/${path}";
   in {
-    ".local/share/task".source = link "storage/0x-system/02-todo/02.01-taskwarrior";
     ".local/share/password-store".source = link "storage/5x-state/51-secret/51.10-password-store";
     ".local/share/fcitx5/rime/sync".source = link "storage/5x-state/55-backup/55.06-rime-directory";
   };
