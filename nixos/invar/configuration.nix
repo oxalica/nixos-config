@@ -313,6 +313,7 @@
   environment.systemPackages = with pkgs; [
     radeontop
     solaar # Logitech devices control.
+    nvtopPackages.amd
 
     wineWowPackages.staging
     lutris
