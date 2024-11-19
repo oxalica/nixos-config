@@ -46,14 +46,6 @@
     kernelModules = [ "kvm-intel" ];
     extraModulePackages = [ ];
 
-    # For hibernate-resume.
-    # `sudo btrfs inspect-internal map-swapfile /var/swap/resume --resume-offset`
-    # => 38868224
-    resumeDevice = "/dev/disk/by-uuid/fbfe849d-2d2f-415f-88d3-65ded870e46b";
-    kernelParams = [
-      "resume_offset=38868224"
-    ];
-
     loader = {
       systemd-boot.consoleMode = "max"; # Don't clip boot menu.
       efi.canTouchEfiVariables = true;
