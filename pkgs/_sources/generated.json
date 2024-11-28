@@ -1,4 +1,24 @@
 {
+    "caddy-custom": {
+        "cargoLocks": null,
+        "date": "2024-11-28",
+        "extract": null,
+        "name": "caddy-custom",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "oxalica",
+            "repo": "caddy",
+            "rev": "405bf88d124515373b1aeba15b4b541c14ca59f3",
+            "sha256": "sha256-G4K9PnCm/1BqNcnk0ViGjhlOw62EqYvq/hqS2Rupybs=",
+            "type": "github"
+        },
+        "version": "405bf88d124515373b1aeba15b4b541c14ca59f3"
+    },
     "colors": {
         "cargoLocks": null,
         "date": null,
@@ -19,9 +39,7 @@
         "date": null,
         "extract": null,
         "name": "double-entry-generator",
-        "passthru": {
-            "vendorHash": "sha256-Xedva9oGteOnv3rP4Wo3sOHIPyuy2TYwkZV2BAuxY4M="
-        },
+        "passthru": null,
         "pinned": false,
         "src": {
             "deepClone": false,
@@ -30,15 +48,15 @@
             "name": null,
             "owner": "deb-sig",
             "repo": "double-entry-generator",
-            "rev": "v2.4.0",
-            "sha256": "sha256-XJsectuh2yO4t3nWi0aoBoNNf4AzxXtTmR/e6wrMzKk=",
+            "rev": "v2.7.1",
+            "sha256": "sha256-2Y8Spj1LAVZsUgChDYDCZ63pTH+nqs2ff9xcmC+gr0c=",
             "type": "github"
         },
-        "version": "v2.4.0"
+        "version": "v2.7.1"
     },
     "rime_latex": {
         "cargoLocks": null,
-        "date": "2023-06-02",
+        "date": "2024-02-03",
         "extract": null,
         "name": "rime_latex",
         "passthru": null,
@@ -50,10 +68,10 @@
             "name": null,
             "owner": "shenlebantongying",
             "repo": "rime_latex",
-            "rev": "fb32dc50c19b3913023199ceaae22168cd5a7db7",
-            "sha256": "sha256-ZSnfkHc0yyXZTVZBjPI8mcjR9CRyKy8qpQFww2VF3QI=",
+            "rev": "c863ef7f7f5ff9d909438cd48446786bf4e77cec",
+            "sha256": "sha256-YHWuf1DnvUgNYt4ke7W5IR4u0rJrCMJyj6JWTp5JyqI=",
             "type": "github"
         },
-        "version": "fb32dc50c19b3913023199ceaae22168cd5a7db7"
+        "version": "c863ef7f7f5ff9d909438cd48446786bf4e77cec"
     }
 }

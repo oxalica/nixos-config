@@ -1,3 +1,8 @@
+[caddy-custom]
+src.git = "https://github.com/oxalica/caddy"
+fetch.github = "oxalica/caddy"
+# NB. Also update `vendorHash`!
+
 [colors]
 src.manual = "94d8b2be62657e96488038b0e547e3009ed87d40"
 fetch.url = "https://gist.githubusercontent.com/lilydjwg/fdeaf79e921c2f413f44b6f613f6ad53/raw/$ver/colors.py"
@@ -5,7 +10,7 @@ fetch.url = "https://gist.githubusercontent.com/lilydjwg/fdeaf79e921c2f413f44b6f
 [double-entry-generator]
 src.github = "deb-sig/double-entry-generator"
 fetch.github = "deb-sig/double-entry-generator"
-passthru = { vendorHash = "sha256-Xedva9oGteOnv3rP4Wo3sOHIPyuy2TYwkZV2BAuxY4M=" }
+# NB. Also update `vendorHash`!
 
 [rime_latex]
 src.git = "https://github.com/shenlebantongying/rime_latex"

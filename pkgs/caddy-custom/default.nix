@@ -1,4 +1,5 @@
 {
+  source,
   lib,
   buildGoModule,
   fetchFromGitHub,
@@ -14,16 +15,10 @@ let
 in
 buildGoModule {
   pname = "caddy";
-  version = "${version}-custom";
+  version = "${version}-custom-${source.date}";
 
-  src = fetchFromGitHub {
-    owner = "oxalica";
-    repo = "caddy";
-    rev = "b7a5e89fa55075cb2522a4185e730c7c1f3768b6";
-    hash = "sha256-6NqQMA5HKh8ON5CLHw0za6HP8qAnd3VXxW3TqtZ4gvo=";
-  };
-
-  vendorHash = "sha256-0hYKuh7VsPcJJJ9x3KvmIfg08Eda9TKk/W0qexY2wpQ=";
+  src = source.src;
+  vendorHash = "sha256-088auGc7zhXj0hmll+yNwMI3QF10jdlwQT+wIAoiBLk=";
 
   subPackages = [ "cmd/caddy" ];
 
