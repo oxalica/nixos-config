@@ -59,8 +59,7 @@ in {
     cargo-hack
     cargo-insta
     cargo-license
-    # FIXME: raw profile version mismatch: Profile uses raw profile format version = 10; expected version = 9
-    # cargo-llvm-cov
+    cargo-llvm-cov
     cargo-machete
     cargo-outdated
     cargo-show-asm
