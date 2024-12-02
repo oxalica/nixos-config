@@ -1,59 +1,44 @@
-{ lib
-, qt6Packages
-, stdenv
-, prismlauncher-unwrapped
-, runCommandLocal
-, makeWrapper
-, bubblewrap
-, xorg
-, libpulseaudio
-, libGL
-, glfw
-, openal
-, jdk8
-, jdk17
-, gamemode
+{
+  bubblewrap,
+  jdk17,
+  jdk21,
+  jdk8,
+  kdePackages,
+  makeWrapper,
+  prismlauncher,
+  runCommandLocal,
+  stdenv,
 
-, enableBubblewrap ? lib.meta.availableOn stdenv.hostPlatform bubblewrap
-, msaClientID ? null
-, gamemodeSupport ? false
-, jdks ? [ jdk17 jdk8 ]
-, additionalLibs ? [ ]
+  additionalLibs ? [ ],
+  additionalPrograms ? [ ],
+  controllerSupport ? stdenv.hostPlatform.isLinux,
+  gamemodeSupport ? stdenv.hostPlatform.isLinux,
+  jdks ? [
+    jdk21
+    jdk17
+    jdk8
+  ],
+  msaClientID ? null,
+  textToSpeechSupport ? stdenv.hostPlatform.isLinux,
 }:
-
-qt6Packages.callPackage (
-{ wrapQtAppsHook
-, qtbase
-, qtsvg
-, qtwayland
-}:
-
-# `gamemodeSupport` requires session D-Bus access, which is blocked by the sandbox.
-assert enableBubblewrap -> !gamemodeSupport;
-
 let
-  prismlauncherFinal = prismlauncher-unwrapped.override {
-    inherit msaClientID gamemodeSupport;
+  prismlauncher' = prismlauncher.override {
+    inherit
+      additionalLibs
+      additionalPrograms
+      controllerSupport
+      gamemodeSupport
+      jdks
+      msaClientID
+      textToSpeechSupport
+      ;
   };
 
-in
-runCommandLocal "prismlauncher-bwrap-${prismlauncherFinal.version}" {
-  nativeBuildInputs = [
-    wrapQtAppsHook
-
-    # Force to use the shell wrapper instead of the binary wrapper. We have scripts.
-    makeWrapper
-  ];
-
-  buildInputs = [
-    qtbase
-    qtsvg
-  ]
-  ++ lib.optional (lib.versionAtLeast qtbase.version "6") qtwayland;
+  prismlauncher-unwrapped' = builtins.head prismlauncher'.paths;
 
   # Passthrough
   # Ref: https://github.com/NixOS/nixpkgs/blob/5e871d8aa6f57cc8e0dc087d1c5013f6e212b4ce/pkgs/build-support/build-fhsenv-bubblewrap/default.nix#L170
-  wrapperPreExec = lib.optionalString enableBubblewrap ''
+  wrapperPreExec = ''
     args=()
     if [[ "$DISPLAY" == :* ]]; then
         local_socket="/tmp/.X11-unix/X''${DISPLAY#?}"
@@ -69,7 +54,7 @@ runCommandLocal "prismlauncher-bwrap-${prismlauncherFinal.version}" {
     fi
   '';
 
-  bwrapArgs = lib.optionals enableBubblewrap [
+  bwrapArgs = [
     "--unshare-user"
     "--unshare-ipc"
     "--unshare-pid"
@@ -112,44 +97,26 @@ runCommandLocal "prismlauncher-bwrap-${prismlauncherFinal.version}" {
     "--unsetenv DBUS_SESSION_BUS_ADDRESS"
 
     "--"
-    "${prismlauncherFinal}/bin/prismlauncher"
+    "${prismlauncher-unwrapped'}/bin/prismlauncher"
   ];
 
-  qtWrapperArgs =
-    let
-      libs = (with xorg; [
-        libX11
-        libXext
-        libXcursor
-        libXrandr
-        libXxf86vm
-      ])
-      ++ [
-        libpulseaudio
-        libGL
-        glfw
-        openal
-        stdenv.cc.cc.lib
-      ]
-      ++ lib.optional gamemodeSupport gamemode.lib
-      ++ additionalLibs;
+in
+runCommandLocal "prismlauncher-bwrap-${prismlauncher-unwrapped'.version}"
+  {
+    nativeBuildInputs = [
+      kdePackages.wrapQtAppsHook
 
-    in
-    [
-      "--set LD_LIBRARY_PATH /run/opengl-driver/lib:${lib.makeLibraryPath libs}"
-      "--prefix PRISMLAUNCHER_JAVA_PATHS : ${lib.makeSearchPath "bin/java" jdks}"
-      # xorg.xrandr needed for LWJGL [2.9.2, 3) https://github.com/LWJGL/lwjgl/issues/128
-      "--prefix PATH : ${lib.makeBinPath [xorg.xrandr]}"
+      # Force to use the shell wrapper instead of the binary wrapper. We have scripts.
+      makeWrapper
     ];
 
-  inherit (prismlauncherFinal) meta;
-} ''
-  ${if enableBubblewrap then ''
+    inherit wrapperPreExec bwrapArgs;
+    inherit (prismlauncher') buildInputs qtWrapperArgs;
+
+    inherit (prismlauncher-unwrapped') meta;
+  }
+  ''
     qtWrapperArgs+=(--run "$wrapperPreExec" --add-flags "$bwrapArgs")
     makeQtWrapper ${bubblewrap}/bin/bwrap $out/bin/prismlauncher
-  '' else ''
-    makeQtWrapper ${prismlauncherFinal}/bin/prismlauncher $out/bin/prismlauncher
-  ''}
-  ln -s ${prismlauncherFinal}/share $out/share
-''
-) { }
+    ln -s ${prismlauncher-unwrapped'}/share $out/share
+  ''

@@ -17,6 +17,10 @@ let
     ];
   };
 
+  prismlauncher = my.pkgs.prismlauncher-bwrap.override {
+    jdks = [ pkgs.jdk21 pkgs.jdk17 ];
+  };
+
 in {
   home.packages = with pkgs; [
     # Console
