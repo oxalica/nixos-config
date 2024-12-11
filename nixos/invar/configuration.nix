@@ -2,6 +2,7 @@
 {
   imports = [
     ./btrbk.nix
+    ./game.nix
     ./orb.nix
     ./syncthing.nix
 
@@ -258,33 +259,6 @@
 
   programs.adb.enable = true;
   users.groups."adbusers".members = [ config.users.users.oxa.name ];
-
-  programs.steam.enable = true;
-  programs.gamemode = {
-    enable = true;
-    settings = {
-      general.igpu_desiredgov = "performance";
-      gpu = {
-        apply_gpu_optimisations = "accept-responsibility";
-        gpu_device = 1;
-        amd_performance_level = "high";
-      };
-      custom = {
-        start = "${lib.getExe pkgs.libnotify} 'Enter GameMode'";
-        end = "${lib.getExe pkgs.libnotify} 'Leave GameMode'";
-      };
-    };
-  };
-  users.groups."gamemode".members = [ config.users.users.oxa.name ];
-  systemd.user.services."app-steam@" = {
-    overrideStrategy = "asDropin";
-    serviceConfig = {
-      CPUWeight = 200;
-      MemorySwapMax = 0;
-      MemoryZSwapMax = 0;
-      IOWeight = 200;
-    };
-  };
 
   programs.wireshark = {
     enable = true;
