@@ -107,6 +107,7 @@
     bluetooth.enable = true;
     logitech.wireless.enable = true;
     logitech.wireless.enableGraphical = true; # Solaar.
+    graphics.extraPackages = with pkgs; [ intel-media-driver ]; # vaapi
   };
   console = {
     font = "${pkgs.terminus_font}/share/consolefonts/ter-v28n.psf.gz";
@@ -287,7 +288,10 @@
   environment.systemPackages = with pkgs; [
     radeontop
     solaar # Logitech devices control.
-    nvtopPackages.amd
+    (nvtopPackages.full.override {
+      nvidia = false; # Unfree.
+    })
+    intel-gpu-tools
 
     wineWowPackages.staging
     lutris

@@ -10,18 +10,11 @@
   programs.gamemode = {
     enable = true;
     settings = {
-      general = {
-        # Will be negated by gamemoded.
-        nice = 10;
-        igpu_desiredgov = "performance";
-        igpu_power_threshold = -1;
-      };
+      # Will be negated by gamemoded.
+      general.nice = 10;
       # Check AMD reported performance (CPPC) by:
       # `grep . /sys/devices/system/cpu/cpu*/acpi_cppc/highest_perf | sort --numeric-sort --field-separator=: --key=2 --reverse`
-      cpu = {
-        pin_cores = "3,5,7";
-        park_cores = "11,13,15";
-      };
+      cpu.pin_cores = "3-7,11-15";
       custom = {
         start = "${lib.getExe pkgs.libnotify} 'Enter GameMode'";
         end = "${lib.getExe pkgs.libnotify} 'Leave GameMode'";
@@ -52,7 +45,7 @@
     serviceConfig = {
       Nice = -1;
       # Avoid colliding CPUs for game.
-      AllowedCPUs = "2,4,6,10,12,14";
+      AllowedCPUs = "0-2,8-10";
       MemorySwapMax = 0;
       MemoryZSwapMax = 0;
     };
