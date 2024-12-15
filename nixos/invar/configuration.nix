@@ -107,7 +107,10 @@
     bluetooth.enable = true;
     logitech.wireless.enable = true;
     logitech.wireless.enableGraphical = true; # Solaar.
-    graphics.extraPackages = with pkgs; [ intel-media-driver ]; # vaapi
+    graphics.extraPackages = with pkgs; [
+      intel-media-driver # VAAPI
+      vpl-gpu-rt # QuickSync
+    ];
   };
   console = {
     font = "${pkgs.terminus_font}/share/consolefonts/ter-v28n.psf.gz";
