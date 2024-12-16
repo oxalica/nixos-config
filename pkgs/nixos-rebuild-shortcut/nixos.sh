@@ -1,4 +1,5 @@
 #!@runtimeShell@
+set -eo pipefail
 export PATH="$PATH${PATH:+:}"@paths@
 
 localname="$(hostname)"
