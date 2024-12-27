@@ -1,4 +1,7 @@
 { lib, pkgs, my, ... }:
+let
+  cntr = my.pkgs.cntr-fix-pid-perm;
+in
 {
   # Reduce the closure size.
   i18n.supportedLocales = lib.mkDefault [ "en_US.UTF-8/UTF-8" ];
