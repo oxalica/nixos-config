@@ -1,24 +1,4 @@
 {
-    "caddy-custom": {
-        "cargoLocks": null,
-        "date": "2024-11-28",
-        "extract": null,
-        "name": "caddy-custom",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "oxalica",
-            "repo": "caddy",
-            "rev": "405bf88d124515373b1aeba15b4b541c14ca59f3",
-            "sha256": "sha256-G4K9PnCm/1BqNcnk0ViGjhlOw62EqYvq/hqS2Rupybs=",
-            "type": "github"
-        },
-        "version": "405bf88d124515373b1aeba15b4b541c14ca59f3"
-    },
     "colors": {
         "cargoLocks": null,
         "date": null,
