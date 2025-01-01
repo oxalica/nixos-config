@@ -37,6 +37,10 @@
         "browser.toolbars.bookmarks.visibility" = "newtab";
         "browser.quitShortcut.disabled" = true; # Prevent C-Q to exit browser.
 
+        # 2 = Set "Referer" only when full host name match.
+        # See: <https://support.mozilla.org/en-US/questions/1130505>
+        "network.http.referer.XOriginPolicy" = 2;
+
         # Theme.
         "devtools.theme" = "auto";
         "extensions.activeThemeID" = "efault-theme@mozilla.org";
