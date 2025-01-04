@@ -89,15 +89,6 @@
         sops.gnupg.sshKeyPaths = [];
         sops.defaultSopsFile = ./nixos/${config.networking.hostName}/secret.yaml;
       };
-
-      kwin-fix-window-capture-geometry = { pkgs, ... }: {
-        system.replaceDependencies.replacements = [
-          {
-            oldDependency = pkgs.kdePackages.kwin;
-            newDependency = self.packages.${pkgs.system}.kwin-fix-window-capture-geometry;
-          }
-        ];
-      };
     };
 
     mkSystem = name: system: nixpkgs: { extraModules ? [] }: nixpkgs.lib.nixosSystem {
@@ -129,7 +120,7 @@
 
     nixosConfigurations = {
       invar = mkSystem "invar" "x86_64-linux" inputs.nixpkgs {
-        extraModules = with nixosModules; [ home-manager sops inputs.orb.nixosModules.orb kwin-fix-window-capture-geometry ];
+        extraModules = with nixosModules; [ home-manager sops inputs.orb.nixosModules.orb ];
       };
 
       blacksteel = mkSystem "blacksteel" "x86_64-linux" inputs.nixpkgs {

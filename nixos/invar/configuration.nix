@@ -14,7 +14,6 @@
     ../modules/nix-keep-flake-inputs.nix
     ../modules/nix-registry.nix
     ../modules/secure-boot.nix
-    ../modules/systemd-unit-protections.nix
     ../modules/zswap-enable.nix
   ] ++ lib.optional (inputs ? secrets) inputs.secrets.nixosModules.invar;
 
