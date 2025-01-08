@@ -19,6 +19,7 @@
     ./modules/shell
     ./modules/tmux.nix
     ./modules/user-dirs.nix
+    ./modules/vscode
   ];
 
   # For Xwayland apps, ie. electron and steam.
