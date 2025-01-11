@@ -8,7 +8,7 @@
   ];
 
   isoImage = {
-    isoBaseName = "nixoxa";
+    isoBaseName = lib.mkForce "nixoxa";
     volumeID = "NIXOXA";
     # Worse compression but way faster.
     squashfsCompression = "zstd -Xcompression-level 6";
@@ -18,6 +18,7 @@
   boot.swraid.enable = lib.mkForce false;
 
   networking.hostName = "nixoxa";
+  networking.wireless.enable = true;
 
   nix = {
     settings = {
