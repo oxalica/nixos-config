@@ -1,24 +1,32 @@
 {
+  lib,
   caddy,
-  fetchpatch,
 }:
 let
-  caddy' = caddy.overrideAttrs (old: {
-    patches = old.patches or [ ] ++ [
-      # caddyauth: use same cost for users and fake hash
-      (fetchpatch {
-        url = "https://github.com/oxalica/caddy/commit/b7a5e89fa55075cb2522a4185e730c7c1f3768b6.patch";
-        hash = "sha256-A01EbLJRvzDxpPyWm4TKlcUT+SsmaSzQ9q+cvZzIIG4=";
-      })
-    ];
-  });
-
-  caddy'' = caddy'.withPlugins {
+  caddy' = caddy.withPlugins {
     plugins = [
       "github.com/mholt/caddy-webdav@v0.0.0-20241008162340-42168ba04c9d"
     ];
-    hash = "sha256-Ui9M9/CQLEDBbDoBuejZeP2eIutlfcgYKFkGROR+sso=";
+    hash = "sha256-Q9pocz1FE1ttUfR10J8kEykW4NTQMI4lj54PTXBZZ0M=";
   };
 
+  caddy'' = caddy'.overrideAttrs (old: rec {
+    version = "2.9.1";
+
+    prePatch = "pushd vendor/github.com/caddyserver/caddy/v2";
+    patches =
+      assert old.patches or [ ] == [ ];
+      [
+        ./0001-caddyauth-use-same-cost-for-users-and-fake-hash.patch
+      ];
+    postPatch = "popd";
+
+    ldflags = [
+      "-s"
+      "-w"
+      "-X github.com/caddyserver/caddy/v2.CustomVersion=${version}"
+    ];
+  });
+
 in
-caddy''
+lib.warnIf (lib.versionAtLeast caddy.version "2.9.1") "upstream caddy is >= 2.9.1" caddy''
