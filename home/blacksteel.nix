@@ -18,6 +18,7 @@
     ./modules/shell
     ./modules/tmux.nix
     ./modules/user-dirs.nix
+    ./modules/vscode
   ];
 
   programs.alacritty.settings.font.size = lib.mkForce 10;
