@@ -24,7 +24,6 @@ let
 in {
   home.packages = with pkgs; [
     # Console
-    # FIXME: runzip: configure: error: ZLIB version too old, please install at least v1.1.2
     scc bubblewrap difftastic typos # Random stuff
     xsel wl-clipboard # CLI-Desktop
     beancount my.pkgs.double-entry-generator # Accounting
