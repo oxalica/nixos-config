@@ -28,8 +28,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     lanzaboote = {
-      # FIXME: https://github.com/nix-community/lanzaboote/issues/430
-      url = "github:nix-community/lanzaboote/64d20cb2afaad8b73f4e38de41d27fb30a782bb5";
+      url = "github:nix-community/lanzaboote/v0.4.2";
       inputs.pre-commit-hooks-nix.follows = "blank";
       inputs.flake-compat.follows = "blank";
       inputs.nixpkgs.follows = "nixpkgs";

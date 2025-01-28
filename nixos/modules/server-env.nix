@@ -28,7 +28,6 @@
     file
     jq
     libarchive
-    loop
     lsof
     ncdu
     procs
@@ -77,11 +76,7 @@
 
   programs.tmux.enable = true;
 
-  programs.htop = {
-    enable = true;
-    # FIXME: Depends on perl.
-    package = pkgs.htop.override { sensorsSupport = false; };
-  };
+  programs.htop.enable = true;
   programs.iotop.enable = true;
   programs.iftop.enable = true;
 

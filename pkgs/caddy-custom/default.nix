@@ -29,4 +29,4 @@ let
   });
 
 in
-lib.warnIf (lib.versionAtLeast caddy.version "2.9.1") "upstream caddy is >= 2.9.1" caddy''
+caddy''
