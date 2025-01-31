@@ -39,7 +39,6 @@ let
     "diagnostic.warningSign" = "⚠";
     "links.tooltip" = true;
     "semanticTokens.enable" = true;
-    "suggest.noselect" = true;
     "workspace.ignoredFolders" = [
       "${config.xdg.cacheHome}/cargo/**"
       "/nix/store/**"

@@ -211,8 +211,10 @@ EOF
 nmap <M-d> <Cmd>call CocAction('diagnosticToggle')<CR>
 
 " Completion.
-inoremap <silent><expr> <Tab> coc#pum#visible() ? coc#_select_confirm() : "\<Tab>"
+inoremap <silent><expr> <Tab> coc#pum#visible() ? coc#pum#confirm() : "\<Tab>"
 inoremap <silent><expr> <C-Space> coc#refresh()
+inoremap <silent><expr> <CR> "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
 
 " Motion.
 nmap <silent> gd <Plug>(coc-definition)
