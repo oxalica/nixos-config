@@ -1,4 +1,4 @@
-{ lib, config, pkgs, ... }:
+{ lib, config, pkgs, my, ... }:
 let
   inherit (pkgs) vimPlugins;
 
@@ -18,6 +18,8 @@ let
         cp -r ${pkgs.koka.src}/support/vim $out
       '')
     ];
+
+  coc-rust-analyzer = my.pkgs.coc-rust-analyzer-fix-snippet;
 
   cocPlugins = with vimPlugins; [
     coc-eslint
