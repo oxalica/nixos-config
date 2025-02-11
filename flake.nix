@@ -57,7 +57,24 @@
 
     inherit (nixpkgs) lib;
 
-    overlays = { };
+    overlays = {
+      fix-electrum = final: prev: {
+        electrum = prev.electrum.overrideAttrs (old: {
+          postPatch = old.postPatch + ''
+            # fix compatibility with recent aiorpcx version
+            # (remove as soon as https://github.com/spesmilo/electrum/commit/171aa5ee5ad4e25b9da10f757d9d398e905b4945 is included in source tarball)
+            substituteInPlace ./contrib/requirements/requirements.txt \
+              --replace-fail "aiorpcx>=0.22.0,<0.24" "aiorpcx>=0.22.0,<0.25"
+            substituteInPlace ./run_electrum \
+              --replace-fail "if not ((0, 22, 0) <= aiorpcx._version < (0, 24)):" "if not ((0, 22, 0) <= aiorpcx._version < (0, 25)):" \
+              --replace-fail "aiorpcX version {aiorpcx._version} does not match required: 0.22.0<=ver<0.24" "aiorpcX version {aiorpcx._version} does not match required: 0.22.0<=ver<0.25"
+            substituteInPlace ./electrum/electrum \
+              --replace-fail "if not ((0, 22, 0) <= aiorpcx._version < (0, 24)):" "if not ((0, 22, 0) <= aiorpcx._version < (0, 25)):" \
+              --replace-fail "aiorpcX version {aiorpcx._version} does not match required: 0.22.0<=ver<0.24" "aiorpcX version {aiorpcx._version} does not match required: 0.22.0<=ver<0.25"
+          '';
+        });
+      };
+    };
 
     nixosModules = {
       # Ref: https://github.com/dramforever/config/blob/63be844019b7ca675ea587da3b3ff0248158d9fc/flake.nix#L24-L28
