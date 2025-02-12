@@ -8,6 +8,7 @@ let
     pyyaml
     requests
     toml
+    z3
   ]);
 
   obs = pkgs.wrapOBS {
