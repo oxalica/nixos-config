@@ -1,4 +1,11 @@
-{ config, lib, pkgs, inputs, my, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  inputs,
+  my,
+  ...
+}:
 
 let
   inherit (inputs.self.lib) toTOML;
@@ -37,10 +44,14 @@ let
     exec ${lib.getExe pkgs.gcc} -fuse-ld=lld -Wl,--no-rosegment "$@"
   '';
 
-in {
-  home.packages = with pkgs; with inputs.rust-overlay.packages.${pkgs.system}; [
-    (lib.hiPrio rust-nightly.availableComponents.rustfmt)
-    (rust.override {
+  rust-overlay-pkgs = inputs.rust-overlay.packages.${pkgs.system};
+  curDate = inputs.rust-overlay.lastModifiedDate;
+  # Use nightly rustfmt from yyyy-mm-01.
+  rustfmt =
+    rust-overlay-pkgs."rust-nightly_${lib.substring 0 4 curDate}-${lib.substring 4 2 curDate}-01".availableComponents.rustfmt;
+
+  rustToolchain = (
+    rust-overlay-pkgs.rust.override {
       extensions = [
         "rust-src"
         "llvm-tools" # For cargo-llvm-cov
@@ -51,7 +62,14 @@ in {
         "wasm32-unknown-unknown"
         "x86_64-pc-windows-msvc"
       ];
-    })
+    }
+  );
+
+in
+{
+  home.packages = with pkgs; [
+    (lib.hiPrio rustfmt)
+    rustToolchain
 
     cargo-audit
     cargo-bloat
@@ -67,16 +85,19 @@ in {
 
   # Setup cargo directories.
   # https://doc.rust-lang.org/cargo/commands/cargo.html?highlight=cargo_home#files
-  home.sessionVariables."CARGO_HOME" = "${pkgs.runCommandLocal "cargo-home" {
-    cargoConfig = toTOML cargoConfig;
-    cargoAudit = toTOML cargoAudit;
-  } ''
-    mkdir -p $out
-    ln -st $out "${config.xdg.cacheHome}"/cargo/{registry,git,.global-cache,.package-cache,.package-cache-mutate}
-    ln -st $out "${config.xdg.configHome}"/cargo/credentials.toml
-    echo -n "$cargoConfig" >$out/config.toml
-    echo -n "$cargoAudit" >$out/audit.toml
-  ''}";
+  home.sessionVariables."CARGO_HOME" = "${pkgs.runCommandLocal "cargo-home"
+    {
+      cargoConfig = toTOML cargoConfig;
+      cargoAudit = toTOML cargoAudit;
+    }
+    ''
+      mkdir -p $out
+      ln -st $out "${config.xdg.cacheHome}"/cargo/{registry,git,.global-cache,.package-cache,.package-cache-mutate}
+      ln -st $out "${config.xdg.configHome}"/cargo/credentials.toml
+      echo -n "$cargoConfig" >$out/config.toml
+      echo -n "$cargoAudit" >$out/audit.toml
+    ''
+  }";
 
   home.activation.setupCargoDirectories = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     run mkdir -p "${config.xdg.configHome}"/cargo "${config.xdg.cacheHome}"/cargo/{registry,git}
