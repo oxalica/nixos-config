@@ -6,6 +6,7 @@
   kdePackages,
   makeWrapper,
   prismlauncher,
+  prismlauncher-unwrapped,
   runCommandLocal,
   stdenv,
 
@@ -22,7 +23,13 @@
   textToSpeechSupport ? stdenv.hostPlatform.isLinux,
 }:
 let
+  prismlauncher-unwrapped' = prismlauncher-unwrapped.override {
+    inherit msaClientID gamemodeSupport;
+  };
+
   prismlauncher' = prismlauncher.override {
+    prismlauncher-unwrapped = prismlauncher-unwrapped';
+
     inherit
       additionalLibs
       additionalPrograms
@@ -33,8 +40,6 @@ let
       textToSpeechSupport
       ;
   };
-
-  prismlauncher-unwrapped' = builtins.head prismlauncher'.paths;
 
   # Passthrough
   # Ref: https://github.com/NixOS/nixpkgs/blob/5e871d8aa6f57cc8e0dc087d1c5013f6e212b4ce/pkgs/build-support/build-fhsenv-bubblewrap/default.nix#L170

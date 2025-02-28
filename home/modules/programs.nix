@@ -32,7 +32,7 @@ in {
     sops # Sops
 
     # GUI
-    kolourpaint libreoffice mpv okular gwenview logseq lyx # Files
+    libreoffice mpv logseq lyx # Files
     # FIXME: electron-cash fails to build: ModuleNotFoundError: No module named 'imp'
     electrum
     monero-gui

@@ -4,6 +4,9 @@
 
   environment.systemPackages = with pkgs.kdePackages; [
     filelight
+    kolourpaint
+    okular
+    gwenview
     pkgs.qpwgraph
   ];
 
