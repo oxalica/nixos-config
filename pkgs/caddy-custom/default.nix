@@ -7,7 +7,7 @@ let
     plugins = [
       "github.com/mholt/caddy-webdav@v0.0.0-20241008162340-42168ba04c9d"
     ];
-    hash = "sha256-ZknEK1y3+0D9A72C0T7wD3P6utFsdJld+2hRpG0WRG8=";
+    hash = "sha256-WxPPQdRIJNs/Cx+IP4i3jefFqksTxCRPPtVgDPEdSLM=";
   };
 
   caddy'' = caddy'.overrideAttrs (old: rec {
