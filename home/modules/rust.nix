@@ -24,6 +24,9 @@ let
     build.target-dir = "${config.xdg.cacheHome}/cargo/target";
 
     target."${pkgs.hostPlatform.rust.rustcTarget}".linker = gcc-lld;
+
+    # Prefer MSRV-compatible dependency versions.
+    resolver.incompatible-rust-versions = "fallback";
   };
 
   # Seems it reject missing fields.
