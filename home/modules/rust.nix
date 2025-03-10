@@ -64,7 +64,7 @@ let
         "llvm-tools" # For cargo-llvm-cov
       ];
       targets = [
-        "aarch64-apple-darwin"
+        "aarch64-unknown-linux-gnu"
         "riscv64gc-unknown-linux-gnu"
         "wasm32-unknown-unknown"
         "x86_64-pc-windows-msvc"
