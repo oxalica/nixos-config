@@ -6,6 +6,9 @@
     nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-23.11";
     nixpkgs-unmatched.url = "github:oxalica/nixpkgs/test/unmatched";
 
+    # WAIT: https://github.com/NixOS/nixpkgs/pull/389363
+    nixpkgs-logseq.url = "github:NixOS/nixpkgs/5135c59491985879812717f4c9fea69604e7f26f";
+
     # Placeholder.
     blank.follows = "nixpkgs";
 

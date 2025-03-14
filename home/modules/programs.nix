@@ -1,4 +1,4 @@
-{ lib, pkgs, super, my, ... }:
+{ lib, pkgs, super, my, inputs, ... }:
 
 let
   myPython = pkgs.python3.withPackages (ps: with ps; [
@@ -21,6 +21,11 @@ let
   prismlauncher = my.pkgs.prismlauncher-bwrap.override {
     jdks = [ pkgs.jdk21 pkgs.jdk17 ];
   };
+
+  logseq = (import inputs.nixpkgs-logseq {
+    inherit (pkgs) system;
+    config.permittedInsecurePackages = [ "electron-27.3.11" ];
+  }).logseq;
 
 in {
   home.packages = with pkgs; [
