@@ -13,7 +13,7 @@
 
   environment.systemPackages = with pkgs; [
     cntr # Nix helpers.
-    procs ncdu swapview smartmontools pciutils usbutils # System info.
+    btdu procs ncdu swapview smartmontools pciutils usbutils # System info.
     moreutils curl git strace pv tree fd ripgrep lsof jq bc file rsync dnsutils # Utilities.
     compsize e2fsprogs # Filesystems.
     gnupg age pwgen sops ssh-to-age # Crypto.
