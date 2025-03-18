@@ -277,6 +277,8 @@
     interval = "monthly";
   };
 
+  services.tailscale.enable = true;
+
   environment.etc = {
     "machine-id".source = "/var/machine-id";
     "ssh/ssh_host_rsa_key".source = "/var/ssh/ssh_host_rsa_key";
