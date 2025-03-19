@@ -80,6 +80,7 @@ in
 
     cargo-audit
     cargo-bloat
+    cargo-deny
     cargo-flamegraph
     cargo-hack
     cargo-insta
