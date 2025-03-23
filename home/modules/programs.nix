@@ -38,7 +38,7 @@ in {
 
     # GUI
     libreoffice mpv logseq lyx # Files
-    # FIXME: electron-cash fails to build: ModuleNotFoundError: No module named 'imp'
+    electron-cash
     electrum
     monero-gui
     # steam is enabled system-wide.
