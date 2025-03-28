@@ -1,4 +1,10 @@
-{ lib, config, pkgs, my, ... }:
+{
+  lib,
+  config,
+  pkgs,
+  my,
+  ...
+}:
 let
   inherit (lib) singleton;
   logDir = "/var/lib/caddy/logs";
@@ -27,6 +33,8 @@ in
   image.repart.seed = "bedd7526-d0f7-6013-a6b0-986b264af135";
 
   networking.domain = "node.oxa.li";
+
+  systemd.services.caddy.serviceConfig.ReadWritePaths = [ config.services.blahd.listen ];
 
   # Ref: https://github.com/NickCao/flakes/blob/f38cc7f87108dc1c08cd6830dcf0bf2c13539f04/modules/caddy.nix#L26
   services.caddy = {
@@ -60,19 +68,22 @@ in
     };
 
     adapter = null;
-    configFile = let
-      format = pkgs.formats.json { };
-    in
+    configFile =
+      let
+        format = pkgs.formats.json { };
+      in
       (format.generate "caddy.json" config.services.caddy.settings).overrideAttrs (old: {
         # - Validation will access env vars.
         #   From: https://github.com/caddyserver/caddy/blob/c050a37e1c3228708a6716c8971361134243e941/modules/caddyhttp/caddyauth/hashes.go#L56
         # - Avoid using `/var/lib` which is forbidden in sandbox.
-        buildCommand = old.buildCommand + ''
-          export WEBDAV_USERNAME=for-validate
-          export WEBDAV_PASSWORD='$2a$14$X3ulqf/iGxnf1k6oMZ.RZeJUoqI9PX2PM4rS5lkIKJXduLGXGPrt6'
-          ${lib.getExe pkgs.buildPackages.gnused} -E "s_/var/lib/_$(pwd)/var/lib/_g" $out >./config.json
-          ${lib.getExe config.services.caddy.package} validate --config ./config.json
-        '';
+        buildCommand =
+          old.buildCommand
+          + ''
+            export WEBDAV_USERNAME=for-validate
+            export WEBDAV_PASSWORD='$2a$14$X3ulqf/iGxnf1k6oMZ.RZeJUoqI9PX2PM4rS5lkIKJXduLGXGPrt6'
+            ${lib.getExe pkgs.buildPackages.gnused} -E "s_/var/lib/_$(pwd)/var/lib/_g" $out >./config.json
+            ${lib.getExe config.services.caddy.package} validate --config ./config.json
+          '';
       });
 
   };

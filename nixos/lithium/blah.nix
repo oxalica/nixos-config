@@ -1,13 +1,13 @@
 {
   lib,
   pkgs,
+  config,
   inputs,
   ...
 }:
 let
   inherit (lib) singleton;
   host = "blah.oxa.li";
-  port = 8080;
 
 in
 {
@@ -15,8 +15,8 @@ in
 
   services.blahd = {
     enable = true;
+    listen = "/run/blahd/blahd.sock";
     settings = {
-      listen.address = "localhost:${toString port}";
       server.base_url = "https://${host}/";
       server.register.enable_public = true;
     };
@@ -103,7 +103,7 @@ in
           handle = [
             {
               handler = "reverse_proxy";
-              upstreams = singleton { dial = "localhost:${toString port}"; };
+              upstreams = singleton { dial = "unix/${config.services.blahd.listen}"; };
             }
           ];
         }
