@@ -90,7 +90,10 @@
   networking = {
     hostName = "blacksteel";
     firewall.logRefusedConnections = false;
+    networkmanager.dns = "systemd-resolved";
   };
+  services.resolved.enable = true;
+  systemd.network.wait-online.enable = false;
 
   time.timeZone = "America/Toronto";
 
