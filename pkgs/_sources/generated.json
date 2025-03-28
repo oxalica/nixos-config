@@ -30,6 +30,7 @@
             "repo": "double-entry-generator",
             "rev": "v2.7.1",
             "sha256": "sha256-2Y8Spj1LAVZsUgChDYDCZ63pTH+nqs2ff9xcmC+gr0c=",
+            "sparseCheckout": [],
             "type": "github"
         },
         "version": "v2.7.1"
@@ -50,6 +51,7 @@
             "repo": "rime_latex",
             "rev": "c863ef7f7f5ff9d909438cd48446786bf4e77cec",
             "sha256": "sha256-YHWuf1DnvUgNYt4ke7W5IR4u0rJrCMJyj6JWTp5JyqI=",
+            "sparseCheckout": [],
             "type": "github"
         },
         "version": "c863ef7f7f5ff9d909438cd48446786bf4e77cec"
