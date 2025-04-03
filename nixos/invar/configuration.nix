@@ -136,7 +136,10 @@
   # Users.
 
   sops.secrets.passwd.neededForUsers = true;
-  programs.zsh.enable = true; # As shell.
+
+  programs.zsh.enable = true; # Default shell.
+  programs.fish.enable = true;
+
   users.mutableUsers = false;
 
   users.users."oxa" = {
