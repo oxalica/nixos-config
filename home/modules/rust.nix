@@ -81,6 +81,7 @@ in
     cargo-audit
     cargo-bloat
     cargo-deny
+    cargo-expand
     cargo-flamegraph
     cargo-hack
     cargo-insta
@@ -100,7 +101,7 @@ in
     }
     ''
       mkdir -p $out
-      ln -st $out "${config.xdg.cacheHome}"/cargo/{registry,git,.global-cache,.package-cache,.package-cache-mutate}
+      ln -st $out "${config.xdg.cacheHome}"/cargo/{registry,git,.global-cache,.package-cache,.package-cache-mutate,advisory-dbs}
       ln -st $out "${config.xdg.configHome}"/cargo/credentials.toml
       echo -n "$cargoConfig" >$out/config.toml
       echo -n "$cargoAudit" >$out/audit.toml
@@ -108,7 +109,7 @@ in
   }";
 
   home.activation.setupCargoDirectories = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-    run mkdir -p "${config.xdg.configHome}"/cargo "${config.xdg.cacheHome}"/cargo/{registry,git}
+    run mkdir -p "${config.xdg.configHome}"/cargo "${config.xdg.cacheHome}"/cargo/{registry,git,advisory-dbs}
     if [[ ! -e "${config.xdg.configHome}"/cargo/credentials.toml ]]; then
       run touch -a "${config.xdg.configHome}"/cargo/credentials.toml
     fi
