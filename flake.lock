@@ -335,8 +335,8 @@
     },
     "secrets": {
       "locked": {
-        "lastModified": 1743182037,
-        "narHash": "sha256-xWCTXezRwOpw3flc083OsF4zVp5BRqDEW9RfZJb/jGQ=",
+        "lastModified": 1744799127,
+        "narHash": "sha256-5n/OSVBcfeJI9tNS+laFv5+mX8gloTuM8TTXdWJrngs=",
         "path": "/home/oxa/storage/repo/nixos-config-secrets",
         "type": "path"
       },
