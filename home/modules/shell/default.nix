@@ -62,8 +62,8 @@
     };
 
     # Ref: https://blog.quarticcat.com/zh/posts/how-do-i-make-my-zsh-smooth-as-fuck/
-    # bash
-    initExtra = ''
+    # 550 = Before compinit.
+    initContent = lib.mkOrder 550 ''
       setopt auto_pushd
       setopt interactive_comments
       setopt multios
