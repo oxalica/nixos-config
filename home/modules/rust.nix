@@ -79,7 +79,7 @@ in
     rustToolchain
 
     cargo-audit
-    cargo-bloat
+    inputs.cargo-bloated.packages.${pkgs.system}.default
     cargo-deny
     cargo-expand
     cargo-flamegraph

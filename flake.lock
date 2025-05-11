@@ -24,6 +24,26 @@
         "type": "github"
       }
     },
+    "cargo-bloated": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1746944458,
+        "narHash": "sha256-ZlzonxjZIksRSDYyEmhqJD82wpDo+GYEKoyw0C+TeQc=",
+        "owner": "oxalica",
+        "repo": "cargo-bloated",
+        "rev": "58f86063efa7febba25ffc73d7d83f31afcb5e47",
+        "type": "github"
+      },
+      "original": {
+        "owner": "oxalica",
+        "repo": "cargo-bloated",
+        "type": "github"
+      }
+    },
     "crane": {
       "locked": {
         "lastModified": 1731098351,
@@ -298,6 +318,7 @@
         "blank": [
           "nixpkgs"
         ],
+        "cargo-bloated": "cargo-bloated",
         "flake-utils": "flake-utils",
         "home-manager": "home-manager",
         "lanzaboote": "lanzaboote",
