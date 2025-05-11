@@ -14,30 +14,9 @@
         },
         "version": "94d8b2be62657e96488038b0e547e3009ed87d40"
     },
-    "double-entry-generator": {
-        "cargoLocks": null,
-        "date": null,
-        "extract": null,
-        "name": "double-entry-generator",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "deb-sig",
-            "repo": "double-entry-generator",
-            "rev": "v2.7.1",
-            "sha256": "sha256-2Y8Spj1LAVZsUgChDYDCZ63pTH+nqs2ff9xcmC+gr0c=",
-            "sparseCheckout": [],
-            "type": "github"
-        },
-        "version": "v2.7.1"
-    },
     "rime_latex": {
         "cargoLocks": null,
-        "date": "2024-02-03",
+        "date": "2025-04-03",
         "extract": null,
         "name": "rime_latex",
         "passthru": null,
@@ -49,11 +28,11 @@
             "name": null,
             "owner": "shenlebantongying",
             "repo": "rime_latex",
-            "rev": "c863ef7f7f5ff9d909438cd48446786bf4e77cec",
-            "sha256": "sha256-YHWuf1DnvUgNYt4ke7W5IR4u0rJrCMJyj6JWTp5JyqI=",
+            "rev": "858f2abc645f0e459e468e98122470ce20b16b30",
+            "sha256": "sha256-i8Rgze+tQhbE+nl+JSj09ILXeUvf6MOS9Eqsuqis1n0=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "c863ef7f7f5ff9d909438cd48446786bf4e77cec"
+        "version": "858f2abc645f0e459e468e98122470ce20b16b30"
     }
 }

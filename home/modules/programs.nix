@@ -32,7 +32,7 @@ in {
     # Console
     scc bubblewrap difftastic typos # Random stuff
     xsel wl-clipboard # CLI-Desktop
-    beancount my.pkgs.double-entry-generator # Accounting
+    beancount # Accounting
     tealdeer man-pages # Manual
     sops # Sops
 

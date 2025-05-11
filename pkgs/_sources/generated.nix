@@ -9,27 +9,16 @@
       sha256 = "sha256-l/RTPZp2v7Y4ffJRT5Fy5Z3TDB4dvWfE7wqMbquXdJA=";
     };
   };
-  double-entry-generator = {
-    pname = "double-entry-generator";
-    version = "v2.7.1";
-    src = fetchFromGitHub {
-      owner = "deb-sig";
-      repo = "double-entry-generator";
-      rev = "v2.7.1";
-      fetchSubmodules = false;
-      sha256 = "sha256-2Y8Spj1LAVZsUgChDYDCZ63pTH+nqs2ff9xcmC+gr0c=";
-    };
-  };
   rime_latex = {
     pname = "rime_latex";
-    version = "c863ef7f7f5ff9d909438cd48446786bf4e77cec";
+    version = "858f2abc645f0e459e468e98122470ce20b16b30";
     src = fetchFromGitHub {
       owner = "shenlebantongying";
       repo = "rime_latex";
-      rev = "c863ef7f7f5ff9d909438cd48446786bf4e77cec";
+      rev = "858f2abc645f0e459e468e98122470ce20b16b30";
       fetchSubmodules = false;
-      sha256 = "sha256-YHWuf1DnvUgNYt4ke7W5IR4u0rJrCMJyj6JWTp5JyqI=";
+      sha256 = "sha256-i8Rgze+tQhbE+nl+JSj09ILXeUvf6MOS9Eqsuqis1n0=";
     };
-    date = "2024-02-03";
+    date = "2025-04-03";
   };
 }
