@@ -37,7 +37,7 @@ in {
     sops # Sops
 
     # GUI
-    libreoffice mpv logseq lyx # Files
+    libreoffice mpv logseq lyx dwarfs # Files
     electron-cash
     electrum
     monero-gui
