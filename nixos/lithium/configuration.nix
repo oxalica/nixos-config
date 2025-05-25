@@ -39,7 +39,7 @@ in
   # Ref: https://github.com/NickCao/flakes/blob/f38cc7f87108dc1c08cd6830dcf0bf2c13539f04/modules/caddy.nix#L26
   services.caddy = {
     enable = true;
-    package = my.pkgs.caddy-custom;
+    package = my.pkgs.caddy-oxa;
     settings = {
       admin = {
         listen = "unix//run/caddy/admin.sock";

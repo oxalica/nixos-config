@@ -7,12 +7,13 @@ let
     plugins = [
       "github.com/mholt/caddy-webdav@v0.0.0-20241008162340-42168ba04c9d"
     ];
-    hash = "sha256-l5uRpZYu2v1FUEhb51QKql1DKme9vde+uaA5M3KQwaE=";
+    hash = "sha256-fURqPgMpZ17ubhvr+JmY8jBgDaKBb654wo9Z4izjlro=";
   };
 
-  caddy'' = caddy'.overrideAttrs (old: rec {
-    version = "2.9.1";
-
+  caddy'' = caddy'.overrideAttrs (old: {
+    # NB. Overriding `version` will break the build. Because it seems to be
+    # popular to use `finalAttrs.version` in build steps. Sad.
+    pname = old.pname + "-oxa";
     prePatch = "pushd vendor/github.com/caddyserver/caddy/v2";
     patches =
       assert old.patches or [ ] == [ ];
@@ -20,12 +21,6 @@ let
         ./0001-caddyauth-use-same-cost-for-users-and-fake-hash.patch
       ];
     postPatch = "popd";
-
-    ldflags = [
-      "-s"
-      "-w"
-      "-X github.com/caddyserver/caddy/v2.CustomVersion=${version}"
-    ];
   });
 
 in
