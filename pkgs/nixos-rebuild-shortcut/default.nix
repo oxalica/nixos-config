@@ -5,7 +5,7 @@
   runtimeShell,
   hostname,
   coreutils,
-  nixos-rebuild,
+  nixos-rebuild-ng,
   git,
   nix,
   nix-output-monitor,
@@ -24,7 +24,7 @@ runCommand "nixos-rebuild-shortcut"
         hostname
         nix
         nix-output-monitor
-        nixos-rebuild
+        nixos-rebuild-ng
       ]
     );
   }
