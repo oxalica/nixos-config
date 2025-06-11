@@ -108,3 +108,14 @@ patchinterp() {
 closure() {
     nix path-info -Shr $@ | eval $PAGER
 }
+
+# Squashfs
+sqfs() {
+    mksquashfs $@ -noappend -comp zstd
+}
+sqfs-no() {
+    mksquashfs $@ -noappend -no-compression
+}
+sqfs-best() {
+    mksquashfs $@ -noappend -b 1M -comp xz
+}

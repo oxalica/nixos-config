@@ -17,7 +17,7 @@
     moreutils curl git strace pv tree fd ripgrep lsof jq bc file rsync dnsutils # Utilities.
     compsize e2fsprogs # Filesystems.
     gnupg age pwgen sops ssh-to-age # Crypto.
-    libarchive zstd # Compression.
+    libarchive zstd squashfsTools # Compression.
 
     my.pkgs.nixos-rebuild-shortcut
   ];
