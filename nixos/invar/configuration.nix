@@ -180,10 +180,7 @@
 
   services.timesyncd.enable = true;
 
-  services.fstrim = {
-    enable = true;
-    interval = "Wed,Sat 02:00";
-  };
+  services.fstrim.enable = false;
 
   services.logind.extraConfig = ''
     HandlePowerKey=suspend

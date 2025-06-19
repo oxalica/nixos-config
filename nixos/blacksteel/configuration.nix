@@ -147,10 +147,7 @@
         PermitRootLogin = "no";
       };
     };
-    fstrim = {
-      enable = true;
-      interval = "Wed,Sat 02:00";
-    };
+    fstrim.enable = false;
     timesyncd.enable = true;
     earlyoom = {
       enable = true;
