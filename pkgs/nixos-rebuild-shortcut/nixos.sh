@@ -17,7 +17,7 @@ fi
 # Simple local build.
 if [[ "$action" == build && "$name" == "$localname" ]]; then
     set -x
-    exec nom build .#nixosSystems."$name" "$@" --keep-going
+    exec nom build .#nixosSystems."$name" "$@"
 fi
 
 if [[ "$action" =~ (boot|switch|test) && "$name" == "$localname" && "$(id -u)" != 0 ]]; then
@@ -25,12 +25,9 @@ if [[ "$action" =~ (boot|switch|test) && "$name" == "$localname" && "$(id -u)" !
     exit 1
 fi
 
-cmd=(nixos-rebuild "$action" --flake ".#$name" --keep-going)
+cmd=(nixos-rebuild "$action" --flake ".#$name" --ask-sudo-password)
 if [[ "$name" != "$localname" && "$action" != *build* ]]; then
-    cmd+=(
-    --use-remote-sudo
-    --target-host "$name"
-    )
+    cmd+=( --target-host "$name" )
 fi
 
 cmd+=("$@")
