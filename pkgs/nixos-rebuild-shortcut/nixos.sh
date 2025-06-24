@@ -20,11 +20,6 @@ if [[ "$action" == build && "$name" == "$localname" ]]; then
     exec nom build .#nixosSystems."$name" "$@"
 fi
 
-if [[ "$action" =~ (boot|switch|test) && "$name" == "$localname" && "$(id -u)" != 0 ]]; then
-    echo "'$action' expects root permission" >&2
-    exit 1
-fi
-
 cmd=(nixos-rebuild "$action" --flake ".#$name" --ask-sudo-password)
 if [[ "$name" != "$localname" && "$action" != *build* ]]; then
     cmd+=( --target-host "$name" )
