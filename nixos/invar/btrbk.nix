@@ -8,30 +8,6 @@ let
 
 in
 {
-  # 15min snapshot.
-  services.btrbk.instances.snapshot = {
-    onCalendar = "*:00/15";
-    settings = globalSettings // {
-      volume."/" = {
-        snapshot_dir = ".btrbk/snapshot";
-        snapshot_create = "onchange";
-        snapshot_preserve_min = "6h";
-
-        subvolume."home/oxa".snapshot_preserve = "48h 7d";
-        subvolume."home/oxa/storage".snapshot_preserve = "48h 7d 4w";
-        subvolume."home/oxa/archive".snapshot_preserve = "48h 7d 4w";
-      };
-    };
-  };
-  systemd.services."btrbk-snapshot" = {
-    serviceConfig = {
-      ProtectSystem = "full";
-      ProtectHome = "read-only";
-      PrivateNetwork = true;
-      IPAddressDeny = "any";
-    };
-  };
-
   # Manual backup.
   services.btrbk.instances.backup-wd2t = {
     onCalendar = null;

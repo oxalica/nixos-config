@@ -1,6 +1,7 @@
 { lib, config, pkgs, inputs, my, ... }:
 {
   imports = [
+    ./snapshot.nix
     ./btrbk.nix
     ./game.nix
     ./orb.nix

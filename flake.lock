@@ -332,6 +332,7 @@
         "orb": "orb",
         "rust-overlay": "rust-overlay",
         "secrets": "secrets",
+        "simple-snap": "simple-snap",
         "sops-nix": "sops-nix"
       }
     },
@@ -365,6 +366,26 @@
       "original": {
         "path": "/home/oxa/storage/repo/nixos-config-secrets",
         "type": "path"
+      }
+    },
+    "simple-snap": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1751846269,
+        "narHash": "sha256-BGcxjxlwlXmC4cbkgoD+KxyoduyllhjmJaJwY1A6tZA=",
+        "owner": "oxalica",
+        "repo": "simple-snap",
+        "rev": "4c096131c25c4757d4151b31020f9a9efce2f8bc",
+        "type": "github"
+      },
+      "original": {
+        "owner": "oxalica",
+        "repo": "simple-snap",
+        "type": "github"
       }
     },
     "sops-nix": {
