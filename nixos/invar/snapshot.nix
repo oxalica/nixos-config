@@ -20,13 +20,15 @@ in
     serviceConfig = {
       Type = "oneshot";
       ExecStart = [
-        "${exe} snapshot --target-dir /.snapshots --prefix oxa. --source /home/oxa"
-        "${exe} snapshot --target-dir /.snapshots --prefix storage. --source /home/oxa/storage"
-        "${exe} snapshot --target-dir /.snapshots --prefix archive. --source /home/oxa/archive"
+        "${exe} snapshot --skip-if-unchanged --target-dir /.snapshots --prefix oxa. --source /home/oxa"
+        "${exe} snapshot --skip-if-unchanged --target-dir /.snapshots --prefix storage. --source /home/oxa/storage"
+        "${exe} snapshot --skip-if-unchanged --target-dir /.snapshots --prefix archive. --source /home/oxa/archive"
       ];
 
       ReadWritePaths = [ "/.snapshots" ];
-      CapabilityBoundingSet = [ "CAP_DAC_OVERRIDE" "CAP_FOWNER" ];
+      CapabilityBoundingSet = [ "CAP_DAC_READ_SEARCH" "CAP_FOWNER" ];
+      CPUSchedulingPolicy = "idle";
+      IOSchedulingClass = "idle";
 
       IPAddressDeny = "any";
       LockPersonality = true;
@@ -67,6 +69,8 @@ in
       ];
 
       ReadWritePaths = [ "/.snapshots" ];
+      CPUSchedulingPolicy = "idle";
+      IOSchedulingClass = "idle";
 
       IPAddressDeny = "any";
       LockPersonality = true;

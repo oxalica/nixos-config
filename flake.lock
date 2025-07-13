@@ -375,11 +375,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1751918782,
-        "narHash": "sha256-EqI5r/LAMf5ope2kcrVN/VHEO3BdJbBR+5QNloYFFy4=",
+        "lastModified": 1752385390,
+        "narHash": "sha256-HLqYbQuAri7yrERCnGriTSwXr91c5Kh0yTgWj5y3cM8=",
         "owner": "oxalica",
         "repo": "simple-snap",
-        "rev": "ae86054b941626321e7bc688de32dcc00b188264",
+        "rev": "258d27fd2f348a01c2facf62c157157741c86568",
         "type": "github"
       },
       "original": {
