@@ -10,6 +10,8 @@
     pkgs.qpwgraph
   ];
 
+  environment.variables.NIXOS_OZONE_WL = 1;
+
   programs = {
     partition-manager.enable = true;
     kdeconnect.enable = true;
