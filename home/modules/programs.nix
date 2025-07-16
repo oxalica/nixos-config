@@ -47,6 +47,7 @@ in {
     obs # Recording
     my.pkgs.systemd-run-app
     syncplay
+    restic
 
     # Dev
     cachix patchelf nixpkgs-review nix-update nix-output-monitor nixfmt-rfc-style # Nix utils

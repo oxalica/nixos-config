@@ -1,8 +1,6 @@
 { lib, config, ... }:
 
 {
-  programs.home-manager.enable = true;
-
   imports = [
     ./modules/alacritty.nix
     ./modules/direnv.nix
