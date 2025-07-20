@@ -67,9 +67,7 @@ let
         command = "nil";
         filetypes = [ "nix" ];
         rootPatterns = [ "flake.nix" ".git" ];
-        settings.nil = {
-          formatting.command = [ (lib.getExe pkgs.nixfmt-rfc-style) "-" ];
-        };
+        settings.nil = { };
       };
       koka = {
         filetypes = [ "koka" ];
