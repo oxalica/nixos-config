@@ -9,7 +9,10 @@
         "${pkgs.vimPlugins.nightfox-nvim}/extra/nightfox/alacritty.toml"
       ];
 
-      window.padding = { x = 4; y = 0; };
+      window.padding = {
+        x = 4;
+        y = 0;
+      };
       # window.startup_mode = "Fullscreen";
       window.startup_mode = "Maximized";
 
@@ -20,7 +23,11 @@
 
       terminal.shell = {
         program = "${pkgs.tmux}/bin/tmux";
-        args = [ "new-session" "-t" "main" ];
+        args = [
+          "new-session"
+          "-t"
+          "main"
+        ];
       };
 
       mouse.hide_when_typing = true;

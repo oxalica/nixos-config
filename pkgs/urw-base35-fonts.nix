@@ -1,4 +1,8 @@
-{ lib, stdenvNoCC, fetchFromGitHub }:
+{
+  lib,
+  stdenvNoCC,
+  fetchFromGitHub,
+}:
 
 stdenvNoCC.mkDerivation {
   pname = "urw-base35-fonts";
@@ -25,4 +29,3 @@ stdenvNoCC.mkDerivation {
     platforms = platforms.all;
   };
 }
-

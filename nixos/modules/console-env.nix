@@ -1,4 +1,9 @@
-{ lib, pkgs, my, ... }:
+{
+  lib,
+  pkgs,
+  my,
+  ...
+}:
 {
   # Reduce the closure size.
   i18n.supportedLocales = lib.mkDefault [ "en_US.UTF-8/UTF-8" ];
@@ -12,13 +17,49 @@
   environment.defaultPackages = [ ];
 
   environment.systemPackages = with pkgs; [
-    cntr # Nix helpers.
-    btdu procs ncdu swapview smartmontools pciutils usbutils # System info.
-    moreutils curl git strace pv tree fd ripgrep lsof jq bc file rsync dnsutils # Utilities.
-    compsize e2fsprogs # Filesystems.
-    gnupg age pwgen sops ssh-to-age # Crypto.
-    libarchive zstd squashfsTools # Compression.
+    # System info.
+    btdu
+    procs
+    ncdu
+    swapview
+    smartmontools
+    pciutils
+    usbutils
 
+    # CLI utilities.
+    moreutils
+    curl
+    git
+    strace
+    pv
+    tree
+    fd
+    ripgrep
+    lsof
+    jq
+    bc
+    file
+    rsync
+    dnsutils
+
+    # Filesystems.
+    compsize
+    e2fsprogs
+
+    # Cryptography.
+    gnupg
+    age
+    pwgen
+    sops
+    ssh-to-age
+
+    # Compression.
+    libarchive
+    zstd
+    squashfsTools
+
+    # Nix/OS helpers.
+    cntr
     my.pkgs.nixos-rebuild-shortcut
   ];
 
@@ -26,23 +67,28 @@
     enable = true;
     lessopen = null;
   };
-  environment.variables = let
-    common = [
-      "--RAW-CONTROL-CHARS" # Only allow colors.
-      "--mouse"
-      "--wheel-lines=5"
-      "--LONG-PROMPT"
-    ];
-  in {
-    PAGER = "less";
-    # Don't use `programs.less.envVariables.LESS`, which will be override by `LESS` set by `man`.
-    LESS = lib.concatStringsSep " " common;
-    SYSTEMD_LESS = lib.concatStringsSep " " (common ++ [
-      "--quit-if-one-screen"
-      "--chop-long-lines"
-      "--no-init" # Keep content after quit.
-    ]);
-  };
+  environment.variables =
+    let
+      common = [
+        "--RAW-CONTROL-CHARS" # Only allow colors.
+        "--mouse"
+        "--wheel-lines=5"
+        "--LONG-PROMPT"
+      ];
+    in
+    {
+      PAGER = "less";
+      # Don't use `programs.less.envVariables.LESS`, which will be override by `LESS` set by `man`.
+      LESS = lib.concatStringsSep " " common;
+      SYSTEMD_LESS = lib.concatStringsSep " " (
+        common
+        ++ [
+          "--quit-if-one-screen"
+          "--chop-long-lines"
+          "--no-init" # Keep content after quit.
+        ]
+      );
+    };
 
   programs.tmux.enable = true;
 

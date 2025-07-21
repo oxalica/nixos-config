@@ -1,19 +1,25 @@
-{ lib, config, pkgs, my, ... }:
+{
+  lib,
+  config,
+  pkgs,
+  my,
+  ...
+}:
 let
   inherit (pkgs) vimPlugins;
 
   vimrc = builtins.readFile ./vimrc.vim;
 
-  vimrc' = builtins.replaceStrings
-    ["@fcitx5-remote@"]
-    ["${lib.getBin pkgs.fcitx5}/bin/fcitx5-remote"]
-    vimrc;
+  vimrc' =
+    builtins.replaceStrings [ "@fcitx5-remote@" ] [ "${lib.getBin pkgs.fcitx5}/bin/fcitx5-remote" ]
+      vimrc;
 
   plugins =
-    map (x: vimPlugins.${lib.elemAt x 0})
-      (lib.filter (x: lib.isList x)
-        (builtins.split ''" plugin: ([A-Za-z_-]+)'' vimrc)) ++
-    cocPlugins ++ [
+    map (x: vimPlugins.${lib.elemAt x 0}) (
+      lib.filter (x: lib.isList x) (builtins.split ''" plugin: ([A-Za-z_-]+)'' vimrc)
+    )
+    ++ cocPlugins
+    ++ [
       (pkgs.runCommandNoCC "koka-vim" { } ''
         cp -r ${pkgs.koka.src}/support/vim $out
       '')
@@ -66,13 +72,19 @@ let
         # Use from PATH to allow overriding.
         command = "nil";
         filetypes = [ "nix" ];
-        rootPatterns = [ "flake.nix" ".git" ];
+        rootPatterns = [
+          "flake.nix"
+          ".git"
+        ];
         settings.nil = { };
       };
       koka = {
         filetypes = [ "koka" ];
         command = "koka";
-        args = [ "--language-server" "--lsstdio" ];
+        args = [
+          "--language-server"
+          "--lsstdio"
+        ];
       };
     };
   };
@@ -97,14 +109,17 @@ in
     nil
     rust-analyzer
     watchman # Required by coc.nvim for file watching.
-    fzf bat # Required by fzf.vim.
+    fzf
+    bat # Required by fzf.vim.
     nodejs # FIXME: coc.nvim cannot find node executable
   ];
 
   # Forbid some LSP (eg. pyright) from watching big directories.
   home.file.".watchman.json".text = builtins.toJSON {
     ignore_dirs = [
-      "/" "/nix" "/nix/store"
+      "/"
+      "/nix"
+      "/nix/store"
       "${config.home.homeDirectory}/storage"
       "${config.home.homeDirectory}/archive"
     ];

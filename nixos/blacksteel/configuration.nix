@@ -1,4 +1,11 @@
-{ lib, config, pkgs, inputs, my, ... }:
+{
+  lib,
+  config,
+  pkgs,
+  inputs,
+  my,
+  ...
+}:
 
 {
   imports = [
@@ -13,9 +20,11 @@
     ../modules/nix-registry.nix
     ../modules/secure-boot.nix
     ../modules/zswap-enable.nix
-  ] ++ lib.optional (inputs ? secrets) (inputs.secrets.nixosModules.blacksteel);
+  ]
+  ++ lib.optional (inputs ? secrets) (inputs.secrets.nixosModules.blacksteel);
 
-  nixpkgs.config.allowUnfreePredicate = drv:
+  nixpkgs.config.allowUnfreePredicate =
+    drv:
     lib.elem (lib.getName drv) [
       "steam"
       "steam-unwrapped"
@@ -31,7 +40,11 @@
   boot = {
     initrd = {
       systemd.enable = true;
-      availableKernelModules = [ "xhci_pci" "nvme" "rtsx_pci_sdmmc" ];
+      availableKernelModules = [
+        "xhci_pci"
+        "nvme"
+        "rtsx_pci_sdmmc"
+      ];
       kernelModules = [ ];
       luks.devices."luksroot" = {
         device = "/dev/disk/by-uuid/8e445c05-75cc-45c7-bebd-46a73cf50a74";
@@ -60,7 +73,11 @@
     "/" = {
       device = "/dev/disk/by-uuid/fbfe849d-2d2f-415f-88d3-65ded870e46b";
       fsType = "btrfs";
-      options = [ "noatime" "compress=zstd:1" "subvol=@" ];
+      options = [
+        "noatime"
+        "compress=zstd:1"
+        "subvol=@"
+      ];
     };
 
     "/boot" = {
@@ -125,14 +142,19 @@
       hashedPasswordFile = config.sops.secrets.passwd.path;
       uid = 1000;
       group = config.users.groups.oxa.name;
-      extraGroups = [ "wheel" "kvm" "adbusers" "libvirtd" "wireshark" ];
+      extraGroups = [
+        "wheel"
+        "kvm"
+        "adbusers"
+        "libvirtd"
+        "wireshark"
+      ];
 
       openssh.authorizedKeys.keys = with my.ssh.identities; [ oxa ];
     };
     groups."oxa".gid = 1000;
   };
-  home-manager.users."oxa" =
-    import ../../home/blacksteel.nix;
+  home-manager.users."oxa" = import ../../home/blacksteel.nix;
 
   # Services.
 
@@ -177,8 +199,16 @@
         protocol = "ssh-ng";
         sshUser = "oxa";
         sshKey = "/etc/ssh/ssh_host_ed25519_key";
-        systems = [ "x86_64-linux" "i686-linux" ];
-        supportedFeatures = [ "kvm" "big-parallel" "nixos-test" "benchmark" ];
+        systems = [
+          "x86_64-linux"
+          "i686-linux"
+        ];
+        supportedFeatures = [
+          "kvm"
+          "big-parallel"
+          "nixos-test"
+          "benchmark"
+        ];
       }
     ];
   };

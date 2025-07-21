@@ -1,4 +1,11 @@
-{ lib, config, pkgs, inputs, my, ... }:
+{
+  lib,
+  config,
+  pkgs,
+  inputs,
+  my,
+  ...
+}:
 {
   imports = [
     ./snapshot.nix
@@ -16,11 +23,13 @@
     ../modules/nix-registry.nix
     ../modules/secure-boot.nix
     ../modules/zswap-enable.nix
-  ] ++ lib.optional (inputs ? secrets) inputs.secrets.nixosModules.invar;
+  ]
+  ++ lib.optional (inputs ? secrets) inputs.secrets.nixosModules.invar;
 
   sops.age.sshKeyPaths = lib.mkForce [ "/var/ssh/ssh_host_ed25519_key" ];
 
-  nixpkgs.config.allowUnfreePredicate = drv:
+  nixpkgs.config.allowUnfreePredicate =
+    drv:
     lib.elem (lib.getName drv) [
       "steam"
       "steam-unwrapped"
@@ -43,14 +52,22 @@
     initrd = {
       systemd.enable = true;
 
-      availableKernelModules = [ "xhci_pci" "ahci" "usbhid" ];
+      availableKernelModules = [
+        "xhci_pci"
+        "ahci"
+        "usbhid"
+      ];
       kernelModules = [ "nvme" ];
 
       luks.devices."invar-luks2" = {
         device = "/dev/disk/by-uuid/89a01448-a7d6-40c3-8ad0-2257bcd54f46";
         allowDiscards = true;
         # https://blog.cloudflare.com/speeding-up-linux-disk-encryption/
-        crypttabExtraOpts = [ "fido2-device=auto" "no-read-workqueue" "no-write-workqueue" ];
+        crypttabExtraOpts = [
+          "fido2-device=auto"
+          "no-read-workqueue"
+          "no-write-workqueue"
+        ];
       };
     };
 
@@ -78,7 +95,11 @@
       fsType = "btrfs";
       # zstd:1  W: ~510MiB/s
       # zstd:3  W: ~330MiB/s
-      options = [ "compress=zstd:1" "noatime" "subvol=/@" ];
+      options = [
+        "compress=zstd:1"
+        "noatime"
+        "subvol=/@"
+      ];
     };
 
     "/boot" = {
@@ -118,7 +139,10 @@
   networking = {
     hostName = "invar";
     # This will be set as systemd-resolved global DNS.
-    nameservers = [ "1.1.1.1#cloudflare-dns.com" "1.0.0.1#cloudflare-dns.com" ];
+    nameservers = [
+      "1.1.1.1#cloudflare-dns.com"
+      "1.0.0.1#cloudflare-dns.com"
+    ];
     # No default DHCP scripts.
     useDHCP = false;
     networkmanager = {
@@ -149,7 +173,10 @@
     hashedPasswordFile = config.sops.secrets.passwd.path;
     uid = 1000;
     group = config.users.groups.oxa.name;
-    extraGroups = [ "wheel" "libvirtd" ];
+    extraGroups = [
+      "wheel"
+      "libvirtd"
+    ];
 
     openssh.authorizedKeys.keys = with my.ssh.identities; [ oxa ];
   };

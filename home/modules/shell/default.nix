@@ -1,4 +1,10 @@
-{ lib, pkgs, config, my, ... }:
+{
+  lib,
+  pkgs,
+  config,
+  my,
+  ...
+}:
 {
   home.sessionVariables = {
     # Rust and python outputs.
@@ -54,7 +60,8 @@
       save = 1000000;
       size = 1000000;
       ignorePatterns = [
-        "rm *" "\\rm *"
+        "rm *"
+        "\\rm *"
         "sudo *rm*"
         "g* stash (clear|drop)*"
         ":"

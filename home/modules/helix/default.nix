@@ -1,7 +1,13 @@
-{ lib, pkgs, inputs, ... }:
+{
+  lib,
+  pkgs,
+  inputs,
+  ...
+}:
 let
   inherit (inputs.self.lib) toTOML;
-in {
+in
+{
   home.packages = with pkgs; [ helix ];
 
   xdg.configFile = {
@@ -11,7 +17,10 @@ in {
       editor = {
         scrolloff = 5;
         scroll-lines = 5;
-        shell = [ "${lib.getBin pkgs.zsh}/bin/zsh" "-c" ];
+        shell = [
+          "${lib.getBin pkgs.zsh}/bin/zsh"
+          "-c"
+        ];
         idle-timeout = 0;
 
         lsp.display-messages = true;
@@ -28,8 +37,16 @@ in {
 
       keys = {
         normal = {
-          "g"."h" = [ "select_mode" "goto_line_start" "normal_mode" ];
-          "g"."l" = [ "select_mode" "goto_line_end" "normal_mode" ];
+          "g"."h" = [
+            "select_mode"
+            "goto_line_start"
+            "normal_mode"
+          ];
+          "g"."l" = [
+            "select_mode"
+            "goto_line_end"
+            "normal_mode"
+          ];
           "x" = "extend_to_line_bounds";
           "X" = "extend_line";
         };
@@ -74,46 +91,45 @@ in {
 
         comment = "#768390";
 
-        bg            = "#192330";
-        bg_float      = "#131a24";
+        bg = "#192330";
+        bg_float = "#131a24";
         bg_cursorline = "#29394e";
-        bg_border     = "#415166";
-        bg_sel        = "#223249";
-        bg_search     = "#3a567d";
-        bg_incsearch  = green;
-        fg            = "#cdcecf";
-        fg_status     = "#aeafb0";
-        fg_linenr     = "#71839b";
+        bg_border = "#415166";
+        bg_sel = "#223249";
+        bg_search = "#3a567d";
+        bg_incsearch = green;
+        fg = "#cdcecf";
+        fg_status = "#aeafb0";
+        fg_linenr = "#71839b";
 
+        bracket = fg_status; # Brackets and Punctuation
+        builtin_var = red; # Builtin variable
+        builtin_type = cyan_bright; # Builtin type
+        builtin_const = orange_bright; # Builtin const
+        conditional = magenta_bright; # Conditional and loop
+        const = orange_bright; # Constants, imports and booleans
+        deprecated = fg_linenr; # Deprecated
+        field = fg_status; # Field
+        func = blue_bright; # Functions and Titles
+        ident = cyan; # Identifiers
+        keyword = magenta; # Keywords
+        number = orange; # Numbers
+        operator = fg_status; # Operators
+        preproc = pink_bright; # PreProc
+        regex = yellow_bright; # Regex
+        statement = magenta; # Statements
+        string = green; # Strings
+        type = yellow; # Types
+        variable = white; # Variables
 
-        bracket       = fg_status;        # Brackets and Punctuation
-        builtin_var   = red;              # Builtin variable
-        builtin_type  = cyan_bright;      # Builtin type
-        builtin_const = orange_bright;    # Builtin const
-        conditional   = magenta_bright;   # Conditional and loop
-        const         = orange_bright;    # Constants, imports and booleans
-        deprecated    = fg_linenr;        # Deprecated
-        field         = fg_status;        # Field
-        func          = blue_bright;      # Functions and Titles
-        ident         = cyan;             # Identifiers
-        keyword       = magenta;          # Keywords
-        number        = orange;           # Numbers
-        operator      = fg_status;        # Operators
-        preproc       = pink_bright;      # PreProc
-        regex         = yellow_bright;    # Regex
-        statement     = magenta;          # Statements
-        string        = green;            # Strings
-        type          = yellow;           # Types
-        variable      = white;            # Variables
+        error = red;
+        warning = yellow;
+        info = blue;
+        hint = green;
 
-        error         = red;
-        warning       = yellow;
-        info          = blue;
-        hint          = green;
-
-        added         = green;
-        removed       = red;
-        changed       = yellow;
+        added = green;
+        removed = red;
+        changed = yellow;
       };
 
       "ui.text".fg = "fg";
@@ -123,9 +139,12 @@ in {
       # "ui.virtual.ruler" = { bg = "gray" }
 
       "ui.cursor".bg = "bg_incsearch";
-      "ui.cursor.primary".modifiers = ["reversed"];
+      "ui.cursor.primary".modifiers = [ "reversed" ];
       "ui.cursor.select".bg = "bg_incsearch";
-      "ui.cursor.match" = { fg = "yellow"; modifiers = ["bold"]; };
+      "ui.cursor.match" = {
+        fg = "yellow";
+        modifiers = [ "bold" ];
+      };
 
       "ui.selection".bg = "bg_sel";
       "ui.selection.primary".bg = "bg_search";
@@ -133,8 +152,14 @@ in {
       "ui.linenr".fg = "fg_linenr";
       "ui.linenr.selected".fg = "yellow";
 
-      "ui.statusline" = { fg = "fg_status"; bg = "bg_float"; };
-      "ui.statusline.inactive" = { fg = "fg_linenr"; bg = "bg_float"; };
+      "ui.statusline" = {
+        fg = "fg_status";
+        bg = "bg_float";
+      };
+      "ui.statusline.inactive" = {
+        fg = "fg_linenr";
+        bg = "bg_float";
+      };
 
       "ui.help".bg = "bg_sel";
       "ui.popup".bg = "bg_sel";
@@ -146,7 +171,7 @@ in {
       "error".fg = "error";
       "info".fg = "info";
       "hint".fg = "hint";
-      "diagnostic".modifiers = ["underlined"];
+      "diagnostic".modifiers = [ "underlined" ];
 
       "diff.plus".fg = "added";
       "diff.minus".fg = "deleted";
@@ -159,7 +184,10 @@ in {
       "constant".fg = "const";
       "constant.builtin".fg = "builtin_const";
       "constant.character".fg = "string";
-      "constant.character.escape" = { fg = "regex"; modifiers = ["bold"]; };
+      "constant.character.escape" = {
+        fg = "regex";
+        modifiers = [ "bold" ];
+      };
       "constant.numeric".fg = "number";
       "constructor".fg = "keyword";
       "function".fg = "func";

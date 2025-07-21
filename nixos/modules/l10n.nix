@@ -1,4 +1,9 @@
-{ lib, pkgs, my, ... }:
+{
+  lib,
+  pkgs,
+  my,
+  ...
+}:
 {
   i18n = {
     supportedLocales = [ "all" ]; # Override console-env.
@@ -9,7 +14,10 @@
       fcitx5 = {
         addons = with pkgs; [
           (fcitx5-rime.override {
-            rimeDataPkgs = [ rime-data my.pkgs.rime_latex ];
+            rimeDataPkgs = [
+              rime-data
+              my.pkgs.rime_latex
+            ];
           })
         ];
       };
@@ -40,9 +48,22 @@
       enable = true;
 
       defaultFonts = {
-        monospace = [ "Iosevka Fixed" "Noto Sans CJK SC" "Font Awesome 6 Free" "Twemoji" ];
-        sansSerif = [ "Noto Sans" "Noto Sans CJK SC" "Twemoji" ];
-        serif = [ "Noto Serif" "Noto Serif CJK SC" "Twemoji" ];
+        monospace = [
+          "Iosevka Fixed"
+          "Noto Sans CJK SC"
+          "Font Awesome 6 Free"
+          "Twemoji"
+        ];
+        sansSerif = [
+          "Noto Sans"
+          "Noto Sans CJK SC"
+          "Twemoji"
+        ];
+        serif = [
+          "Noto Serif"
+          "Noto Serif CJK SC"
+          "Twemoji"
+        ];
         emoji = [ "Twemoji" ];
       };
 
@@ -51,31 +72,49 @@
         <!DOCTYPE fontconfig SYSTEM "urn:fontconfig:fonts.dtd">
         <fontconfig>
           <!-- Use language-specific font variants. -->
-          ${lib.concatMapStringsSep "\n" ({ lang, variant }:
-            let
-              replace = from: to: ''
-                <match target="pattern">
-                  <test name="lang" compare="contains">
-                    <string>${lang}</string>
-                  </test>
-                  <test name="family">
-                    <string>${from}</string>
-                  </test>
-                  <edit name="family" binding="strong" mode="prepend_first">
-                    <string>${to}</string>
-                  </edit>
-                </match>
-              '';
-            in
-            replace "sans-serif" "Noto Sans CJK ${variant}" +
-            replace "serif" "Noto Serif CJK ${variant}"
-          ) [
-            { lang = "zh";    variant = "SC"; }
-            { lang = "zh-TW"; variant = "TC"; }
-            { lang = "zh-HK"; variant = "HK"; }
-            { lang = "ja";    variant = "JP"; }
-            { lang = "ko";    variant = "KR";  }
-          ]}
+          ${lib.concatMapStringsSep "\n"
+            (
+              { lang, variant }:
+              let
+                replace = from: to: ''
+                  <match target="pattern">
+                    <test name="lang" compare="contains">
+                      <string>${lang}</string>
+                    </test>
+                    <test name="family">
+                      <string>${from}</string>
+                    </test>
+                    <edit name="family" binding="strong" mode="prepend_first">
+                      <string>${to}</string>
+                    </edit>
+                  </match>
+                '';
+              in
+              replace "sans-serif" "Noto Sans CJK ${variant}" + replace "serif" "Noto Serif CJK ${variant}"
+            )
+            [
+              {
+                lang = "zh";
+                variant = "SC";
+              }
+              {
+                lang = "zh-TW";
+                variant = "TC";
+              }
+              {
+                lang = "zh-HK";
+                variant = "HK";
+              }
+              {
+                lang = "ja";
+                variant = "JP";
+              }
+              {
+                lang = "ko";
+                variant = "KR";
+              }
+            ]
+          }
         </fontconfig>
       '';
     };

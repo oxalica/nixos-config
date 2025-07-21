@@ -76,14 +76,12 @@ in
         # - Validation will access env vars.
         #   From: https://github.com/caddyserver/caddy/blob/c050a37e1c3228708a6716c8971361134243e941/modules/caddyhttp/caddyauth/hashes.go#L56
         # - Avoid using `/var/lib` which is forbidden in sandbox.
-        buildCommand =
-          old.buildCommand
-          + ''
-            export WEBDAV_USERNAME=for-validate
-            export WEBDAV_PASSWORD='$2a$14$X3ulqf/iGxnf1k6oMZ.RZeJUoqI9PX2PM4rS5lkIKJXduLGXGPrt6'
-            ${lib.getExe pkgs.buildPackages.gnused} -E "s_/var/lib/_$(pwd)/var/lib/_g" $out >./config.json
-            ${lib.getExe config.services.caddy.package} validate --config ./config.json
-          '';
+        buildCommand = old.buildCommand + ''
+          export WEBDAV_USERNAME=for-validate
+          export WEBDAV_PASSWORD='$2a$14$X3ulqf/iGxnf1k6oMZ.RZeJUoqI9PX2PM4rS5lkIKJXduLGXGPrt6'
+          ${lib.getExe pkgs.buildPackages.gnused} -E "s_/var/lib/_$(pwd)/var/lib/_g" $out >./config.json
+          ${lib.getExe config.services.caddy.package} validate --config ./config.json
+        '';
       });
 
   };

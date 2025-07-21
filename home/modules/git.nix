@@ -5,7 +5,8 @@
 
     ignores = [
       # vim swap files.
-      "*~" "*.swp"
+      "*~"
+      "*.swp"
 
       # Editor local settings.
       ".vim/coc-settings.json"

@@ -1,4 +1,10 @@
-{ lib, config, pkgs, inputs, ... }:
+{
+  lib,
+  config,
+  pkgs,
+  inputs,
+  ...
+}:
 let
   simple-snap = inputs.simple-snap.packages.${pkgs.system}.default;
   exe = lib.getExe simple-snap;
@@ -26,7 +32,10 @@ in
       ];
 
       ReadWritePaths = [ "/.snapshots" ];
-      CapabilityBoundingSet = [ "CAP_DAC_READ_SEARCH" "CAP_FOWNER" ];
+      CapabilityBoundingSet = [
+        "CAP_DAC_READ_SEARCH"
+        "CAP_FOWNER"
+      ];
       CPUSchedulingPolicy = "idle";
       IOSchedulingClass = "idle";
 
@@ -51,7 +60,11 @@ in
       RestrictRealtime = true;
       RestrictSUIDSGID = true;
       SystemCallArchitectures = "native";
-      SystemCallFilter = [ "@system-service" "~@privileged" "~@resources" ];
+      SystemCallFilter = [
+        "@system-service"
+        "~@privileged"
+        "~@resources"
+      ];
     };
   };
 
@@ -93,7 +106,11 @@ in
       RestrictRealtime = true;
       RestrictSUIDSGID = true;
       SystemCallArchitectures = "native";
-      SystemCallFilter = [ "@system-service" "~@privileged" "~@resources" ];
+      SystemCallFilter = [
+        "@system-service"
+        "~@privileged"
+        "~@resources"
+      ];
     };
   };
 }

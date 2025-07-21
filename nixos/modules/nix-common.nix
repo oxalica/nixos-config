@@ -1,4 +1,9 @@
-{ lib, pkgs, inputs, ... }:
+{
+  lib,
+  pkgs,
+  inputs,
+  ...
+}:
 {
   # Ensure this is >= 2.22.1 with the following fix included, or it failes to eval.
   # https://github.com/NixOS/nix/pull/10456
@@ -29,7 +34,10 @@
 
     allow-import-from-derivation = false;
     auto-optimise-store = true;
-    trusted-users = [ "root" "@wheel" ];
+    trusted-users = [
+      "root"
+      "@wheel"
+    ];
 
     connect-timeout = 10;
     download-attempts = 3;
@@ -41,7 +49,10 @@
 
   nix.registry = {
     nixpkgs = {
-      from = { id = "nixpkgs"; type = "indirect"; };
+      from = {
+        id = "nixpkgs";
+        type = "indirect";
+      };
       flake = inputs.nixpkgs;
     };
   };

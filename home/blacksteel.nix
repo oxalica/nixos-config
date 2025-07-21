@@ -21,14 +21,16 @@
 
   programs.alacritty.settings.font.size = lib.mkForce 10;
 
-  home.file = let
-    home = config.home.homeDirectory;
-    link = path: config.lib.file.mkOutOfStoreSymlink "${home}/${path}";
-    linkPersonal = path: link "storage/personal/${path}";
-  in {
-    ".local/share/fcitx5/rime/sync".source = linkPersonal "rime-sync";
-    ".local/share/password-store".source = linkPersonal "password-store";
-  };
+  home.file =
+    let
+      home = config.home.homeDirectory;
+      link = path: config.lib.file.mkOutOfStoreSymlink "${home}/${path}";
+      linkPersonal = path: link "storage/personal/${path}";
+    in
+    {
+      ".local/share/fcitx5/rime/sync".source = linkPersonal "rime-sync";
+      ".local/share/password-store".source = linkPersonal "password-store";
+    };
 
   xdg.enable = true;
 

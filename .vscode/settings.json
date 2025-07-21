@@ -4,4 +4,7 @@
     "files.trimFinalNewlines": true,
 
     "editor.tabSize": 2,
+    "[nix]": {
+        "editor.formatOnSave": true
+    }
 }

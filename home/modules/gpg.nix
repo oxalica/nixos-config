@@ -26,7 +26,11 @@
 
   programs.password-store = {
     enable = true;
-    package = pkgs.pass.withExtensions (ps: [ ps.pass-audit ps.pass-import ps.pass-otp ]);
+    package = pkgs.pass.withExtensions (ps: [
+      ps.pass-audit
+      ps.pass-import
+      ps.pass-otp
+    ]);
   };
 
   home.packages = [ pkgs.qtpass ];

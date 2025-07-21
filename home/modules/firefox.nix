@@ -4,7 +4,10 @@
     enable = true;
 
     package = pkgs.firefox.overrideAttrs (old: {
-      nativeBuildInputs = old.nativeBuildInputs or [] ++ [ pkgs.zip pkgs.unzip ];
+      nativeBuildInputs = old.nativeBuildInputs or [ ] ++ [
+        pkgs.zip
+        pkgs.unzip
+      ];
 
       # bash
       buildCommand = old.buildCommand + ''

@@ -1,4 +1,8 @@
-{ writeTextFile, python3, showmethekey }:
+{
+  writeTextFile,
+  python3,
+  showmethekey,
+}:
 writeTextFile {
   name = "keystat";
   destination = "/lib/systemd/system/keystat.service";

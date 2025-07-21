@@ -1,4 +1,10 @@
-{ lib, pkgs, modulesPath, my, ... }:
+{
+  lib,
+  pkgs,
+  modulesPath,
+  my,
+  ...
+}:
 {
   imports = [
     "${modulesPath}/profiles/qemu-guest.nix"
@@ -13,7 +19,11 @@
   boot.loader.timeout = 1;
 
   boot.initrd.systemd.enable = true;
-  boot.initrd.availableKernelModules = [ "ahci" "xhci_pci" "sr_mod" ];
+  boot.initrd.availableKernelModules = [
+    "ahci"
+    "xhci_pci"
+    "sr_mod"
+  ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ ];
   boot.extraModulePackages = [ ];
@@ -25,7 +35,10 @@
   fileSystems."/" = {
     device = "/dev/disk/by-label/nixos";
     fsType = "btrfs";
-    options = [ "noatime" "compress=zstd" ];
+    options = [
+      "noatime"
+      "compress=zstd"
+    ];
   };
   fileSystems."/boot" = {
     device = "/dev/disk/by-label/ESP";
@@ -39,8 +52,10 @@
   networking.interfaces.enp1s0.useDHCP = true;
   networking.firewall.enable = false; # Already have a hardware firewall.
   networking.nameservers = [
-    "1.1.1.1" "1.0.0.1"
-    "2606:4700:4700::1111" "2606:4700:4700::1001"
+    "1.1.1.1"
+    "1.0.0.1"
+    "2606:4700:4700::1111"
+    "2606:4700:4700::1001"
   ];
 
   systemd.sysusers.enable = lib.mkDefault true;

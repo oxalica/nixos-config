@@ -1,7 +1,8 @@
 { config, ... }:
 let
   dataDir = config.services.syncthing.dataDir;
-in {
+in
+{
   services.syncthing = {
     enable = true;
     openDefaultPorts = true;

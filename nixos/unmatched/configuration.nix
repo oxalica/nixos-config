@@ -1,5 +1,11 @@
 # From: https://github.com/NickCao/nixos-riscv/blob/720c8ee6fc8eee85f741e309a4e0291dc3a90f59/flake.nix#L82
-{ pkgs, lib, inputs, my, ... }:
+{
+  pkgs,
+  lib,
+  inputs,
+  my,
+  ...
+}:
 {
   imports = [
     # (modulesPath + "/installer/sd-card/sd-image.nix")
@@ -18,13 +24,13 @@
   ];
 
   /*
-  sdImage = {
-    populateRootCommands = ''
-      mkdir -p ./files/boot
-      ${config.boot.loader.generic-extlinux-compatible.populateCmd} -c ${config.system.build.toplevel} -d ./files/boot
-    '';
-    populateFirmwareCommands = "";
-  };
+    sdImage = {
+      populateRootCommands = ''
+        mkdir -p ./files/boot
+        ${config.boot.loader.generic-extlinux-compatible.populateCmd} -c ${config.system.build.toplevel} -d ./files/boot
+      '';
+      populateFirmwareCommands = "";
+    };
   */
 
   boot.loader = {
@@ -32,47 +38,62 @@
     generic-extlinux-compatible.enable = true;
     generic-extlinux-compatible.configurationLimit = 5;
   };
-  boot.initrd.kernelModules = [ "nvme" "mmc_block" "mmc_spi" "spi_sifive" "spi_nor" "uas" "sdhci_pci" ];
+  boot.initrd.kernelModules = [
+    "nvme"
+    "mmc_block"
+    "mmc_spi"
+    "spi_sifive"
+    "spi_nor"
+    "uas"
+    "sdhci_pci"
+  ];
   boot.kernelParams = [ "loglevel=7" ]; # DEBUG
   boot.kernelPackages = pkgs.linuxPackages_latest;
-  boot.kernelPatches = map (patch: { name = patch; patch = inputs.meta-sifive + "/recipes-kernel/linux/files/${patch}"; }) [
-    "0001-riscv-sifive-fu740-cpu-1-2-3-4-set-compatible-to-sif.patch"
-    "0002-riscv-sifive-unmatched-update-regulators-values.patch"
-    "0003-riscv-sifive-unmatched-define-PWM-LEDs.patch"
-    "0004-riscv-sifive-unmatched-add-gpio-poweroff-node.patch"
-    "0005-SiFive-HiFive-Unleashed-Add-PWM-LEDs-D1-D2-D3-D4.patch"
-    "0006-riscv-sifive-unleashed-define-opp-table-cpufreq.patch"
-    "riscv-sbi-srst-support.patch"
-  ] ++ [
-    {
-      name = "sifive";
-      patch = null;
-      extraConfig = ''
-        SOC_SIFIVE y
-        PCIE_FU740 y
-        PWM_SIFIVE y
-        EDAC_SIFIVE y
-        SIFIVE_L2 y
-        RISCV_ERRATA_ALTERNATIVE y
-        ERRATA_SIFIVE y
-        ERRATA_SIFIVE_CIP_453 y
-        ERRATA_SIFIVE_CIP_1200 y
-      '';
-    }
-    # https://github.com/zhaofengli/unmatched-nixos/blob/e04fff15b62846d5151c0d98da79398e238b69f6/pkgs/linux/default.nix
-    {
-      name = "cpufreq";
-      patch = null;
-      extraConfig = ''
-        CPU_IDLE y
-        CPU_FREQ y
-        CPU_FREQ_DEFAULT_GOV_USERSPACE y
-        CPU_FREQ_GOV_PERFORMANCE y
-        CPU_FREQ_GOV_USERSPACE y
-        CPU_FREQ_GOV_ONDEMAND y
-      '';
-    }
-  ];
+  boot.kernelPatches =
+    map
+      (patch: {
+        name = patch;
+        patch = inputs.meta-sifive + "/recipes-kernel/linux/files/${patch}";
+      })
+      [
+        "0001-riscv-sifive-fu740-cpu-1-2-3-4-set-compatible-to-sif.patch"
+        "0002-riscv-sifive-unmatched-update-regulators-values.patch"
+        "0003-riscv-sifive-unmatched-define-PWM-LEDs.patch"
+        "0004-riscv-sifive-unmatched-add-gpio-poweroff-node.patch"
+        "0005-SiFive-HiFive-Unleashed-Add-PWM-LEDs-D1-D2-D3-D4.patch"
+        "0006-riscv-sifive-unleashed-define-opp-table-cpufreq.patch"
+        "riscv-sbi-srst-support.patch"
+      ]
+    ++ [
+      {
+        name = "sifive";
+        patch = null;
+        extraConfig = ''
+          SOC_SIFIVE y
+          PCIE_FU740 y
+          PWM_SIFIVE y
+          EDAC_SIFIVE y
+          SIFIVE_L2 y
+          RISCV_ERRATA_ALTERNATIVE y
+          ERRATA_SIFIVE y
+          ERRATA_SIFIVE_CIP_453 y
+          ERRATA_SIFIVE_CIP_1200 y
+        '';
+      }
+      # https://github.com/zhaofengli/unmatched-nixos/blob/e04fff15b62846d5151c0d98da79398e238b69f6/pkgs/linux/default.nix
+      {
+        name = "cpufreq";
+        patch = null;
+        extraConfig = ''
+          CPU_IDLE y
+          CPU_FREQ y
+          CPU_FREQ_DEFAULT_GOV_USERSPACE y
+          CPU_FREQ_GOV_PERFORMANCE y
+          CPU_FREQ_GOV_USERSPACE y
+          CPU_FREQ_GOV_ONDEMAND y
+        '';
+      }
+    ];
 
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/27b822c9-7087-4f52-8b7e-88a0ac476808";
@@ -159,7 +180,10 @@
 
     registry = {
       nixpkgs = {
-        from = { id = "nixpkgs"; type = "indirect"; };
+        from = {
+          id = "nixpkgs";
+          type = "indirect";
+        };
         flake = inputs.nixpkgs-unmatched;
       };
     };
@@ -171,6 +195,10 @@
 
   users = {
     mutableUsers = false;
-    users.root.openssh.authorizedKeys.keys = with my.ssh.identities; [ oxa invar blacksteel ];
+    users.root.openssh.authorizedKeys.keys = with my.ssh.identities; [
+      oxa
+      invar
+      blacksteel
+    ];
   };
 }

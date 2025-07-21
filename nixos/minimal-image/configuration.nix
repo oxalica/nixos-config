@@ -1,5 +1,12 @@
 # NB. systemd-initrd doesn't work for ISO yet.
-{ lib, config, pkgs, modulesPath, my, ... }:
+{
+  lib,
+  config,
+  pkgs,
+  modulesPath,
+  my,
+  ...
+}:
 {
   imports = [
     (modulesPath + "/installer/cd-dvd/installation-cd-minimal-new-kernel-no-zfs.nix")

@@ -21,9 +21,9 @@ in
         target_preserve_min = "1d";
         target_preserve = "7d 4w *m";
 
-        subvolume."home/oxa" = {};
-        subvolume."home/oxa/storage" = {};
-        subvolume."home/oxa/archive" = {};
+        subvolume."home/oxa" = { };
+        subvolume."home/oxa/storage" = { };
+        subvolume."home/oxa/archive" = { };
       };
     };
   };
@@ -67,8 +67,8 @@ in
         target_preserve_min = "1w";
         target_preserve = "*w";
 
-        subvolume."home/oxa/storage" = {};
-        subvolume."home/oxa/archive" = {};
+        subvolume."home/oxa/storage" = { };
+        subvolume."home/oxa/archive" = { };
       };
     };
   };

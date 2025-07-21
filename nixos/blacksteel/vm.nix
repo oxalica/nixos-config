@@ -12,41 +12,50 @@
     vgpus."i915-GVTg_V5_8".uuid = [ "89584099-86a4-4b77-b770-16c0a93c260a" ]; # 1024x768
   };
 
-  systemd.services."win10-hd-vm-disk" = let
-    dmName = "win10-hd-vm-disk";
+  systemd.services."win10-hd-vm-disk" =
+    let
+      dmName = "win10-hd-vm-disk";
 
-    devWin = "/dev/disk/by-uuid/CE8A6B398A6B1D69";
-    secWin = 262047414;
-    devGpt = "/dev/disk/by-partuuid/4f3131a2-ee06-425e-b3af-bbf35c00d192";
-    secGptBefore = 262144; # 128 MiB
-    secGptAfter = 2048; # 1 MiB
+      devWin = "/dev/disk/by-uuid/CE8A6B398A6B1D69";
+      secWin = 262047414;
+      devGpt = "/dev/disk/by-partuuid/4f3131a2-ee06-425e-b3af-bbf35c00d192";
+      secGptBefore = 262144; # 128 MiB
+      secGptAfter = 2048; # 1 MiB
 
-  in {
-    description = "Device mapper for Windows 10 VM";
-    unitConfig.RequiresMountsFor = "/home/oxa/vm/pool";
-    wantedBy = [ "multi-user.target" ];
-    serviceConfig.Type = "oneshot";
-    serviceConfig.RemainAfterExit = true;
+    in
+    {
+      description = "Device mapper for Windows 10 VM";
+      unitConfig.RequiresMountsFor = "/home/oxa/vm/pool";
+      wantedBy = [ "multi-user.target" ];
+      serviceConfig.Type = "oneshot";
+      serviceConfig.RemainAfterExit = true;
 
-    path = with pkgs; [ util-linux lvm2 ];
-    script = ''
-      sec_win=$(blockdev --getsz ${devWin})
-      sec_gpt=$(blockdev --getsz ${devGpt})
-      echo "Windows partition has $sec_win sectors"
-      echo "GPT partition has $sec_gpt sectors"
-      if [[ "$sec_win" -ne ${toString secWin} || "$sec_gpt" -ne ${toString (secGptBefore + secGptAfter)} ]]; then
-        echo "Size mismatch"
-        exit 1
-      fi
+      path = with pkgs; [
+        util-linux
+        lvm2
+      ];
+      script = ''
+        sec_win=$(blockdev --getsz ${devWin})
+        sec_gpt=$(blockdev --getsz ${devGpt})
+        echo "Windows partition has $sec_win sectors"
+        echo "GPT partition has $sec_gpt sectors"
+        if [[ "$sec_win" -ne ${toString secWin} || "$sec_gpt" -ne ${
+          toString (secGptBefore + secGptAfter)
+        } ]]; then
+          echo "Size mismatch"
+          exit 1
+        fi
 
-      dmsetup create ${dmName} <<EOF
-        0 ${toString secGptBefore} linear ${devGpt} 0
-        ${toString secGptBefore} ${toString secWin} linear ${devWin} 0
-        ${toString (secGptBefore + secWin)} ${toString secGptAfter} linear ${devGpt} ${toString secGptBefore}
-      EOF
-    '';
-    preStop = ''
-      dmsetup remove ${dmName}
-    '';
-  };
+        dmsetup create ${dmName} <<EOF
+          0 ${toString secGptBefore} linear ${devGpt} 0
+          ${toString secGptBefore} ${toString secWin} linear ${devWin} 0
+          ${
+            toString (secGptBefore + secWin)
+          } ${toString secGptAfter} linear ${devGpt} ${toString secGptBefore}
+        EOF
+      '';
+      preStop = ''
+        dmsetup remove ${dmName}
+      '';
+    };
 }

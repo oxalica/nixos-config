@@ -1,4 +1,8 @@
-{ lib, makeDesktopItem, wl-mirror }:
+{
+  lib,
+  makeDesktopItem,
+  wl-mirror,
+}:
 makeDesktopItem {
   name = "show-headless1";
   desktopName = "Show Headless Output 1";
