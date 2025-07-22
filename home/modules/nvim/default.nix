@@ -25,8 +25,6 @@ let
       '')
     ];
 
-  coc-rust-analyzer = my.pkgs.coc-rust-analyzer-fix-snippet;
-
   cocPlugins = with vimPlugins; [
     coc-eslint
     coc-json
