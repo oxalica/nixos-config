@@ -3,7 +3,6 @@
   pkgs,
   super,
   my,
-  inputs,
   ...
 }:
 
@@ -33,12 +32,6 @@ let
       pkgs.jdk17
     ];
   };
-
-  logseq =
-    (import inputs.nixpkgs-logseq {
-      inherit (pkgs) system;
-      config.permittedInsecurePackages = [ "electron-27.3.11" ];
-    }).logseq;
 
 in
 {

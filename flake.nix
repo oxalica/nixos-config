@@ -6,16 +6,12 @@
     nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-23.11";
     nixpkgs-unmatched.url = "github:oxalica/nixpkgs/test/unmatched";
 
-    # WAIT: https://github.com/NixOS/nixpkgs/pull/389363
-    nixpkgs-logseq.url = "github:NixOS/nixpkgs/5135c59491985879812717f4c9fea69604e7f26f";
-
     # Placeholder.
     blank.follows = "nixpkgs";
 
     flake-utils.url = "github:numtide/flake-utils";
     home-manager = {
-      # WAIT: https://github.com/nix-community/home-manager/pull/4976
-      url = "github:nix-community/home-manager/pull/4976/head";
+      url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     rust-overlay = {

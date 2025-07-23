@@ -63,7 +63,8 @@ in
           Type = "root";
           Format = "btrfs";
           Minimize = "guess";
-          # WAIT: `Compression=` requires https://github.com/kdave/btrfs-progs/pull/882
+          # WAIT: `Compression=` for btrfs needs systemd 257
+          # https://github.com/systemd/systemd/pull/34239
         };
       };
     };
