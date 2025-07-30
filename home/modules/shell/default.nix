@@ -33,7 +33,7 @@
 
   programs.zsh = {
     enable = true;
-    dotDir = ".config/zsh";
+    dotDir = "${config.home.homeDirectory}/.config/zsh";
 
     dirHashes = {
       target = "${config.xdg.cacheHome}/cargo/target";
