@@ -210,9 +210,7 @@
 
   services.fstrim.enable = false;
 
-  services.logind.extraConfig = ''
-    HandlePowerKey=suspend
-  '';
+  services.logind.settings.Login.HandlePowerKey = "suspend";
 
   services.openssh = {
     enable = true;
