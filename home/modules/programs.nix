@@ -79,7 +79,7 @@ in
     koka # Compiler & interpreters
     gdb # Debugger
     sqlite-interactive # sqlite
-    super.boot.kernelPackages.perf
+    perf
     hyperfine
   ];
 
