@@ -27,7 +27,6 @@ let
     resolver.incompatible-rust-versions = "fallback";
 
     target = {
-      "${pkgs.hostPlatform.rust.rustcTarget}".linker = gcc-lld;
       "riscv64gc-unknown-linux-gnu".linker = "riscv64-unknown-linux-gnu-gcc";
       "aarch64-unknown-linux-gnu".linker = "aarch64-unknown-linux-gnu-gcc";
     };
@@ -43,13 +42,6 @@ let
       stale = false;
     };
   };
-
-  # `--no-rosegment` is required for flamegraph
-  # https://github.com/flamegraph-rs/flamegraph#cargo-flamegraph
-  gcc-lld = pkgs.writeShellScript "gcc-lld" ''
-    export PATH="${pkgs.llvmPackages_latest.bintools}/bin''${PATH:+:}$PATH"
-    exec ${lib.getExe pkgs.gcc} -fuse-ld=lld -Wl,--no-rosegment "$@"
-  '';
 
   rust-overlay-pkgs = inputs.rust-overlay.packages.${pkgs.system};
   curDate = inputs.rust-overlay.lastModifiedDate;
