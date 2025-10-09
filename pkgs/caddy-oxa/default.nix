@@ -5,9 +5,9 @@
 let
   caddy' = caddy.withPlugins {
     plugins = [
-      "github.com/mholt/caddy-webdav@v0.0.0-20250609161527-33ba3cd2088c"
+      "github.com/mholt/caddy-webdav@v0.0.0-20250805175825-7a5c90d8bf90"
     ];
-    hash = "sha256-+JFcLHn10sPTTWnf7jQQ+AXBzA5dyb586Ez0kIhNySw=";
+    hash = "sha256-iw2jPad2hiuGOd1bzS59eLzT8Ro2O9mtBG0Yg5h+G+w=";
   };
 
   caddy'' = caddy'.overrideAttrs (old: {
