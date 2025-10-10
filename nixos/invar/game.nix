@@ -9,9 +9,11 @@
 
   programs.gamemode = {
     enable = true;
+    enableRenice = true;
     settings = {
       # Will be negated by gamemoded.
-      general.nice = 10;
+      general.renice = 10;
+
       # Check AMD reported performance (CPPC) by:
       # `grep . /sys/devices/system/cpu/cpu*/acpi_cppc/highest_perf | sort --numeric-sort --field-separator=: --key=2 --reverse`
       cpu.pin_cores = "3-7,11-15";
