@@ -48,7 +48,7 @@ in
     sops # Sops
 
     # GUI
-    # FIXME: libreoffice
+    libreoffice
     mpv
     logseq
     lyx
