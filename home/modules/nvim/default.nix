@@ -2,7 +2,6 @@
   lib,
   config,
   pkgs,
-  my,
   ...
 }:
 let
@@ -20,7 +19,7 @@ let
     )
     ++ cocPlugins
     ++ [
-      (pkgs.runCommandNoCC "koka-vim" { } ''
+      (pkgs.runCommand "koka-vim" { } ''
         cp -r ${pkgs.koka.src}/support/vim $out
       '')
     ];
@@ -59,7 +58,7 @@ let
 
     "sumneko-lua.checkUpdate" = false;
     # https://github.com/xiyaowong/coc-sumneko-lua/issues/22#issuecomment-1252284377
-    "sumneko-lua.serverDir" = "${pkgs.sumneko-lua-language-server}/share/lua-language-server";
+    "sumneko-lua.serverDir" = lib.getExe pkgs.lua-language-server;
     "Lua.misc.parameters" = [
       "--metapath=${config.xdg.cacheHome}/sumneko_lua/meta"
       "--logpath=${config.xdg.cacheHome}/sumneko_lua/log"

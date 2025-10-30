@@ -16,21 +16,21 @@
       ".envrc"
     ];
 
-    aliases = {
-      br = "branch";
-      cmt = "commit";
-      co = "checkout";
-      cp = "cherry-pick";
-      d = "diff";
-      dc = "diff --cached";
-      dt = "difftool";
-      l = "log";
-      mt = "mergetool";
-      st = "status";
-      sub = "submodule";
-    };
+    settings = {
+      alias = {
+        br = "branch";
+        cmt = "commit";
+        co = "checkout";
+        cp = "cherry-pick";
+        d = "diff";
+        dc = "diff --cached";
+        dt = "difftool";
+        l = "log";
+        mt = "mergetool";
+        st = "status";
+        sub = "submodule";
+      };
 
-    extraConfig = {
       # User & signing.
       user.name = "oxalica";
       user.email = "oxalicc@pm.me";

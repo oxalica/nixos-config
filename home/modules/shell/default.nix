@@ -92,11 +92,13 @@
 
       ZSH_AUTOSUGGEST_MANUAL_REBIND=1
       ZSH_AUTOSUGGEST_HISTORY_IGNORE=$'*\n*'
-      source ${pkgs.zsh-autosuggestions}/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-      source ${pkgs.zsh-fast-syntax-highlighting}/share/zsh/site-functions/fast-syntax-highlighting.plugin.zsh
+      source ${pkgs.zsh-autosuggestions}/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh
+      source ${pkgs.zsh-fast-syntax-highlighting}/share/zsh/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
       source ${my.pkgs.zsh-comma}/share/zsh/comma/comma.zsh
-      FAST_HIGHLIGHT[use_async]=1 # Improve paste delay for nix store paths.
       source <(${lib.getExe pkgs.fzf} --zsh)
+
+      typeset -gA FAST_HIGHLIGHT
+      FAST_HIGHLIGHT[use_async]=1 # Improve paste delay for nix store paths.
     '';
   };
 
