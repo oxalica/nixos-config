@@ -12,7 +12,7 @@ let
     types
     ;
 
-  inherit (pkgs.hostPlatform) efiArch;
+  inherit (pkgs.stdenv.hostPlatform) efiArch;
 
   cfg = config.vultrImage;
 in

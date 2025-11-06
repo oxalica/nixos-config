@@ -6,7 +6,7 @@
   ...
 }:
 let
-  simple-snap = inputs.simple-snap.packages.${pkgs.system}.default;
+  simple-snap = inputs.simple-snap.packages.${pkgs.stdenv.system}.default;
   exe = lib.getExe simple-snap;
 in
 {

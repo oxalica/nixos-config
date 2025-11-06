@@ -119,7 +119,7 @@
     }
   ];
 
-  services.udev.packages = [ inputs.orb.packages.${pkgs.system}.ublk-chown-unprivileged ];
+  services.udev.packages = [ inputs.orb.packages.${pkgs.stdenv.system}.ublk-chown-unprivileged ];
 
   # Hardware.
   time.timeZone = "America/Toronto";

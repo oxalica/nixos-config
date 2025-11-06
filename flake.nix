@@ -5,8 +5,6 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-23.11";
     nixpkgs-unmatched.url = "github:oxalica/nixpkgs/test/unmatched";
-    # WAIT: <https://github.com/NixOS/nixpkgs/pull/437180>
-    nixpkgs-fix-coincurve.url = "github:NixOS/nixpkgs/pull/437180/head";
 
     # Placeholder.
     blank.follows = "nixpkgs";
@@ -74,11 +72,7 @@
 
       inherit (nixpkgs) lib;
 
-      overlays = {
-        fix-coincurve = final: prev: {
-          inherit (inputs.nixpkgs-fix-coincurve.legacyPackages.${final.system}) electrum electron-cash;
-        };
-      };
+      overlays = { };
 
       nixosModules = {
         # Ref: https://github.com/dramforever/config/blob/63be844019b7ca675ea587da3b3ff0248158d9fc/flake.nix#L24-L28

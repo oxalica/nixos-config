@@ -26,4 +26,4 @@ let
   }) entries;
 in
 # Remove unsupported or broken packages.
-filterAttrs (name: drv: drv ? meta.platforms -> lib.meta.availableOn pkgs.hostPlatform drv) self
+filterAttrs (name: drv: drv ? meta.platforms -> lib.meta.availableOn pkgs.stdenv.hostPlatform drv) self

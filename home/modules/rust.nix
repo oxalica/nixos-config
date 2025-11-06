@@ -43,7 +43,7 @@ let
     };
   };
 
-  rust-overlay-pkgs = inputs.rust-overlay.packages.${pkgs.system};
+  rust-overlay-pkgs = inputs.rust-overlay.packages.${pkgs.stdenv.system};
   curDate = inputs.rust-overlay.lastModifiedDate;
   # Use nightly rustfmt from yyyy-mm-01.
   rustfmt =
@@ -71,7 +71,7 @@ in
     rustToolchain
 
     cargo-audit
-    inputs.cargo-bloated.packages.${pkgs.system}.default
+    inputs.cargo-bloated.packages.${pkgs.stdenv.system}.default
     cargo-deny
     cargo-expand
     cargo-flamegraph

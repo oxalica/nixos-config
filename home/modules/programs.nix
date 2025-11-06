@@ -14,7 +14,7 @@ let
       pyyaml
       requests
       toml
-      z3
+      z3-solver
     ]
   );
 
@@ -53,8 +53,9 @@ in
     logseq
     lyx
     dwarfs # Files
-    electron-cash
-    electrum
+    # WAIT: <https://github.com/NixOS/nixpkgs/pull/456881>
+    # electron-cash
+    # electrum
     monero-gui
     # steam is enabled system-wide.
     prismlauncher # Games
