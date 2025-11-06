@@ -42,6 +42,16 @@
     };
   };
 
+  systemd.user.services."app-org.prismlauncher.PrismLauncher@" = {
+    overrideStrategy = "asDropin";
+    serviceConfig = {
+      CPUWeight = 200;
+      MemorySwapMax = 0;
+      MemoryZSwapMax = 0;
+      IOWeight = 200;
+    };
+  };
+
   systemd.user.services."app-com.obsproject.Studio@" = {
     overrideStrategy = "asDropin";
     serviceConfig = {
