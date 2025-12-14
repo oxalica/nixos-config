@@ -28,9 +28,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     lanzaboote = {
-      url = "github:nix-community/lanzaboote/v0.4.2";
-      inputs.pre-commit-hooks-nix.follows = "blank";
-      inputs.flake-compat.follows = "blank";
+      url = "github:nix-community/lanzaboote/v1.0.0";
+      inputs.pre-commit.follows = "blank";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.rust-overlay.follows = "rust-overlay";
     };
