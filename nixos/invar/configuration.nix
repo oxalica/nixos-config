@@ -208,7 +208,11 @@
     pulse.enable = true;
   };
 
-  services.xserver.xkb.options = "ctrl:swapcaps";
+  services.udev.extraHwdb = ''
+    evdev:name:*MIIIW*:*
+      KEYBOARD_KEY_70039=leftctrl
+      KEYBOARD_KEY_700e0=capslock
+  '';
 
   services.timesyncd.enable = true;
 
