@@ -29,7 +29,7 @@ let
     coc-json
     coc-pyright
     coc-rust-analyzer
-    coc-sumneko-lua
+    # coc-sumneko-lua # FIXME: ERROR: npm failed to install dependencies
     coc-tsserver
   ];
 

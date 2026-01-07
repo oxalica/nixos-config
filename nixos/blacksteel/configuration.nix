@@ -145,7 +145,6 @@
       extraGroups = [
         "wheel"
         "kvm"
-        "adbusers"
         "libvirtd"
         "wireshark"
       ];
@@ -224,8 +223,6 @@
     sopsFile = ../../secrets/ssh.yaml;
     mode = "0444";
   };
-
-  programs.adb.enable = true;
 
   programs.steam.enable = true;
 

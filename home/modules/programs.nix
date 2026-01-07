@@ -81,6 +81,9 @@ in
     sqlite-interactive # sqlite
     perf
     hyperfine
+
+    # adb
+    android-tools
   ];
 
   programs.feh.enable = true;

@@ -267,9 +267,6 @@
     mode = "0444";
   };
 
-  programs.adb.enable = true;
-  users.groups."adbusers".members = [ config.users.users.oxa.name ];
-
   programs.wireshark = {
     enable = true;
     package = pkgs.wireshark-qt;
