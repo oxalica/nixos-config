@@ -55,7 +55,7 @@ in
     dwarfs # Files
     # WAIT: <https://github.com/NixOS/nixpkgs/pull/456881>
     # electron-cash
-    # electrum
+    electrum
     monero-gui
     # steam is enabled system-wide.
     prismlauncher # Games
