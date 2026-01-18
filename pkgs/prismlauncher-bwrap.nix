@@ -13,7 +13,6 @@
   additionalLibs ? [ ],
   additionalPrograms ? [ ],
   controllerSupport ? stdenv.hostPlatform.isLinux,
-  gamemodeSupport ? stdenv.hostPlatform.isLinux,
   jdks ? [
     jdk21
     jdk17
@@ -24,7 +23,7 @@
 }:
 let
   prismlauncher-unwrapped' = prismlauncher-unwrapped.override {
-    inherit msaClientID gamemodeSupport;
+    inherit msaClientID;
   };
 
   prismlauncher' = prismlauncher.override {
@@ -34,7 +33,6 @@ let
       additionalLibs
       additionalPrograms
       controllerSupport
-      gamemodeSupport
       jdks
       msaClientID
       textToSpeechSupport
