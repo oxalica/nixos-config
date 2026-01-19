@@ -72,7 +72,7 @@ in
     nixpkgs-review
     nix-update
     nix-output-monitor
-    nixfmt-rfc-style # Nix utils
+    nixfmt # Nix utils
     gcc
     ghc
     myPython
