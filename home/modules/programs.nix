@@ -58,7 +58,7 @@ in
     electrum
     monero-gui
     # steam is enabled system-wide.
-    prismlauncher # Games
+    prismlauncher cockatrice # Games
     telegram-desktop
     nheko # Messaging
     obs # Recording
