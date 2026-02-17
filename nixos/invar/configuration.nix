@@ -269,7 +269,7 @@
 
   programs.wireshark = {
     enable = true;
-    package = pkgs.wireshark-qt;
+    package = pkgs.wireshark;
   };
   users.groups."wireshark".members = [ config.users.users.oxa.name ];
 
@@ -299,7 +299,6 @@
     })
     intel-gpu-tools
 
-    wineWowPackages.staging
     lutris
   ];
 

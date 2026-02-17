@@ -134,7 +134,7 @@ nmap <Leader>fh <Cmd>Helptags<CR>
 nmap <Leader>fr :Rg<Space>
 "}}}
 
-" plugin: gitgutter
+" plugin: vim-gitgutter
 
 " plugin: leap-nvim
 lua require('leap').add_default_mappings()
