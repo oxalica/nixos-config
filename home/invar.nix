@@ -31,7 +31,7 @@
   systemd.user.services."load-xresources" = {
     Unit.Description = "Load user X resources from '~/.Xresources'";
     Service.Type = "oneshot";
-    Service.ExecStart = "${lib.getExe pkgs.xorg.xrdb} -load ${config.xresources.path}";
+    Service.ExecStart = "${lib.getExe pkgs.xrdb} -load ${config.xresources.path}";
     Unit.After = [ "plasma-kwin_wayland.service" ];
     Install.WantedBy = [ "graphical-session.target" ];
   };
