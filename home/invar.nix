@@ -21,7 +21,6 @@
     ./modules/rust.nix
     ./modules/shell
     ./modules/tmux.nix
-    ./modules/user-dirs.nix
     ./modules/vscode
   ];
 
@@ -43,7 +42,6 @@
       link = path: config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/${path}";
     in
     {
-      ".local/share/password-store".source = link "storage/5x-state/51-secret/51.10-password-store";
       ".local/share/fcitx5/rime/sync".source = link "storage/5x-state/55-backup/55.06-rime-directory";
     };
 
@@ -60,5 +58,5 @@
     Install.WantedBy = [ "timers.target" ];
   };
 
-  home.stateVersion = "24.11";
+  home.stateVersion = "25.11";
 }

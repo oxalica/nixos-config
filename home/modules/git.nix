@@ -3,6 +3,8 @@
   programs.git = {
     enable = true;
 
+    signing.format = "openpgp";
+
     ignores = [
       # vim swap files.
       "*~"

@@ -1,4 +1,9 @@
-{ pkgs, my, ... }:
+{
+  config,
+  pkgs,
+  my,
+  ...
+}:
 {
   programs.gpg = {
     enable = true;
@@ -31,6 +36,7 @@
       ps.pass-import
       ps.pass-otp
     ]);
+    settings.PASSWORD_STORE_DIR = "${config.home.homeDirectory}/storage/5x-state/51-secret/51.10-password-store";
   };
 
   home.packages = [ pkgs.qtpass ];

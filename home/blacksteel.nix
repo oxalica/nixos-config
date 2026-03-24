@@ -15,7 +15,6 @@
     ./modules/rust.nix
     ./modules/shell
     ./modules/tmux.nix
-    ./modules/user-dirs.nix
     ./modules/vscode
   ];
 
@@ -29,10 +28,9 @@
     in
     {
       ".local/share/fcitx5/rime/sync".source = linkPersonal "rime-sync";
-      ".local/share/password-store".source = linkPersonal "password-store";
     };
 
   xdg.enable = true;
 
-  home.stateVersion = "24.11";
+  home.stateVersion = "25.11";
 }
