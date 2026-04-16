@@ -90,6 +90,7 @@ in
   programs.neovim = {
     enable = true;
     withRuby = false;
+    withPython3 = false;
     inherit plugins;
     extraConfig = vimrc';
 
