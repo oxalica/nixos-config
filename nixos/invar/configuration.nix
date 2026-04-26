@@ -299,7 +299,8 @@
     })
     intel-gpu-tools
 
-    lutris
+    # FIXME: openldap build failure.
+    # lutris
   ];
 
   system.stateVersion = "25.05";

@@ -19,7 +19,10 @@ let
     )
     ++ cocPlugins
     ++ [
-      (pkgs.runCommand "koka-vim" { } ''
+      (pkgs.runCommand "koka-vim" {
+        # NB: Used by home-manager.
+        pname = "koka-vim";
+      } ''
         cp -r ${pkgs.koka.src}/support/vim $out
       '')
     ];

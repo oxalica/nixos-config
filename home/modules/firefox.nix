@@ -3,6 +3,10 @@
   programs.firefox = {
     enable = true;
 
+    # Firefox does not actually support XDG spec for data separation, but
+    # instead dumping everything into `.config`, which is no better than the status quo.
+    configPath = ".mozilla/firefox";
+
     package = pkgs.firefox.overrideAttrs (old: {
       nativeBuildInputs = old.nativeBuildInputs or [ ] ++ [
         pkgs.zip
