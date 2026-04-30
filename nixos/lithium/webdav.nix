@@ -35,9 +35,12 @@ in
     handle = [
       {
         handler = "authentication";
-        providers.http_basic.accounts = singleton {
-          username = "{env.WEBDAV_USERNAME}";
-          password = "{env.WEBDAV_PASSWORD}";
+        providers.http_basic = {
+          hash.algorithm = "argon2id";
+          accounts = singleton {
+            username = "{env.WEBDAV_USERNAME}";
+            password = "{env.WEBDAV_PASSWORD}";
+          };
         };
       }
       {
