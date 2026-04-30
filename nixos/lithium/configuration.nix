@@ -18,10 +18,6 @@ in
     ./webdav.nix
   ];
 
-  # TODO: Investigate if 6.12 gets the memory corruption issue fixed.
-  # When bumping, add squota!
-  boot.kernelPackages = pkgs.linuxPackages_6_6;
-
   swapDevices = [
     {
       device = "/var/swapfile";
