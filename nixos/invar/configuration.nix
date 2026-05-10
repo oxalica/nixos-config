@@ -47,11 +47,7 @@
     kernelPackages = pkgs.linuxPackages;
 
     kernelModules = [ "kvm-amd" ];
-    kernelParams = [
-      # `lspci -nn | rg -i arc`
-      "i915.force_probe=!56a5"
-      "xe.force_probe=56a5"
-    ];
+    kernelParams = [ ];
 
     initrd = {
       systemd.enable = true;
