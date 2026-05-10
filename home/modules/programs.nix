@@ -99,7 +99,6 @@ in
       map gen [
         "${pkgs.firefox}/share/applications/firefox.desktop"
         "${pkgs.telegram-desktop}/share/applications/org.telegram.desktop.desktop"
-        "${pkgs.nheko}/share/applications/nheko.desktop"
         "${pkgs.thunderbird}/share/applications/thunderbird.desktop"
       ]
     );
