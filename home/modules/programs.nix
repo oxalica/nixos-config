@@ -88,6 +88,8 @@ in
 
   programs.feh.enable = true;
 
+  programs.vscodium.enable = true;
+
   xdg.configFile =
     let
       gen = path: {

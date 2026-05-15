@@ -33,6 +33,7 @@
     lib.elem (lib.getName drv) [
       "steam"
       "steam-unwrapped"
+      "vim-sandwich"
     ];
 
   nixpkgs.config.permittedInsecurePackages = [

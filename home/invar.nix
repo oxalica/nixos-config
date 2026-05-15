@@ -21,7 +21,6 @@
     ./modules/rust.nix
     ./modules/shell
     ./modules/tmux.nix
-    ./modules/vscode
   ];
 
   # For Xwayland apps, ie. electron and steam.
