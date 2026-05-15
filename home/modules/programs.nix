@@ -60,7 +60,6 @@ in
     # steam is enabled system-wide.
     prismlauncher cockatrice # Games
     telegram-desktop
-    nheko # Messaging
     obs # Recording
     my.pkgs.systemd-run-app
     syncplay

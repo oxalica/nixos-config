@@ -37,8 +37,6 @@
     ];
 
   nixpkgs.config.permittedInsecurePackages = [
-    # FIXME: `nheko` depends on olm: https://github.com/Nheko-Reborn/nheko/issues/1786
-    "olm-3.2.16"
   ];
 
   # Boot.
