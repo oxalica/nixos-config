@@ -49,7 +49,7 @@ in
 
     # GUI
     libreoffice
-    # mpv # FIXME
+    mpv
     logseq
     lyx
     dwarfs # Files

@@ -37,6 +37,8 @@
     ];
 
   nixpkgs.config.permittedInsecurePackages = [
+    # FIXME: logseq depends on it: <https://github.com/NixOS/nixpkgs/issues/528213>
+    "electron-39.8.10"
   ];
 
   # Boot.
@@ -298,8 +300,7 @@
     })
     intel-gpu-tools
 
-    # FIXME: openldap build failure.
-    # lutris
+    lutris
   ];
 
   system.stateVersion = "25.05";
