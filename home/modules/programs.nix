@@ -50,7 +50,8 @@ in
     # GUI
     libreoffice
     mpv
-    logseq
+    # WAIT: <https://github.com/NixOS/nixpkgs/issues/535206>
+    # logseq
     lyx
     dwarfs # Files
     # WAIT: <https://github.com/NixOS/nixpkgs/pull/456881>
