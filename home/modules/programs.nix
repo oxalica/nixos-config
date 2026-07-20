@@ -64,6 +64,7 @@ in
     obs # Recording
     my.pkgs.systemd-run-app
     syncplay
+    easyeffects
     restic
 
     # Dev
