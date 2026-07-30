@@ -50,11 +50,12 @@ in
     # GUI
     libreoffice
     mpv
-    # WAIT: <https://github.com/NixOS/nixpkgs/issues/535206>
-    # logseq
+    (logseq.override {
+      electron_39 = electron;
+    })
     lyx
     dwarfs # Files
-    # WAIT: <https://github.com/NixOS/nixpkgs/pull/456881>
+    # WAIT: <https://github.com/NixOS/nixpkgs/pull/427999>
     # electron-cash
     electrum
     monero-gui
