@@ -4,7 +4,6 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-23.11";
-    nixpkgs-unmatched.url = "github:oxalica/nixpkgs/test/unmatched";
 
     # Placeholder.
     blank.follows = "nixpkgs";
@@ -18,11 +17,6 @@
       url = "github:oxalica/rust-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nocargo = {
-      url = "github:oxalica/nocargo";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-utils.follows = "flake-utils";
-    };
     sops-nix = {
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -32,10 +26,6 @@
       inputs.pre-commit.follows = "blank";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.rust-overlay.follows = "rust-overlay";
-    };
-    orb = {
-      url = "github:oxalica/orb";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
     blahrs = {
       url = "github:Blah-IM/blahrs";
@@ -49,11 +39,6 @@
     simple-snap = {
       url = "github:oxalica/simple-snap";
       inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    meta-sifive = {
-      url = "github:sifive/meta-sifive/2021.11.00";
-      flake = false;
     };
 
     # Optional.
@@ -157,7 +142,6 @@
           extraModules = with nixosModules; [
             home-manager
             sops
-            inputs.orb.nixosModules.orb
           ];
         };
 
@@ -177,13 +161,6 @@
 
         copper = mkSystem "copper" "x86_64-linux" inputs.nixpkgs-stable {
           extraModules = with nixosModules; [ sops ];
-        };
-
-        unmatched = mkSystem "unmatched" "riscv64-linux" inputs.nixpkgs-unmatched { };
-        unmatched-cross = mkSystem "unmatched" "x86_64-linux" inputs.nixpkgs-unmatched {
-          extraModules = [
-            { nixpkgs.crossSystem.config = "riscv64-unknown-linux-gnu"; }
-          ];
         };
 
         minimal-image-stable = mkSystem "minimal-image" "x86_64-linux" inputs.nixpkgs-stable { };

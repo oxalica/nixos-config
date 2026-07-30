@@ -53,35 +53,4 @@ in
   environment.etc."crypttab".text = ''
     wd2t-btrfs UUID=b300c99f-ca98-4efc-a696-f6e97359bd3c /var/keys/wd2t-btrfs-keyfile discard,noauto
   '';
-
-  # Cloud backup.
-  services.btrbk.instances.backup-orb = {
-    onCalendar = null;
-    settings = globalSettings // {
-      volume."/" = {
-        snapshot_dir = ".btrbk/backup-orb";
-        snapshot_create = "ondemand"; # Always create.
-        snapshot_preserve_min = "latest";
-
-        target = "send-receive /mnt/orb-main/backup-invar";
-        target_preserve_min = "1w";
-        target_preserve = "*w";
-
-        subvolume."home/oxa/storage" = { };
-        subvolume."home/oxa/archive" = { };
-      };
-    };
-  };
-  systemd.services."btrbk-backup-orb" = {
-    unitConfig = {
-      PropagatesStopTo = [ "orb@main.service" ]; # Stop orb when done.
-      RequiresMountsFor = "/mnt/orb-main/backup-invar";
-    };
-    serviceConfig = {
-      ProtectSystem = "full";
-      ProtectHome = "read-only";
-      PrivateNetwork = true;
-      IPAddressDeny = "any";
-    };
-  };
 }

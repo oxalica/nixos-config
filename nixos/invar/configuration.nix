@@ -11,7 +11,6 @@
     ./snapshot.nix
     ./btrbk.nix
     ./game.nix
-    ./orb.nix
     ./syncthing.nix
 
     ../modules/console-env.nix
@@ -121,8 +120,6 @@
       size = 16 * 1024; # 16G
     }
   ];
-
-  services.udev.packages = [ inputs.orb.packages.${pkgs.stdenv.system}.ublk-chown-unprivileged ];
 
   # Hardware.
   time.timeZone = "America/Toronto";

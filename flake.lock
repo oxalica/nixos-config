@@ -148,23 +148,6 @@
         "type": "github"
       }
     },
-    "meta-sifive": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1638461064,
-        "narHash": "sha256-Toh80cXl+w1QFrbZnCP2Bjg2eN1V8vItACOO7/rWx0k=",
-        "owner": "sifive",
-        "repo": "meta-sifive",
-        "rev": "dc0441b841dba14ead2cba8f6f7c086c11ad89b0",
-        "type": "github"
-      },
-      "original": {
-        "owner": "sifive",
-        "ref": "2021.11.00",
-        "repo": "meta-sifive",
-        "type": "github"
-      }
-    },
     "naersk": {
       "inputs": {
         "fenix": "fenix",
@@ -219,82 +202,6 @@
         "type": "github"
       }
     },
-    "nixpkgs-unmatched": {
-      "locked": {
-        "lastModified": 1640713360,
-        "narHash": "sha256-MzrVpY1CvK5N60fW3ShYr/P7Gn2yxCBqlSLRJKjwAqs=",
-        "owner": "oxalica",
-        "repo": "nixpkgs",
-        "rev": "68ffecb7b9ed47985dab86a7d7563ffb3f2a9155",
-        "type": "github"
-      },
-      "original": {
-        "owner": "oxalica",
-        "ref": "test/unmatched",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
-    "nocargo": {
-      "inputs": {
-        "flake-utils": [
-          "flake-utils"
-        ],
-        "nixpkgs": [
-          "nixpkgs"
-        ],
-        "registry-crates-io": "registry-crates-io"
-      },
-      "locked": {
-        "lastModified": 1745995660,
-        "narHash": "sha256-Cca7/uDRwfo4UnPhZX31+vQ7chKr9nJsMvwykGllDVA=",
-        "owner": "oxalica",
-        "repo": "nocargo",
-        "rev": "089f487c2c123454c8b9a381a99999b63c53d1d6",
-        "type": "github"
-      },
-      "original": {
-        "owner": "oxalica",
-        "repo": "nocargo",
-        "type": "github"
-      }
-    },
-    "orb": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1768980954,
-        "narHash": "sha256-x6T62yxSNB3gy8ljFGo1CiFlfT7DzTuW2eSYvLB4t9k=",
-        "owner": "oxalica",
-        "repo": "orb",
-        "rev": "f2167db7910c9877f247c0da61731b0446638c3f",
-        "type": "github"
-      },
-      "original": {
-        "owner": "oxalica",
-        "repo": "orb",
-        "type": "github"
-      }
-    },
-    "registry-crates-io": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1704732624,
-        "narHash": "sha256-FWX5JX33ievm6JuIEp1lI5EPndYt8s6anU+fQBYuFKc=",
-        "owner": "rust-lang",
-        "repo": "crates.io-index",
-        "rev": "4445fa0011e6ff9989985651bec57eb4cbefcadd",
-        "type": "github"
-      },
-      "original": {
-        "owner": "rust-lang",
-        "repo": "crates.io-index",
-        "type": "github"
-      }
-    },
     "root": {
       "inputs": {
         "blahrs": "blahrs",
@@ -305,12 +212,8 @@
         "flake-utils": "flake-utils",
         "home-manager": "home-manager",
         "lanzaboote": "lanzaboote",
-        "meta-sifive": "meta-sifive",
         "nixpkgs": "nixpkgs",
         "nixpkgs-stable": "nixpkgs-stable",
-        "nixpkgs-unmatched": "nixpkgs-unmatched",
-        "nocargo": "nocargo",
-        "orb": "orb",
         "rust-overlay": "rust-overlay",
         "secrets": "secrets",
         "simple-snap": "simple-snap",
