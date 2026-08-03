@@ -45,12 +45,9 @@
 
     kernelModules = [ "kvm-amd" ];
     kernelParams = [
-      # FIXME: Although Xe has better performance, but it experiences
-      # increasing amount of freezing or infinite time uninterruptable ioctls.
-      # I don't want to reboot during playing games.
       # `lspci -nn | rg -i arc`
-      # "i915.force_probe=!56a5"
-      # "xe.force_probe=56a5"
+      "i915.force_probe=!56a5"
+      "xe.force_probe=56a5"
     ];
 
     initrd = {
