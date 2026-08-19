@@ -54,7 +54,8 @@ in
       electron_39 = electron;
     })
     lyx
-    dwarfs # Files
+    # FIXME: fail to compile
+    # dwarfs # Files
     # WAIT: <https://github.com/NixOS/nixpkgs/pull/427999>
     # electron-cash
     electrum
