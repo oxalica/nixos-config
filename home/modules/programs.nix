@@ -2,6 +2,7 @@
   lib,
   pkgs,
   my,
+  inputs,
   ...
 }:
 
@@ -50,9 +51,8 @@ in
     # GUI
     libreoffice
     mpv
-    (logseq.override {
-      electron_39 = electron;
-    })
+    # WAIT: <https://github.com/NixOS/nixpkgs/pull/516682>
+    inputs.nixpkgs-logseq2.legacyPackages."${pkgs.stdenv.hostPlatform.system}".logseq_2
     lyx
     # FIXME: fail to compile
     # dwarfs # Files
