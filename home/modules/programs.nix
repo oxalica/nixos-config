@@ -27,6 +27,8 @@ let
   };
 
   prismlauncher = my.pkgs.prismlauncher-bwrap.override {
+    # See: <https://github.com/GTNewHorizons/GT-New-Horizons-Modpack/issues/25946#issuecomment-5243477711>
+    additionalPrograms = [ pkgs.zenity ];
     jdks = [
       pkgs.jdk21
       pkgs.jdk17
