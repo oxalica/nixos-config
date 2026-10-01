@@ -66,7 +66,7 @@
   nix.package = pkgs.nix;
   nix.gc.options = lib.mkForce "--delete-older-than 3d";
   # Avoid dependency to nixpkgs itself.
-  nix.settings.nix-path = lib.mkForce "";
+  nix.settings.nix-path = lib.mkForce [];
   nix.registry = lib.mkForce { };
   nix.nixPath = lib.mkForce [ ];
 
