@@ -124,7 +124,6 @@
     cpu.amd.updateMicrocode = true;
     bluetooth.enable = true;
     logitech.wireless.enable = true;
-    logitech.wireless.enableGraphical = true; # Solaar.
     graphics.extraPackages = with pkgs; [
       intel-media-driver # VAAPI
       vpl-gpu-rt # QuickSync
@@ -163,6 +162,7 @@
 
   programs.zsh.enable = true; # Default shell.
   programs.fish.enable = true;
+  programs.solaar.enable = true;
 
   users.mutableUsers = false;
 

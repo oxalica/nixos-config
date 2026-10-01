@@ -56,8 +56,4 @@
       flake = inputs.nixpkgs;
     };
   };
-
-  nix.nixPath = [
-    "nixpkgs=${inputs.nixpkgs}"
-  ];
 }

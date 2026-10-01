@@ -68,7 +68,6 @@
   # Avoid dependency to nixpkgs itself.
   nix.settings.nix-path = lib.mkForce [];
   nix.registry = lib.mkForce { };
-  nix.nixPath = lib.mkForce [ ];
 
   services.openssh = {
     enable = true;

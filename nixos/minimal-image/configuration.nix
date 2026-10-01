@@ -35,9 +35,8 @@
       ];
 
       flake-registry = "";
+      nix-path = [ "nixpkgs=${config.nix.registry.nixpkgs.to.path}" ];
     };
-
-    nixPath = [ "nixpkgs=${config.nix.registry.nixpkgs.to.path}" ];
   };
 
   environment.systemPackages = with pkgs; [
