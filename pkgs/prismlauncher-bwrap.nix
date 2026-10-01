@@ -72,17 +72,13 @@ let
     "--ro-bind /var /var" # Required for some symlinks under `/etc`, eg. `/etc/machine-id`.
     "--tmpfs /tmp"
 
+    # GPU.
+    "--ro-bind /run /run"
+    "--ro-bind /sys /sys"
+    "--dev-bind-try /dev/dri /dev/dri"
+
     # Network is required.
     "--share-net"
-    "--ro-bind /run/systemd/resolve /run/systemd/resolve"
-
-    # Mesa & OpenGL.
-    "--ro-bind /run/opengl-driver /run/opengl-driver"
-    "--dev-bind-try /dev/dri /dev/dri"
-    "--ro-bind-try /sys/class /sys/class"
-    "--ro-bind-try /sys/dev/char /sys/dev/char"
-    "--ro-bind-try /sys/devices/pci0000:00 /sys/devices/pci0000:00"
-    "--ro-bind-try /sys/devices/system/cpu /sys/devices/system/cpu"
 
     # Audio.
     "--setenv XDG_RUNTIME_DIR /tmp"
