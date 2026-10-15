@@ -1,8 +1,7 @@
 {
   bubblewrap,
   jdk17,
-  jdk21,
-  jdk8,
+  jdk25,
   kdePackages,
   makeWrapper,
   prismlauncher,
@@ -14,9 +13,8 @@
   additionalPrograms ? [ ],
   controllerSupport ? stdenv.hostPlatform.isLinux,
   jdks ? [
-    jdk21
     jdk17
-    jdk8
+    jdk25
   ],
   msaClientID ? null,
   textToSpeechSupport ? stdenv.hostPlatform.isLinux,

@@ -26,15 +26,6 @@ let
     ];
   };
 
-  prismlauncher = my.pkgs.prismlauncher-bwrap.override {
-    # See: <https://github.com/GTNewHorizons/GT-New-Horizons-Modpack/issues/25946#issuecomment-5243477711>
-    additionalPrograms = [ pkgs.zenity ];
-    jdks = [
-      pkgs.jdk21
-      pkgs.jdk17
-    ];
-  };
-
 in
 {
   home.packages = with pkgs; [
@@ -63,7 +54,7 @@ in
     electrum
     monero-gui
     # steam is enabled system-wide.
-    prismlauncher cockatrice # Games
+    my.pkgs.prismlauncher-bwrap cockatrice # Games
     telegram-desktop
     obs # Recording
     my.pkgs.systemd-run-app
