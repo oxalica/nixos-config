@@ -294,6 +294,7 @@
     })
     intel-gpu-tools
 
+    # FIXME: Dependency build fail.
     lutris
   ];
 

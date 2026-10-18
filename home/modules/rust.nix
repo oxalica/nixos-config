@@ -78,7 +78,8 @@ in
     cargo-hack
     cargo-insta
     cargo-license
-    cargo-llvm-cov
+    # FIXME: Test failed.
+    # cargo-llvm-cov
     cargo-machete
     cargo-outdated
     cargo-show-asm
