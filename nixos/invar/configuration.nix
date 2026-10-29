@@ -51,8 +51,6 @@
     ];
 
     initrd = {
-      systemd.enable = true;
-
       availableKernelModules = [
         "xhci_pci"
         "ahci"
