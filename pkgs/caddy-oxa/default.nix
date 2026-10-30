@@ -9,7 +9,7 @@ let
     plugins = [
       "github.com/mholt/caddy-webdav@v0.0.0-20260127042217-fa2f366b0d75"
     ];
-    hash = "sha256-s81N2yN7i979NTbVMuX2uO6m0W4T7PUEYGOCjbSt6vk=";
+    hash = "sha256-L/4Bw0p2eJtTXIxsgXU0CRGz0wkZ59yBmEhqmhSETp8=";
   };
 
 in
