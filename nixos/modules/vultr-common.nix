@@ -18,7 +18,6 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.timeout = 1;
 
-  boot.initrd.systemd.enable = true;
   boot.initrd.availableKernelModules = [
     "ahci"
     "xhci_pci"
