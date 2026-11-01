@@ -5,6 +5,7 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-23.11";
     nixpkgs-logseq2.url = "github:NixOS/nixpkgs/pull/516682/head";
+    nixpkgs-cockatrice.url = "github:NixOS/nixpkgs/pull/581857/head";
 
     # Placeholder.
     blank.follows = "nixpkgs";

@@ -186,6 +186,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-cockatrice": {
+      "locked": {
+        "lastModified": 1793652220,
+        "narHash": "sha256-XY980IPBhhwwGwl5IcifeXX3iuMabHiOuDzOhLAFvTk=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "999162441802bd0fa5821aaa75354f7802194b7c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "pull/581857/head",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs-logseq2": {
       "locked": {
         "lastModified": 1788024357,
@@ -229,6 +245,7 @@
         "home-manager": "home-manager",
         "lanzaboote": "lanzaboote",
         "nixpkgs": "nixpkgs",
+        "nixpkgs-cockatrice": "nixpkgs-cockatrice",
         "nixpkgs-logseq2": "nixpkgs-logseq2",
         "nixpkgs-stable": "nixpkgs-stable",
         "rust-overlay": "rust-overlay",

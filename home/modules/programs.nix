@@ -53,8 +53,12 @@ in
     # electron-cash
     electrum
     monero-gui
+
+    # Games
     # steam is enabled system-wide.
-    my.pkgs.prismlauncher-bwrap cockatrice # Games
+    my.pkgs.prismlauncher-bwrap 
+    inputs.nixpkgs-cockatrice.legacyPackages."${pkgs.stdenv.hostPlatform.system}".cockatrice
+
     telegram-desktop
     obs # Recording
     my.pkgs.systemd-run-app
